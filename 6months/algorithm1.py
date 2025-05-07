@@ -14,3 +14,25 @@ def is_prime(n):
             return False
     
     return True
+
+def check_prime():
+    try:
+        num = int(entry.get())
+        if is_prime(num):
+            result_label.config(text=f"{num} is a prime number.", fg="green")
+        else:
+            result_label.config(text=f"{num} is not a prime number.", fg="red")
+    except ValueError:
+            result_label.config(text="Please enter a valid integer.", fg="orange")
+    
+    def clear_fields():
+        entry.delete(0, tk.END)  # Clear the input field
+        result_label.config(text="")  # Clear the result label
+    
+    # Create the main window
+    root = tk.Tk()
+    root.title("Prime Number Checker")
+    root.geometry("300x220")
+
+    # Input label
+    
