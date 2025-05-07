@@ -35,4 +35,23 @@ def check_prime():
     root.geometry("300x220")
 
     # Input label
-    
+    tk.Label(root, text="Enter a number:").pack(pady=10)
+
+    # Entry field
+    entry = tk.Entry(root)
+    entry.pack()
+
+    # Check button
+    check_button = tk.Button(root, text="Check", command=check_prime)
+    check_button.pack(pady=5)
+
+    # Clear button
+    clear_button = tk.Button(root, text="Clear", commmand=clear_fields)
+    clear_button.pack(pady=5)
+
+    # Result label
+    result_label = tk.Label(root, text="")
+    result_label.pack(pady=10)
+
+    # Run the application
+    root.mainloop()
