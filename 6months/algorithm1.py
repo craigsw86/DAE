@@ -55,3 +55,4 @@ def check_prime():
 
     # Run the application
     root.mainloop()
+    
