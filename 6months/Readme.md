@@ -14,3 +14,4 @@ This is a comprehensive list of the courses which I am taking.
 - Python 2
 - Unix 2
 
+_My first project is making a database of medical patient files with a constantly-checked program to determine if they can now be safely shreedded because enough time has elapsed._
