@@ -1,7 +1,21 @@
 # shredder.py
+
+import os
+
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from db import connect_db
+
+def show_reminders():
+    today = date.today()
+    filename = f"reminders_{today.strftime('%Y%m%d')}.txt"
+
+    if os.path.exists(filename):
+        print("\n📬 You have reminder(s) from the midnight check:")
+        with open(filename, "r") as f:
+            print(f.read())
+    else:
+        print("\n📭 No new reminders for today.")
 
 def check_shredding_reminders():
     today = date.today()
