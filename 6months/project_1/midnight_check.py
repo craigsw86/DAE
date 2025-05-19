@@ -2,8 +2,8 @@
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from db import connect_db  # Make sure you have db.py in the same folder
 import pytz
+from db import connect_db  # Make sure you have db.py in the same folder
 
 def run_nightly_reminder_check():
     today = date.today()
