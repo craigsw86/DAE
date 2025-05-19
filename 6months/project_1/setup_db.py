@@ -14,3 +14,10 @@ def create_table():
     is_active BOOLEAN DEFAULT TRUE
     )
     """)
+    
+    conn.commit()
+    conn.close()
+
+if __name__ == "__main__":
+    create_table()
+
