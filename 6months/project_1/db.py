@@ -7,3 +7,5 @@ def connect_db():
         password="your_password",
         database="clinic_db"
     )
+
+# I worked on it today.
