@@ -5,9 +5,12 @@ from dateutil.relativedelta import relativedelta
 import pytz
 from db import connect_db  # Make sure you have db.py in the same folder
 
+
+
 def run_nightly_reminder_check():
-    today = date.today()
-    reminder_lines = []
+    eastern = pytz.timezone
+    now = datetime.now(eastern)
+    today = now.date()
     filename = f"reminders_{today.strftime('%Y%m%d')}.txt"
 
     conn = connect_db()
