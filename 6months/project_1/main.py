@@ -4,3 +4,5 @@ from shredder import check_shredding_reminders
 from datetime import date
 import os
 
+import mysql.connector
+
