@@ -16,7 +16,7 @@ def run_nightly_reminder_check():
     conn = connect_db()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT id, first_name, last_name, last_visit, death_date FROM patients WHERE is_active = TRUE")
+    cursor.execute("SELECT id, first_name, last_name, last_visit, death_date FROM patients WHERE is_active = 1")
     patients = cursor.fetchall()
 
     for pid, fname, lname, last_visit, death_date in patients:
