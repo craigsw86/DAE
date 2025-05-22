@@ -64,6 +64,9 @@ from dateutil.relativedelta import relativedelta
 import pytz
 from db import connect_db
 
+# Runs a nightly check of active patients to determine if physical files should be shredded.
+# It checks if the patient has died (3+ years ago) or not visited in 7+ years.
+# It moves qualifying patients to inactive and writes reminders to a file.
 def run_nightly_reminder_check():
     eastern = pytz.timezone('US/Eastern')
     now = datetime.now(eastern)
