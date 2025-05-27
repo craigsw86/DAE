@@ -21,17 +21,22 @@ root.title("Clinic Patient Manager")
 root.geometry("600x400")
 
 def run_reminder_check():
+    """
+    Runs the shredding reminder logic and displays results.
+
+    Calls the check_shredding_reminders function from shredder.py,
+    updates the database as needed, and shows a popup with reminder messages.
+    """
     reminders = check_shredding_reminders()
+
+    # 🔁 Refresh both patient tabs
+    load_patients(1, active_listbox)
+    load_patients(0, inactive_listbox)
+
     if reminders:
         messagebox.showinfo("Reminders", "\n".join(reminders))
     else:
         messagebox.showinfo("Reminders", "No files need to be shredded today.")
-"""
-Runs the shredding reminder logic and displays results.
-
-Calls the check_shredding_reminders function from shredder.py,
-updates the database as needed, and shows a popup with reminder messages.
-"""
 
 reminder_button = tk.Button(root, text="Run Reminder Check", command=run_reminder_check)
 reminder_button.pack(pady=10)
@@ -48,6 +53,13 @@ notebook.add(active_tab, text="🟢 Active Patients")
 notebook.add(inactive_tab, text="🔴 Inactive Patients")
 
 def load_patients(active_value, listbox):
+    """
+    Loads patients from the database into the given listbox.
+
+    Parameters:
+    - active_value (int): 1 for active patients, 0 for inactive
+    - listbox (tk.Listbox): The listbox to populate with patient names
+    """
     conn = connect_db()
     cursor = conn.cursor()
     cursor.execute("SELECT first_name, last_name FROM patients WHERE is_active = ?", (active_value,))
@@ -56,13 +68,6 @@ def load_patients(active_value, listbox):
     for row in rows:
         listbox.insert(tk.END, f"{row[0]} {row[1]}")
     conn.close()
-    """
-    Loads patients from the database into the given listbox.
-
-    Parameters:
-    - active_value (int): 1 for active patients, 0 for inactive
-    - listbox (tk.Listbox): The listbox to populate with patient names
-    """
 
 # Listbox for Active Patients
 active_listbox = tk.Listbox(active_tab)
@@ -93,7 +98,7 @@ tk.Label(form_frame, text="Last Visit (YYYY-MM-DD)").grid(row=2, column=0, padx=
 last_visit_entry = tk.Entry(form_frame)
 last_visit_entry.grid(row=2, column=1)
 
-tk.Label(form_frame, text="Last Name").grid(row=3, column=0, padx=5, pady=2, sticky='e')
+tk.Label(form_frame, text="Death Date (YYYY-MM-DD or blank)").grid(row=3, column=0, padx=5, pady=2, sticky='e')
 death_date_entry = tk.Entry(form_frame)
 death_date_entry.grid(row=3, column=1)
 
@@ -107,7 +112,7 @@ def add_patient():
     first = first_name_entry.get().strip()
     last = last_name_entry.get().strip()
     visit = last_visit_entry.get().strip()
-    death =  death_date_entry.get().stri() or None
+    death =  death_date_entry.get().strip() or None
 
     if not (first and last and visit):
         messagebox.showerror("Error", "First Name, Last Name, and Last Visit are required.")

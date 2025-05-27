@@ -44,14 +44,14 @@ def check_shredding_reminders():
             death_date = datetime.strptime(death_date, "%Y-%m-%d").date()
             if today > death_date + relativedelta(years=3):
                 reminders.append(f"Shred paper file for {name} - 3 years since death.")
-                cursor.execute("UPDATE patients SET active = 0 WHERE id = ?", (patient_id,))
+                cursor.execute("UPDATE patients SET is_active = 0 WHERE id = ?", (patient_id,))
                 continue
         
         if last_visit:
             last_visit = datetime.strptime(last_visit, "%Y-%m-%d").date()
             if today > last_visit + relativedelta(years=7):
                 reminders.append(f"Shred paper file for {name} - 7 years since last visit.")
-                cursor.execute("UPDATE patients SET active = 0 WHERE id = ?", (patient_id,))
+                cursor.execute("UPDATE patients SET is_active = 0 WHERE id = ?", (patient_id,))
     
     conn.commit()
     conn.close()
