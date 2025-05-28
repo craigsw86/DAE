@@ -11,6 +11,12 @@ today = datetime(2025, 5, 23)
 # It checks if the patient has died (3+ years ago) or not visited in 7+ years.
 # It moves qualifying patients to inactive and writes reminders to a file.
 def run_nightly_reminder_check():
+    """
+    Runs an automated nightly reminder check:
+    - Flags patients whose records meet shredding criteria
+    - Updates database
+    - Writes reminders to a text file
+    """
     eastern = pytz.timezone('US/Eastern')
     now = datetime.now(eastern)
     today = now.date()
