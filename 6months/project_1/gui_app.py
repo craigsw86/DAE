@@ -18,7 +18,8 @@ import os
 
 root = tk.Tk()
 root.title("Clinic Patient Manager")
-root.geometry("600x400")
+root.geometry("600x600")
+# Fixed the size of the GUI display
 
 def run_reminder_check():
     """
