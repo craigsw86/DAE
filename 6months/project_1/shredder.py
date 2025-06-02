@@ -25,6 +25,10 @@ def check_shredding_reminders():
     Returns:
     list of str: Reminder messages for patients who now qualify for shredding.
     """
+    
+    REMINDER_YEARS_DEATH = 3
+    REMINDER_YEARS_DEATH = 7
+    
     # Set timezone and today's date
     eastern = pytz.timezone('US/Eastern')
     today = datetime.now(eastern).date()
@@ -46,7 +50,7 @@ def check_shredding_reminders():
         # ✅ Check if the patient is deceased and died 3+ years ago
         if death_date:
             death_date = datetime.strptime(death_date, "%Y-%m-%d").date()
-            if today > death_date + relativedelta(years=3):
+            if today > death_date + relativedelta(years=REMINDER_YEARS_DEATH):
                 reminders.append(f"Shred paper file for {name} - 3 years since death.")
                 cursor.execute("UPDATE patients SET is_active = 0 WHERE id = ?", (patient_id,))
                 continue
@@ -54,7 +58,7 @@ def check_shredding_reminders():
         # ✅ If not deceased (or didn’t qualify above), check for 7+ years since last visit
         if last_visit:
             last_visit = datetime.strptime(last_visit, "%Y-%m-%d").date()
-            if today > last_visit + relativedelta(years=7):
+            if today > last_visit + relativedelta(years=REMINDER_YEARS_VISIT):
                 reminders.append(f"Shred paper file for {name} - 7 years since last visit.")
                 cursor.execute("UPDATE patients SET is_active = 0 WHERE id = ?", (patient_id,))
     

@@ -18,22 +18,21 @@ def connect_db():
 
 # Inserts a new patient into the database with required and optional details.
 # Parameters: first_name (str), last_name (str), last_visit (date), death_date (optional date), is_active (bool)
-def insert_patient(first_name, last_name, last_visit, death_date=None, is_active=True):
-    """
-    Inserts a new patient record into the database.
-
-    Parameters:
-        conn: SQLite3 connection object
-        patient_data: Dictionary containing first_name, last_name, last_visit, death_date, and active status
-    """
-    conn = connect_db()
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO patients (first_name, last_name, last_visit, death_date, is_active)
-        VALUES (?, ?, ?, ?, ?)
-    """, (first_name, last_name, last_visit, death_date, int(is_active)))
-    conn.commit()
-    conn.close()
+def insert_patient(first_name, last_name, last_visit, death_date=None):
+    try:
+        conn = connect_db()
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO PATIENTS (first_name, last_name, last_visit, death_date, is_active), VALUES (?, ?, ?, ?, 1)",
+            (first_name, last_name, last_visit, death_date)
+        )
+    except Exception as e:
+        print("Error inserting patient:", e)
+    else:
+        conn.commit()
+        print("Patient inserted successfully.")
+    finally:
+        conn.close()
 
 # NOTE:
 # The 'active' field in the patients table uses:
