@@ -1,5 +1,17 @@
 from db import connect_db
 
+while True:
+    choice = input("View (A)ctive or (I)nactive pateints? (Q to quit): ")
+    if choice == "A":
+        view_patients(1)
+    elif choice == "I":
+        view_patients(0)
+    elif choice == "Q":
+        break
+    else:
+        print("Invalid option. Please try again.")
+        continue
+
 conn = connect_db()
 cursor = conn.cursor()
 

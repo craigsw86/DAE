@@ -35,16 +35,27 @@ def run_nightly_reminder_check():
             shred_due = False
             reason = ""
 
-            if death_date:
-                cutoff = datetime.strptime(death_date, "%Y-%m-%d").date() + relativedelta(years=DECEASED_YEARS, days=GRACE_DAYS)
-                if today >= cutoff:
-                    shred_due = True
-                    reason = f"{DECEASED_YEARS} years + {GRACE_DAYS} day(s) since death on {death_date}"
-            elif last_visit:
-                cutoff = datetime.strptime(last_visit, "%Y-%m-%d").date() + relativedelta(years=INACTIVITY_YEARS, days=GRACE_DAYS)
-                if today >= cutoff:
-                    shred_due = True
-                    reason = f"{INACTIVITY_YEARS} years + {GRACE_DAYS} day(s) since last visit on {last_visit}"
+            # === Deceased Case ===
+            if death_date and isinstance(death_date, str) and death_date.strip():
+                try:
+                    parsed_death = datetime.strptime(death_date.strip(), "%Y-%m-%d").date()
+                    cutoff = parsed_death + relativedelta(years=DECEASED_YEARS, days=GRACE_DAYS)
+                    if today >= cutoff:
+                        shred_due = True
+                        reason = f"{DECEASED_YEARS} years + {GRACE_DAYS} day(s) since death on {death_date}"
+                except Exception as e:
+                    print(f"⚠️ Skipped patient ID {pid} due to bad death_date: {death_date} ({e})")
+
+            # === Inactivity Case ===
+            elif last_visit and isinstance(last_visit, str) and last_visit.strip():
+                try:
+                    parsed_visit = datetime.strptime(last_visit.strip(), "%Y-%m-%d").date()
+                    cutoff = parsed_visit + relativedelta(years=INACTIVITY_YEARS, days=GRACE_DAYS)
+                    if today >= cutoff:
+                        shred_due = True
+                        reason = f"{INACTIVITY_YEARS} years + {GRACE_DAYS} day(s) since last visit on {last_visit}"
+                except Exception as e:
+                    print(f"⚠️ Skipped patient ID {pid} due to bad last_visit: {last_visit} ({e})")
 
             if shred_due:
                 reminder_lines.append(f"{fname} {lname} (ID: {pid}) - {reason}")
@@ -62,7 +73,9 @@ def run_nightly_reminder_check():
                     f.write(f"Date: {today}\n\n")
                     for line in reminder_lines:
                         f.write(f"{line}\n")
+
                 print(f"✅ {len(reminder_lines)} reminders written to {filename}")
+                return len(reminder_lines)
             except Exception as file_err:
                 print(f"❌ File writing failed: {file_err}")
         else:

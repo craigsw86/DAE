@@ -5,57 +5,85 @@ from dateutil.relativedelta import relativedelta
 import pytz
 from db import connect_db
 
-today = datetime(2025, 5, 23)
+# === Constants ===
+DECEASED_YEARS = 3
+INACTIVITY_YEARS = 7
+GRACE_DAYS = 1  # extra day added after threshold
+TIMEZONE = 'US/Eastern'
 
-# Runs a nightly check of active patients to determine if physical files should be shredded.
-# It checks if the patient has died (3+ years ago) or not visited in 7+ years.
-# It moves qualifying patients to inactive and writes reminders to a file.
+# === Main Function ===
 def run_nightly_reminder_check():
-    eastern = pytz.timezone('US/Eastern')
+    """
+    Runs an automated nightly reminder check:
+    - Flags patients whose records meet shredding criteria
+    - Updates database
+    - Writes reminders to a text file
+    """
+    eastern = pytz.timezone(TIMEZONE)
     now = datetime.now(eastern)
     today = now.date()
-
     reminder_lines = []
     filename = f"reminders_{today.strftime('%Y%m%d')}.txt"
 
-    conn = connect_db()
-    cursor = conn.cursor()
+    try:
+        conn = connect_db()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, first_name, last_name, last_visit, death_date FROM patients WHERE is_active = 1")
+        patients = cursor.fetchall()
 
-    cursor.execute("SELECT id, first_name, last_name, last_visit, death_date FROM patients WHERE is_active = 1")
-    patients = cursor.fetchall()
+        for pid, fname, lname, last_visit, death_date in patients:
+            shred_due = False
+            reason = ""
 
-    for pid, fname, lname, last_visit, death_date in patients:
-        shred_due = False
-        reason = ""
+            # === Deceased Case ===
+            if death_date and isinstance(death_date, str) and death_date.strip():
+                try:
+                    parsed_death = datetime.strptime(death_date.strip(), "%Y-%m-%d").date()
+                    cutoff = parsed_death + relativedelta(years=DECEASED_YEARS, days=GRACE_DAYS)
+                    if today >= cutoff:
+                        shred_due = True
+                        reason = f"{DECEASED_YEARS} years + {GRACE_DAYS} day(s) since death on {death_date}"
+                except Exception as e:
+                    print(f"⚠️ Skipped patient ID {pid} due to bad death_date: {death_date} ({e})")
 
-        if death_date:
-            cutoff = datetime.strptime(death_date, "%Y-%m-%d").date() + relativedelta(years=3, days=1)
-            if today >= cutoff:
-                shred_due = True
-                reason = f"3 years + 1 day since death on {death_date}"
-        elif last_visit:
-            cutoff = datetime.strptime(last_visit, "%Y-%m-%d").date() + relativedelta(years=7, days=1)
-            if today >= cutoff:
-                shred_due = True
-                reason = f"7 years + 1 day since last visit on {last_visit}"
+            # === Inactivity Case ===
+            elif last_visit and isinstance(last_visit, str) and last_visit.strip():
+                try:
+                    parsed_visit = datetime.strptime(last_visit.strip(), "%Y-%m-%d").date()
+                    cutoff = parsed_visit + relativedelta(years=INACTIVITY_YEARS, days=GRACE_DAYS)
+                    if today >= cutoff:
+                        shred_due = True
+                        reason = f"{INACTIVITY_YEARS} years + {GRACE_DAYS} day(s) since last visit on {last_visit}"
+                except Exception as e:
+                    print(f"⚠️ Skipped patient ID {pid} due to bad last_visit: {last_visit} ({e})")
 
-        if shred_due:
-            reminder_lines.append(f"{fname} {lname} (ID: {pid}) - {reason}")
-            cursor.execute("UPDATE patients SET is_active = 0 WHERE id = ?", (pid,))
+            if shred_due:
+                reminder_lines.append(f"{fname} {lname} (ID: {pid}) - {reason}")
+                cursor.execute("UPDATE patients SET is_active = 0 WHERE id = ?", (pid,))
 
-    conn.commit()
-    conn.close()
+        conn.commit()
 
-    if reminder_lines:
-        with open(filename, "w") as f:
-            f.write("Patient Shredding Reminders (Eastern Time)\n")
-            f.write(f"Date: {today}\n\n")
-            for line in reminder_lines:
-                f.write(f"{line}\n")
-        print(f"✅ {len(reminder_lines)} reminders written to {filename}")
+    except Exception as e:
+        print(f"❌ Database error occurred: {e}")
     else:
-        print("✅ No patients to be marked inactive today.")
+        if reminder_lines:
+            try:
+                with open(filename, "w") as f:
+                    f.write("Patient Shredding Reminders (Eastern Time)\n")
+                    f.write(f"Date: {today}\n\n")
+                    for line in reminder_lines:
+                        f.write(f"{line}\n")
 
-# Ensures the function runs only when this script is executed directly
+                print(f"✅ {len(reminder_lines)} reminders written to {filename}")
+                return len(reminder_lines)
+            except Exception as file_err:
+                print(f"❌ File writing failed: {file_err}")
+        else:
+            print("✅ No patients to be marked inactive today.")
+    finally:
+        if 'conn' in locals():
+            conn.close()
+
+# Run if executed directly
 if __name__ == "__main__":
     run_nightly_reminder_check()
