@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
-
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import pytz
+import os
 from db import connect_db
+from config import output_directory
 
 # === Constants ===
 DECEASED_YEARS = 3
@@ -11,7 +11,6 @@ INACTIVITY_YEARS = 7
 GRACE_DAYS = 1  # extra day added after threshold
 TIMEZONE = 'US/Eastern'
 
-# === Main Function ===
 def run_nightly_reminder_check():
     """
     Runs an automated nightly reminder check:
@@ -23,7 +22,7 @@ def run_nightly_reminder_check():
     now = datetime.now(eastern)
     today = now.date()
     reminder_lines = []
-    filename = f"reminders_{today.strftime('%Y%m%d')}.txt"
+    filename = os.path.join(output_directory, f"reminders_{today.strftime('%Y%m%d')}.txt")
 
     try:
         conn = connect_db()
@@ -84,6 +83,5 @@ def run_nightly_reminder_check():
         if 'conn' in locals():
             conn.close()
 
-# Run if executed directly
 if __name__ == "__main__":
     run_nightly_reminder_check()

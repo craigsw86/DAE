@@ -17,6 +17,41 @@ from datetime import date, datetime
 import os
 from midnight_check import run_nightly_reminder_check
 import csv
+import config
+
+class CreateToolTip(object):
+    """
+    Create a tooltip for a given widget
+    """
+    def __init__(self, widget, text='widget info'):
+        self.widget = widget
+        self.text = text
+        self.tipwindow = None
+        self.widget.bind("<Enter>", self.enter)
+        self.widget.bind("<Leave>", self.leave)
+
+    def enter(self, event=None):
+        self.showtip()
+
+    def leave(self, event=None):
+        self.hidetip()
+
+    def showtip(self):
+        if self.tipwindow or not self.text:
+            return
+        x, y, _, cy = self.widget.bbox("insert")
+        x += self.widget.winfo_rootx() + 25
+        y += self.widget.winfo_rooty() + 25
+        self.tipwindow = tw = tk.Toplevel(self.widget)
+        tw.wm_overrideredirect(True)
+        tw.wm_geometry(f"+{x}+{y}")
+        label = tk.Label(tw, text=self.text, background="#ffffe0", relief="solid", borderwidth=1, font=("tahoma", "16", "normal"))
+        label.pack(ipadx=1)
+
+    def hidetip(self):
+        if self.tipwindow:
+            self.tipwindow.destroy()
+            self.tipwindow = None
 
 
 root = tk.Tk()
@@ -43,6 +78,12 @@ def run_reminder_check():
         messagebox.showinfo("Reminders", "\n".join(reminders))
     else:
         messagebox.showinfo("Reminders", "No files need to be shredded today.")
+
+def choose_output_folder():
+    folder = filedialog.askdirectory(title="Select Folder to Save Reminder Files")
+    if folder:
+        config.output_directory = folder
+        messagebox.showinfo("Folder Selected", f"✅ Reminder files will be saved to:\n{folder}")
 
 def handle_reminder_check():
     try:
@@ -87,6 +128,7 @@ def load_patients(active_value, listbox):
     listbox.delete(0, tk.END) # Clear previous entries
     for row in rows:
         listbox.insert(tk.END, f"{row[0]} {row[1]}")
+    listbox.bind("<<ListboxSelect>>", lambda event, act=active_value: show_patient_details(event, act))
     conn.close()
 
 # Listbox for Active Patients
@@ -122,8 +164,18 @@ tk.Label(form_frame, text="Death Date (YYYY-MM-DD or blank)").grid(row=3, column
 death_date_entry = tk.Entry(form_frame)
 death_date_entry.grid(row=3, column=1)
 
+CreateToolTip(first_name_entry, "Enter the patient's first name")
+CreateToolTip(last_name_entry, "Enter the patient's last name")
+CreateToolTip(last_visit_entry, "Enter date of last visit (YYYY-MM-DD)")
+CreateToolTip(death_date_entry, "Optional: Enter death date (YYYY-MM-DD) or leave blank")
+
 submit_button = tk.Button(form_frame, text="Add Patient", command=lambda: add_patient())
 submit_button.grid(row=4, column=0, columnspan=2, pady=10)
+
+output_button = tk.Button(csv_frame, text="Select Output Folder", command=lambda: choose_output_folder())
+output_button.grid(row=2, column=0, pady=4)
+
+CreateToolTip(output_button, "Choose where reminder files are saved")
 
 # === CSV Upload and Template Buttons ===
 csv_frame = tk.Frame(root)
@@ -252,6 +304,41 @@ upload_button.grid(row=0, column=0, pady=4)
 
 template_button = tk.Button(csv_frame, text="Download CSV Template", command=download_csv_template)
 template_button.grid(row=1, column=0, pady=4)
+
+output_button = tk.Button(csv_frame, text="Select Output Folder", command=choose_output_folder)
+output_button.grid(row=2, column=0, pady=4)
+
+CreateToolTip(output_button, "Choose where reminder files are saved")
+
+CreateToolTip(reminder_button, "Check all patients for shredding eligibility")
+CreateToolTip(submit_button, "Add this patient to the database")
+CreateToolTip(upload_button, "Select and upload a CSV file with patient data")
+CreateToolTip(template_button, "Download a sample CSV file you can use as a template")
+
+def show_patient_details(event, active_value):
+    widget = event.widget
+    index = widget.curselection()
+    if not index:
+        return
+    
+    selected_name = widget.get(index[0])
+    first, last = selected_name.split(" ", 1)
+
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT id, first_name, last_name, last_visit, death_date, is_active
+        FROM patients WHERE first_name = ? AND last_name = ? AND is_active = ?
+    """, (first, last, active_value))
+    patient = cursor.fetchone()
+    conn.close()
+
+    if patient:
+        pid, fname, lname, visit, death, is_active = patient
+        status = "Active" if is_active else "Inactive"
+        messagebox.showinfo("Patient Details",
+            f"ID: {pid}\nName: {fname} {lname}\nLast Visit: {visit or '-'}\n"
+            f"Death Date: {death or '-'}\nStatus: {status}")
 
 show_welcome_message()
 root.mainloop()
