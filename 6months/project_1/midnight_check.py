@@ -8,7 +8,7 @@ from config import output_directory
 # === Constants ===
 DECEASED_YEARS = 3
 INACTIVITY_YEARS = 7
-GRACE_DAYS = 1  # extra day added after threshold
+GRACE_DAYS = 1
 TIMEZONE = 'US/Eastern'
 
 def run_nightly_reminder_check():
@@ -16,13 +16,16 @@ def run_nightly_reminder_check():
     Runs an automated nightly reminder check:
     - Flags patients whose records meet shredding criteria
     - Updates database
-    - Writes reminders to a text file
+    - Writes reminders to a uniquely named text file
+    Returns:
+        (count, filepath): tuple of number of reminders and file path
     """
     eastern = pytz.timezone(TIMEZONE)
     now = datetime.now(eastern)
     today = now.date()
+    timestamp = now.strftime("%Y%m%d_%H%M")
+    filename = os.path.join(output_directory, f"reminders_{timestamp}.txt")
     reminder_lines = []
-    filename = os.path.join(output_directory, f"reminders_{today.strftime('%Y%m%d')}.txt")
 
     try:
         conn = connect_db()
@@ -34,7 +37,6 @@ def run_nightly_reminder_check():
             shred_due = False
             reason = ""
 
-            # === Deceased Case ===
             if death_date and isinstance(death_date, str) and death_date.strip():
                 try:
                     parsed_death = datetime.strptime(death_date.strip(), "%Y-%m-%d").date()
@@ -45,7 +47,6 @@ def run_nightly_reminder_check():
                 except Exception as e:
                     print(f"⚠️ Skipped patient ID {pid} due to bad death_date: {death_date} ({e})")
 
-            # === Inactivity Case ===
             elif last_visit and isinstance(last_visit, str) and last_visit.strip():
                 try:
                     parsed_visit = datetime.strptime(last_visit.strip(), "%Y-%m-%d").date()
@@ -64,6 +65,7 @@ def run_nightly_reminder_check():
 
     except Exception as e:
         print(f"❌ Database error occurred: {e}")
+        return 0, None
     else:
         if reminder_lines:
             try:
@@ -74,11 +76,13 @@ def run_nightly_reminder_check():
                         f.write(f"{line}\n")
 
                 print(f"✅ {len(reminder_lines)} reminders written to {filename}")
-                return len(reminder_lines)
+                return len(reminder_lines), filename
             except Exception as file_err:
                 print(f"❌ File writing failed: {file_err}")
+                return 0, None
         else:
             print("✅ No patients to be marked inactive today.")
+            return 0, None
     finally:
         if 'conn' in locals():
             conn.close()
