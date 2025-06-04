@@ -2,14 +2,13 @@ import tkinter as tk
 from tkinter import messagebox, ttk, filedialog
 from db import connect_db
 from shredder import check_shredding_reminders
-from datetime import datetime
+from datetime import date, datetime
 import os
 from midnight_check import run_nightly_reminder_check
 import csv
 import config
 
-
-class CreateToolTip:
+class CreateToolTip(object):
     def __init__(self, widget, text='widget info'):
         self.widget = widget
         self.text = text
@@ -26,20 +25,32 @@ class CreateToolTip:
     def showtip(self):
         if self.tipwindow or not self.text:
             return
-        x, y, _, cy = self.widget.bbox("insert")
+        x, y, cx, cy = self.widget.bbox("insert")
         x += self.widget.winfo_rootx() + 25
-        y += self.widget.winfo_rooty() + 25
+        y += self.widget.winfo_rooty() + 20
         self.tipwindow = tw = tk.Toplevel(self.widget)
         tw.wm_overrideredirect(True)
         tw.wm_geometry(f"+{x}+{y}")
-        label = tk.Label(tw, text=self.text, background="#ffffe0", relief="solid", borderwidth=1, font=("tahoma", "16", "normal"))
+        label = tk.Label(tw, text=self.text, justify='left',
+                         background="#ffffe0", relief='solid', borderwidth=1,
+                         font=("tahoma", "8", "normal"))
         label.pack(ipadx=1)
 
     def hidetip(self):
         if self.tipwindow:
             self.tipwindow.destroy()
-            self.tipwindow = None
+        self.tipwindow = None
 
+def load_patients(tree, status):
+    for row in tree.get_children():
+        tree.delete(row)
+
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, first_name, last_name, last_visit, death_date FROM patients WHERE is_active = ?", (status,))
+    for row in cursor.fetchall():
+        tree.insert("", "end", values=row)
+    conn.close()
 
 root = tk.Tk()
 root.title("Clinic Patient Manager")
@@ -118,6 +129,8 @@ def choose_output_folder():
 def handle_reminder_check():
     try:
         result = run_nightly_reminder_check()
+        load_patients(1, active_listbox)
+        load_patients(0, inactive_listbox)
         if isinstance(result, tuple) and len(result) == 2:
             count, filepath = result
             messagebox.showinfo("Reminder Check Complete", f"✅ {count} reminders written to:\n{filepath}")
