@@ -33,7 +33,7 @@ class CreateToolTip(object):
         tw.wm_geometry(f"+{x}+{y}")
         label = tk.Label(tw, text=self.text, justify='left',
                          background="#ffffe0", relief='solid', borderwidth=1,
-                         font=("tahoma", "8", "normal"))
+                         font=("tahoma", "16", "normal"))
         label.pack(ipadx=1)
 
     def hidetip(self):

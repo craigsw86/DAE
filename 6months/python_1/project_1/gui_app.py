@@ -1,14 +1,3 @@
-"""
-gui_app.py
-
-Graphical user interface for the Clinic File Reminder App.
-
-This GUI allows users to:
-- View active and inactive patients in tabs
-- Run a reminder check to determine which files should be shredded
-- Add new patient records to the database
-"""
-
 import tkinter as tk
 from tkinter import messagebox, ttk, filedialog
 from db import connect_db
@@ -20,9 +9,6 @@ import csv
 import config
 
 class CreateToolTip(object):
-    """
-    Create a tooltip for a given widget
-    """
     def __init__(self, widget, text='widget info'):
         self.widget = widget
         self.text = text
@@ -39,45 +25,99 @@ class CreateToolTip(object):
     def showtip(self):
         if self.tipwindow or not self.text:
             return
-        x, y, _, cy = self.widget.bbox("insert")
+        x, y, cx, cy = self.widget.bbox("insert")
         x += self.widget.winfo_rootx() + 25
-        y += self.widget.winfo_rooty() + 25
+        y += self.widget.winfo_rooty() + 20
         self.tipwindow = tw = tk.Toplevel(self.widget)
         tw.wm_overrideredirect(True)
         tw.wm_geometry(f"+{x}+{y}")
-        label = tk.Label(tw, text=self.text, background="#ffffe0", relief="solid", borderwidth=1, font=("tahoma", "16", "normal"))
+        label = tk.Label(tw, text=self.text, justify='left',
+                         background="#ffffe0", relief='solid', borderwidth=1,
+                         font=("tahoma", "16", "normal"))
         label.pack(ipadx=1)
 
     def hidetip(self):
         if self.tipwindow:
             self.tipwindow.destroy()
-            self.tipwindow = None
+        self.tipwindow = None
 
+def load_patients(tree, status):
+    for row in tree.get_children():
+        tree.delete(row)
+
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, first_name, last_name, last_visit, death_date FROM patients WHERE is_active = ?", (status,))
+    for row in cursor.fetchall():
+        tree.insert("", "end", values=row)
+    conn.close()
 
 root = tk.Tk()
 root.title("Clinic Patient Manager")
 root.geometry("600x600")
 root.grid_rowconfigure(1, weight=1)
 root.grid_columnconfigure(0, weight=1)
-# Fixed the size of the GUI display
+
+
+notebook = ttk.Notebook(root)
+notebook.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
+
+active_tab = ttk.Frame(notebook)
+inactive_tab = ttk.Frame(notebook)
+notebook.add(active_tab, text="🟢 Active Patients")
+notebook.add(inactive_tab, text="🔴 Inactive Patients")
+
+active_tab.rowconfigure(0, weight=1)
+active_tab.columnconfigure(0, weight=1)
+inactive_tab.rowconfigure(0, weight=1)
+inactive_tab.columnconfigure(0, weight=1)
+
+active_listbox = tk.Listbox(active_tab)
+active_listbox.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+
+inactive_listbox = tk.Listbox(inactive_tab)
+inactive_listbox.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+
+
+form_frame = tk.Frame(root)
+form_frame.grid(row=2, column=0, columnspan=2, pady=10)
+
+first_name_entry = tk.Entry(form_frame)
+last_name_entry = tk.Entry(form_frame)
+last_visit_entry = tk.Entry(form_frame)
+death_date_entry = tk.Entry(form_frame)
+
+labels = ["First Name", "Last Name", "Last Visit (YYYY-MM-DD)", "Death Date (YYYY-MM-DD or blank)"]
+entries = [first_name_entry, last_name_entry, last_visit_entry, death_date_entry]
+
+tooltips = [
+    "Enter the patient's first name",
+    "Enter the patient's last name",
+    "Enter date of last visit (YYYY-MM-DD)",
+    "Optional: Enter death date (YYYY-MM-DD) or leave blank"
+]
+
+for i, (label, entry, tip) in enumerate(zip(labels, entries, tooltips)):
+    tk.Label(form_frame, text=label).grid(row=i, column=0, padx=5, pady=2, sticky='e')
+    entry.grid(row=i, column=1)
+    CreateToolTip(entry, tip)
+
+submit_button = tk.Button(form_frame, text="Add Patient", command=lambda: add_patient())
+submit_button.grid(row=4, column=0, columnspan=2, pady=10)
+
+csv_frame = tk.Frame(root)
+csv_frame.grid(row=3, column=0, columnspan=2, pady=10)
+
 
 def run_reminder_check():
-    """
-    Runs the shredding reminder logic and displays results.
-
-    Calls the check_shredding_reminders function from shredder.py,
-    updates the database as needed, and shows a popup with reminder messages.
-    """
     reminders = check_shredding_reminders()
-
-    # 🔁 Refresh both patient tabs
     load_patients(1, active_listbox)
     load_patients(0, inactive_listbox)
-
     if reminders:
         messagebox.showinfo("Reminders", "\n".join(reminders))
     else:
         messagebox.showinfo("Reminders", "No files need to be shredded today.")
+
 
 def choose_output_folder():
     folder = filedialog.askdirectory(title="Select Folder to Save Reminder Files")
@@ -85,116 +125,33 @@ def choose_output_folder():
         config.output_directory = folder
         messagebox.showinfo("Folder Selected", f"✅ Reminder files will be saved to:\n{folder}")
 
+
 def handle_reminder_check():
     try:
-        count = run_nightly_reminder_check()
-        if count > 0:
-            messagebox.showinfo("Reminder Check Complete", f"✅ {count} reminders written to file.")
-        else:
+        result = run_nightly_reminder_check()
+        load_patients(1, active_listbox)
+        load_patients(0, inactive_listbox)
+        if isinstance(result, tuple) and len(result) == 2:
+            count, filepath = result
+            messagebox.showinfo("Reminder Check Complete", f"✅ {count} reminders written to:\n{filepath}")
+        elif result == 0:
             messagebox.showinfo("Reminder Check Complete", "✅ No patients matched shredding criteria today.")
+        else:
+            messagebox.showwarning("Reminder Check", "Reminder check returned unexpected result.")
     except Exception as e:
         messagebox.showerror("Error", f"❌ Failed to run reminder check:\n{e}")
 
-reminder_button = tk.Button(root, text="Run Reminder Check", command=handle_reminder_check)
-reminder_button.grid(pady=10)
-
-notebook = ttk.Notebook(root)
-notebook.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=10, pady=10)
-
-# Create frames for each tab
-active_tab = ttk.Frame(notebook)
-inactive_tab = ttk.Frame(notebook)
-
-# Add tabs to the notebook
-notebook.add(active_tab, text="🟢 Active Patients")
-notebook.add(inactive_tab, text="🔴 Inactive Patients")
-active_tab.rowconfigure(0, weight=1)
-active_tab.columnconfigure(0, weight=1)
-inactive_tab.rowconfigure(0, weight=1)
-inactive_tab.columnconfigure(0, weight=1)
-
-def load_patients(active_value, listbox):
-    """
-    Loads patients from the database into the given listbox.
-
-    Parameters:
-    - active_value (int): 1 for active patients, 0 for inactive
-    - listbox (tk.Listbox): The listbox to populate with patient names
-    """
-    conn = connect_db()
-    cursor = conn.cursor()
-    cursor.execute("SELECT first_name, last_name FROM patients WHERE is_active = ?", (active_value,))
-    rows = cursor.fetchall()
-    listbox.delete(0, tk.END) # Clear previous entries
-    for row in rows:
-        listbox.insert(tk.END, f"{row[0]} {row[1]}")
-    listbox.bind("<<ListboxSelect>>", lambda event, act=active_value: show_patient_details(event, act))
-    conn.close()
-
-# Listbox for Active Patients
-active_listbox = tk.Listbox(active_tab)
-active_listbox.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
-
-# Listbox for Inactive Patients
-inactive_listbox = tk.Listbox(inactive_tab)
-inactive_listbox.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
-
-# Load data into both
-load_patients(1, active_listbox)    # 1 = Active, or is_active
-load_patients(0, inactive_listbox)  # 0 = Inactive, or not active
-
-# This is the "Add Patient" form
-
-form_frame = tk.Frame(root)
-form_frame.grid(row=2, column=0, columnspan=2, pady=10)
-
-tk.Label(form_frame, text="First Name").grid(row=0, column=0, padx=5, pady=2, sticky='e')
-first_name_entry = tk.Entry(form_frame)
-first_name_entry.grid(row=0, column=1)
-
-tk.Label(form_frame, text="Last Name").grid(row=1, column=0, padx=5, pady=2, sticky='e')
-last_name_entry = tk.Entry(form_frame)
-last_name_entry.grid(row=1, column=1)
-
-tk.Label(form_frame, text="Last Visit (YYYY-MM-DD)").grid(row=2, column=0, padx=5, pady=2, sticky='e')
-last_visit_entry = tk.Entry(form_frame)
-last_visit_entry.grid(row=2, column=1)
-
-tk.Label(form_frame, text="Death Date (YYYY-MM-DD or blank)").grid(row=3, column=0, padx=5, pady=2, sticky='e')
-death_date_entry = tk.Entry(form_frame)
-death_date_entry.grid(row=3, column=1)
-
-CreateToolTip(first_name_entry, "Enter the patient's first name")
-CreateToolTip(last_name_entry, "Enter the patient's last name")
-CreateToolTip(last_visit_entry, "Enter date of last visit (YYYY-MM-DD)")
-CreateToolTip(death_date_entry, "Optional: Enter death date (YYYY-MM-DD) or leave blank")
-
-submit_button = tk.Button(form_frame, text="Add Patient", command=lambda: add_patient())
-submit_button.grid(row=4, column=0, columnspan=2, pady=10)
-
-output_button = tk.Button(csv_frame, text="Select Output Folder", command=lambda: choose_output_folder())
-output_button.grid(row=2, column=0, pady=4)
-
-CreateToolTip(output_button, "Choose where reminder files are saved")
-
-# === CSV Upload and Template Buttons ===
-csv_frame = tk.Frame(root)
-csv_frame.grid(row=3, column=0, columnspan=2, pady=10) # Below the form rows
 
 def add_patient():
-    """
-    Adds a new patient to the database based on form input.
-    """
     first = first_name_entry.get().strip()
     last = last_name_entry.get().strip()
     visit = last_visit_entry.get().strip()
-    death =  death_date_entry.get().strip() or None
+    death = death_date_entry.get().strip() or None
 
     if not (first and last and visit):
         messagebox.showerror("Error", "First Name, Last Name, and Last Visit are required.")
         return
-    
-    # ✅ Validate date formats (YYYY-MM-DD)
+
     try:
         datetime.strptime(visit, "%Y-%m-%d")
         if death:
@@ -202,7 +159,7 @@ def add_patient():
     except ValueError:
         messagebox.showerror("Invalid Date Format", "Please enter dates in YYYY-MM-DD format.")
         return
-    
+
     try:
         conn = connect_db()
         cursor = conn.cursor()
@@ -213,29 +170,20 @@ def add_patient():
         conn.commit()
         conn.close()
         messagebox.showinfo("Success", f"Patient {first} {last} added.")
-        load_patients(1, active_listbox)    # Refresh Active tab
-        first_name_entry.delete(0, tk.END)
-        last_name_entry.delete(0, tk.END)
-        last_visit_entry.delete(0, tk.END)
-        death_date_entry.delete(0, tk.END)
+        load_patients(1, active_listbox)
+        for entry in entries:
+            entry.delete(0, tk.END)
     except Exception as e:
         messagebox.showerror("Database Error", str(e))
 
-def upload_csv():
-    """
-    Allows the user to select and upload a CSV file of patients.
-    """
-    file_path = filedialog.askopenfilename(
-        title="Select CSV File",
-        filetypes=[("CSV Files", "*.csv")]
-    )
 
+def upload_csv():
+    file_path = filedialog.askopenfilename(title="Select CSV File", filetypes=[("CSV Files", "*.csv")])
     if not file_path:
         return
 
     inserted = 0
     skipped = 0
-
     try:
         with open(file_path, newline='') as csvfile:
             reader = csv.DictReader(csvfile)
@@ -245,15 +193,12 @@ def upload_csv():
                     last = row["last_name"].strip()
                     visit = row["last_visit"].strip()
                     death = row.get("death_date", "").strip() or None
-
                     if not (first and last and visit):
                         skipped += 1
                         continue
-
                     datetime.strptime(visit, "%Y-%m-%d")
                     if death:
                         datetime.strptime(death, "%Y-%m-%d")
-
                     conn = connect_db()
                     cursor = conn.cursor()
                     cursor.execute(
@@ -266,38 +211,61 @@ def upload_csv():
                 except Exception as e:
                     print(f"⚠️ Skipped row due to error: {e}")
                     skipped += 1
-
         messagebox.showinfo("CSV Upload Complete", f"✅ Imported {inserted} patients.\n❌ Skipped {skipped} rows.")
         load_patients(1, active_listbox)
     except Exception as e:
-        messagebox.showerror("Error", f"Failed to load CSV:\n{e}")                   
+        messagebox.showerror("Error", f"Failed to load CSV:\n{e}")
+
 
 def download_csv_template():
-    """
-    Creates a CSV template file for patient data if it doesn't already exist.
-    """
     template_path = "patient_template.csv"
-
     if not os.path.exists(template_path):
         try:
             with open(template_path, mode='w', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow(["first_name", "last_name", "last_visit", "death_date"])
-                writer.writerow(["Alice", "Example", "2016-04-10", "2019-03-01"])  # Sample row
-
+                writer.writerow(["Alice", "Example", "2016-04-10", "2019-03-01"])
             messagebox.showinfo("Template Created", f"✅ Template saved as {template_path}")
         except Exception as e:
             messagebox.showerror("Error", f"❌ Could not create template:\n{e}")
     else:
         messagebox.showinfo("Template Exists", f"📄 Template already exists at {template_path}")
 
-def show_welcome_message():
-    messagebox.showinfo(
-        "Welcome to Clinic File Reminder App",
-        "This app helps you track which patient files are ready to be shredded:\n\n"
-        "🟢 3 years since death\n🟢 7 years since last visit\n\n"
-        "Use the tabs, add patients, or upload CSVs to get started!"
+
+def show_patient_details(event, active_value):
+    widget = event.widget
+    index = widget.curselection()
+    if not index:
+        return
+    first, last = widget.get(index[0]).split(" ", 1)
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT id, first_name, last_name, last_visit, death_date, is_active FROM patients WHERE first_name = ? AND last_name = ? AND is_active = ?",
+        (first, last, active_value)
     )
+    patient = cursor.fetchone()
+    conn.close()
+    if patient:
+        pid, fname, lname, visit, death, is_active = patient
+        status = "Active" if is_active else "Inactive"
+        messagebox.showinfo("Patient Details", f"ID: {pid}\nName: {fname} {lname}\nLast Visit: {visit or '-'}\nDeath Date: {death or '-'}\nStatus: {status}")
+
+
+def load_patients(active_value, listbox):
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT first_name, last_name FROM patients WHERE is_active = ?", (active_value,))
+    rows = cursor.fetchall()
+    listbox.delete(0, tk.END)
+    for row in rows:
+        listbox.insert(tk.END, f"{row[0]} {row[1]}")
+    listbox.bind("<<ListboxSelect>>", lambda event, act=active_value: show_patient_details(event, act))
+    conn.close()
+
+
+reminder_button = tk.Button(root, text="Run Reminder Check", command=handle_reminder_check)
+reminder_button.grid(pady=10)
 
 upload_button = tk.Button(csv_frame, text="Upload Patient CSV", command=upload_csv)
 upload_button.grid(row=0, column=0, pady=4)
@@ -308,37 +276,19 @@ template_button.grid(row=1, column=0, pady=4)
 output_button = tk.Button(csv_frame, text="Select Output Folder", command=choose_output_folder)
 output_button.grid(row=2, column=0, pady=4)
 
-CreateToolTip(output_button, "Choose where reminder files are saved")
-
 CreateToolTip(reminder_button, "Check all patients for shredding eligibility")
 CreateToolTip(submit_button, "Add this patient to the database")
 CreateToolTip(upload_button, "Select and upload a CSV file with patient data")
 CreateToolTip(template_button, "Download a sample CSV file you can use as a template")
+CreateToolTip(output_button, "Choose where reminder files are saved")
 
-def show_patient_details(event, active_value):
-    widget = event.widget
-    index = widget.curselection()
-    if not index:
-        return
-    
-    selected_name = widget.get(index[0])
-    first, last = selected_name.split(" ", 1)
 
-    conn = connect_db()
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT id, first_name, last_name, last_visit, death_date, is_active
-        FROM patients WHERE first_name = ? AND last_name = ? AND is_active = ?
-    """, (first, last, active_value))
-    patient = cursor.fetchone()
-    conn.close()
+def show_welcome_message():
+    messagebox.showinfo(
+        "Welcome to Clinic File Reminder App",
+        "This app helps you track which patient files are ready to be shredded:\n\n🟢 3 years since death\n🟢 7 years since last visit\n\nUse the tabs, add patients, or upload CSVs to get started!"
+    )
 
-    if patient:
-        pid, fname, lname, visit, death, is_active = patient
-        status = "Active" if is_active else "Inactive"
-        messagebox.showinfo("Patient Details",
-            f"ID: {pid}\nName: {fname} {lname}\nLast Visit: {visit or '-'}\n"
-            f"Death Date: {death or '-'}\nStatus: {status}")
 
 show_welcome_message()
 root.mainloop()
