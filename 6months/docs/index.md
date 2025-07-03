@@ -4,7 +4,9 @@ title: Welcome
 ---
 # Welcome to My GitHub Pages Site
 
-This is the homepage content.
+<p align="center>
+    <img src="ProfilePicture/IMG_3319.heic" alt="My Photo">
+</p>
 
 CONTACT ME
     - [GitHub](https://github.com/craigsw86)
