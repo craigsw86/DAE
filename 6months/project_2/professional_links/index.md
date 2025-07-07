@@ -12,5 +12,4 @@ CONTACT ME
     - [GitHub](https://github.com/craigsw86)
     - [LinkedIn](https://www.linkedin.com/in/craig-weinstein/)
     - [Email](mailto:craig.s.weinstein@gmail.com)
-
-[View My Projects](project.md)
+    - [View My Projects](https://craigsw86.github.io/DAE/6months/)
