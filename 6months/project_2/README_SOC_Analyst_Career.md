@@ -86,3 +86,6 @@ Famous incidents worth knowing about (especially for interviews):
 For questions, resources, or additional support, reach out to cybersecurity communities like Blue Team Level Up, r/cybersecurity, or CyberDefenders.
 
 Good luck!
+
+ADDENDUM: My GitHub Pages for this project: CONTACT ME
+    - [GitHub](https://craigsw86.github.io/DAE/6months/)
