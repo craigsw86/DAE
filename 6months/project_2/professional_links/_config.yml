@@ -2,7 +2,7 @@ theme: minima
 
 header_pages:
   - index.md
-  - projects.md
+  - { platform: github, user_url: "https://craigsw86.github.io/DAE/6months/" }
 
 author:
   name: Craig

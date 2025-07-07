@@ -93,3 +93,6 @@ _**Start Date:** 2025-06-16_
 _**End Date:** 2025-09-08_
 
 Happy hunting! 🧠🔍
+
+ADDENDUM: My GitHub Pages for this project: CONTACT ME
+    - [GitHub](https://craigsw86.github.io/DAE/6months/)
