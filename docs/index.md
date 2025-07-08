@@ -11,7 +11,7 @@ CONTACT ME
     - [View My Projects](https://craigsw86.github.io/DAE/6months/)
 
 ABOUT ME
-I'm a longtime office professional with a highly dependable track record, looking into breaking into the world of cybersecurity.
+    - I'm a longtime office professional with a highly dependable track record, looking into breaking into the world of cybersecurity.
 
 <p align="center">
     <img src="ProfilePicture/IMG_3319.heic" alt="My Photo">
