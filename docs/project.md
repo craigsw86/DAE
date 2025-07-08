@@ -7,6 +7,6 @@ title: Projects
 
 ## Repository
 
-    -[Github](https://craigsw86.github.io/DAE/)
+    -[Github](https://github.com/craigsw86)
 
 [Return to Home](./index.md)
