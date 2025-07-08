@@ -88,4 +88,4 @@ For questions, resources, or additional support, reach out to cybersecurity comm
 Good luck!
 
 ADDENDUM: My GitHub Pages for this project: CONTACT ME
-    - [Resume](https://github.com/craigsw86/DAE/blob/main/docs/Craig%20Weinstein%20Resume%202025.pdf) | [GitHub](https://github.com/craigsw86) | [LinkedIn](https://www.linkedin.com/in/craig-weinstein/) | [Email](mailto:craig.s.weinstein@gmail.com) | [View My Projects](https://craigsw86.github.io/DAE/6months/)
+    - [Resume](https://github.com/craigsw86/DAE/blob/main/docs/Craig%20Weinstein%20Resume%202025.pdf) | [GitHub](https://craigsw86.github.io/DAE/) | [LinkedIn](https://www.linkedin.com/in/craig-weinstein/) | [Email](mailto:craig.s.weinstein@gmail.com) | [View My Projects](https://craigsw86.github.io/DAE/6months/)
