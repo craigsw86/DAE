@@ -5,6 +5,7 @@ title: Welcome
 # Welcome to My GitHub Pages Site
 
 ## CONTACT ME
+    - [Resume](https://github.com/craigsw86/DAE/blob/main/docs/Craig%20Weinstein%20Resume%202025.pdf)
     - [GitHub](https://github.com/craigsw86)
     - [LinkedIn](https://www.linkedin.com/in/craig-weinstein/)
     - [Email](mailto:craig.s.weinstein@gmail.com)
