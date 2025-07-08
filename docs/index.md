@@ -5,10 +5,11 @@ title: Welcome
 # Welcome to My GitHub Pages Site
 
 ## CONTACT ME
-    - [GitHub](https://github.com/craigsw86)
-    - [LinkedIn](https://www.linkedin.com/in/craig-weinstein/)
-    - [Email](mailto:craig.s.weinstein@gmail.com)
-    - [View My Projects](https://craigsw86.github.io/DAE/6months/)
+- [Resume](https://github.com/craigsw86/DAE/blob/main/docs/Craig%20Weinstein%20Resume%202025.pdf)
+- [GitHub](https://github.com/craigsw86)
+- [LinkedIn](https://www.linkedin.com/in/craig-weinstein/)
+- [Email](mailto:craig.s.weinstein@gmail.com)
+- [View My Projects](https://craigsw86.github.io/DAE/6months/)
 
 ## ABOUT ME
 I'm a longtime office professional with a highly dependable track record, looking into breaking into the world of cybersecurity.
