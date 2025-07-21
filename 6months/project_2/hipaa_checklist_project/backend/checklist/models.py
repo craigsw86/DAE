@@ -3,19 +3,25 @@ from django.contrib.auth.models import User
 from encrypted_model_fields.fields import EncryptedTextField
 from auditlog.registry import auditlog
 
-class Regulation(models.Model):
-    name = models.CharField(max_length=255)
+class RegulationUpdate(models.Model):
+    title = models.CharField(max_length=255)
     description = models.TextField()
-    category = models.CharField(max_length=50)
-    code = models.CharField(max_length=50, blank=True)
+    source_url = models.URLField()
+    pub_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-pub_date']
+
+class ChecklistItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    regulation_update = models.ForeignKey(RegulationUpdate, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+    notes = EncryptedTextField(blank=True)  # HIPAA-compliant encryption
     last_updated = models.DateTimeField(auto_now=True)
 
-class UserChecklist(models.Model):
-    name = models.ForeignKey(User, on_delete=models.CASCADE)
-    regulation = models.ForeignKey(Regulation, on_delete=models.CASCADE)
-    completed = models.BooleanField(default=Fasle)
-    notes = EncryptedTextField(blank=True)
-    last_updated = models.DateTimeField(auto_now=True)
+    class Meta:
+        unique_together = ['user', 'regulation_update']
 
-auditlog.register(Regulation)
-auditlog.register(UserChecklist)
+auditlog.register(RegulationUpdate)  # Log changes for governance
+auditlog.register(ChecklistItem)

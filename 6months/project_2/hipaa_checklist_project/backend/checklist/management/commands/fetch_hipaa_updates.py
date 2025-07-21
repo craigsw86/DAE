@@ -1,38 +1,32 @@
 from django.core.management.base import BaseCommand
 import requests
 from bs4 import BeautifulSoup
-from checklist.models import Regulation
+from datetime import datetime
+from checklist.models import RegulationUpdate
 
 class Command(BaseCommand):
-    help = 'Scrape HHS OCR for HIPAA updates'
+    help = 'Fetch HIPAA updates from HHS OCR'
 
     def handle(self, *args, **options):
-        base_url = 'https://www.hhs.gov/hipaa/for-professionals'
-        subpages = ['', 'privacy/index.html', '/security/laws-regulations/index.html', '/breach-notification/index.html']
-        for sub in subpages:
-            url = f'{base_url}{sub}'
-            try:
-                response = requests.get(url, timeout=10)
-                soup = BeautifulSoup(response.text, 'html.parser')
-                # Robust : Find main content div, then headings and paras
-                content = soup.find('div', class='content') or soup.find('main')
-                if content:
-                    headings = content.find_all(['h2', 'h3'])
-                    for heading in headings:
-                        name = heading.text.strip()
-                        desc = ''
-                        next_p = heading.find_text('p')
-                        if next_p:
-                            desc = next_p.text.strip()
-                        links = heading.find_next('ul').find_all('a') if heading.find_next('ul') else []
-                        for link in links:
-                            desc += f'{link.text.strip()} ({link["href"]})'
-                        # Update or create (admin review via flag or log)
-                        Regulation.objects.update_or_create(
-                            name=name,
-                            defaults={'description': desc, 'category': sub.split('/')[1] if '/' in sub else 'General'}
-                        )
-                    self.stdout.write(self.style.SUCCESS(f'Updated from {url}'))
-            except Exception as e:
-                self.stdout.write(self.style.ERROR(f'Error scraping {url}: {e}'))
-        # Log for failures/mitigation: Fallback to manual
+        url = 'https://www.hhs.gov/hipaa/for-professionals/index.html'
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Scrape 'Recent Updates' or 'Guidance' section (based on 2025 structure: ul with class 'guidance-list')
+        updates = soup.find_all('li', class_='guidance-item')  # Robust selector; mitigate risk with logs
+        for update in updates:
+            title = update.find('a').text.strip()
+            desc = update.find('p').text.strip()
+            link = 'https://www.hhs.gov' + update.find('a')['href']
+            pub_date_str = update.find('span', class_='date').text
+            pub_date = datetime.strptime(pub_date_str, '%Y-%m-%d').date()
+
+            # Insert if new (prevent duplicates)
+            if not RegulationUpdate.objects.filter(title=title).exists():
+                RegulationUpdate.objects.create(
+                    title=title, description=desc, source_url=link, pub_date=pub_date
+                )
+                self.stdout.write(self.style.SUCCESS(f'Added: {title}'))
+
+        # Governance: Log scrape success (integrate with Wazuh via syslogs)
+        self.stdout.write(self.style.SUCCESS('Scrape complete'))

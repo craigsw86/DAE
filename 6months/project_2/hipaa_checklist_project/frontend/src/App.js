@@ -1,17 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';  // Install react-router-dom
+import Login from './components/Login';
+import Checklist from './components/Checklist';
+import ComplianceReport from './components/ComplianceReport';
+import { AppBar, Tabs, Tab } from '@mui/material';
 
 function App() {
-    return (
-        <div>
-            <h1>HIPAA Checklist Mock</h1>
-        </div>
-    );
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
+  if (!token) {
+    return <Login setToken={setToken} />;
+  }
+
+  return (
+    <Router>
+      <AppBar position="static">
+        <Tabs>
+          <Tab label="Checklist" component={Link} to="/checklist" />
+          <Tab label="Report" component={Link} to="/report" />
+        </Tabs>
+      </AppBar>
+      <Switch>
+        <Route path="/checklist"><Checklist token={token} /></Route>
+        <Route path="/report"><ComplianceReport token={token} /></Route>
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
-
-useEffect(() => {
-    fetch('http://localhost:8000/') // Django placeholder
-        .then(res => res.text())
-        .then(data => console.log(data));
-}, []);

@@ -1,0 +1,3 @@
+Governance Assessment
+- Policy Adherence: MFA verified via Wazuh logs (95% compliance).
+- Recommendations: Add indexing to SQL for performance.

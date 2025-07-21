@@ -1,27 +1,14 @@
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'hipaa_checklist',
-#         'USER': 'youruser',
-#         'PASSWORD': 'yourpass',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
-# INSTALLED_APPS = [..., 'auditlog', 'encrypted_models_fields', 'rest_framework_simplejwt']
-# REST_FRAMEWORK = {'DEFAULT_AUTHENTICATION_CLASSES': ('rest_framework_simplejwt.authentication.JWTAuthentication',)}
-# FIELD_ENCRYPTION_KEYS = ['secure-key-here'] # Generate via fernet
-# DATABASES = {'default': {'ENGINE': 'django.db.backends.postgresql', 'NAME': 'hipaa_db', ...}}
-# AUDITLOG_INCLUDE_ALL_MODELS = True
-
 import os
 from pathlib import Path
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = os.environ.get('DJANGO_SEDCRET_KEY', 'your-secure-key-here') # Generate: python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-DEBUG = False # For prod-like security
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
+SECRET_KEY = os.getenv('SECRET_KEY', 'your-secret-key')  # Use env var for security
+
+DEBUG = True
+
+ALLOWED_HOSTS = ['*']  # Restrict in prod
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -31,27 +18,52 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_simplejwt',
-    'encrypted_model_fields',
     'auditlog',
+    'encrypted_model_fields',
     'checklist',
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'auditlog.middleware.AuditlogMiddleware',  # For governance logging
+]
 
-FIELD_ENCRYPTION_KEYS = ['your-fernet-key-here'] # Generate later
+ROOT_URLCONF = 'hipaa_checklist.urls'
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hipaa_db',
-        'USER': 'postgres',
-        'PASSWORD': 'your-password',
+        'NAME': 'hipaa_checklist',
+        'USER': 'hipaa_user',
+        'PASSWORD': 'securepass',
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Secure token expiry
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
+# HIPAA Security: Encrypt fields
+FIELD_ENCRYPTION_KEYS = [
+    os.getenv('ENCRYPTION_KEY', '32-byte-key-here')  # 32 bytes for AES256
+]
+
+# Governance: Align with NIST 800-53 (e.g., AC-2 access control)
+SECURE_SSL_REDIRECT = False  # Enable in deployment
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
