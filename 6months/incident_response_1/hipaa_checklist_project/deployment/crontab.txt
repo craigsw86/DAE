@@ -1,0 +1,2 @@
+0 2 * * * /path/to/python /path/to/backend/manage.py fetch_hipaa_updates >> /var/log/scrape.log 2>&1
+5 2 * * * /path/to/python /path/to/backend/manage.py update_checklist >> /var/log/update.log 2>&1
