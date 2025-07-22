@@ -15,7 +15,7 @@ function Checklist({ token }) {
 
         const updatesRes = await axios.get('http://localhost:8000/api/updates/', config);
         if (updatesRes.data.length > 0) {
-          setAlerts(['New regulations available!']);
+          setAlerts([`New regulations added manually from HHS emails! (${updatesRes.data.length} items)`]);
         }
       } catch (error) {
         console.error(error);  // Governance: Log frontend errors to SIEM

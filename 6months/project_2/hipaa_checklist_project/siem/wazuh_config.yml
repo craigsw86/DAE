@@ -4,8 +4,4 @@
     <log_format>syslog</log_format>
     <location>/var/log/django_audit.log</location>  # Monitor audit logs for policy enforcement
   </localfile>
-  <localfile>
-    <log_format>syslog</log_format>
-    <location>/var/log/scrape.log</location>  # Scrape failures for governance
-  </localfile>
 </ossec_config>

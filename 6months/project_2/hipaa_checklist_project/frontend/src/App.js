@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';  // Install react-router-dom
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Login from './components/Login';
 import Checklist from './components/Checklist';
 import ComplianceReport from './components/ComplianceReport';
@@ -20,10 +20,10 @@ function App() {
           <Tab label="Report" component={Link} to="/report" />
         </Tabs>
       </AppBar>
-      <Switch>
-        <Route path="/checklist"><Checklist token={token} /></Route>
-        <Route path="/report"><ComplianceReport token={token} /></Route>
-      </Switch>
+      <Routes>
+        <Route path="/checklist" element={<Checklist token={token} />} />
+        <Route path="/report" element={<ComplianceReport token={token} />} />
+      </Routes>
     </Router>
   );
 }

@@ -1,8 +1,10 @@
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from django.db.models import Count, Case, When, FloatField
-from django.db.models.functions import Cast
+from django.db import connection
+from django.db.models import Count, Case, When
+from django.utils import timezone
+from datetime import timedelta
 from .models import ChecklistItem, RegulationUpdate
 from .serializers import ChecklistItemSerializer, RegulationUpdateSerializer
 
@@ -19,9 +21,12 @@ class ChecklistViewSet(viewsets.ModelViewSet):
         serializer.save()
 
 class UpdatesViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = RegulationUpdate.objects.all()
     serializer_class = RegulationUpdateSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        # Filter for recent updates (e.g., last 7 days) to simulate "new" from emails
+        return RegulationUpdate.objects.filter(created_at__gte=timezone.now() - timedelta(days=7))
 
 class ReportViewSet(viewsets.ViewSet):
     permission_classes = [IsAuthenticated]
@@ -44,8 +49,8 @@ class ReportViewSet(viewsets.ViewSet):
             row = cursor.fetchone()
 
         return Response({
-            'username': row[0],
-            'total_items': row[1],
-            'completed_items': row[2],
-            'completion_percentage': row[3]
+            'username': row[0] if row else '',
+            'total_items': row[1] if row else 0,
+            'completed_items': row[2] if row else 0,
+            'completion_percentage': row[3] if row else 0.0
         })
