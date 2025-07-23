@@ -1,6 +1,0 @@
-Cybersecurity Policy (Aligned with NIST 800-53)
-1. Access Control (AC-2): Use JWT for authentication; restrict admin to manual updates from trusted HHS emails.
-2. Configuration Management (CM-3): Manually review and add HIPAA changes from OCR listserv emails; audit all additions.
-3. Data Protection (SC-28): Encrypt notes with AES256.
-4. Incident Reporting: Log all changes with django-auditlog; monitor via Wazuh.
-5. Policy Enforcement: Use SIEM tools to validate compliance through log analysis.
