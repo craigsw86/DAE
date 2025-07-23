@@ -1,0 +1,7 @@
+# Wazuh agent config excerpt (install Wazuh agent locally)
+<ossec_config>
+  <localfile>
+    <log_format>syslog</log_format>
+    <location>/var/log/django_audit.log</location>  # Monitor audit logs for policy enforcement
+  </localfile>
+</ossec_config>
