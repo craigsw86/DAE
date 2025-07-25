@@ -1,7 +1,0 @@
-Tool,Primary Role,Key Features,Use in Project
-Parrot OS,Virtual Machine host OS for SOC tools,"Pre-installed security tools, VM-based, Debian-based OS",Hosts all SOC-in-a-Box tools in an isolated lab environment
-Wazuh,"SIEM for log collection, threat detection, alerting","Rule-based alerting, file integrity monitoring, log correlation",Detects and raises alerts for suspicious activity
-ELK Stack,"Log storage (Elasticsearch), processing (Logstash), visualization (Kibana)","Searchable log database, dashboards, analytics",Visualizes Wazuh alerts and stores log data
-Zeek,Network security monitoring and log generation,"Traffic logging (DNS, HTTP, SSH), anomaly detection",Generates network logs and feeds Wazuh/ELK
-Wireshark,Real-time packet capture and protocol analysis,Deep inspection of live traffic and protocols,Used to inspect raw traffic during investigations
-Velociraptor,Endpoint forensics and incident response,"Artifact collection, live memory analysis, threat hunting","Used to investigate hosts after alerts, collect digital evidence"
