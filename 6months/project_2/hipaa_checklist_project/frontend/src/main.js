@@ -1,34 +1,11 @@
-```
-// Central JavaScript file for HIPAA Checklist (JavaScript Rubric)
+let complianceScore = 50;
+const regulationName = "HIPAA Privacy Rule";
+const maxScore = 100;
 
-// Descriptive variables with distinct data types
-const complianceScore = 0; // int
-const regulationName = "HIPAA Privacy Rule"; // string
-const isCompliant = false; // boolean
-
-// Mathematical operation
-function calculateComplianceScore(completed, total) {
-  const percentage = (completed / total) * 100;
-  return Math.round(percentage);
+if (complianceScore >= maxScore / 2) {
+    console.log(`Checking compliance for: ${regulationName}`);
+    document.getElementById("complianceResult").innerText = `Compliance Score: ${complianceScore}%`;
+} else {
+    console.log(`Compliance check failed for: ${regulationName}`);
+    document.getElementById("complianceResult").innerText = `Compliance Score: ${complianceScore}% - Needs Improvement`;
 }
-
-// Decision structure with if/else and logical operator (AND)
-function checkComplianceStatus(score, required) {
-  if (score >= required && !isCompliant) {
-    console.log("Compliance achieved for " + regulationName);
-    return true;
-  } else {
-    console.log("Compliance not achieved for " + regulationName);
-    return false;
-  }
-}
-
-// Output to console and DOM
-function displayMessage() {
-  // Console output
-  console.log("Checking compliance for: " + regulationName);
-  // DOM output (updated in App.js)
-}
-
-export { calculateComplianceScore, displayMessage };
-```

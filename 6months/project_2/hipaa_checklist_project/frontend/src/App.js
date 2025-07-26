@@ -1,27 +1,27 @@
-```
 import React from 'react';
-import { Button } from '@mui/material';
-import { displayMessage, calculateComplianceScore } from './main';
 
 function App() {
   const handleClick = () => {
-    // Call main.js function to display message
-    displayMessage();
-    // Output compliance score to DOM
-    const score = calculateComplianceScore(5, 10);
-    document.getElementById('output').innerText = `Compliance Score: ${score}%`;
+    const complianceScore = 50;
+    const regulationName = "HIPAA Privacy Rule";
+    
+    console.log(`Checking compliance for: ${regulationName}`);
+    
+    const resultElement = document.getElementById("complianceResult");
+    if (resultElement) {
+      resultElement.innerText = `Compliance Score: ${complianceScore}%`;
+    }
   };
 
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h1>HIPAA Checklist</h1>
-      <Button variant="contained" onClick={handleClick}>
+    <div style={{padding: '20px'}}>
+      <h1>HIPAA Compliance Checklist</h1>
+      <button onClick={handleClick} style={{padding: '10px 20px', fontSize: '16px'}}>
         Check Compliance
-      </Button>
-      <div id="output"></div>
+      </button>
+      <p id="complianceResult">Ready for compliance check</p>
     </div>
   );
 }
 
 export default App;
-```
