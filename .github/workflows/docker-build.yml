@@ -1,0 +1,28 @@
+name: Build Docker Images
+on:
+  push:
+    paths:
+      - '6months/project_2/hipaa_checklist_project/**'
+      - '.github/workflows/docker-build.yml'
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - name: Build backend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./6months/project_2/hipaa_checklist_project/backend
+          file: ./6months/project_2/hipaa_checklist_project/backend/Dockerfile
+          push: false
+          tags: backend:latest
+      - name: Build frontend image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./6months/project_2/hipaa_checklist_project/frontend
+          file: ./6months/project_2/hipaa_checklist_project/frontend/Dockerfile
+          push: false
+          tags: frontend:latest 
