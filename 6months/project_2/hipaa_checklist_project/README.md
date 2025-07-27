@@ -27,7 +27,6 @@ This project is a secure, web-based HIPAA compliance checklist to help healthcar
 
 ## Setup Instructions
 1. **Clone Repository**:
-   ```bash
    git clone <repository-url>
    cd hipaa_checklist
 

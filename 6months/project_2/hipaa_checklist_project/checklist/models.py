@@ -1,4 +1,4 @@
-```
+
 from django.db import models
 from encrypted_model_fields.fields import EncryptedTextField
 
@@ -21,4 +21,3 @@ class ChecklistItem(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.regulation.title}"
-```

@@ -7,7 +7,7 @@ This directory contains the React.js frontend for the HIPAA Checklist Web Applic
 1. **Install Node.js**:
    - Ensure Node.js 16+ is installed.
 2. **Install Dependencies**:
-   ```bash
+   bash
    cd frontend
    npm install
 

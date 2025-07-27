@@ -1,4 +1,4 @@
-```
+
 from django.contrib import admin
 from .models import RegulationUpdate, ChecklistItem
 
@@ -13,4 +13,3 @@ class ChecklistItemAdmin(admin.ModelAdmin):
     list_display = ('user', 'regulation', 'completed', 'updated_at')
     list_filter = ('completed', 'user')
     search_fields = ('regulation__title', 'notes')
-```
