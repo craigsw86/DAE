@@ -38,9 +38,7 @@ INSTALLED_APPS = [
     'auditlog',
     'rest_framework',
     'rest_framework_simplejwt',
-    'encrypted_model_fields',
     'checklist',
-    'auditlog',
 ]
 
 FIELD_ENCRYPTION_KEY = 'your-generated-key-here'
