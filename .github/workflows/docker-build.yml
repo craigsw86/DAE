@@ -22,13 +22,13 @@ jobs:
           tags: hipaa-checklist:test
       - name: Run container
         run: |
-          docker run -d --name hipaa_app -p 8080:80 hipaa-checklist:test
+          docker run -d --name hipaa_app -p 8000:80 hipaa-checklist:test
           sleep 25
       - name: Test frontend root
-        run: curl -f http://localhost:8080/
+        run: curl -f http://localhost:8000/
       - name: Test admin path
         run: |
-          status=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8080/admin/)
+          status=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:8000/admin/)
           if [[ "$status" != "302" && "$status" != "200" ]]; then
             echo "Unexpected status $status for /admin/"
             exit 1
