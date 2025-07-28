@@ -15,4 +15,4 @@ COPY --from=frontend /app/build /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf
 ENV PYTHONUNBUFFERED=1
 EXPOSE 80
-CMD sh -c "gunicorn backend.hipaa_checklist.wsgi:application --chdir backend --bind 0.0.0.0:8000 & nginx -g 'daemon off;'" 
+CMD sh -c "gunicorn hipaa_checklist.wsgi:application --chdir backend --bind 0.0.0.0:8000 & nginx -g 'daemon off;'" 
