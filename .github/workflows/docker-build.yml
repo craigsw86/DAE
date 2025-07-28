@@ -49,8 +49,8 @@ jobs:
           load: true
           tags: |
             hipaa-checklist:test
-            ghcr.io/${{ github.repository }}/hipaa-checklist:latest
-            ghcr.io/${{ github.repository }}/hipaa-checklist:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/hipaa-checklist:latest
+            ghcr.io/${{ github.repository_owner }}/hipaa-checklist:${{ github.sha }}
       - name: Run container
         run: |
           docker run -d --name hipaa_app -p 8000:80 hipaa-checklist:test
