@@ -1,0 +1,16 @@
+# Cybersecurity Policies
+
+## 1. Access Control Policy
+- **Purpose**: Restrict access to sensitive data to authorized users only, aligning with HIPAA Security Rule.
+- **Policy**: All users must authenticate via username/password and JWT tokens. Access limited to user-specific checklist items.
+- **Enforcement**: Implemented via Django’s authentication and JWT in `views.py`.
+
+## 2. Data Protection Policy
+- **Purpose**: Protect PHI (e.g., notes) from unauthorized access, per HIPAA Privacy Rule.
+- **Policy**: All sensitive fields (e.g., `ChecklistItem.notes`) are encrypted using `django-encrypted-model-fields`. HTTPS required for data transmission.
+- **Enforcement**: Configured in `settings.py` with `FIELD_ENCRYPTION_KEY`.
+
+## 3. System Use Policy
+- **Purpose**: Ensure systems are used securely to prevent breaches.
+- **Policy**: Firewalls must be active on the local server. Only verified dependencies (listed in `requirements.txt` and `package.json`) are allowed.
+- **Enforcement**: Documented in `README.md`; verified via dependency checks.

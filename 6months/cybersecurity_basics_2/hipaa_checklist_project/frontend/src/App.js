@@ -1,30 +1,26 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Login from './components/Login';
-import Checklist from './components/Checklist';
-import ComplianceReport from './components/ComplianceReport';
-import { AppBar, Tabs, Tab } from '@mui/material';
+import React from 'react';
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem('token'));
-
-  if (!token) {
-    return <Login setToken={setToken} />;
-  }
+  const handleClick = () => {
+    const complianceScore = 50;
+    const regulationName = "HIPAA Privacy Rule";
+    
+    console.log(`Checking compliance for: ${regulationName}`);
+    
+    const resultElement = document.getElementById("complianceResult");
+    if (resultElement) {
+      resultElement.innerText = `Compliance Score: ${complianceScore}%`;
+    }
+  };
 
   return (
-    <Router>
-      <AppBar position="static">
-        <Tabs>
-          <Tab label="Checklist" component={Link} to="/checklist" />
-          <Tab label="Report" component={Link} to="/report" />
-        </Tabs>
-      </AppBar>
-      <Routes>
-        <Route path="/checklist" element={<Checklist token={token} />} />
-        <Route path="/report" element={<ComplianceReport token={token} />} />
-      </Routes>
-    </Router>
+    <div style={{padding: '20px'}}>
+      <h1>HIPAA Compliance Checklist</h1>
+      <button onClick={handleClick} style={{padding: '10px 20px', fontSize: '16px'}}>
+        Check Compliance
+      </button>
+      <p id="complianceResult">Ready for compliance check</p>
+    </div>
   );
 }
 

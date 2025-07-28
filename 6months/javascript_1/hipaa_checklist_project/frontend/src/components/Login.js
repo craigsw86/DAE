@@ -1,30 +1,36 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container } from '@mui/material';
 import axios from 'axios';
 
-function Login({ setToken }) {
+function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleLogin = async () => {
     try {
+      // Placeholder: Django /api/token/ not yet set up
       const response = await axios.post('http://localhost:8000/api/token/', { username, password });
-      localStorage.setItem('token', response.data.access);
-      setToken(response.data.access);
+      console.log('Login success:', response.data);
     } catch (error) {
-      alert('Login failed');  // Add better error handling
+      console.error('Login failed:', error);
     }
   };
 
   return (
-    <Container maxWidth="sm">
-      <form onSubmit={handleSubmit}>
-        <TextField label="Username" value={username} onChange={(e) => setUsername(e.target.value)} fullWidth />
-        <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} fullWidth />
-        <Button type="submit" variant="contained">Login</Button>
-      </form>
-    </Container>
+    <div>
+      <input
+        type="text"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        placeholder="Username"
+      />
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+      />
+      <button onClick={handleLogin}>Login</button>
+    </div>
   );
 }
 
