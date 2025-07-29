@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Login() {
+function Login({ setToken }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleLogin = async () => {
     try {
-      // Placeholder: Django /api/token/ not yet set up
       const response = await axios.post('http://localhost:8000/api/token/', { username, password });
-      console.log('Login success:', response.data);
+      const { access } = response.data;
+      if (access) {
+        localStorage.setItem('token', access);
+        setMessage('Login successful!');
+        if (setToken) setToken(access);
+      } else {
+        setMessage('Login failed: No access token received.');
+      }
     } catch (error) {
-      console.error('Login failed:', error);
+      setMessage('Login failed: ' + (error.response?.data?.detail || error.message));
     }
   };
 
@@ -30,6 +37,7 @@ function Login() {
         placeholder="Password"
       />
       <button onClick={handleLogin}>Login</button>
+      {message && <div>{message}</div>}
     </div>
   );
 }
