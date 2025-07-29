@@ -38,10 +38,9 @@ INSTALLED_APPS = [
     'auditlog',
     'rest_framework',
     'rest_framework_simplejwt',
-    'checklist',
 ]
 
-FIELD_ENCRYPTION_KEY = 'your-generated-key-here'
+FIELD_ENCRYPTION_KEY = b'nY2tHhkLjByh9WA_HxUjd66s8YCYhjok9eH6hVb5vEU='
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
