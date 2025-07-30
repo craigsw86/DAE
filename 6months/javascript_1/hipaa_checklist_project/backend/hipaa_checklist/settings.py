@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
 ]
 
-FIELD_ENCRYPTION_KEY = b'nY2tHhkLjByh9WA_HxUjd66s8YCYhjok9eH6hVb5vEU='
+FIELD_ENCRYPTION_KEY = os.environ.get('FIELD_ENCRYPTION_KEY')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,9 +120,6 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-
-# Encrypted fields key (for django-encrypted-model-fields)
-FIELD_ENCRYPTION_KEY = os.getenv('FIELD_ENCRYPTION_KEY', get_random_secret_key())
 
 # REST Framework settings
 REST_FRAMEWORK = {
