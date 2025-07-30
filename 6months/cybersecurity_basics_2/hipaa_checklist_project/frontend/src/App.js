@@ -1,4 +1,5 @@
 import React from 'react';
+import ChecklistDisplay from './components/ChecklistDisplay';
 
 function App() {
   const handleClick = () => {
@@ -20,6 +21,7 @@ function App() {
         Check Compliance
       </button>
       <p id="complianceResult">Ready for compliance check</p>
+      <ChecklistDisplay />
     </div>
   );
 }

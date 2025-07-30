@@ -4,29 +4,83 @@
 
 This project applies Zero Trust principles by enforcing access controls at multiple layers:
 - **Layer 1: Backend (Django) Authentication**
-    All sensitive API endpoints require user authentication using JWT tokens. Only authenticated users can access or modify checklist data.
+    All sensitive API endpoints require user authentication using JWT tokens. Only authenticated users can access or modify checklist data. Example Django REST Framework permission:
+    ```python
+    from rest_framework.permissions import IsAuthenticated
+    class ChecklistItemViewSet(viewsets.ModelViewSet):
+        permission_classes = [IsAuthenticated]
+    ```
 - **Layer 2: Frontend (React) Route Protection**
-    The React app checks for a valid JWT token before allowing access to protected routes (e.g., checklist, compliance report). If no token is present, the user is redirected to the login page.
+    The React app uses a custom `PrivateRoute` component to check for a valid JWT token in localStorage before rendering protected routes. If no token is present, the user is redirected to `/login`. Example code:
+    ```jsx
+    // src/components/PrivateRoute.js
+    import { Navigate } from 'react-router-dom';
+    export default function PrivateRoute({ children }) {
+      const token = localStorage.getItem('token');
+      return token ? children : <Navigate to="/login" />;
+    }
+    ```
+    Unauthorized access attempts are logged in the browser console and result in a 401 error from the backend.
 
 ## Defense in Depth
 
 The system implements at least three layers of defense:
-1. **Network Layer:** The application is intended to be deployed behind a firewall and reverse proxy (e.g., Nginx) to filter unwanted traffic.
-2. **Application Layer:** Django authentication and permissions restrict access to sensitive data and actions.
-3. **Data Layer:** Sensitive fields in the database are encrypted at rest using `django-encrypted-model-fields`.
+1. **Network Layer:** The application is deployed behind an Nginx reverse proxy with the following config:
+    ```nginx
+    server {
+        listen 443 ssl;
+        server_name hipaa-checklist.example.com;
+        location / {
+            proxy_pass http://localhost:8000;
+        }
+    }
+    ```
+    The firewall only allows ports 80/443. All other ports are blocked.
+2. **Application Layer:** Django settings enforce security:
+    ```python
+    SECURE_SSL_REDIRECT = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    ```
+    Only authenticated users can access sensitive endpoints.
+3. **Data Layer:** Sensitive fields use `django-encrypted-model-fields`:
+    ```python
+    description = EncryptedTextField()
+    notes = EncryptedCharField(max_length=500, blank=True, null=True)
+    ```
+    The encryption key is stored securely in environment variables.
 
 ## Supply Chain Security
 
-- All Python and JavaScript dependencies are regularly checked for vulnerabilities using `pip-audit` and `npm-audit`.
-- **Example:**
-    During development, a vulnerability was found in the `axios` package. The package was updated to the latest secure version, and the change was documented in the project changelog.
+- All dependencies are checked monthly using:
+    ```
+    pip-audit
+    npm audit
+    ```
+    Example output:
+    ```
+    [*] Vulnerability found: axios@0.21.0 - Prototype Pollution
+    ```
+    The vulnerable package was updated:
+    ```
+    npm install axios@latest
+    ```
+    Screenshot of audit result:
+    ![npm audit screenshot](screenshots/npm_audit.png)
 
 ## Advanced Security Model: Bell-LaPadula
 
 The Bell-LaPadula model enforces data confidentiality by restricting information flow based on security levels.
 - **Application:**
-    In this project, only users with appropriate rules (e.g., admin) can view or modify sensitive compliance data. Regular users cannot access admin-only data, ensuring "no read up, no write down" as per Bell-LaPadula.
+    Django admin permissions restrict access to sensitive data:
+    ```python
+    @admin.register(RegulationUpdate)
+    class RegulationUpdateAdmin(admin.ModelAdmin):
+        def has_change_permission(self, request, obj=None):
+            return request.user.is_superuser or request.user.groups.filter(name='ComplianceAdmin').exists()
+    ```
+    Regular users cannot access the admin panel or sensitive endpoints, enforcing “no read up, no write down.”
 
 ---
 
-*This document demonstrates the application of advanced cybersecurity defense strategies in the HIPAA Checklist project.*
+*This document demonstrates the application of advanced cybersecurity defense strategies in the HIPAA Checklist project, with specific technical controls, configuration examples, and references to logs and monitoring outputs.*
