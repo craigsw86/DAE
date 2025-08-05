@@ -1,8 +1,11 @@
 from django.shortcuts import render
+from django.db import connection
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from .models import RegulationUpdate, ChecklistItem
 from .serializers import RegulationUpdateSerializer, ChecklistItemSerializer
 
@@ -20,6 +23,21 @@ class ChecklistItemViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return ChecklistItem.objects.filter(user=self.request.user).order_by('-last_updated')
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def my_items_raw(self, request):
+        user_id = request.user.id
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT id, completed, notes, last_updated, regulation_update_id FROM checklist_checklistitem WHERE user_id = %s",
+                [user_id]
+            )
+            columns = [col[0] for col in cursor.description]
+            results = [
+                dict(zip(columns, row))
+                for row in cursor.fetchall()
+            ]
+        return Response(results)
 
 class ComplianceReportView(APIView):
     permission_classes = [IsAuthenticated]

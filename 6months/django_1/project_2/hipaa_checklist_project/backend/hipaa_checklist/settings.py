@@ -8,8 +8,10 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 """
 
 from pathlib import Path
-import os
+import base64, os
 from django.core.management.utils import get_random_secret_key
+
+print(base64.b64encode(os.urandom(32)).decode())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'auditlog',
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders'
 ]
 
 # Encrypted fields key (for django-encrypted-model-fields)
@@ -47,7 +50,8 @@ INSTALLED_APPS = [
 #   $env:FIELD_ENCRYPTION_KEY="your-44-character-key" (Windows PowerShell)
 # Generate a key with:
 #   python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
-FIELD_ENCRYPTION_KEY = os.environ.get('C9tFAnLUbtnWxnpo1X36nJVpJ2Vw3Z07HMCcyDD9L70=')
+
+FIELD_ENCRYPTION_KEY = '1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54='
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'auditlog.middleware.AuditlogMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'hipaa_checklist.urls'
@@ -134,3 +140,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+STATIC_URL = '/build/'

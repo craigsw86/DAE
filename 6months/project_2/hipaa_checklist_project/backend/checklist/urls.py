@@ -10,3 +10,5 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/report/', ComplianceReportView.as_view(), name='compliance-report'),
 ]
+
+urlpatterns += router.urls
