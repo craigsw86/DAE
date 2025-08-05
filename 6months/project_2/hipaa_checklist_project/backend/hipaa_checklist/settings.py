@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'auditlog',
     'rest_framework',
     'rest_framework_simplejwt',
+    'corsheaders'
 ]
 
 # Encrypted fields key (for django-encrypted-model-fields)
@@ -58,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'auditlog.middleware.AuditlogMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'hipaa_checklist.urls'
@@ -134,3 +137,9 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+
+STATIC_URL = '/build/'
