@@ -4,41 +4,40 @@ import axios from 'axios';
 function Login({ setToken }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
-  const handleLogin = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
     try {
-      const response = await axios.post('http://localhost:8000/api/token/', { username, password });
-      const { access } = response.data;
-      if (access) {
-        localStorage.setItem('token', access);
-        setMessage('Login successful!');
-        if (setToken) setToken(access);
-      } else {
-        setMessage('Login failed: No access token received.');
-      }
-    } catch (error) {
-      setMessage('Login failed: ' + (error.response?.data?.detail || error.message));
+      const response = await axios.post('/api/token/', { username, password });
+      localStorage.setItem('token', response.data.access);
+      setToken(response.data.access);
+    } catch (err) {
+      setError('Login failed. Check your credentials.');
     }
   };
 
   return (
-    <div>
+    <form onSubmit={handleSubmit}>
+      <h2>Login</h2>
       <input
         type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
         placeholder="Username"
+        value={username}
+        onChange={e => setUsername(e.target.value)}
+        required
       />
       <input
         type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+        value={password}
+        onChange={e => setPassword(e.target.value)}
+        required
       />
-      <button onClick={handleLogin}>Login</button>
-      {message && <div>{message}</div>}
-    </div>
+      <button type="submit">Login</button>
+      {error && <div style={{color: 'red'}}>{error}</div>}
+    </form>
   );
 }
 

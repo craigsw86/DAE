@@ -8,8 +8,17 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import RegulationUpdate, ChecklistItem
 from .serializers import RegulationUpdateSerializer, ChecklistItemSerializer
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
+def checklist_view(request):
+    # You can fetch checklist items for the user here if needed
+    return render(request, 'checklist/index.html')
+
+def index(request):
+    return render(request, 'checklist/index.html')
 
 class RegulationUpdateViewSet(viewsets.ModelViewSet):
     queryset = RegulationUpdate.objects.none()  # Dummy queryset for router
