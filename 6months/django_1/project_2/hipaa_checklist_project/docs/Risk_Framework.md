@@ -104,6 +104,18 @@ Risks are identified through code reviews, dependency audits, and threat modelin
 | Security Analyst    | Conduct assessments, monitor compliance        |
 | All Team Members    | Follow policies, report incidents              |
 
+### Escalation Procedures
+- **Step 1: Initial Response**  
+  The team member who identifies a risk or incident attempts to resolve it within their authority and documents the action taken.
+- **Step 2: Escalation to Project Lead**  
+  If unresolved, the issue is escalated to the Project Lead via email or ticketing system within 24 hours. The Project Lead reviews and coordinates a response.
+- **Step 3: Escalation to Executive Sponsor**  
+  If the Project Lead cannot resolve the issue within 48 hours, it is escalated to the Executive Sponsor (or designated authority) for decision and resource allocation.
+- **Step 4: Regulatory Notification**  
+  For incidents involving regulatory non-compliance or data breach, the Security Analyst coordinates with the Project Lead to notify regulatory authorities as required by HIPAA and organizational policy.
+- **Documentation:**  
+  All escalations and decisions are documented in the project risk register and incident log.
+
 ## 11. Risk-to-Control Mapping
 | Risk                        | Technical Controls                | Operational Controls         | Compliance Controls         |
 |-----------------------------|-----------------------------------|-----------------------------|-----------------------------|
@@ -111,6 +123,14 @@ Risks are identified through code reviews, dependency audits, and threat modelin
 | Outdated dependencies       | pip-audit, npm audit, patching    | Patch management process     | Policy review               |
 | Weak authentication         | JWT, password policy              | User training               | Access review, audit logs   |
 | Misconfiguration            | Secure defaults, code review      | Change management           | Configuration audit         |
+
+## 11a. Regulatory Compliance Matrix (HIPAA Security Rule)
+| HIPAA Requirement      | Control(s) Implemented                        | Responsible Role     | Evidence/Reference                |
+|-----------------------|-----------------------------------------------|---------------------|------------------------------------|
+| §164.312(a) Access Control    | Django auth, admin permissions, JWT tokens      | Developer, Project Lead | Audit logs, user management docs   |
+| §164.312(b) Audit Controls    | django-auditlog, log review, evidence collection| Security Analyst        | Audit logs, audit policy           |
+| §164.312(c) Integrity         | Encrypted fields, database backups, change tracking | Developer, Security Analyst | Database config, backup logs      |
+| §164.312(e) Transmission Security | HTTPS enforced via Nginx and Django settings | DevOps, Project Lead    | Nginx config, SSL certs           |
 
 ## 12. Risk Register (Appendix)
 | Risk ID | Description                | Owner      | Status     | Last Reviewed |
