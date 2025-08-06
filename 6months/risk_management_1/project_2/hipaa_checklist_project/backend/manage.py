@@ -2,6 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import requests
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hipaa_checklist.settings')
@@ -17,3 +18,12 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+url = "http://localhost:8000/api/token/"
+data = {
+    "username": "TestUsername",
+    "password": "TestPassword"
+}
+response = requests.post(url, json=data)
+print(response.status_code)
+print(response.json())

@@ -1,5 +1,21 @@
 # HIPAA Checklist API Documentation
 
+## Overview
+This document describes the REST API for the HIPAA Checklist project. The API allows secure management of compliance checklist items and regulation updates, with JWT authentication and audit logging for all sensitive actions.
+
+## Table of Contents
+- [Authentication](#authentication)
+- [Endpoints](#endpoints)
+  - [Checklist Items](#checklist-items)
+  - [Regulation Updates](#regulation-updates)
+  - [Compliance Report](#compliance-report)
+- [Error Handling & Troubleshooting](#error-handling--troubleshooting)
+- [Audit Logging](#audit-logging)
+- [Security](#security)
+- [Interactive API](#interactive-api)
+- [References](#references)
+- [Changelog](#changelog)
+
 ## Authentication
 - All API endpoints require JWT authentication.
 - Obtain a token via POST `/api/token/` with username and password.
@@ -8,14 +24,19 @@
   Authorization: Bearer <access_token>
   ```
 - All endpoints require HTTPS for secure transmission.
+- See [API_Testing_Postman.md](API_Testing_Postman.md) or use the provided Python script for token retrieval.
 
 ## Endpoints
 
 ### Checklist Items
-- `GET /api/checklist/` — List checklist items for the authenticated user
-- `POST /api/checklist/` — Create a new checklist item
-- `PATCH /api/checklist/{id}/` — Update a checklist item
-- `DELETE /api/checklist/{id}/` — Delete a checklist item
+- **GET** `/api/checklist/` — List checklist items for the authenticated user
+- **POST** `/api/checklist/` — Create a new checklist item
+- **PATCH** `/api/checklist/{id}/` — Update a checklist item
+- **DELETE** `/api/checklist/{id}/` — Delete a checklist item
+
+#### Required Headers
+- `Authorization: Bearer <access_token>`
+- `Content-Type: application/json` (for POST/PATCH)
 
 #### Sample Checklist Item Response
 ```json
@@ -30,8 +51,8 @@
 ```
 
 ### Regulation Updates
-- `GET /api/regulations/` — List all regulation updates
-- `POST /api/regulations/` — Create a new regulation update (admin only)
+- **GET** `/api/regulations/` — List all regulation updates
+- **POST** `/api/regulations/` — Create a new regulation update (admin only)
 
 #### Sample Regulation Update Response
 ```json
@@ -46,7 +67,7 @@
 ```
 
 ### Compliance Report
-- `GET /api/report/` — Get compliance stats for the authenticated user
+- **GET** `/api/report/` — Get compliance stats for the authenticated user
 
 #### Sample Request
 ```
@@ -64,9 +85,15 @@ Authorization: Bearer <access_token>
 }
 ```
 
-## Error Handling
+## Error Handling & Troubleshooting
 - `401 Unauthorized`: Returned if the JWT token is missing or invalid.
 - `403 Forbidden` or `404 Not Found`: Returned if a user tries to access another user’s data.
+- `400 Bad Request`: Returned for invalid input or missing required fields.
+
+**Troubleshooting Tips:**
+- Ensure your token is valid and not expired.
+- Double-check endpoint URLs and request bodies.
+- For more help, see [API_Testing_Postman.md](API_Testing_Postman.md) or use the Python script for token retrieval.
 
 ## Audit Logging
 - All changes to checklist items and regulations are tracked using django-auditlog.
@@ -75,8 +102,17 @@ Authorization: Bearer <access_token>
 ## Security
 - All endpoints require HTTPS and JWT authentication.
 - Sensitive actions are logged for audit and compliance.
+- Data at rest is encrypted using field-level encryption.
 
 ## Interactive API
 - You can explore and test the API interactively at `/api/` using the DRF browsable API (when DEBUG is enabled).
 
-For more details, see [Project README](../README.md).
+## References
+- [API_Testing_Postman.md](API_Testing_Postman.md)
+- [Postman_Collection.json](Postman_Collection.json)
+- [Security_Architecture.md](Security_Architecture.md)
+- [Security_Policy.md](Security_Policy.md)
+- [README.md](../README.md)
+
+## Changelog
+- 2025-08-05: Improved documentation structure, added troubleshooting, and clarified endpoint usage.

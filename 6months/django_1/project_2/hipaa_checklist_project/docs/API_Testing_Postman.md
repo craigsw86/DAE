@@ -4,6 +4,26 @@ This guide explains how to test your Django REST API endpoints using Postman, in
 
 ---
 
+## Quick Start
+1. **Start your Django server:**
+   ```sh
+   python manage.py runserver
+   ```
+2. **Open Postman (desktop or web).**
+3. **Import the provided Postman collection:**
+   - File: `docs/Postman_Collection.json`
+   - Click "Import" in Postman and select the file.
+4. **Set up environment variables:**
+   - Click the "Environment" dropdown (top right), create/select an environment.
+   - Add variables: `base_url` (`http://localhost:8000`), `username`, `password`, `access_token` (leave blank initially).
+5. **Obtain your JWT token:**
+   - Use the "Auth - Obtain Token" request.
+   - Enter your username and password in the body or environment.
+   - Click "Send" and copy the `access` token to your environment.
+6. **Test other endpoints using the token.**
+
+---
+
 ## 1. Authentication (Obtain JWT Token)
 
 - **Endpoint:** `POST /api/token/`
@@ -100,22 +120,54 @@ This guide explains how to test your Django REST API endpoints using Postman, in
     {
       "id": 1,
       "completed": false,
-      "notes": "Raw SQL note",
+      "notes": "<encrypted>",
       "last_updated": "2024-06-01T12:00:00Z",
       "regulation_update_id": 1
     },
     ...
   ]
   ```
+  - Note: The `notes` field is encrypted at rest and will not match the plaintext value.
 
 ---
 
-## 4. Tips
-- Always include the `Authorization: Bearer <access_token>` header for protected endpoints.
-- Use the `/api/token/refresh/` endpoint to refresh your access token if it expires.
-- You can use the Postman "Pre-request Script" or "Environment Variables" to automate token handling if desired.
+## 4. Using Environment Variables in Postman
+- Store your `base_url`, `username`, `password`, and `access_token` as environment variables for easy reuse.
+- Use `{{access_token}}` in the Authorization header: `Bearer {{access_token}}`.
+- You can automate setting the token with a "Test" script in the Auth request:
+  ```js
+  // In the Tests tab of the Auth request
+  if (pm.response.code === 200) {
+    var json = pm.response.json();
+    pm.environment.set("access_token", json.access);
+  }
+  ```
 
 ---
 
-## 5. Example Postman Collection
+## 5. Troubleshooting
+- **401 Unauthorized:** Check your username/password, token, and that the server is running.
+- **404 Not Found:** Check the endpoint URL and that the server is running.
+- **400 Bad Request:** Check your request body for correct JSON and required fields.
+- **Connection Refused:** Make sure the Django server is running at `http://localhost:8000/`.
+
+---
+
+## 6. Alternative: Python Script for Token Retrieval
+If you prefer not to use Postman, you can use the provided Python script:
+```python
+import requests
+url = "http://localhost:8000/api/token/"
+data = {"username": "yourusername", "password": "yourpassword"}
+response = requests.post(url, json=data)
+print(response.json())
+```
+
+---
+
+## 7. Example Postman Collection
 You can import these endpoints into Postman and save your token as an environment variable for convenience.
+
+---
+
+*For more details, see [API.md](API.md) and [README.md](../README.md).*
