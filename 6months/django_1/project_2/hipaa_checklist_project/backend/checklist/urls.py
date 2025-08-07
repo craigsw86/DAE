@@ -7,7 +7,7 @@ router.register(r'regulations', RegulationUpdateViewSet, basename='regulationupd
 router.register(r'checklist', ChecklistItemViewSet, basename='checklistitem')
 
 urlpatterns = [
-    path('checklist/', checklist_view, name='checklist'),
+    path('checklist-page/', checklist_view, name='checklist_page'),
     path('api/', include(router.urls)),
     path('api/report/', ComplianceReportView.as_view(), name='compliance-report'),
 ]
