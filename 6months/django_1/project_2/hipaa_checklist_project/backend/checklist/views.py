@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db import connection
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
@@ -8,14 +8,24 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import RegulationUpdate, ChecklistItem
 from .serializers import RegulationUpdateSerializer, ChecklistItemSerializer
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from .forms import ChecklistItemForm
 
 # Create your views here.
 @login_required
 def checklist_view(request):
-    # You can fetch checklist items for the user here if needed
-    return render(request, 'checklist/index.html')
+    user = request.user
+    if request.method == 'POST':
+        form = ChecklistItemForm(request.POST)
+        if form.is_valid():
+            checklist_item = form.save(commit=False)
+            checklist_item.user = user
+            checklist_item.save()
+            return redirect('checklist_page')
+    else:
+        form = ChecklistItemForm()
+    items = ChecklistItem.objects.filter(user=user).select_related('regulation_update').order_by('-last_updated')
+    return render(request, 'checklist/index.html', {'form': form, 'items': items})
 
 def index(request):
     return render(request, 'checklist/index.html')

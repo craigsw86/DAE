@@ -13,6 +13,33 @@
         <p>This tool helps you track and manage HIPAA compliance tasks efficiently.</p>
     </div>
     <h1>Checklist</h1>
-    <div id="checklist-container"></div>
+    <div>
+        <h3>Add Checklist Item</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+        {% if form.errors %}
+            <div style="color: red;">{{ form.errors }}</div>
+        {% endif %}
+    </div>
+    <div>
+        <h3>Your Submitted Checklist Items</h3>
+        {% if items %}
+            <ul>
+                {% for item in items %}
+                    <li>
+                        <strong>{{ item.regulation_update.title }}</strong> - 
+                        {% if item.completed %}Completed{% else %}Incomplete{% endif %}<br>
+                        Notes: {{ item.notes|default:'(none)' }}<br>
+                        Last updated: {{ item.last_updated }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No checklist items submitted yet.</p>
+        {% endif %}
+    </div>
 </body>
 </html>
