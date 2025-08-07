@@ -1,87 +1,84 @@
+# GRC Analyst Career Prep - README
 
-# SOC Analyst Career Prep - README
-
-This README serves as a guide to help you prepare for an entry-level SOC (Security Operations Center) Analyst position. It summarizes key learning paths, career considerations, and concepts to understand before applying or interviewing for roles.
-
----
-
-## 🔍 Focus Areas
-
-- Entry-level SOC Analyst roles, with a preference for remote work or roles around Stamford, CT.
-- Ideal industries: Healthcare, Finance, Entertainment, and Government.
-- Open to part-time, contract, internship, or full-time roles while completing cybersecurity coursework.
+This README serves as a guide to help you pivot toward or prepare for a Governance, Risk, and Compliance (GRC) Analyst role. It summarizes essential learning paths, key focus areas, and critical GRC concepts to support career development, portfolio building, and interview preparation.
 
 ---
 
-## 🛡️ Top Cybersecurity Incidents to Know
+## 🎯 Focus Areas
 
-Famous incidents worth knowing about (especially for interviews):
-- SolarWinds (2020)
-- Colonial Pipeline (2021)
-- Microsoft Exchange / Hafnium (2021)
-- MOVEit (2023)
-- Capital One (2019)
-- MGM Resorts (2023)
-- JBS Foods (2021)
+- Entry-level GRC Analyst roles with a preference for remote opportunities or positions near Stamford, CT
+- Industries of interest: Healthcare, Finance, Government, Education, and Technology
+- Open to part-time, internship, contract, or full-time positions while completing cybersecurity and compliance coursework
 
 ---
 
-## 📚 Key Concepts Explained
+## 🛡️ Core GRC Responsibilities
 
-- **Zero-day:** A vulnerability with no known fix or patch.
-- **MFA Fatigue:** Tricking users into accepting repeated login prompts.
-- **Supply Chain Attack:** Compromising a vendor to reach the real target.
-- **Ransomware / Double Extortion:** Encrypting files + threatening to leak data.
-- **Lateral Movement:** Attackers moving across systems after access.
-- **Cloud Misconfiguration:** Mistakes in cloud settings that expose data.
-
----
-
-## 🧩 Best Cybersecurity Jobs for Asperger's Syndrome (Ranked)
-
-1. Security Automation Engineer
-2. Digital Forensics Analyst
-3. Threat Intelligence Researcher
-4. SOC Analyst (Tier 1-2)
-5. Compliance / GRC Analyst
-6. Vulnerability Researcher / Exploit Developer
+Typical duties and competencies include:
+- Developing and implementing governance policies and standards
+- Performing risk assessments and maintaining risk registers
+- Ensuring compliance with standards like ISO 27001, NIST CSF, HIPAA, and GDPR
+- Supporting internal and external audits
+- Collaborating with stakeholders to ensure policy alignment and control implementation
 
 ---
 
-## 📈 SOC Analyst Career Roadmap (90-120 Days)
+## 📚 Key GRC Concepts Explained
 
-### Phase 1: Core Learning
-- Networking Basics (Professor Messer)
-- Cybersecurity Fundamentals (IBM Cybersecurity Analyst Course)
-- TryHackMe: SOC Level 1
+- **Governance**: The frameworks and policies that guide security and compliance decisions
+- **Risk Management**: The process of identifying, assessing, and mitigating organizational risks
+- **Compliance**: Adhering to laws, regulations, and internal policies (e.g., PCI DSS, HIPAA)
+- **Control Frameworks**: Structured sets of controls (e.g., NIST CSF, ISO/IEC 27001) used to ensure secure practices
+- **Vendor Risk Management**: Assessing third-party risk to prevent supply chain compromise
+- **Audit Readiness**: Documenting and maintaining evidence of compliance
+
+---
+
+## 📈 GRC Career Roadmap (90-120 Days)
+
+### Phase 1: Foundation
+- Cybersecurity Fundamentals (IBM or Google GRC courses)
+- Learn Risk Management Frameworks (RMF, FAIR, NIST 800-30)
+- Read the NIST Cybersecurity Framework (NIST CSF)
 
 ### Phase 2: Tool Familiarity
-- Splunk Fundamentals 1 (free)
-- Wireshark basics
-- MITRE ATT&CK techniques
+- Explore GRC platforms (Archer, ServiceNow GRC, LogicGate)
+- Practice with spreadsheets or GRC templates for risk and compliance tracking
 
-### Phase 3: Investigation & Soft Skills
-- Practice alert triage, report writing, and interview prep
-- CyberDefenders: Blue Team challenges
-- Documentation of findings
+### Phase 3: Practice & Portfolio
+- Document mock risk assessments
+- Build a sample control matrix and audit checklist
+- Track a fictional company's compliance using ISO 27001
 
 ---
 
-## 💼 Day in the Life of a SOC Analyst
+## 🧩 Roles That Overlap With GRC
 
-- Triage alerts using SIEM/EDR tools
-- Investigate suspicious activity
-- Escalate tickets when needed
-- Write incident summaries
-- Communicate findings with team
+1. Compliance Analyst
+2. Information Security Auditor
+3. Risk Analyst
+4. Privacy Analyst
+5. Policy & Governance Specialist
+6. Vendor Risk Management Analyst
+
+---
+
+## 💼 Day in the Life of a GRC Analyst
+
+- Review and update policies based on regulatory changes
+- Conduct interviews or send questionnaires to gather risk data
+- Update risk register with new findings
+- Respond to compliance questions from auditors or departments
+- Track action items from internal audit reports
 
 ---
 
 ## 📁 Supporting Files
 
-- PDF: SOC_Analyst_Career_Prep_Summary.pdf
+- PDF: GRC_Analyst_Career_Prep_Summary.pdf (Coming Soon)
 
 ---
 
 ADDENDUM: My GitHub Pages for this project: CONTACT ME
-    - [GitHub](https://craigsw86.github.io/DAE/6months/)
+- [GitHub](https://craigsw86.github.io/DAE/6months/)
+
