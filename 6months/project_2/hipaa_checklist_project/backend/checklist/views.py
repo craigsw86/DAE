@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
@@ -10,22 +10,36 @@ from .models import RegulationUpdate, ChecklistItem
 from .serializers import RegulationUpdateSerializer, ChecklistItemSerializer
 from django.contrib.auth.decorators import login_required
 from .forms import ChecklistItemForm
+from django.contrib import messages
 
 # Create your views here.
 @login_required
 def checklist_view(request):
     user = request.user
+    edit_id = request.GET.get('edit')
+    if edit_id:
+        item_to_edit = get_object_or_404(ChecklistItem, id=edit_id, user=user)
+    else:
+        item_to_edit = None
+
     if request.method == 'POST':
-        form = ChecklistItemForm(request.POST)
+        if item_to_edit:
+            form = ChecklistItemForm(request.POST, instance=item_to_edit)
+        else:
+            form = ChecklistItemForm(request.POST)
         if form.is_valid():
             checklist_item = form.save(commit=False)
             checklist_item.user = user
             checklist_item.save()
+            if item_to_edit:
+                messages.success(request, 'Checklist item updated successfully!')
+            else:
+                messages.success(request, 'Checklist item submitted successfully!')
             return redirect('checklist_page')
     else:
-        form = ChecklistItemForm()
+        form = ChecklistItemForm(instance=item_to_edit) if item_to_edit else ChecklistItemForm()
     items = ChecklistItem.objects.filter(user=user).select_related('regulation_update').order_by('-last_updated')
-    return render(request, 'checklist/index.html', {'form': form, 'items': items})
+    return render(request, 'checklist/index.html', {'form': form, 'items': items, 'item_to_edit': item_to_edit})
 
 def index(request):
     return render(request, 'checklist/index.html')

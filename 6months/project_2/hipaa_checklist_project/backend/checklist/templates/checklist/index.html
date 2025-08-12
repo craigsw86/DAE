@@ -8,17 +8,27 @@
     <link rel="stylesheet" href="{% static 'checklist/style.css' %}">
 </head>
 <body>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li style="color: green; font-weight: bold;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <div class="welcome-message">
         <h2>Welcome to the HIPAA Checklist Application!</h2>
         <p>This tool helps you track and manage HIPAA compliance tasks efficiently.</p>
     </div>
     <h1>Checklist</h1>
     <div>
-        <h3>Add Checklist Item</h3>
+        <h3>{% if item_to_edit %}Edit Checklist Item{% else %}Add Checklist Item{% endif %}</h3>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Submit</button>
+            <button type="submit">{% if item_to_edit %}Update{% else %}Submit{% endif %}</button>
+            {% if item_to_edit %}
+                <a href="?">Cancel</a>
+            {% endif %}
         </form>
         {% if form.errors %}
             <div style="color: red;">{{ form.errors }}</div>
@@ -33,7 +43,8 @@
                         <strong>{{ item.regulation_update.title }}</strong> - 
                         {% if item.completed %}Completed{% else %}Incomplete{% endif %}<br>
                         Notes: {{ item.notes|default:'(none)' }}<br>
-                        Last updated: {{ item.last_updated }}
+                        Last updated: {{ item.last_updated }}<br>
+                        <a href="?edit={{ item.id }}">Edit</a>
                     </li>
                 {% endfor %}
             </ul>

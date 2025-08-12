@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Alert, Card, CardContent, Grid, Dialog, DialogTitle, DialogContent, DialogContentText } from '@mui/material';
+import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Alert, Card, CardContent, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, Checkbox, CircularProgress } from '@mui/material';
 
 function ChecklistDisplay() {
   const [items, setItems] = useState([]);
@@ -9,6 +9,7 @@ function ChecklistDisplay() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [highRiskCount, setHighRiskCount] = useState(0);
   const [overdueCount, setOverdueCount] = useState(0);
+  const [updatingId, setUpdatingId] = useState(null);
 
   const fetchChecklist = async () => {
     setLoading(true);
@@ -33,6 +34,23 @@ function ChecklistDisplay() {
       }
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleToggleCompleted = async (item) => {
+    setUpdatingId(item.id);
+    try {
+      const token = localStorage.getItem('token');
+      await axios.patch(`http://localhost:8000/api/checklist/${item.id}/`, {
+        completed: !item.completed
+      }, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      await fetchChecklist();
+    } catch (err) {
+      setError('Failed to update checklist item.');
+    } finally {
+      setUpdatingId(null);
     }
   };
 
@@ -95,7 +113,16 @@ function ChecklistDisplay() {
                 <TableRow key={item.id} hover onClick={() => setSelectedItem(item)} style={{ cursor: 'pointer' }}>
                   <TableCell>{item.user}</TableCell>
                   <TableCell>{item.regulation_update}</TableCell>
-                  <TableCell>{item.completed ? 'Yes' : 'No'}</TableCell>
+                  <TableCell onClick={e => e.stopPropagation()}>
+                    <Checkbox
+                      checked={!!item.completed}
+                      onChange={() => handleToggleCompleted(item)}
+                      disabled={updatingId === item.id}
+                      color="primary"
+                      inputProps={{ 'aria-label': 'Toggle completed' }}
+                    />
+                    {updatingId === item.id && <CircularProgress size={20} sx={{ ml: 1 }} />}
+                  </TableCell>
                   <TableCell>{item.notes}</TableCell>
                   <TableCell>{item.last_updated}</TableCell>
                 </TableRow>
