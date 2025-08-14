@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Alert, Card, CardContent, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, Checkbox, CircularProgress } from '@mui/material';
+import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Alert, Card, CardContent, Grid, Dialog, DialogTitle, DialogContent, DialogContentText, Checkbox, CircularProgress, IconButton, TextField, DialogActions, Snackbar, Tooltip } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 function ChecklistDisplay() {
   const [items, setItems] = useState([]);
@@ -10,6 +11,10 @@ function ChecklistDisplay() {
   const [highRiskCount, setHighRiskCount] = useState(0);
   const [overdueCount, setOverdueCount] = useState(0);
   const [updatingId, setUpdatingId] = useState(null);
+  const [editingNotesItem, setEditingNotesItem] = useState(null);
+  const [notesValue, setNotesValue] = useState('');
+  const [notesUpdating, setNotesUpdating] = useState(false);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const fetchChecklist = async () => {
     setLoading(true);
@@ -51,6 +56,32 @@ function ChecklistDisplay() {
       setError('Failed to update checklist item.');
     } finally {
       setUpdatingId(null);
+    }
+  };
+
+  const handleEditNotes = (item) => {
+    setEditingNotesItem(item);
+    setNotesValue(item.notes || '');
+  };
+
+  const handleSaveNotes = async () => {
+    if (!editingNotesItem) return;
+    setNotesUpdating(true);
+    try {
+      const token = localStorage.getItem('token');
+      await axios.patch(`http://localhost:8000/api/checklist/${editingNotesItem.id}/`, {
+        notes: notesValue
+      }, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      setEditingNotesItem(null);
+      setNotesValue('');
+      setSnackbarOpen(true);
+      await fetchChecklist();
+    } catch (err) {
+      setError('Failed to update notes.');
+    } finally {
+      setNotesUpdating(false);
     }
   };
 
@@ -114,16 +145,27 @@ function ChecklistDisplay() {
                   <TableCell>{item.user}</TableCell>
                   <TableCell>{item.regulation_update}</TableCell>
                   <TableCell onClick={e => e.stopPropagation()}>
-                    <Checkbox
-                      checked={!!item.completed}
-                      onChange={() => handleToggleCompleted(item)}
-                      disabled={updatingId === item.id}
-                      color="primary"
-                      inputProps={{ 'aria-label': 'Toggle completed' }}
-                    />
-                    {updatingId === item.id && <CircularProgress size={20} sx={{ ml: 1 }} />}
+                    <Tooltip title="Toggle completed status">
+                      <span>
+                        <Checkbox
+                          checked={!!item.completed}
+                          onChange={() => handleToggleCompleted(item)}
+                          disabled={updatingId === item.id}
+                          color="primary"
+                          inputProps={{ 'aria-label': 'Toggle completed' }}
+                        />
+                        {updatingId === item.id && <CircularProgress size={20} sx={{ ml: 1 }} />}
+                      </span>
+                    </Tooltip>
                   </TableCell>
-                  <TableCell>{item.notes}</TableCell>
+                  <TableCell onClick={e => e.stopPropagation()}>
+                    {item.notes}
+                    <Tooltip title="Edit notes">
+                      <IconButton size="small" onClick={() => handleEditNotes(item)} sx={{ ml: 1 }}>
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  </TableCell>
                   <TableCell>{item.last_updated}</TableCell>
                 </TableRow>
               ))}
@@ -145,6 +187,33 @@ function ChecklistDisplay() {
           )}
         </DialogContent>
       </Dialog>
+      <Dialog open={!!editingNotesItem} onClose={() => setEditingNotesItem(null)}>
+        <DialogTitle>Edit Notes</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Notes"
+            multiline
+            minRows={3}
+            value={notesValue}
+            onChange={e => setNotesValue(e.target.value)}
+            fullWidth
+            autoFocus
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setEditingNotesItem(null)} disabled={notesUpdating}>Cancel</Button>
+          <Button onClick={handleSaveNotes} variant="contained" disabled={notesUpdating}>
+            {notesUpdating ? <CircularProgress size={20} /> : 'Save'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={() => setSnackbarOpen(false)}
+        message="Notes updated successfully!"
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      />
     </Box>
   );
 }

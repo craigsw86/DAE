@@ -11,12 +11,14 @@ from .serializers import RegulationUpdateSerializer, ChecklistItemSerializer
 from django.contrib.auth.decorators import login_required
 from .forms import ChecklistItemForm
 from django.contrib import messages
+from django.utils.safestring import mark_safe
 
 # Create your views here.
 @login_required
 def checklist_view(request):
     user = request.user
     edit_id = request.GET.get('edit')
+    highlight = request.GET.get('highlight')
     if edit_id:
         item_to_edit = get_object_or_404(ChecklistItem, id=edit_id, user=user)
     else:
@@ -38,6 +40,9 @@ def checklist_view(request):
             return redirect('checklist_page')
     else:
         form = ChecklistItemForm(instance=item_to_edit) if item_to_edit else ChecklistItemForm()
+        # Highlight notes field if requested
+        if highlight == 'notes':
+            form.fields['notes'].widget.attrs['style'] = 'background: #fffbe6; border: 2px solid #ffd700;'
     items = ChecklistItem.objects.filter(user=user).select_related('regulation_update').order_by('-last_updated')
     return render(request, 'checklist/index.html', {'form': form, 'items': items, 'item_to_edit': item_to_edit})
 

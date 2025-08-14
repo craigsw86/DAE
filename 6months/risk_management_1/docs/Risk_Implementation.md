@@ -102,4 +102,41 @@ A = Accountable, R = Responsible, C = Consulted, I = Informed
 
 ---
 
+## 6. Notes & Alerts Integration
+
+### Real-Time Notes Editing
+- **React Frontend:** Users can edit notes for each checklist item directly in the dashboard table. Clicking the edit icon opens a dialog for real-time updates, which are saved via API PATCH requests and reflected instantly in the UI.
+- **Django Form:** Notes can be added or edited for each checklist item using the web form. The notes field is highlighted when editing, and changes are saved and displayed immediately in the item list.
+
+### Alerts System
+- **On-Screen Alerts:** The dashboard displays real-time banners for high and overdue risks, ensuring users are immediately aware of critical issues.
+- **Email Alerts:** Automated monitoring sends email notifications to superusers when risk thresholds are exceeded, supporting timely intervention.
+
+### Impact on Risk Management
+- **Improved Communication:** Real-time notes and alerts ensure all stakeholders are informed of risk status, mitigation actions, and new developments.
+- **Enhanced Tracking:** Notes provide a detailed audit trail for each risk, supporting historical tracking and compliance.
+- **Faster Mitigation:** Immediate alerts and easy notes editing enable quicker response to emerging risks and better documentation of actions taken.
+
+---
+
+## 7. User & Admin Guide: Notes and Alerts Features
+
+### Editing Notes
+- In the React dashboard, click the pencil icon next to any checklist item's notes to open a dialog for real-time editing. Save to update instantly.
+- In the Django web form, click 'Edit Notes' for an item. The notes field will be highlighted for editing. Submit to save changes.
+
+### Alerts
+- On-screen banners appear for high or overdue risks in the React dashboard.
+- Email alerts are sent to superusers when risk thresholds are exceeded.
+
+### Accessibility
+- All new UI elements (edit icons, dialogs, alerts) are accessible via keyboard and have ARIA labels/tooltips for screen readers.
+
+---
+
+## Changelog
+- **2025-06-XX:** Added real-time notes editing in React and Django, on-screen and email alerts, tooltips, and accessibility improvements.
+
+---
+
 *Prepared for executive and audit review. For questions or further details, contact the project security lead.*

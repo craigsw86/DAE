@@ -42,9 +42,11 @@
                     <li>
                         <strong>{{ item.regulation_update.title }}</strong> - 
                         {% if item.completed %}Completed{% else %}Incomplete{% endif %}<br>
-                        Notes: {{ item.notes|default:'(none)' }}<br>
+                        <span style="display: inline-block; background: #f5f5f5; border-radius: 4px; padding: 4px 8px; margin: 2px 0;">
+                            Notes: {{ item.notes|default:'(none)' }}
+                        </span><br>
                         Last updated: {{ item.last_updated }}<br>
-                        <a href="?edit={{ item.id }}">Edit</a>
+                        <a href="?edit={{ item.id }}&highlight=notes">Edit Notes</a>
                     </li>
                 {% endfor %}
             </ul>
