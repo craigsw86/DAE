@@ -1,8 +1,8 @@
 # Risk Communication
 
 **HIPAA Checklist Project**  
-[Your Name]  
-[Date]
+Craig Weinstein  
+2025-08-14
 
 ---
 
@@ -27,6 +27,8 @@
 - Conduct quarterly security awareness training for all staff.
 - Review and update access controls and policies at least annually.
 - Maintain and review automated monitoring and alerting systems.
+
+*This section summarizes the most important risk findings and recommendations for the project.*
 
 ---
 
@@ -54,6 +56,8 @@
 | Dashboard/Alert | Real-time/Weekly | IT/Security Team        |
 | Training Email  | Quarterly        | End Users               |
 
+*This section details the communication plan for all project stakeholders.*
+
 ---
 
 ## Visual Risk Dashboard & KPI Framework
@@ -63,6 +67,8 @@
 - **Alert Banners:** On-screen alerts for high/overdue risks
 - **Drill-Down:** Clickable table rows open detailed risk dialog
 - **Trend Chart:** (Optional) Visualize risk trends over time
+
+*For a live presentation, a dashboard screenshot or chart would be shown here.*
 
 ### Automated Alerting
 - **On-Screen:** Real-time banners for high/overdue risks
@@ -76,6 +82,8 @@
   - KPIs reviewed monthly by IT/Security and quarterly by the board
   - Automated monitoring command runs daily/weekly
   - Alerts trigger immediate review and response
+
+*This section describes the dashboard, alerting, and KPI tracking system.*
 
 ---
 

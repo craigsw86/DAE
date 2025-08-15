@@ -1,8 +1,8 @@
 # Risk Evaluation
 
 **HIPAA Checklist Project**  
-[Your Name]  
-[Date]
+Craig Weinstein  
+2025-08-14
 
 ---
 
@@ -36,6 +36,8 @@ This document presents a risk evaluation for the HIPAA Checklist Project, focusi
 | Ransomware Attack 🔴      | 4.45  | Open        | Patch, backup, incident response  |
 | Checklist App Downtime 🟡 | 3.35  | Mitigated   | Improve redundancy, monitor       |
 
+*This section provides a high-level overview of the most critical risks and recommended actions for the project.*
+
 ---
 
 ## 1. Methodology
@@ -47,6 +49,8 @@ This document presents a risk evaluation for the HIPAA Checklist Project, focusi
   4. Risk Evaluation and Prioritization
   5. Recommendations
 
+*This section outlines the structured approach used for risk evaluation.*
+
 ---
 
 ## 2. Risk Identification
@@ -57,6 +61,8 @@ This document presents a risk evaluation for the HIPAA Checklist Project, focusi
 | Application Server   | Ransomware attack     | Outdated dependencies        | Downtime, data loss       |
 | User Credentials     | Credential theft      | Weak password policy         | Unauthorized access       |
 
+*This section summarizes the key risks identified for the project.*
+
 ---
 
 ## 3. Risk Analysis
@@ -66,6 +72,8 @@ This document presents a risk evaluation for the HIPAA Checklist Project, focusi
 | Unencrypted PHI in database      | High       | High   | High       | Field encryption, access reviews |
 | Outdated dependencies            | Medium     | High   | High       | pip-audit, patch management      |
 | Weak authentication              | Medium     | High   | High       | JWT, password policy             |
+
+*This section details the likelihood, impact, and controls for each risk.*
 
 ---
 
@@ -80,6 +88,8 @@ This document presents a risk evaluation for the HIPAA Checklist Project, focusi
 - **Low Risks:**
   - Minor misconfigurations
 
+*This section categorizes risks by severity to prioritize mitigation efforts.*
+
 ---
 
 ## 5. Recommendations
@@ -88,6 +98,8 @@ This document presents a risk evaluation for the HIPAA Checklist Project, focusi
 - Strengthen authentication with multi-factor authentication (MFA).
 - Conduct regular security awareness training for all staff.
 - Review and update access controls quarterly.
+
+*This section provides actionable steps to reduce the project’s risk profile.*
 
 ---
 
@@ -111,6 +123,8 @@ Weighted Score = (Financial × 0.4) + (Operational × 0.25) + (Compliance × 0.2
 | Data Breach (PHI Exposure) 🔴| 5         | 5           | 5          | 5          | 5.00           | Open      |
 | Checklist App Downtime 🟡   | 3         | 4           | 3          | 3          | 3.35           | Mitigated |
 
+*This section explains the risk scoring model and shows how risks are prioritized.*
+
 ---
 
 ## 8. Business Impact Analysis (BIA)
@@ -129,12 +143,16 @@ Weighted Score = (Financial × 0.4) + (Operational × 0.25) + (Compliance × 0.2
 - PHI Database depends on backup system and app server.
 - Checklist App depends on PHI DB and user authentication.
 
+*This section quantifies the business impact of disruptions to critical assets.*
+
 ---
 
 ## 9. Evaluation Criteria & Stakeholder Approval
 
 - **Criteria:** Risks are evaluated using the weighted scoring model above, with input from financial, operational, compliance, and reputation stakeholders.
-- **Approval:** Criteria and results reviewed and approved by: [Stakeholder Name], [Date]
+- **Approval:** Criteria and results reviewed and approved by: Craig Weinstein, 2025-08-14
+
+*This section documents the evaluation criteria and formal approval.*
 
 ---
 
@@ -145,6 +163,8 @@ Weighted Score = (Financial × 0.4) + (Operational × 0.25) + (Compliance × 0.2
 | PHI Database    | Data breach, ransomware| Misconfig, weak auth, no MFA  | App server, backup system   | 5.00 🔴    | Open              | 2025-09-01  | High-value target            |
 | Checklist App   | Downtime, data loss    | Outdated deps, config errors  | PHI DB, user auth service   | 3.35 🟡    | Mitigated         | 2025-09-01  | User access critical         |
 | User Credentials| Credential theft       | Weak password, phishing       | Auth system, email          | 4.00 🔴    | Open              | 2025-09-01  | Needs MFA enforcement        |
+
+*This section provides a detailed register of critical assets and their risk exposure.*
 
 ---
 
@@ -162,6 +182,8 @@ Weighted Score = (Financial × 0.4) + (Operational × 0.25) + (Compliance × 0.2
   Checklist App downtime during audit period.  
   *Impact:* Missed compliance deadlines, $10,000 in lost productivity.
 
+*This section illustrates real-world risk scenarios and their impacts.*
+
 ---
 
 ## 12. Review & Update Log
@@ -172,6 +194,8 @@ Weighted Score = (Financial × 0.4) + (Operational × 0.25) + (Compliance × 0.2
 | 2025-08-01 | Project Lead     | Updated after new risk identified    |
 | 2025-09-01 | Compliance Off.  | Quarterly review, no major changes   |
 
+*This section tracks the review and update history for accountability.*
+
 ---
 
 ## 13. Glossary
@@ -181,6 +205,8 @@ Weighted Score = (Financial × 0.4) + (Operational × 0.25) + (Compliance × 0.2
 - **MTD:** Maximum Tolerable Downtime – Max downtime before severe impact
 - **PHI:** Protected Health Information
 - **MFA:** Multi-Factor Authentication
+
+*This section defines key terms used throughout the document.*
 
 ---
 

@@ -1,8 +1,8 @@
 # Risk Management Implementation
 
 **HIPAA Checklist Project**  
-[Your Name]  
-[Date]
+Craig Weinstein  
+2025-08-14
 
 ---
 
@@ -11,10 +11,10 @@
 ### Implementation Timeline & Phases
 | Phase                | Activities                                      | Timeline         |
 |----------------------|-------------------------------------------------|------------------|
-| Planning             | Define scope, objectives, stakeholders          | Week 1           |
-| Risk Assessment      | Identify, analyze, and evaluate risks           | Weeks 2-3        |
-| Control Selection    | Select and design risk mitigation controls      | Week 4           |
-| Implementation       | Deploy controls, train staff, document process  | Weeks 5-6        |
+| Planning             | Define scope, objectives, stakeholders          | 2025-07-01       |
+| Risk Assessment      | Identify, analyze, and evaluate risks           | 2025-07-02–2025-07-14 |
+| Control Selection    | Select and design risk mitigation controls      | 2025-07-15       |
+| Implementation       | Deploy controls, train staff, document process  | 2025-07-16–2025-07-31 |
 | Monitoring & Review  | Continuous monitoring, periodic review, update  | Ongoing          |
 
 ### Resource Allocation
@@ -36,6 +36,8 @@
 | Monitoring/maintenance      | C            | A/R              | C         | I                  | A/R        |
 
 A = Accountable, R = Responsible, C = Consulted, I = Informed
+
+*This section details the program plan, resource allocation, and responsibilities for risk management implementation.*
 
 ---
 
@@ -61,20 +63,24 @@ A = Accountable, R = Responsible, C = Consulted, I = Informed
 | Authorize            | Project lead approved risk posture             |
 | Monitor              | Automated monitoring, periodic risk reviews    |
 
+*This section explains how the NIST RMF was customized and integrated for HIPAA compliance.*
+
 ---
 
 ## 3. Comprehensive Risk Register (with Historical Tracking)
 
 | Risk ID | Description                | Owner      | Status     | Likelihood | Impact | Mitigation Actions                  | Last Reviewed | History/Notes                       |
 |---------|----------------------------|------------|------------|------------|--------|-------------------------------------|---------------|-------------------------------------|
-| R-001   | Outdated dependencies      | Dev Lead   | Mitigated  | Medium     | High   | Patch management, pip-audit         | 2025-07-01    | Patched 2025-06-15, re-reviewed     |
-| R-002   | Unencrypted PHI            | Dev Lead   | Open       | High       | High   | Implement field encryption          | 2025-07-01    | Encryption in progress              |
-| R-003   | Weak authentication        | Sec Analyst| Mitigated  | Medium     | High   | MFA, strong password policy         | 2025-07-01    | MFA added 2025-06-20                |
-| R-004   | Misconfiguration           | Dev Lead   | Open       | Medium     | Medium | Config audit, secure defaults       | 2025-07-01    | Config audit scheduled              |
+| R-001   | Outdated dependencies      | Dev Lead   | Mitigated  | Medium     | High   | Patch management, pip-audit         | 2025-08-14    | Patched 2025-06-15, re-reviewed     |
+| R-002   | Unencrypted PHI            | Dev Lead   | Open       | High       | High   | Implement field encryption          | 2025-08-14    | Encryption in progress              |
+| R-003   | Weak authentication        | Sec Analyst| Mitigated  | Medium     | High   | MFA, strong password policy         | 2025-08-14    | MFA added 2025-06-20                |
+| R-004   | Misconfiguration           | Dev Lead   | Open       | Medium     | Medium | Config audit, secure defaults       | 2025-08-14    | Config audit scheduled              |
 
 #### Sample Historical Change
 - R-003: Status changed from Open to Mitigated on 2025-06-20 after MFA implementation.
 - R-001: Patch applied on 2025-06-15, status updated to Mitigated.
+
+*This section provides a detailed, historically tracked risk register.*
 
 ---
 
@@ -92,6 +98,8 @@ A = Accountable, R = Responsible, C = Consulted, I = Informed
 - Alerts trigger immediate investigation and mitigation
 - Risk register updated with findings and actions
 
+*This section describes the continuous monitoring and alerting system for ongoing risk management.*
+
 ---
 
 ## 5. Lessons Learned & Continuous Improvement
@@ -99,6 +107,8 @@ A = Accountable, R = Responsible, C = Consulted, I = Informed
 - Integration of NIST RMF controls required customization for HIPAA-specific requirements.
 - Ongoing training and awareness are critical for maintaining compliance.
 - The risk management program is designed to adapt to new threats, regulatory changes, and lessons learned from incidents and audits.
+
+*This section highlights the program’s adaptability and commitment to improvement.*
 
 ---
 
@@ -117,6 +127,8 @@ A = Accountable, R = Responsible, C = Consulted, I = Informed
 - **Enhanced Tracking:** Notes provide a detailed audit trail for each risk, supporting historical tracking and compliance.
 - **Faster Mitigation:** Immediate alerts and easy notes editing enable quicker response to emerging risks and better documentation of actions taken.
 
+*This section explains how notes and alerts features enhance risk management.*
+
 ---
 
 ## 7. User & Admin Guide: Notes and Alerts Features
@@ -132,11 +144,15 @@ A = Accountable, R = Responsible, C = Consulted, I = Informed
 ### Accessibility
 - All new UI elements (edit icons, dialogs, alerts) are accessible via keyboard and have ARIA labels/tooltips for screen readers.
 
+*This section provides step-by-step instructions for using notes and alerts features.*
+
 ---
 
 ## Changelog
-- **2025-06-XX:** Added real-time notes editing in React and Django, on-screen and email alerts, tooltips, and accessibility improvements.
+- **2025-08-14:** Added real-time notes editing in React and Django, on-screen and email alerts, tooltips, and accessibility improvements.
 
 ---
+
+Contact: craig.weinstein@email.com
 
 *Prepared for executive and audit review. For questions or further details, contact the project security lead.*

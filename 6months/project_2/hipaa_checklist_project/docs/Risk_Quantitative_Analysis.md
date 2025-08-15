@@ -1,8 +1,8 @@
 # Quantitative Risk & Business Impact Analysis
 
 **HIPAA Checklist Project**  
-[Your Name]  
-[Date]
+Craig Weinstein  
+2025-08-14
 
 ---
 
@@ -16,6 +16,8 @@
 - **EMV (Expected Monetary Value) = Probability × Impact**
 - **ALE (Annualized Loss Expectancy) = SLE × ARO**
 - Example: For ransomware, EMV = 0.10 × $50,000 = $5,000; ALE = $50,000 × 0.2 = $10,000
+
+*This section quantifies risk using standard financial metrics for decision-making.*
 
 ---
 
@@ -35,6 +37,8 @@
 - PHI Database depends on backup system and app server.
 - Checklist App depends on PHI DB and user authentication.
 
+*This section details the business impact and dependencies of critical assets.*
+
 ---
 
 ## Evaluation Criteria & Stakeholder Approval
@@ -53,7 +57,9 @@
 | Data Breach (PHI Exposure)  | 5         | 5           | 5          | 5          | 5.00           |
 
 - **Stakeholder Approval:**
-  - Criteria and results reviewed and approved by: [Stakeholder Name], [Date]
+  - Criteria and results reviewed and approved by: Craig Weinstein, 2025-08-14
+
+*This section documents the evaluation criteria and formal approval for risk scoring.*
 
 ---
 
