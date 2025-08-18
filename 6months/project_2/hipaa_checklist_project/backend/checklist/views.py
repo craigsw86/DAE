@@ -12,6 +12,11 @@ from django.contrib.auth.decorators import login_required
 from .forms import ChecklistItemForm
 from django.contrib import messages
 from django.utils.safestring import mark_safe
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+import csv
+from django.utils.encoding import smart_str
 
 # Create your views here.
 @login_required
@@ -26,9 +31,9 @@ def checklist_view(request):
 
     if request.method == 'POST':
         if item_to_edit:
-            form = ChecklistItemForm(request.POST, instance=item_to_edit)
+            form = ChecklistItemForm(request.POST, instance=item_to_edit, user=user)
         else:
-            form = ChecklistItemForm(request.POST)
+            form = ChecklistItemForm(request.POST, user=user)
         if form.is_valid():
             checklist_item = form.save(commit=False)
             checklist_item.user = user
@@ -39,7 +44,7 @@ def checklist_view(request):
                 messages.success(request, 'Checklist item submitted successfully!')
             return redirect('checklist_page')
     else:
-        form = ChecklistItemForm(instance=item_to_edit) if item_to_edit else ChecklistItemForm()
+        form = ChecklistItemForm(instance=item_to_edit, user=user) if item_to_edit else ChecklistItemForm(user=user)
         # Highlight notes field if requested
         if highlight == 'notes':
             form.fields['notes'].widget.attrs['style'] = 'background: #fffbe6; border: 2px solid #ffd700;'
@@ -85,9 +90,91 @@ class ComplianceReportView(APIView):
         total = ChecklistItem.objects.filter(user=user).count()
         completed = ChecklistItem.objects.filter(user=user, completed=True).count()
         percent = (completed / total * 100) if total > 0 else 0
+        risks = [
+            {
+                'id': item.id,
+                'regulation': item.regulation_update.title if item.regulation_update else None,
+                'completed': item.completed,
+                'likelihood': item.likelihood,
+                'impact': item.impact,
+                'notes': item.notes,
+                'admin_notes': item.admin_notes,
+            }
+            for item in ChecklistItem.objects.filter(user=user).select_related('regulation_update')
+        ]
         return Response({
             'user': user.username,
             'total_items': total,
             'completed_items': completed,
             'completion_percentage': round(percent, 2),
+            'risks': risks,
         })
+
+@login_required
+def compliance_report_view(request):
+    user = request.user
+    total = ChecklistItem.objects.filter(user=user).count()
+    completed = ChecklistItem.objects.filter(user=user, completed=True).count()
+    percent = (completed / total * 100) if total > 0 else 0
+    risks = [
+        {
+            'id': item.id,
+            'regulation': item.regulation_update.title if item.regulation_update else None,
+            'completed': item.completed,
+            'likelihood': item.likelihood,
+            'impact': item.impact,
+            'notes': item.notes,
+            'admin_notes': item.admin_notes,
+        }
+        for item in ChecklistItem.objects.filter(user=user).select_related('regulation_update')
+    ]
+    # Filtering
+    status = request.GET.get('status')
+    if status == 'completed':
+        risks = [r for r in risks if r['completed']]
+    elif status == 'incomplete':
+        risks = [r for r in risks if not r['completed']]
+    likelihood = request.GET.get('likelihood')
+    if likelihood:
+        risks = [r for r in risks if str(r['likelihood']) == str(likelihood)]
+    impact = request.GET.get('impact')
+    if impact:
+        risks = [r for r in risks if str(r['impact']) == str(impact)]
+    # Sorting
+    sort = request.GET.get('sort')
+    order = request.GET.get('order', 'asc')
+    if sort in ['regulation', 'completed', 'likelihood', 'impact', 'notes', 'admin_notes']:
+        risks = sorted(risks, key=lambda r: r[sort], reverse=(order=='desc'))
+    context = {
+        'user': user,
+        'total_items': total,
+        'completed_items': completed,
+        'completion_percentage': round(percent, 2),
+        'risks': risks,
+        'request': request,
+        'sort': sort,
+        'order': order,
+    }
+    if request.GET.get('format') == 'pdf':
+        template = get_template('checklist/compliance_report.html')
+        html = template.render(context)
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="compliance_report.pdf"'
+        pisa.CreatePDF(html, dest=response)
+        return response
+    if request.GET.get('format') == 'csv':
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="compliance_report.csv"'
+        writer = csv.writer(response)
+        writer.writerow(['Regulation', 'Status', 'Likelihood', 'Impact', 'Notes', 'Admin Notes'])
+        for r in risks:
+            writer.writerow([
+                smart_str(r['regulation']),
+                'Completed' if r['completed'] else 'Incomplete',
+                r['likelihood'],
+                r['impact'],
+                smart_str(r['notes'] or '-'),
+                smart_str(r['admin_notes'] or '-')
+            ])
+        return response
+    return render(request, 'checklist/compliance_report.html', context)

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ChecklistDisplay from './components/ChecklistDisplay';
 import Login from './components/Login';
-import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Container, Box } from '@mui/material';
+import ComplianceReport from './components/ComplianceReport';
+import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Container, Box, Tabs, Tab } from '@mui/material';
 
 const theme = createTheme({
   palette: {
@@ -13,6 +14,7 @@ const theme = createTheme({
 
 function App() {
   const [token, setToken] = useState(null);
+  const [tab, setTab] = useState(0);
 
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
@@ -41,7 +43,12 @@ function App() {
         </Toolbar>
       </AppBar>
       <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-        <ChecklistDisplay />
+        <Tabs value={tab} onChange={(_, v) => setTab(v)} centered sx={{ mb: 4 }}>
+          <Tab label="Checklist" />
+          <Tab label="Compliance Report" />
+        </Tabs>
+        {tab === 0 && <ChecklistDisplay />}
+        {tab === 1 && <ComplianceReport />}
       </Container>
       <Box component="footer" sx={{ p: 2, textAlign: 'center', bgcolor: 'grey.100' }}>
         <Typography variant="body2" color="text.secondary">

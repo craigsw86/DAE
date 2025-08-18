@@ -12,6 +12,7 @@ Craig Weinstein
 - The HIPAA Checklist Project has identified and assessed key risks to the confidentiality, integrity, and availability of protected health information (PHI).
 - Quantitative analysis (EMV, ALE) and Business Impact Analysis (BIA) have been completed for critical risks and assets.
 - Automated monitoring and alerting are in place for high and overdue risks.
+- **Integrated Compliance Reporting:** The project now features a unified compliance report available in both the React frontend and Django backend, with advanced risk matrix visualization, filtering, sorting, and export options.
 
 ### Financial Impact Analysis
 | Risk                        | EMV ($) | ALE ($) | Financial Impact ($/hr) |
@@ -60,12 +61,40 @@ Craig Weinstein
 
 ---
 
+## Report Data Integration & Communication
+
+### Unified Compliance Report
+- **Frontend (React):**
+  - Fetches all compliance report data from `/api/report`.
+  - Displays a summary, advanced risk matrix, and a detailed risks table.
+  - Supports real-time filtering (status, likelihood, impact), sorting (by any column), and CSV export.
+  - Shows both user notes and (for admins) internal/admin notes for each risk.
+- **Backend (Django):**
+  - Renders a printable, exportable compliance report with the same data and features as the frontend.
+  - Supports PDF/CSV export, advanced filtering, and sorting.
+  - Admin notes are visible only to staff/superusers.
+- **Risk Matrix:**
+  - Visualizes all risks by likelihood and impact (5x5 grid), color-coded by severity.
+  - Tooltips show regulation, status, user notes, and (for admins) admin notes.
+
+### Communication & Review
+- Reports can be shared digitally (CSV/PDF) or printed for executive, compliance, or audit review.
+- Admin/internal notes support confidential communication among project leads and security staff.
+- All report features are accessible via both the web dashboard and Django server-rendered views.
+
+*This section documents the integration and communication of compliance report data across the project.*
+
+---
+
 ## Visual Risk Dashboard & KPI Framework
 
 ### Dashboard Features
 - **KPI Cards:** Total risks, high risks, overdue risks
 - **Alert Banners:** On-screen alerts for high/overdue risks
 - **Drill-Down:** Clickable table rows open detailed risk dialog
+- **Risk Matrix:** Interactive 5x5 grid with real risk data, color-coded by severity
+- **Advanced Table:** Filtering, sorting, and export (CSV/PDF) for all risks
+- **Admin Notes:** Internal comments visible only to staff/superusers
 - **Trend Chart:** (Optional) Visualize risk trends over time
 
 *For a live presentation, a dashboard screenshot or chart would be shown here.*

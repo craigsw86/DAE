@@ -11,8 +11,8 @@ Craig Weinstein
 2. [Methodology](#1-methodology)
 3. [Risk Identification](#2-risk-identification)
 4. [Risk Analysis](#3-risk-analysis)
-5. [Evaluation Results](#4-evaluation-results)
-6. [Recommendations](#5-recommendations)
+5. [Recommendations](#5-recommendations)
+6. [Tabbed Navigation & Usability](#6-tabbed-navigation--usability)
 7. [Multi-Criteria Risk Scoring Model](#7-multi-criteria-risk-scoring-model)
 8. [Business Impact Analysis (BIA)](#8-business-impact-analysis-bia)
 9. [Evaluation Criteria & Stakeholder Approval](#9-evaluation-criteria--stakeholder-approval)
@@ -26,7 +26,7 @@ Craig Weinstein
 
 ## Executive Summary
 
-This document presents a risk evaluation for the HIPAA Checklist Project, focusing on the identification, analysis, and prioritization of risks that could impact the confidentiality, integrity, and availability of protected health information (PHI). The evaluation follows NIST SP 800-30 and HIPAA Security Rule guidelines to ensure regulatory compliance and effective risk management.
+This document presents a risk evaluation for the HIPAA Checklist Project, focusing on the identification, analysis, and prioritization of risks that could impact the confidentiality, integrity, and availability of protected health information (PHI). The evaluation follows NIST SP 800-30 and HIPAA Security Rule guidelines to ensure regulatory compliance and effective risk management. **A new tabbed navigation system in both the React frontend and Django backend improves access to risk evaluation, compliance reports, and checklist management.**
 
 ### Executive Summary Table
 
@@ -48,8 +48,27 @@ This document presents a risk evaluation for the HIPAA Checklist Project, focusi
   3. Risk Analysis (Likelihood & Impact)
   4. Risk Evaluation and Prioritization
   5. Recommendations
+- **Usability:** Tabbed navigation in both the web app and Django interface allows users to quickly switch between the checklist, compliance report, and risk evaluation sections.
 
 *This section outlines the structured approach used for risk evaluation.*
+
+---
+
+## 6. Tabbed Navigation & Usability
+
+To improve user experience and accessibility, the HIPAA Checklist Project now features tabbed navigation in both the React frontend and Django backend:
+
+- **React Frontend:**
+  - Material-UI tabs allow users to switch between the Checklist and Compliance Report with a single click.
+  - The interface is modern, responsive, and consistent across all sections.
+- **Django Backend:**
+  - A reusable navigation template provides tabs for "Checklist" and "Compliance Report".
+  - The active tab is highlighted, and navigation is consistent across all server-rendered pages.
+- **Impact:**
+  - Users can easily access risk evaluation, reporting, and checklist management without losing context.
+  - Navigation improvements support better compliance workflows and faster risk review.
+
+*This section describes the navigation improvements and their impact on usability.*
 
 ---
 
@@ -98,6 +117,7 @@ This document presents a risk evaluation for the HIPAA Checklist Project, focusi
 - Strengthen authentication with multi-factor authentication (MFA).
 - Conduct regular security awareness training for all staff.
 - Review and update access controls quarterly.
+- **Enhance user experience with clear, tabbed navigation for all major risk and compliance features.**
 
 *This section provides actionable steps to reduce the project’s risk profile.*
 

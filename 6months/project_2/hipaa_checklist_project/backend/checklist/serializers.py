@@ -10,6 +10,8 @@ class RegulationUpdateSerializer(serializers.ModelSerializer):
 class ChecklistItemSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField()
     regulation_update = serializers.SerializerMethodField()
+    likelihood = serializers.IntegerField()
+    impact = serializers.IntegerField()
 
     class Meta:
         model = ChecklistItem

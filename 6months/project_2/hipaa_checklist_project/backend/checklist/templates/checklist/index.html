@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'checklist/style.css' %}">
 </head>
 <body>
+    {% include 'checklist/nav.html' %}
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}

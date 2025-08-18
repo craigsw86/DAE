@@ -23,10 +23,13 @@ class ChecklistItem(models.Model):
     regulation_update = models.ForeignKey(RegulationUpdate, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
     notes = EncryptedCharField(max_length=500, blank=True, null=True)
+    admin_notes = EncryptedCharField(max_length=500, blank=True, null=True, help_text="Admin/internal comments")
     last_updated = models.DateTimeField(auto_now=True)
+    likelihood = models.IntegerField(default=1, choices=[(i, str(i)) for i in range(1,6)], help_text="Likelihood (1=Low, 5=High)")
+    impact = models.IntegerField(default=1, choices=[(i, str(i)) for i in range(1,6)], help_text="Impact (1=Low, 5=High)")
 
     def __str__(self):
-        return f"{self.user.username} - {self.regulation_update.title}"
+        return f"{self.user.username} - {self.regulation_update.title} (L:{self.likelihood}, I:{self.impact})"
 
 auditlog.register(RegulationUpdate)
 auditlog.register(ChecklistItem)
