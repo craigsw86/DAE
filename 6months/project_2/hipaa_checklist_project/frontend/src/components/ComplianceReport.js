@@ -13,7 +13,7 @@ const riskColors = [
   ['#ffebee', '#ffcdd2', '#ef9a9a', '#e57373', '#ef5350'], // Critical
 ];
 
-function RiskMatrix({ risks }) {
+function RiskMatrix({ risks, isAdmin }) {
   const grid = Array.from({ length: RISK_MATRIX_SIZE }, () =>
     Array.from({ length: RISK_MATRIX_SIZE }, () => [])
   );
@@ -230,7 +230,7 @@ export default function ComplianceReport() {
           </Box>
         </CardContent>
       </Card>
-      <RiskMatrix risks={filteredRisks} />
+      <RiskMatrix risks={filteredRisks} isAdmin={isAdmin} />
       <Box sx={{ mt: 4 }}>
         <Typography variant="h6" gutterBottom>Risks Table</Typography>
         <TableContainer component={Paper}>
