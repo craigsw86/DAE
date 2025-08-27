@@ -116,4 +116,14 @@ Craig Weinstein
 
 ---
 
+## Technical Implementation (2024 Update)
+
+- All checklist items and regulation updates are tracked with audit logs (who changed what and when).
+- Mitigation steps for each risk are now tracked and editable in both the admin and frontend.
+- Users can view audit history for any checklist item or regulation update in the React app.
+- All API access is authenticated via JWT.
+- Data flow: User logs in → receives JWT → interacts with checklist/regulations → all changes are logged and auditable.
+
+---
+
 *Prepared for executive and stakeholder review. For questions or further details, contact the project security lead.*

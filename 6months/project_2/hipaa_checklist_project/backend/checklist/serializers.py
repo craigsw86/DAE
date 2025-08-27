@@ -12,6 +12,7 @@ class ChecklistItemSerializer(serializers.ModelSerializer):
     regulation_update = serializers.SerializerMethodField()
     likelihood = serializers.IntegerField()
     impact = serializers.IntegerField()
+    mitigation_steps = serializers.CharField(allow_blank=True, allow_null=True, required=False)
 
     class Meta:
         model = ChecklistItem
