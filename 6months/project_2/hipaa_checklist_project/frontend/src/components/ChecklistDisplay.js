@@ -280,6 +280,11 @@ function ChecklistDisplay() {
     }
   }, [error]);
 
+  // Reset pagination when filters change
+  useEffect(() => {
+    setAuditLogPage(0);
+  }, [auditLogFilter, auditLogSearch]);
+
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -308,8 +313,41 @@ function ChecklistDisplay() {
     window.open(`${process.env.REACT_APP_API_BASE_URL}/api/checklist/export/pdf/`, '_blank');
   };
 
+  const handleProfileSave = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/profile/`, profileForm, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      setUserProfile(response.data);
+      setProfileMsg('Profile updated successfully!');
+      setTimeout(() => setProfileMsg(''), 3000);
+    } catch (err) {
+      setProfileMsg(parseApiError(err));
+    }
+  };
+
   // Responsive table container style
   const tableContainerSx = { maxHeight: { xs: 300, sm: 500 }, overflowX: 'auto' };
+
+  // Compute filtered and paged audit log data
+  const filteredAuditLog = auditLog.filter(entry => {
+    if (auditLogFilter && entry.action !== auditLogFilter) return false;
+    if (auditLogSearch) {
+      const searchLower = auditLogSearch.toLowerCase();
+      return (
+        (entry.actor && entry.actor.toLowerCase().includes(searchLower)) ||
+        (entry.action && entry.action.toLowerCase().includes(searchLower)) ||
+        (entry.changes && JSON.stringify(entry.changes).toLowerCase().includes(searchLower))
+      );
+    }
+    return true;
+  });
+
+  const pagedAuditLog = filteredAuditLog.slice(
+    auditLogPage * AUDIT_LOG_PAGE_SIZE,
+    (auditLogPage + 1) * AUDIT_LOG_PAGE_SIZE
+  );
 
   return (
     <Box sx={{ p: { xs: 1, sm: 2 } }}>
