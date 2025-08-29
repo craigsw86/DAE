@@ -124,29 +124,37 @@ class ComplianceReportView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        user = request.user
-        total = ChecklistItem.objects.filter(user=user).count()
-        completed = ChecklistItem.objects.filter(user=user, completed=True).count()
-        percent = (completed / total * 100) if total > 0 else 0
-        risks = [
-            {
-                'id': item.id,
-                'regulation': item.regulation_update.title if item.regulation_update else None,
-                'completed': item.completed,
-                'likelihood': item.likelihood,
-                'impact': item.impact,
-                'notes': item.notes,
-                'admin_notes': item.admin_notes,
-            }
-            for item in ChecklistItem.objects.filter(user=user).select_related('regulation_update')
-        ]
-        return Response({
-            'user': user.username,
-            'total_items': total,
-            'completed_items': completed,
-            'completion_percentage': round(percent, 2),
-            'risks': risks,
-        })
+        try:
+            user = request.user
+            total = ChecklistItem.objects.filter(user=user).count()
+            completed = ChecklistItem.objects.filter(user=user, completed=True).count()
+            percent = (completed / total * 100) if total > 0 else 0
+            
+            risks = [
+                {
+                    'id': item.id,
+                    'regulation': item.regulation_update.title if item.regulation_update else None,
+                    'completed': item.completed,
+                    'likelihood': item.likelihood,
+                    'impact': item.impact,
+                    'notes': item.notes,
+                    'admin_notes': item.admin_notes,
+                }
+                for item in ChecklistItem.objects.filter(user=user).select_related('regulation_update')
+            ]
+            
+            return Response({
+                'user': user.username,
+                'total_items': total,
+                'completed_items': completed,
+                'completion_percentage': round(percent, 2),
+                'risks': risks,
+            })
+        except Exception as e:
+            return Response(
+                {'error': 'Failed to generate compliance report', 'details': str(e)},
+                status=500
+            )
 
 @login_required
 def compliance_report_view(request):

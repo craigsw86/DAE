@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, CircularProgress, Alert, Tooltip, Chip, Stack, Button, MenuItem, Select, FormControl, InputLabel, IconButton } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
@@ -109,12 +109,38 @@ export default function ComplianceReport() {
     setError(null);
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        setError('Authentication token not found. Please log in again.');
+        return;
+      }
+      
       const res = await axios.get('http://localhost:8000/api/report/', {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        headers: { Authorization: `Bearer ${token}` },
+        timeout: 10000, // 10 second timeout
       });
-      setReport(res.data);
+      
+      if (res.data && res.data.risks) {
+        setReport(res.data);
+      } else {
+        setError('Invalid response format from server.');
+      }
     } catch (err) {
-      setError('Failed to fetch compliance report.');
+      if (err.response) {
+        // Server responded with error status
+        if (err.response.status === 401) {
+          setError('Authentication failed. Please log in again.');
+        } else if (err.response.status === 500) {
+          setError('Server error. Please try again later.');
+        } else {
+          setError(`Request failed: ${err.response.status}`);
+        }
+      } else if (err.request) {
+        // Network error
+        setError('Network error. Please check your connection and try again.');
+      } else {
+        // Other error
+        setError('An unexpected error occurred. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -129,28 +155,33 @@ export default function ComplianceReport() {
   if (error) return <Alert severity="error">{error}</Alert>;
   if (!report) return null;
 
-  // Filtering
-  let filteredRisks = (report.risks || []).filter(risk => {
-    if (filters.status === 'completed' && !risk.completed) return false;
-    if (filters.status === 'incomplete' && risk.completed) return false;
-    if (filters.likelihood && String(risk.likelihood) !== String(filters.likelihood)) return false;
-    if (filters.impact && String(risk.impact) !== String(filters.impact)) return false;
-    return true;
-  });
-  // Sorting
-  if (sort.field) {
-    filteredRisks = [...filteredRisks].sort((a, b) => {
-      let aVal = a[sort.field];
-      let bVal = b[sort.field];
-      if (sort.field === 'regulation' || sort.field === 'notes' || sort.field === 'admin_notes') {
-        aVal = aVal ? aVal.toLowerCase() : '';
-        bVal = bVal ? bVal.toLowerCase() : '';
-      }
-      if (aVal < bVal) return sort.order === 'asc' ? -1 : 1;
-      if (aVal > bVal) return sort.order === 'asc' ? 1 : -1;
-      return 0;
+  // Optimized filtering and sorting with useMemo
+  const filteredRisks = useMemo(() => {
+    let filtered = (report.risks || []).filter(risk => {
+      if (filters.status === 'completed' && !risk.completed) return false;
+      if (filters.status === 'incomplete' && risk.completed) return false;
+      if (filters.likelihood && String(risk.likelihood) !== String(filters.likelihood)) return false;
+      if (filters.impact && String(risk.impact) !== String(filters.impact)) return false;
+      return true;
     });
-  }
+    
+    // Sorting
+    if (sort.field) {
+      filtered = [...filtered].sort((a, b) => {
+        let aVal = a[sort.field];
+        let bVal = b[sort.field];
+        if (sort.field === 'regulation' || sort.field === 'notes' || sort.field === 'admin_notes') {
+          aVal = aVal ? aVal.toLowerCase() : '';
+          bVal = bVal ? bVal.toLowerCase() : '';
+        }
+        if (aVal < bVal) return sort.order === 'asc' ? -1 : 1;
+        if (aVal > bVal) return sort.order === 'asc' ? 1 : -1;
+        return 0;
+      });
+    }
+    
+    return filtered;
+  }, [report.risks, filters, sort]);
 
   const handleFilterChange = (field, value) => {
     setFilters(f => ({ ...f, [field]: value }));
