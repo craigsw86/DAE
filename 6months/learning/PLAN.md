@@ -6,8 +6,8 @@
 
 ## Student commitment
 
--   **Name:**
--   **Date created:** YYYY-MM-DD
+-   **Name:** Craig Weinstein
+-   **Date created:** 2025-09-02
 
 I commit to treat this plan as my personal roadmap: I will keep dates realistic, finish each small task, capture evidence of success, and update this file if anything changes.
 
