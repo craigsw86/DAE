@@ -15,16 +15,16 @@ I commit to treat this plan as my personal roadmap: I will keep dates realistic,
 
 ## Chosen technology
 
--   **Technology name:**
--   **Technology version (if applicable):**
+-   **Technology name:** Black Duck
+-   **Technology version (if applicable):** 2025.7.0
 
 ### Why I chose this technology
 
-In 2–3 short sentences explain how this technology will be integrated into my capstone project and the specific capability it adds.
+https://www.youtube.com/watch?v=SSFSwh9Uzu8
 
 ---
 
-## First-day actions (complete in the 15-minute selection clinic)
+## First-day actions
 
 1. Finalize the **Chosen technology** and **Why I chose this technology** fields above.
 2. Draft three small integration tasks below with realistic start and target completion dates.
@@ -36,32 +36,31 @@ In 2–3 short sentences explain how this technology will be integrated into my 
 
 ## My three integration tasks (small, testable, dated)
 
-For each task include Title, Description, Start date, Target completion date, a clear Success criterion, and the Proof method I will capture to show success.
 
-**Task 1 — Title:**
+**Task 1 — Title:** Install and Configure Black Duck for Dependency Scans
 
--   **Description:** (1–2 sentences describing the exact change I will make in the project)
--   **Start date:** YYYY-MM-DD
--   **Target completion date:** YYYY-MM-DD
--   **Success criterion (explicit):** (Example: “A unit or integration test demonstrates the endpoint returns the expected JSON for sample data.”)
--   **Proof method (what I will capture to show success):** (Example: “Screenshot of passing CI test and a curl example pasted into `learning/README.md`.”)
--   **Where I will start Task 1:** (local branch name or workspace path)
+-   **Description:** Set up Black Duck for the React + Django codebase and perform the first dependency vulnerability scan
+-   **Start date:** 2025-09-02
+-   **Target completion date:** 2025-09-03
+-   **Success criterion (explicit):** Black Duck completes a scan of dependencies without errors and produces a results list.
+-   **Proof method (what I will capture to show success):** Screenshot of scan output showing dependency analysis.
+-   **Where I will start Task 1:** Local branch `blackduck-setup`
 
-**Task 2 — Title:**
+**Task 2 — Title:** Generate Initial Security & License Report
 
--   **Description:**
--   **Start date:** YYYY-MM-DD
--   **Target completion date:** YYYY-MM-DD
--   **Success criterion (explicit):**
--   **Proof method (what I will capture to show success):**
+-   **Description:** Use Black Duck to generate a security and license compliance report summarizing vulnerabilities and risk levels.
+-   **Start date:** 2025-09-03
+-   **Target completion date:** 2025-09-04
+-   **Success criterion (explicit):** Report lists all project dependencies, severity ratings, and license information.
+-   **Proof method (what I will capture to show success):** Save report PDF/HTML in repo and screenshot the results summary.
 
-**Task 3 — Title:**
+**Task 3 — Title:** Integrate Black Duck Scan into Development Workflow
 
--   **Description:**
--   **Start date:** YYYY-MM-DD
--   **Target completion date:** YYYY-MM-DD
--   **Success criterion (explicit):**
--   **Proof method (what I will capture to show success):**
+-   **Description:** Document and automate a repeatable scan step so future dependency updates can be checked quickly.
+-   **Start date:** 2025-09-04
+-   **Target completion date:** 2025-09-05
+-   **Success criterion (explicit):** A single documented command runs Black Duck scan and outputs updated report.
+-   **Proof method (what I will capture to show success):** Screenshot of automated scan run and new report saved in repo.
 
 > Note: Keep each task small enough that one task = one focused change or one short demo.
 
@@ -83,41 +82,3 @@ List any access or external requirements that could block completion. For exampl
 -   **Week 2:** Continue Task 1; produce a draft PR or demo; start Task 2.
 -   **Week 3:** Continue Task 2; add tests/logging and peer review; start Task 3.
 -   **Week 4:** Finalize PR(s) or demo(s); draft `learning/README.md` and `learning/REFLECTION.md`.
-
-I will replace the above with exact dates in the tasks section once I finalize them.
-
----
-
-## Example (model entry — replace with my own)
-
-**Name:** Alex Example  
-**Date created:** 2025-09-01
-
-**Chosen technology:** FastAPI 0.95
-
-**Why:** FastAPI lets me add a small HTTP endpoint to our capstone API so I can demonstrate endpoint design and tests.
-
-**Task 1 — Add user-summary endpoint**
-
--   **Description:** Add `GET /users/{id}/summary` returning aggregated profile data.
--   **Start date:** 2025-09-02
--   **Target completion date:** 2025-09-08
--   **Success criterion:** A unit or integration test demonstrates the endpoint returns expected JSON for sample data.
--   **Proof method:** I will capture a screenshot of the CI test passing and paste one curl example and expected JSON into `learning/README.md`.
--   **Where I will start Task 1:** local branch `feature/user-summary`
-
-**Task 2 — Request counter & health-check**
-
--   **Description:** Add an in-memory counter for endpoint requests and expose `/health`.
--   **Start date:** 2025-09-09
--   **Target completion date:** 2025-09-15
--   **Success criterion:** Health-check test fails when service is down and passes when service is up.
--   **Proof method:** I will save a short terminal recording or screenshot showing the health-check response and note the test run in `learning/README.md`.
-
-**Task 3 — Mini-tutorial**
-
--   **Description:** Write a one-page tutorial in `learning/README.md` showing how to call the endpoint with example response.
--   **Start date:** 2025-09-16
--   **Target completion date:** 2025-09-22
--   **Success criterion:** Tutorial includes a curl example and expected JSON and a screenshot or short recorded response.
--   **Proof method:** I will save the tutorial to `learning/README.md` with a screenshot or short recorded command output link.
