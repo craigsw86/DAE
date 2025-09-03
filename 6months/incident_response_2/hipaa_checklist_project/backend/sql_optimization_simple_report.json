@@ -1,0 +1,79 @@
+{
+  "timestamp": "2025-09-02T21:34:38.859627",
+  "queries": [
+    {
+      "name": "All Regulations",
+      "execution_time": 0.004990339279174805,
+      "result_count": 15,
+      "status": "success"
+    },
+    {
+      "name": "All Checklist Items",
+      "execution_time": 0.0009860992431640625,
+      "result_count": 3,
+      "status": "success"
+    },
+    {
+      "name": "Items with Relations",
+      "execution_time": 0.0010323524475097656,
+      "result_count": 3,
+      "status": "success"
+    },
+    {
+      "name": "High Risk Items",
+      "execution_time": 0.0009813308715820312,
+      "result_count": 1,
+      "status": "success"
+    },
+    {
+      "name": "Completed Items",
+      "execution_time": 0.0009832382202148438,
+      "result_count": 1,
+      "status": "success"
+    },
+    {
+      "name": "Items by User",
+      "execution_time": 0.0010008811950683594,
+      "result_count": 3,
+      "status": "success"
+    }
+  ],
+  "optimizations": [
+    {
+      "technique": "select_related",
+      "before_time": 0.0020020008087158203,
+      "after_time": 0.0009999275207519531,
+      "improvement_percent": 50.053590568060024
+    },
+    {
+      "technique": "index_test_likelihood_filter",
+      "execution_time": 0.0013241767883300781,
+      "result_count": 1
+    },
+    {
+      "technique": "index_test_impact_filter",
+      "execution_time": 0.001007080078125,
+      "result_count": 1
+    },
+    {
+      "technique": "index_test_completion_filter",
+      "execution_time": 0.0,
+      "result_count": 1
+    },
+    {
+      "technique": "raw_sql_simple_select",
+      "execution_time": 0.0,
+      "result_count": 1
+    },
+    {
+      "technique": "raw_sql_join_query",
+      "execution_time": 0.0,
+      "result_count": 3
+    },
+    {
+      "technique": "raw_sql_aggregation",
+      "execution_time": 0.0010001659393310547,
+      "result_count": 1
+    }
+  ]
+}
