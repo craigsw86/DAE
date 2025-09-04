@@ -121,7 +121,7 @@ function ChecklistDisplay() {
     setRetry(false);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/checklist/`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/checklist/`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       setItems(response.data);
@@ -148,7 +148,7 @@ function ChecklistDisplay() {
     setRetry(false);
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/api/checklist/${item.id}/`, {
+      await axios.patch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/checklist/${item.id}/`, {
         completed: !item.completed
       }, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -173,7 +173,7 @@ function ChecklistDisplay() {
     setRetry(false);
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/api/checklist/${editingNotesItem.id}/`, {
+      await axios.patch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/checklist/${editingNotesItem.id}/`, {
         notes: notesValue
       }, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -201,7 +201,7 @@ function ChecklistDisplay() {
     setRetry(false);
     try {
       const token = localStorage.getItem('token');
-      await axios.patch(`${process.env.REACT_APP_API_BASE_URL}/api/checklist/${editingMitigationItem.id}/`, {
+      await axios.patch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/checklist/${editingMitigationItem.id}/`, {
         mitigation_steps: mitigationValue
       }, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
@@ -224,7 +224,7 @@ function ChecklistDisplay() {
     setAuditLog([]);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/auditlog/checklistitem/${item.id}/`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/auditlog/checklistitem/${item.id}/`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       setAuditLog(response.data);
@@ -241,7 +241,7 @@ function ChecklistDisplay() {
     setRegAuditLog([]);
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/auditlog/regulationupdate/${regulationId}/`, {
+      const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/auditlog/regulationupdate/${regulationId}/`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       setRegAuditLog(response.data);
@@ -257,7 +257,7 @@ function ChecklistDisplay() {
     setTrendError('');
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/report/trends/`, {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/report/trends/`, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       setTrendData(res.data);
@@ -289,7 +289,7 @@ function ChecklistDisplay() {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/profile/`, {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/profile/`, {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         });
         setUserProfile(res.data);
@@ -307,16 +307,16 @@ function ChecklistDisplay() {
   if (error) return <div style={{color: 'red'}}>{error}</div>;
 
   const handleExportCSV = () => {
-    window.open(`${process.env.REACT_APP_API_BASE_URL}/api/checklist/export/csv/`, '_blank');
+    window.open(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/checklist/export/csv/`, '_blank');
   };
   const handleExportPDF = () => {
-    window.open(`${process.env.REACT_APP_API_BASE_URL}/api/checklist/export/pdf/`, '_blank');
+    window.open(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/checklist/export/pdf/`, '_blank');
   };
 
   const handleProfileSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.put(`${process.env.REACT_APP_API_BASE_URL}/api/profile/`, profileForm, {
+      const response = await axios.put(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/profile/`, profileForm, {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       });
       setUserProfile(response.data);

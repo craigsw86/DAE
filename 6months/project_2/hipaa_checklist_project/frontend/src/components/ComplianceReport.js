@@ -151,13 +151,11 @@ export default function ComplianceReport() {
     // eslint-disable-next-line
   }, []);
 
-  if (loading) return <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}><CircularProgress /></Box>;
-  if (error) return <Alert severity="error">{error}</Alert>;
-  if (!report) return null;
-
   // Optimized filtering and sorting with useMemo
   const filteredRisks = useMemo(() => {
-    let filtered = (report.risks || []).filter(risk => {
+    if (!report || !report.risks) return [];
+    
+    let filtered = report.risks.filter(risk => {
       if (filters.status === 'completed' && !risk.completed) return false;
       if (filters.status === 'incomplete' && risk.completed) return false;
       if (filters.likelihood && String(risk.likelihood) !== String(filters.likelihood)) return false;
@@ -181,7 +179,11 @@ export default function ComplianceReport() {
     }
     
     return filtered;
-  }, [report.risks, filters, sort]);
+  }, [report, filters, sort]);
+
+  if (loading) return <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}><CircularProgress /></Box>;
+  if (error) return <Alert severity="error">{error}</Alert>;
+  if (!report) return null;
 
   const handleFilterChange = (field, value) => {
     setFilters(f => ({ ...f, [field]: value }));

@@ -1,0 +1,120 @@
+{
+  "info": {
+    "_postman_id": "d1e1b2c3-4567-890a-bcde-1234567890ab",
+    "name": "HIPAA Checklist API Sample",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Obtain Token",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"{{username}}\",\n  \"password\": \"{{password}}\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/token/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "token", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Checklist - List All",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/checklist/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "checklist", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Checklist - Create",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user\": 1,\n  \"regulation_update\": 1,\n  \"completed\": false,\n  \"notes\": \"Initial assignment.\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/checklist/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "checklist", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Checklist - Update",
+      "request": {
+        "method": "PUT",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"user\": 1,\n  \"regulation_update\": 1,\n  \"completed\": true,\n  \"notes\": \"Updated notes.\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/checklist/1/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "checklist", "1", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Checklist - Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/checklist/1/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "checklist", "1", ""]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Checklist - My Items (Raw SQL)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/checklist/my_items_raw/",
+          "host": ["{{base_url}}"],
+          "path": ["api", "checklist", "my_items_raw", ""]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:8000" },
+    { "key": "username", "value": "yourusername" },
+    { "key": "password", "value": "yourpassword" },
+    { "key": "access_token", "value": "" }
+  ]
+}

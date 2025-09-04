@@ -44,7 +44,7 @@ function Login({ setToken }) {
     setLoading(true);
     setRetry(false);
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/token/`, { username, password });
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/token/`, { username, password });
       localStorage.setItem('token', response.data.access);
       setToken(response.data.access);
     } catch (err) {
