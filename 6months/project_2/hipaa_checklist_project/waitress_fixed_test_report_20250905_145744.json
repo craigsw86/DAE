@@ -1,0 +1,116 @@
+[
+  {
+    "test": "Server Connection",
+    "success": false,
+    "message": "Server not running or not accessible",
+    "timestamp": "2025-09-05T14:56:59.799068"
+  },
+  {
+    "test": "Health Check API Endpoint",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/health/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC40F450>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:03.882749"
+  },
+  {
+    "test": "API Info Endpoint",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/info/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC415710>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:07.969801"
+  },
+  {
+    "test": "Public Stats API Endpoint",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/stats/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC417990>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:12.054042"
+  },
+  {
+    "test": "Admin Interface Endpoint",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /admin/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC425C50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:16.159200"
+  },
+  {
+    "test": "Static Files Endpoint",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /static/admin/css/base.css (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC416D50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:20.229638"
+  },
+  {
+    "test": "Checklist API Endpoint (Auth)",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/checklist/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC415A50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:24.294092"
+  },
+  {
+    "test": "Regulations API Endpoint (Auth)",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/regulations/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC40F210>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:28.376719"
+  },
+  {
+    "test": "Compliance Report API Endpoint (Auth)",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/report/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC404910>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:32.452699"
+  },
+  {
+    "test": "JWT Authentication",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: /api/token/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC426D90>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:36.544441"
+  },
+  {
+    "test": "Database Encryption",
+    "success": false,
+    "message": "Encryption setup failed",
+    "timestamp": "2025-09-05T14:57:36.655870"
+  },
+  {
+    "test": "db.sqlite3 Permissions",
+    "success": false,
+    "message": "Insecure permissions: 0o100666",
+    "timestamp": "2025-09-05T14:57:36.656860"
+  },
+  {
+    "test": "db.sqlite3.encrypted Permissions",
+    "success": false,
+    "message": "Insecure permissions: 0o100666",
+    "timestamp": "2025-09-05T14:57:36.656860"
+  },
+  {
+    "test": "Security Headers",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC86C5D0>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:40.774267"
+  },
+  {
+    "test": "Database Tables",
+    "success": true,
+    "message": "Found 15 tables",
+    "timestamp": "2025-09-05T14:57:40.777268"
+  },
+  {
+    "test": "Security Audit Table",
+    "success": true,
+    "message": "Security audit table exists",
+    "timestamp": "2025-09-05T14:57:40.777268"
+  },
+  {
+    "test": "Journal Mode",
+    "success": true,
+    "message": "Mode: wal",
+    "timestamp": "2025-09-05T14:57:40.777268"
+  },
+  {
+    "test": "Secure Delete",
+    "success": true,
+    "message": "Enabled: False",
+    "timestamp": "2025-09-05T14:57:40.777268"
+  },
+  {
+    "test": "Performance Optimization",
+    "success": false,
+    "message": "Error: HTTPConnectionPool(host='localhost', port=8000): Max retries exceeded with url: / (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x0000014BAC86EC50>: Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it'))",
+    "timestamp": "2025-09-05T14:57:44.855407"
+  }
+]
