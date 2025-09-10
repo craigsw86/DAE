@@ -82,3 +82,8 @@ List any access or external requirements that could block completion. For exampl
 -   **Week 2:** Continue Task 1; produce a draft PR or demo; start Task 2.
 -   **Week 3:** Continue Task 2; add tests/logging and peer review; start Task 3.
 -   **Week 4:** Finalize PR(s) or demo(s); draft `learning/README.md` and `learning/REFLECTION.md`.
+
+## UPDATES (9/8/2025):
+- Tried to download the Black Duck SCA program directly from the website, but encountered roadblocks there (the Black Duck website wouldn't accept messages from a Gmail address); now investigating free open-souce alternatives on GitHub from Black Duck themselves.
+- Downloaded Detect as well as Black Duck Security Scan from GitHub.
+
