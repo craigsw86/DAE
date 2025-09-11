@@ -1,0 +1,137 @@
+{
+  "test_results": [
+    {
+      "test": "Health Check Endpoint",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:00.248245"
+    },
+    {
+      "test": "API Info Endpoint",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:02.331944"
+    },
+    {
+      "test": "Public Stats Endpoint",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:04.415123"
+    },
+    {
+      "test": "Login Failure",
+      "success": true,
+      "message": "Correctly rejects invalid credentials",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:06.799610"
+    },
+    {
+      "test": "User Status",
+      "success": false,
+      "message": "Test user may not exist",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:06.799610"
+    },
+    {
+      "test": "Checklist API (No Auth)",
+      "success": true,
+      "message": "Endpoint exists but requires auth",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:09.859612"
+    },
+    {
+      "test": "Regulations API (No Auth)",
+      "success": true,
+      "message": "Endpoint exists but requires auth",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:11.912138"
+    },
+    {
+      "test": "Compliance Report API (No Auth)",
+      "success": true,
+      "message": "Endpoint exists but requires auth",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:13.971695"
+    },
+    {
+      "test": "User Profile API (No Auth)",
+      "success": true,
+      "message": "Endpoint exists but requires auth",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:16.023592"
+    },
+    {
+      "test": "Protected Endpoints (Auth)",
+      "success": false,
+      "message": "No authentication token available",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:16.024601"
+    },
+    {
+      "test": "CRUD Operations",
+      "success": false,
+      "message": "No authentication token available",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:16.025611"
+    },
+    {
+      "test": "Export Functionality",
+      "success": false,
+      "message": "No authentication token available",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:16.025611"
+    },
+    {
+      "test": "Health Check Performance",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:18.106338"
+    },
+    {
+      "test": "API Info Performance",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:20.137328"
+    },
+    {
+      "test": "Public Stats Performance",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:22.193990"
+    },
+    {
+      "test": "404 Handling",
+      "success": true,
+      "message": "Correctly returns 404",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:24.282866"
+    },
+    {
+      "test": "Invalid JSON Handling",
+      "success": true,
+      "message": "Correctly returns 400",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:26.331681"
+    },
+    {
+      "test": "Cleanup",
+      "success": true,
+      "message": "No test data to clean up",
+      "data": null,
+      "timestamp": "2025-09-05T15:48:26.332200"
+    }
+  ],
+  "test_data": {},
+  "summary": {
+    "total_tests": 18,
+    "passed_tests": 8,
+    "failed_tests": 10,
+    "success_rate": 44.44444444444444
+  }
+}

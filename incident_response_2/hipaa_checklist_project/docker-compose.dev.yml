@@ -1,0 +1,156 @@
+version: '3.8'
+
+services:
+  # Django Backend for Development
+  backend-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    container_name: hipaa_backend_dev
+    restart: unless-stopped
+    environment:
+      - DJANGO_SETTINGS_MODULE=hipaa_checklist.settings
+      - FIELD_ENCRYPTION_KEY=1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54=
+      - SECRET_KEY=tj3y6j#0l#6%*f=6fn%l=-^49=v_1_gbn-yb7)%%baff%_l@a4
+      - DEBUG=True
+      - WAITRESS_HOST=0.0.0.0
+      - WAITRESS_PORT=8000
+      - WAITRESS_THREADS=2
+    volumes:
+      - ./backend:/app/backend
+      - ./logs:/app/logs
+      - ./backups:/app/backups
+    ports:
+      - "8000:8000"
+    networks:
+      - hipaa_dev_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # React Frontend for Development
+  frontend-dev:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: hipaa_frontend_dev
+    restart: unless-stopped
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+      - REACT_APP_ENVIRONMENT=development
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    networks:
+      - hipaa_dev_network
+    depends_on:
+      - backend-dev
+    stdin_open: true
+    tty: true
+
+  # SQLite Database with Volume
+  database:
+    image: alpine:latest
+    container_name: hipaa_database_dev
+    restart: unless-stopped
+    volumes:
+      - database_data:/data
+      - ./backend/db.sqlite3:/data/db.sqlite3
+    networks:
+      - hipaa_dev_network
+    command: ["tail", "-f", "/dev/null"]
+
+  # Redis for Caching (Optional)
+  redis:
+    image: redis:7-alpine
+    container_name: hipaa_redis_dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - hipaa_dev_network
+    command: redis-server --appendonly yes
+
+  # Nginx for Development
+  nginx-dev:
+    image: nginx:alpine
+    container_name: hipaa_nginx_dev
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-dev.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - ./frontend/build:/usr/share/nginx/html:ro
+      - ./backend/staticfiles:/app/backend/staticfiles:ro
+    depends_on:
+      - backend-dev
+      - frontend-dev
+    networks:
+      - hipaa_dev_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Database Backup Service
+  db-backup-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    container_name: hipaa_db_backup_dev
+    restart: "no"
+    environment:
+      - DJANGO_SETTINGS_MODULE=hipaa_checklist.settings
+    volumes:
+      - database_data:/app/backend/db.sqlite3
+      - ./backups:/app/backups
+    command: ["python", "backend/setup_database_security.py"]
+    depends_on:
+      - backend-dev
+    networks:
+      - hipaa_dev_network
+
+  # Monitoring Service
+  monitoring-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: backend
+    container_name: hipaa_monitoring_dev
+    restart: unless-stopped
+    environment:
+      - DJANGO_SETTINGS_MODULE=hipaa_checklist.settings
+    volumes:
+      - database_data:/app/backend/db.sqlite3
+      - ./logs:/app/logs
+    command: ["python", "backend/monitor_waitress.py", "--interval", "30"]
+    depends_on:
+      - backend-dev
+    networks:
+      - hipaa_dev_network
+
+volumes:
+  database_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  hipaa_dev_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16

@@ -20,7 +20,7 @@ class RegulationUpdate(models.Model):
     
 class ChecklistItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True)
-    regulation_update = models.ForeignKey(RegulationUpdate, on_delete=models.CASCADE, db_index=True)
+    regulation_update = models.ForeignKey(RegulationUpdate, on_delete=models.CASCADE, db_index=True, db_column='regulation_update_id')
     completed = models.BooleanField(default=False, db_index=True)
     notes = EncryptedCharField(max_length=500, blank=True, null=True)
     admin_notes = EncryptedCharField(max_length=500, blank=True, null=True, help_text="Admin/internal comments")
