@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ChecklistDisplay from './components/ChecklistDisplay';
 import Login from './components/Login';
 import ComplianceReport from './components/ComplianceReport';
+import SecurityDashboard from './components/SecurityDashboard';
 import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Container, Box, Tabs, Tab } from '@mui/material';
 
 const theme = createTheme({
@@ -46,9 +47,11 @@ function App() {
         <Tabs value={tab} onChange={(_, v) => setTab(v)} centered sx={{ mb: 4 }}>
           <Tab label="Checklist" />
           <Tab label="Compliance Report" />
+          <Tab label="Security Dashboard" />
         </Tabs>
         {tab === 0 && <ChecklistDisplay />}
         {tab === 1 && <ComplianceReport />}
+        {tab === 2 && <SecurityDashboard />}
       </Container>
       <Box component="footer" sx={{ p: 2, textAlign: 'center', bgcolor: 'grey.100' }}>
         <Typography variant="body2" color="text.secondary">
