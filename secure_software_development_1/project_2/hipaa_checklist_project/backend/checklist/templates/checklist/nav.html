@@ -1,0 +1,26 @@
+<style>
+.tabs-nav {
+  display: flex;
+  border-bottom: 2px solid #1976d2;
+  margin-bottom: 2em;
+}
+.tabs-nav a {
+  padding: 10px 24px;
+  text-decoration: none;
+  color: #1976d2;
+  border: 1px solid #1976d2;
+  border-bottom: none;
+  background: #f5f5f5;
+  margin-right: 4px;
+  border-radius: 8px 8px 0 0;
+  font-weight: bold;
+}
+.tabs-nav a.active {
+  background: #1976d2;
+  color: #fff;
+}
+</style>
+<div class="tabs-nav">
+  <a href="/checklist-page/" class="{% if request.path == '/checklist-page/' %}active{% endif %}">Checklist</a>
+  <a href="/compliance-report/" class="{% if request.path == '/compliance-report/' %}active{% endif %}">Compliance Report</a>
+</div>

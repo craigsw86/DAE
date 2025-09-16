@@ -1,0 +1,249 @@
+{
+  "timestamp": "2025-09-07T00:40:55.192501",
+  "overall_status": "FAIL",
+  "categories": {
+    "database_security": {
+      "status": "FAIL",
+      "checks": {
+        "database_files": {
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3": {
+            "exists": true,
+            "size": 278528,
+            "permissions": "0o100666",
+            "modified": "2025-09-07T00:09:44.814221"
+          },
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3.encrypted": {
+            "exists": true,
+            "size": 366008,
+            "permissions": "0o100666",
+            "modified": "2025-09-05T15:08:50.583732"
+          },
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.encrypted": {
+            "exists": true,
+            "size": 371468,
+            "permissions": "0o100666",
+            "modified": "2025-09-07T00:40:44.613893"
+          }
+        },
+        "encryption_key_exists": true,
+        "encryption_key_permissions": "0o100666",
+        "database_connectivity": true,
+        "tables_count": 15
+      },
+      "issues": [
+        "Encrypted database is readable without decryption"
+      ],
+      "recommendations": []
+    },
+    "ssl_tls_security": {
+      "status": "FAIL",
+      "checks": {
+        "certificate_files": {
+          "hipaa_checklist.crt": {
+            "exists": true,
+            "size": 796,
+            "permissions": "0o100666",
+            "modified": "2025-09-05T13:40:20.127448"
+          },
+          "hipaa_checklist.key": {
+            "exists": true,
+            "size": 7063,
+            "permissions": "0o100666",
+            "modified": "2025-09-05T13:40:20.546320"
+          },
+          "hipaa_checklist.pfx": {
+            "exists": true,
+            "size": 2630,
+            "permissions": "0o100666",
+            "modified": "2025-09-05T13:40:20.541317"
+          }
+        },
+        "https_connectivity": false,
+        "nginx_ssl_config": {
+          "file_exists": true,
+          "has_ssl_protocols": true,
+          "has_ssl_ciphers": true,
+          "has_hsts": true
+        }
+      },
+      "issues": [
+        "Certificate validation failed: 'utf-8' codec can't decode byte 0x82 in position 1: invalid start byte"
+      ],
+      "recommendations": [
+        "Start HTTPS server for testing"
+      ]
+    },
+    "network_security": {
+      "status": "PASS",
+      "checks": {
+        "open_ports": {
+          "80": false,
+          "443": false,
+          "8000": false,
+          "3000": false,
+          "22": false,
+          "21": false,
+          "23": false,
+          "25": false,
+          "53": false,
+          "110": false,
+          "143": false,
+          "993": false,
+          "995": false
+        },
+        "rate_limiting_working": false,
+        "nginx_security": {
+          "has_rate_limiting": true,
+          "has_security_headers": true,
+          "blocks_sensitive_files": true,
+          "has_ssl_redirect": true
+        }
+      },
+      "issues": [],
+      "recommendations": [
+        "Test rate limiting when server is running"
+      ]
+    },
+    "authentication_security": {
+      "status": "PASS",
+      "checks": {
+        "django_security": {
+          "has_secret_key": true,
+          "has_debug_false": false,
+          "has_secure_ssl_redirect": true,
+          "has_csrf_cookie_secure": true,
+          "has_session_cookie_secure": true,
+          "has_jwt_auth": true
+        },
+        "jwt_endpoint_working": false,
+        "security_middleware": {
+          "exists": true,
+          "has_security_headers": true,
+          "has_hsts": true,
+          "has_csp": true
+        }
+      },
+      "issues": [],
+      "recommendations": [
+        "Start Django server to test JWT authentication"
+      ]
+    },
+    "file_permissions": {
+      "status": "FAIL",
+      "checks": {
+        "file_permissions": {
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3": {
+            "permissions": "0o100666",
+            "owner_readable": true,
+            "group_readable": true,
+            "other_readable": true,
+            "owner_writable": true,
+            "group_writable": true,
+            "other_writable": true
+          },
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3.encrypted": {
+            "permissions": "0o100666",
+            "owner_readable": true,
+            "group_readable": true,
+            "other_readable": true,
+            "owner_writable": true,
+            "group_writable": true,
+            "other_writable": true
+          },
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\ssl\\hipaa_checklist.key": {
+            "permissions": "0o100666",
+            "owner_readable": true,
+            "group_readable": true,
+            "other_readable": true,
+            "owner_writable": true,
+            "group_writable": true,
+            "other_writable": true
+          },
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\encryption.key": {
+            "permissions": "0o100666",
+            "owner_readable": true,
+            "group_readable": true,
+            "other_readable": true,
+            "owner_writable": true,
+            "group_writable": true,
+            "other_writable": true
+          }
+        },
+        "directory_permissions": {
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend": {
+            "permissions": "0o40777",
+            "owner_executable": true,
+            "group_executable": true,
+            "other_executable": true
+          },
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\ssl": {
+            "permissions": "0o40777",
+            "owner_executable": true,
+            "group_executable": true,
+            "other_executable": true
+          },
+          "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\logs": {
+            "permissions": "0o40777",
+            "owner_executable": true,
+            "group_executable": true,
+            "other_executable": true
+          }
+        }
+      },
+      "issues": [
+        "File C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3 has overly permissive write permissions",
+        "File C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3.encrypted has overly permissive write permissions",
+        "Sensitive file C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3.encrypted is readable by group/others",
+        "File C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\ssl\\hipaa_checklist.key has overly permissive write permissions",
+        "Sensitive file C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\ssl\\hipaa_checklist.key is readable by group/others",
+        "File C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\encryption.key has overly permissive write permissions",
+        "Sensitive file C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\encryption.key is readable by group/others"
+      ],
+      "recommendations": []
+    },
+    "security_headers": {
+      "status": "PASS",
+      "checks": {
+        "http_response": {
+          "error": "Server not running"
+        },
+        "nginx_headers": {
+          "has_x_frame_options": true,
+          "has_x_content_type": true,
+          "has_x_xss_protection": true,
+          "has_hsts": true
+        }
+      },
+      "issues": [],
+      "recommendations": [
+        "Start server to test security headers"
+      ]
+    }
+  },
+  "recommendations": [
+    "ssl_tls_security: Start HTTPS server for testing",
+    "network_security: Test rate limiting when server is running",
+    "authentication_security: Start Django server to test JWT authentication",
+    "security_headers: Start server to test security headers"
+  ],
+  "critical_issues": [
+    "database_security: Encrypted database is readable without decryption",
+    "ssl_tls_security: Certificate validation failed: 'utf-8' codec can't decode byte 0x82 in position 1: invalid start byte",
+    "file_permissions: File C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3 has overly permissive write permissions",
+    "file_permissions: File C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3.encrypted has overly permissive write permissions",
+    "file_permissions: Sensitive file C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\db.sqlite3.encrypted is readable by group/others",
+    "file_permissions: File C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\ssl\\hipaa_checklist.key has overly permissive write permissions",
+    "file_permissions: Sensitive file C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\ssl\\hipaa_checklist.key is readable by group/others",
+    "file_permissions: File C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\encryption.key has overly permissive write permissions",
+    "file_permissions: Sensitive file C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project\\backend\\encryption.key is readable by group/others"
+  ],
+  "summary": {
+    "total_categories": 6,
+    "passed_categories": 3,
+    "failed_categories": 3,
+    "error_categories": 0,
+    "success_rate": "50.0%",
+    "critical_issues_count": 0,
+    "recommendations_count": 0
+  }
+}

@@ -1,0 +1,170 @@
+[
+  {
+    "test": "Server Response",
+    "success": true,
+    "message": "Status: 200",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:49.811424"
+  },
+  {
+    "test": "Health Check",
+    "success": true,
+    "message": "Status: healthy",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:51.904202"
+  },
+  {
+    "test": "API Version",
+    "success": true,
+    "message": "Version: 1.0.0",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:51.905202"
+  },
+  {
+    "test": "API Message",
+    "success": true,
+    "message": "Message: HIPAA Checklist API is running",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:51.905202"
+  },
+  {
+    "test": "API Info",
+    "success": true,
+    "message": "Name: HIPAA Checklist API",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:53.965067"
+  },
+  {
+    "test": "API Description",
+    "success": true,
+    "message": "Description: HIPAA compliance checklist management system",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:53.965067"
+  },
+  {
+    "test": "API Endpoints",
+    "success": true,
+    "message": "Endpoints: 6",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:53.965067"
+  },
+  {
+    "test": "Public Stats",
+    "success": true,
+    "message": "Total items: 8",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:56.026361"
+  },
+  {
+    "test": "Completed Items",
+    "success": true,
+    "message": "Completed: 3",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:56.026361"
+  },
+  {
+    "test": "Completion Rate",
+    "success": true,
+    "message": "Rate: 37.5%",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:56.026361"
+  },
+  {
+    "test": "Admin Interface",
+    "success": true,
+    "message": "Admin interface accessible",
+    "data": null,
+    "timestamp": "2025-09-11T11:51:58.098939"
+  },
+  {
+    "test": "Token Endpoint",
+    "success": true,
+    "message": "Correctly rejects invalid credentials",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:00.448793"
+  },
+  {
+    "test": "Token Refresh",
+    "success": true,
+    "message": "Correctly rejects invalid refresh token",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:02.561647"
+  },
+  {
+    "test": "Checklist API (No Auth)",
+    "success": true,
+    "message": "Endpoint exists but requires auth",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:04.609600"
+  },
+  {
+    "test": "Regulations API (No Auth)",
+    "success": true,
+    "message": "Endpoint exists but requires auth",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:06.701941"
+  },
+  {
+    "test": "Compliance Report API (No Auth)",
+    "success": true,
+    "message": "Endpoint exists but requires auth",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:08.778573"
+  },
+  {
+    "test": "User Profile API (No Auth)",
+    "success": true,
+    "message": "Endpoint exists but requires auth",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:10.879142"
+  },
+  {
+    "test": "Health Check Performance",
+    "success": false,
+    "message": "Status: 404",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:13.002058"
+  },
+  {
+    "test": "API Info Performance",
+    "success": false,
+    "message": "Status: 404",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:15.076295"
+  },
+  {
+    "test": "Public Stats Performance",
+    "success": false,
+    "message": "Status: 404",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:17.145675"
+  },
+  {
+    "test": "404 Handling",
+    "success": true,
+    "message": "Correctly returns 404",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:19.250261"
+  },
+  {
+    "test": "Invalid JSON Handling",
+    "success": true,
+    "message": "Correctly returns 400",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:21.302251"
+  },
+  {
+    "test": "Database Query",
+    "success": true,
+    "message": "Successfully queried database",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:23.358974"
+  },
+  {
+    "test": "Data Retrieval",
+    "success": true,
+    "message": "Retrieved 8 items",
+    "data": null,
+    "timestamp": "2025-09-11T11:52:23.358974"
+  }
+]
