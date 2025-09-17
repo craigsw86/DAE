@@ -1,0 +1,241 @@
+# 📘 Mini-Tutorial: Black Duck Detect Integration
+
+_A student-authored tutorial documenting Black Duck Detect security scanning integration learned in Semester 5._
+
+---
+
+## ❓ What This Teaches
+
+**Black Duck Detect is a comprehensive security scanning tool that identifies vulnerabilities in your project dependencies.** It scans both frontend (npm) and backend (pip) packages to detect known security issues, license compliance problems, and outdated components. This tool is essential for any project that needs to maintain security compliance, especially in healthcare applications like HIPAA-compliant systems where security vulnerabilities can lead to data breaches and regulatory violations.
+
+> This tutorial shows how to integrate Black Duck Detect into a Django/React application, set up automated security scanning, and create a user-friendly dashboard for monitoring vulnerabilities in real-time.
+
+---
+
+## 🎯 Use Case
+
+> Black Duck Detect is crucial for maintaining security compliance in production applications, especially in regulated industries.
+
+-   [x] Backend development
+-   [x] Cybersecurity
+-   [x] Monitoring / Observability
+-   [ ] Performance / Testing
+-   [x] Authentication / Authorization
+-   [x] DevOps / Deployments
+-   [x] Other: _Healthcare Compliance (HIPAA)_
+
+---
+
+## 🚀 Quick Setup / Install
+
+Black Duck Detect requires Java 11+ and can be integrated into any project with package managers.
+
+```bash
+# 1. Install Java 11 (if not already installed)
+# Download from: https://adoptium.net/temurin/releases/
+
+# 2. Set JAVA_HOME environment variable
+set JAVA_HOME=C:\Program Files\Java\jdk-11
+
+# 3. Download Black Duck Detect script
+# Get detect.sh from Synopsys Black Duck portal
+
+# 4. Install project dependencies
+npm install  # For frontend packages
+pip install -r requirements.txt  # For backend packages
+```
+
+---
+
+## 🛠️ Step-by-Step Guide
+
+Here's how to integrate Black Duck Detect into a Django/React application:
+
+1. **Create Black Duck Detect script (`tools/detect/run-detect-jdk11.bat`):**
+
+    ```batch
+    @echo off
+    set JAVA_HOME=C:\Program Files\Java\jdk-11
+    set PATH=%JAVA_HOME%\bin;%PATH%
+    
+    java -jar detect.jar ^
+        --blackduck.url=https://your-blackduck-server.com ^
+        --blackduck.api.token=your-api-token ^
+        --detect.project.name="HIPAA Checklist Project" ^
+        --detect.project.version="1.0.0" ^
+        --detect.source.path=. ^
+        --detect.output.path=reports/detect/
+    ```
+
+2. **Create Django security API (`backend/checklist/security_views.py`):**
+
+    ```python
+    from rest_framework.decorators import api_view
+    from rest_framework.response import Response
+    import json
+    import os
+
+    @api_view(['GET'])
+    def security_report(request):
+        # Load Black Duck Detect report
+        report_path = 'reports/detect/blackduck-detect-report.json'
+        if os.path.exists(report_path):
+            with open(report_path, 'r') as f:
+                data = json.load(f)
+            return Response(data)
+        return Response({'error': 'No security report found'})
+
+    @api_view(['POST'])
+    def run_security_scan(request):
+        # Trigger Black Duck Detect scan
+        import subprocess
+        result = subprocess.run(['tools/detect/run-detect-jdk11.bat'], 
+                              capture_output=True, text=True)
+        return Response({'status': 'Scan completed', 'output': result.stdout})
+    ```
+
+3. **Create React Security Dashboard (`frontend/src/components/SecurityDashboard.js`):**
+
+    ```jsx
+    import React, { useState, useEffect } from 'react';
+    import './SecurityDashboard.css';
+
+    function SecurityDashboard() {
+        const [vulnerabilities, setVulnerabilities] = useState([]);
+        const [scanning, setScanning] = useState(false);
+
+        const runScan = async () => {
+            setScanning(true);
+            try {
+                const response = await fetch('/api/security/scan/', {
+                    method: 'POST',
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                await loadReport();
+            } catch (error) {
+                console.error('Scan failed:', error);
+            }
+            setScanning(false);
+        };
+
+        const loadReport = async () => {
+            const response = await fetch('/api/security/report/');
+            const data = await response.json();
+            setVulnerabilities(data.vulnerabilities || []);
+        };
+
+        useEffect(() => { loadReport(); }, []);
+
+        return (
+            <div className="security-dashboard">
+                <h2>Security Dashboard</h2>
+                <button onClick={runScan} disabled={scanning}>
+                    {scanning ? 'Scanning...' : 'Run Security Scan'}
+                </button>
+                <div className="vulnerabilities">
+                    {vulnerabilities.map(vuln => (
+                        <div key={vuln.id} className={`vuln-card ${vuln.severity}`}>
+                            <h4>{vuln.component}</h4>
+                            <p>Severity: {vuln.severity}</p>
+                            <p>CVSS: {vuln.cvssScore}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
+    ```
+
+4. **Run the integrated application:**
+
+    ```bash
+    # Terminal 1: Start Django Backend
+    cd backend
+    python manage.py runserver
+
+    # Terminal 2: Start React Frontend  
+    cd frontend
+    npm start
+    ```
+
+---
+
+## ✅ What You Should See
+
+When everything is working correctly, you should see:
+
+> **Security Dashboard UI:**
+> -   Visiting `http://localhost:3000` shows the Security Dashboard tab
+> -   Clicking "Run Security Scan" triggers a vulnerability scan
+> -   Vulnerabilities are displayed with severity levels (Critical, High, Medium, Low)
+> -   Each vulnerability shows component name, CVSS score, and description
+
+> **API Endpoints:**
+> -   `GET http://localhost:8000/api/security/report/` returns JSON vulnerability data
+> -   `POST http://localhost:8000/api/security/scan/` triggers a new scan
+
+> **Terminal Output:**
+> ```
+> Black Duck Detect 8.0.0
+> Starting Black Duck Detect...
+> Scanning project dependencies...
+> Found 10 vulnerabilities in 45 components
+> Report saved to: reports/detect/blackduck-detect-report.json
+> ```
+
+> **File System:**
+> -   `reports/detect/` directory contains scan reports
+> -   JSON and TXT format reports are generated
+> -   Historical scan data is preserved
+
+You can embed screenshots if helpful:
+
+```markdown
+![Security Dashboard Screenshot](../PROOF/security-dashboard.png)
+![Vulnerability Report Screenshot](../PROOF/vulnerability-report.png)
+```
+
+---
+
+## 💡 Pro Tips / Edge Cases
+
+Important considerations for Black Duck Detect integration:
+
+-   **Java Version Management**: Always use Java 11+ and ensure JAVA_HOME is set correctly. Use version switching scripts if you have multiple Java versions installed.
+-   **API Token Security**: Store Black Duck API tokens in environment variables, never hardcode them in scripts or source code.
+-   **Scan Frequency**: Don't run scans too frequently as they can be resource-intensive. Consider scheduling scans during off-peak hours.
+-   **Report Storage**: Implement proper cleanup of old scan reports to prevent disk space issues in production.
+-   **Network Access**: Ensure your application has network access to the Black Duck server for real-time scanning.
+
+---
+
+## 📚 Learn More
+
+Essential resources for Black Duck Detect and security scanning:
+
+-   [Black Duck Detect Documentation](https://community.synopsys.com/s/document-item?bundleId=integrations-detect&topicId=detect.html&_LANG=enus)
+-   [Synopsys Black Duck Community](https://community.synopsys.com/s/)
+-   [OWASP Dependency Check](https://owasp.org/www-project-dependency-check/) - Alternative open-source tool
+-   [NIST Cybersecurity Framework](https://www.nist.gov/cyberframework) - Security compliance guidelines
+-   [HIPAA Technical Safeguards](https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html) - Healthcare compliance requirements
+
+---
+
+## 👤 Authored by: [Your Name]
+
+🗓️ Date: 2025-01-17  
+🔁 Validated by: [Educator or Peer Name if applicable]
+
+---
+
+## 🎯 Key Takeaways
+
+This tutorial demonstrates how to integrate enterprise-grade security scanning into modern web applications. Black Duck Detect provides:
+
+- **Comprehensive Vulnerability Detection**: Scans all project dependencies for known security issues
+- **Real-time Security Monitoring**: Dashboard integration for continuous security awareness  
+- **Compliance Support**: Essential for HIPAA, SOX, and other regulatory requirements
+- **Developer-Friendly Integration**: Easy-to-use APIs and UI components
+- **Automated Workflow**: One-click scanning and reporting capabilities
+
+The integration shown here can be adapted to any Django/React project and provides a solid foundation for maintaining security compliance in production applications.

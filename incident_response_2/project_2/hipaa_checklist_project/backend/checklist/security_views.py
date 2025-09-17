@@ -15,10 +15,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+from .real_security_scanner import RealSecurityScanner
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
 def security_report(request):
     """
     Get security scan report including dependency vulnerabilities
@@ -38,8 +38,8 @@ def security_report(request):
                 'dependencies': []
             })
         
-        # Look for report files
-        report_files = list(reports_dir.glob('*'))
+        # Look for report files (prioritize real scans over mock data)
+        report_files = list(reports_dir.glob('*_report.json'))
         
         if not report_files:
             return Response({
@@ -53,13 +53,18 @@ def security_report(request):
         # Get the most recent report file
         latest_report = max(report_files, key=os.path.getmtime)
         
-        # Parse the report (assuming JSON format)
+        # Parse the report
         try:
             with open(latest_report, 'r', encoding='utf-8') as f:
                 report_data = json.load(f)
-        except (json.JSONDecodeError, UnicodeDecodeError):
-            # If it's not JSON, create a mock report for demonstration
-            report_data = create_mock_security_report(latest_report)
+        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            return Response({
+                'status': 'error',
+                'message': f'Error parsing report file: {str(e)}',
+                'last_scan': None,
+                'vulnerabilities': [],
+                'dependencies': []
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         return Response({
             'status': 'success',
@@ -68,7 +73,8 @@ def security_report(request):
             'report_file': latest_report.name,
             'vulnerabilities': report_data.get('vulnerabilities', []),
             'dependencies': report_data.get('dependencies', []),
-            'summary': report_data.get('summary', {})
+            'summary': report_data.get('summary', {}),
+            'scan_metadata': report_data.get('scan_metadata', {})
         })
         
     except Exception as e:
@@ -82,73 +88,37 @@ def security_report(request):
 
 
 @api_view(['POST'])
-@permission_classes([IsAuthenticated])
 def run_security_scan(request):
     """
-    Trigger a new security scan using Black Duck Detect
+    Trigger a new security scan using real dependency scanning tools
     """
     try:
         # Get the project root directory
         project_root = Path(__file__).parent.parent.parent.parent
-        detect_dir = project_root / 'tools' / 'detect'
         
-        # Ensure reports directory exists
-        reports_dir = project_root / 'reports' / 'detect'
-        reports_dir.mkdir(parents=True, exist_ok=True)
+        # Create scanner instance
+        scanner = RealSecurityScanner(project_root)
         
-        # Set up Java environment
-        java_home = r'C:\Program Files\Java\jdk-11'
-        if not os.path.exists(java_home):
-            return Response({
-                'status': 'error',
-                'message': 'JDK 11 not found. Please install it first.',
-                'scan_id': None
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        # Run the real security scan
+        print("🚀 Starting real security scan...")
+        report_data = scanner.run_complete_scan()
         
-        # Set environment variables
-        env = os.environ.copy()
-        env['JAVA_HOME'] = java_home
-        env['PATH'] = f"{java_home}\\bin;{env.get('PATH', '')}"
-        
-        # Prepare Detect command
-        detect_script = detect_dir / 'detect.ps1'
-        if not detect_script.exists():
-            return Response({
-                'status': 'error',
-                'message': 'Detect script not found. Please download it first.',
-                'scan_id': None
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        
-        cmd = [
-            'powershell',
-            '-ExecutionPolicy', 'Bypass',
-            '-File', str(detect_script),
-            '--detect.project.name=hipaa_checklist_project',
-            f'--detect.source.path={project_root}',
-            '--detect.detector.search.depth=3',
-            '--detect.python.path=python',
-            '--detect.npm.path=npm',
-            f'--detect.output.path={reports_dir}',
-            '--detect.log.level=DEBUG'
-        ]
-        
-        # Run the scan in the background
-        scan_id = f"scan_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-        
-        # For now, create a mock scan result since Detect has issues
-        create_mock_scan_result(reports_dir, scan_id)
+        # Extract scan ID from the report
+        scan_id = report_data.get('scan_metadata', {}).get('scan_time', 'unknown')
         
         return Response({
             'status': 'success',
-            'message': 'Security scan started successfully',
+            'message': 'Real security scan completed successfully',
             'scan_id': scan_id,
-            'estimated_completion': '5-15 minutes'
+            'vulnerabilities_found': len(report_data.get('vulnerabilities', [])),
+            'dependencies_scanned': len(report_data.get('dependencies', [])),
+            'summary': report_data.get('summary', {})
         })
         
     except Exception as e:
         return Response({
             'status': 'error',
-            'message': f'Error starting security scan: {str(e)}',
+            'message': f'Error running security scan: {str(e)}',
             'scan_id': None
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
