@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import RegulationUpdateViewSet, ChecklistItemViewSet, ComplianceReportView, checklist_view, compliance_report_view, AuditLogView, UserProfileView, ChecklistExportCSV, ChecklistExportPDF, ReportTrendsView
 from .public_views import health_check, api_info, public_checklist_stats
+from .security_views import security_report, run_security_scan
 
 router = DefaultRouter()
 router.register(r'regulations', RegulationUpdateViewSet, basename='regulationupdate')
@@ -17,6 +18,9 @@ urlpatterns = [
     path('api/checklist/export/csv/', ChecklistExportCSV.as_view(), name='checklist-export-csv'),
     path('api/checklist/export/pdf/', ChecklistExportPDF.as_view(), name='checklist-export-pdf'),
     path('api/report/trends/', ReportTrendsView.as_view(), name='report-trends'),
+    # Security endpoints
+    path('api/security/report/', security_report, name='security-report'),
+    path('api/security/scan/', run_security_scan, name='security-scan'),
     # Public endpoints (no authentication required)
     path('api/health/', health_check, name='health-check'),
     path('api/info/', api_info, name='api-info'),

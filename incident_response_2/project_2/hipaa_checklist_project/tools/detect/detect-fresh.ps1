@@ -1,24 +1,5 @@
 # Detect Powershell Script
 # Recommended Invocation: powershell "irm https://detect.blackduck.com/detect.ps1?$(Get-Random) | iex; detect"
-
-function Write-RebrandingMsg() {
-    Write-Host "***"
-    Write-Host "***"
-    Write-Host "*** Warning: Synopsys Detect has been rebranded as Black Duck Detect."
-    Write-Host "*** Please modify your processes to download Black Duck Detect from https://detect.blackduck.com/detect10.ps1 before September 30th, 2025, to prevent script and scan execution failure."
-    Write-Host "*** For more information, please see the domain name change announcement here: https://community.blackduck.com/s/question/0D5Uh00000JsImfKAF/black-duck-detect-scripts-and-the-impact-of-decommissioning-of-detectsynopsyscom"
-    Write-Host "***"
-    Write-Host "*** If you are using the Synopsys Detect Azure extension, migrate to the Black Duck Detect Azure extension before September 30th, 2025."
-    Write-Host "*** For more information, please see the extension release announcement here: https://community.blackduck.com/s/question/0D5Uh00000Mz1AcKAJ/black-duck-detect-azure-devops-ado-plugin-1000-has-been-released"
-    Write-Host "***"
-    Write-Host "*** If you are using Synopsys Detect Jenkins plugin (9.0.0 or prior), migrate to Black Duck Detect Jenkins Plugin 10.0.0 before September 30th, 2025."
-    Write-Host "*** For more information, please see the plugin release announcement here: https://community.blackduck.com/s/question/0D5Uh00000Mtso3KAB/black-duck-detect-jenkins-plugin-1000-has-been-released"
-    Write-Host "***"
-    Write-Host "***"
-}
-
-Write-RebrandingMsg
-
 $ProgressPreference = 'SilentlyContinue'
 function Get-EnvironmentVariable($Key, $DefaultValue) { if (-not (Test-Path Env:$Key)) { return $DefaultValue; }else { return (Get-ChildItem Env:$Key).Value; } }
 
@@ -32,7 +13,7 @@ $EnvDetectDesiredVersion = Get-EnvironmentVariable -Key "DETECT_LATEST_RELEASE_V
 # *that* key will be used to get the download url from
 # artifactory. These DETECT_VERSION_KEY values are
 # properties in Artifactory that resolve to download
-# urls for the detect jar file. As of 2024-10-30, the
+# urls for the detect jar file. As of 2025-02-14, the
 # available DETECT_VERSION_KEY values are:
 #
 # Every new major version of detect will have its own
@@ -106,7 +87,7 @@ $DownloadOnly = Get-EnvironmentVariable -Key "DETECT_DOWNLOAD_ONLY" -DefaultValu
 # heap size, you would set DETECT_JAVA_OPTS=-Xmx6G.
 # $DetectJavaOpts = Get-EnvironmentVariable -Key "DETECT_JAVA_OPTS" -DefaultValue "";
 
-$Version = "3.2.0"
+$Version = "3.3.0"
 
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12 #Enable TLS2
 
@@ -142,8 +123,6 @@ function Detect {
         Write-Host "Executing Detect."
         $DetectArgs = $args;
         $DetectExitCode = Invoke-Detect -DetectJar $DetectJarFile -DetectArgs $DetectArgs
-
-        Write-RebrandingMsg
 
         if ($EnvDetectExitCodePassthru -eq "1") {
             return $DetectExitCode
