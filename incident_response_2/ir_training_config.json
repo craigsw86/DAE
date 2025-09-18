@@ -1,0 +1,153 @@
+{
+  "exercise_duration": 240,
+  "inject_interval": 15,
+  "evaluation_criteria": {
+    "detection_time": 300,
+    "containment_time": 900,
+    "communication_time": 600,
+    "evidence_handling": 0.95
+  },
+  "scoring_weights": {
+    "detection": 0.25,
+    "containment": 0.25,
+    "communication": 0.25,
+    "evidence_handling": 0.25
+  },
+  "scenarios": {
+    "ransomware_attack": {
+      "name": "Ransomware Attack with Data Exfiltration",
+      "difficulty": "intermediate",
+      "duration": 240,
+      "learning_objectives": [
+        "Practice incident detection and classification",
+        "Test containment procedures",
+        "Exercise crisis communication",
+        "Validate evidence handling"
+      ]
+    },
+    "insider_threat": {
+      "name": "Insider Threat with Data Exfiltration",
+      "difficulty": "advanced",
+      "duration": 180,
+      "learning_objectives": [
+        "Practice insider threat detection",
+        "Test legal and HR coordination",
+        "Validate evidence handling procedures",
+        "Exercise sensitive investigation techniques"
+      ]
+    },
+    "apt_attack": {
+      "name": "Advanced Persistent Threat (APT)",
+      "difficulty": "expert",
+      "duration": 480,
+      "learning_objectives": [
+        "Practice multi-stage attack detection",
+        "Test coordination with threat intelligence",
+        "Exercise evidence collection and analysis",
+        "Validate crisis management procedures"
+      ]
+    }
+  },
+  "participant_roles": [
+    "Incident Response Lead",
+    "System Administrator",
+    "Compliance Officer",
+    "Communications Manager",
+    "Legal Counsel",
+    "HR Representative",
+    "Security Analyst",
+    "Forensic Analyst"
+  ],
+  "evaluation_metrics": {
+    "detection": {
+      "weight": 0.25,
+      "criteria": [
+        "Incident classification accuracy",
+        "Detection time",
+        "Threat assessment quality"
+      ]
+    },
+    "containment": {
+      "weight": 0.25,
+      "criteria": [
+        "Containment effectiveness",
+        "Response time",
+        "System isolation"
+      ]
+    },
+    "communication": {
+      "weight": 0.25,
+      "criteria": [
+        "Stakeholder communication",
+        "Media management",
+        "Regulatory compliance"
+      ]
+    },
+    "evidence_handling": {
+      "weight": 0.25,
+      "criteria": [
+        "Evidence collection",
+        "Chain of custody",
+        "Forensic analysis"
+      ]
+    }
+  },
+  "training_environment": {
+    "virtual_machines": [
+      {
+        "name": "DC-01",
+        "os": "Windows Server 2019",
+        "role": "Domain Controller",
+        "ram": "4GB",
+        "cpu": "2 cores"
+      },
+      {
+        "name": "WEB-01",
+        "os": "Ubuntu 20.04",
+        "role": "Web Server",
+        "ram": "4GB",
+        "cpu": "2 cores"
+      },
+      {
+        "name": "DB-01",
+        "os": "CentOS 8",
+        "role": "Database Server",
+        "ram": "8GB",
+        "cpu": "4 cores"
+      },
+      {
+        "name": "WS-01",
+        "os": "Windows 10",
+        "role": "Workstation",
+        "ram": "4GB",
+        "cpu": "2 cores"
+      },
+      {
+        "name": "KALI-01",
+        "os": "Kali Linux",
+        "role": "Attack Platform",
+        "ram": "4GB",
+        "cpu": "2 cores"
+      }
+    ],
+    "network_topology": {
+      "dmz": ["WEB-01"],
+      "internal": ["DC-01", "WS-01"],
+      "database": ["DB-01"],
+      "isolated": ["KALI-01"]
+    }
+  },
+  "safety_measures": {
+    "system_isolation": true,
+    "backup_verification": true,
+    "rollback_procedures": true,
+    "emergency_stop": true
+  },
+  "reporting": {
+    "format": "json",
+    "include_screenshots": true,
+    "include_logs": true,
+    "performance_metrics": true,
+    "recommendations": true
+  }
+}
