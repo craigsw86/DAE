@@ -1,0 +1,116 @@
+[
+  {
+    "test": "Server Response",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-09-05T13:52:31.282846"
+  },
+  {
+    "test": "Checklist API Endpoint",
+    "success": true,
+    "message": "Status: 401",
+    "timestamp": "2025-09-05T13:52:33.328356"
+  },
+  {
+    "test": "Admin Interface Endpoint",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-09-05T13:52:35.459711"
+  },
+  {
+    "test": "Static Files Endpoint",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-09-05T13:52:37.612285"
+  },
+  {
+    "test": "Encrypted Database File",
+    "success": false,
+    "message": "Encrypted database file not found",
+    "timestamp": "2025-09-05T13:52:37.613286"
+  },
+  {
+    "test": "Plaintext Database",
+    "success": false,
+    "message": "Plaintext database still exists",
+    "timestamp": "2025-09-05T13:52:37.613286"
+  },
+  {
+    "test": "db.sqlite3 Permissions",
+    "success": false,
+    "message": "Insecure permissions: 0o100666",
+    "timestamp": "2025-09-05T13:52:37.614284"
+  },
+  {
+    "test": "db.sqlite3.encrypted Permissions",
+    "success": true,
+    "message": "File not found (expected)",
+    "timestamp": "2025-09-05T13:52:37.614284"
+  },
+  {
+    "test": "Header X-Frame-Options",
+    "success": true,
+    "message": "Value: DENY",
+    "timestamp": "2025-09-05T13:52:39.678259"
+  },
+  {
+    "test": "Header X-Content-Type-Options",
+    "success": true,
+    "message": "Value: nosniff",
+    "timestamp": "2025-09-05T13:52:39.678259"
+  },
+  {
+    "test": "Header X-XSS-Protection",
+    "success": false,
+    "message": "Header not found",
+    "timestamp": "2025-09-05T13:52:39.678259"
+  },
+  {
+    "test": "Header Strict-Transport-Security",
+    "success": false,
+    "message": "Header not found",
+    "timestamp": "2025-09-05T13:52:39.679386"
+  },
+  {
+    "test": "Overall Security Headers",
+    "success": false,
+    "message": "Only 2/4 headers present",
+    "timestamp": "2025-09-05T13:52:39.679386"
+  },
+  {
+    "test": "Database Tables",
+    "success": true,
+    "message": "Found 15 tables",
+    "timestamp": "2025-09-05T13:52:39.682392"
+  },
+  {
+    "test": "Security Audit Table",
+    "success": true,
+    "message": "Security audit table exists",
+    "timestamp": "2025-09-05T13:52:39.682392"
+  },
+  {
+    "test": "Journal Mode",
+    "success": true,
+    "message": "Mode: wal",
+    "timestamp": "2025-09-05T13:52:39.682392"
+  },
+  {
+    "test": "Secure Delete",
+    "success": true,
+    "message": "Enabled: False",
+    "timestamp": "2025-09-05T13:52:39.682392"
+  },
+  {
+    "test": "Response Time",
+    "success": false,
+    "message": "Slow response: 2.06s",
+    "timestamp": "2025-09-05T13:52:41.744883"
+  },
+  {
+    "test": "Log Files",
+    "success": true,
+    "message": "Found 0 log files",
+    "timestamp": "2025-09-05T13:52:41.745882"
+  }
+]

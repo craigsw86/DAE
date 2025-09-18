@@ -1,0 +1,92 @@
+{
+  "timestamp": "2025-09-07T00:44:46.321195",
+  "audit_type": "OWASP ZAP Security Audit",
+  "target_urls": [],
+  "vulnerabilities": [
+    {
+      "type": "Network",
+      "severity": "MEDIUM",
+      "description": "HTTPS server not accessible",
+      "recommendation": "Start HTTPS server for testing"
+    }
+  ],
+  "security_tests": {
+    "https_security": {
+      "ssl_certificate_valid": false,
+      "ssl_protocols_secure": false,
+      "ssl_ciphers_secure": false,
+      "hsts_implemented": false,
+      "ssl_redirect_working": false
+    },
+    "jwt_security": {
+      "jwt_endpoint_accessible": true,
+      "jwt_token_generation": false,
+      "jwt_token_validation": false,
+      "jwt_secret_secure": true,
+      "jwt_expiration_working": false
+    },
+    "authentication_security": {
+      "login_endpoint_secure": true,
+      "password_policy_enforced": false,
+      "account_lockout_implemented": false,
+      "session_management_secure": false,
+      "csrf_protection_enabled": false
+    },
+    "input_validation": {
+      "sql_injection_protection": true,
+      "xss_protection": true,
+      "input_sanitization": false,
+      "parameter_validation": false
+    },
+    "session_management": {
+      "session_cookies_secure": false,
+      "session_timeout_configured": false,
+      "session_regeneration": false,
+      "session_fixation_protection": false
+    },
+    "cryptographic_storage": {
+      "password_hashing": false,
+      "data_encryption": true,
+      "key_management": true,
+      "encryption_algorithm_secure": false
+    },
+    "access_control": {
+      "authentication_required": true,
+      "authorization_implemented": false,
+      "privilege_escalation_protection": false,
+      "directory_traversal_protection": true
+    },
+    "security_headers": {
+      "x_frame_options": true,
+      "x_content_type_options": true,
+      "x_xss_protection": true,
+      "strict_transport_security": true,
+      "content_security_policy": true
+    },
+    "error_handling": {
+      "information_disclosure_protection": true,
+      "error_messages_secure": false,
+      "stack_trace_protection": false,
+      "debug_mode_disabled": false
+    },
+    "logging_monitoring": {
+      "audit_logging_enabled": true,
+      "security_events_logged": false,
+      "log_integrity_protected": false,
+      "monitoring_implemented": true
+    }
+  },
+  "recommendations": [
+    {
+      "category": "HTTPS Security",
+      "priority": "HIGH",
+      "recommendation": "Fix SSL certificate configuration and validation"
+    },
+    {
+      "category": "JWT Security",
+      "priority": "HIGH",
+      "recommendation": "Ensure JWT token generation and validation are working properly"
+    }
+  ],
+  "overall_risk": "LOW"
+}

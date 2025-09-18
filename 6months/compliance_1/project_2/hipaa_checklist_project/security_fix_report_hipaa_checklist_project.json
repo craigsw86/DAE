@@ -1,0 +1,21 @@
+{
+  "timestamp": "C:\\Users\\Admin\\DAE\\6months\\project_2\\hipaa_checklist_project",
+  "fixes_applied": [
+    "Fixed permissions: db.sqlite3",
+    "Fixed permissions: db.sqlite3.encrypted",
+    "Fixed permissions: db.encrypted",
+    "Fixed permissions: hipaa_checklist.key",
+    "Fixed permissions: encryption.key",
+    "Fixed directory permissions: backend",
+    "Fixed directory permissions: ssl",
+    "Fixed directory permissions: logs",
+    "SSL certificates regenerated",
+    "Encryption key permissions fixed"
+  ],
+  "errors": [
+    "Database encryption setup failed"
+  ],
+  "total_fixes": 10,
+  "total_errors": 1,
+  "success_rate": "90.9%"
+}

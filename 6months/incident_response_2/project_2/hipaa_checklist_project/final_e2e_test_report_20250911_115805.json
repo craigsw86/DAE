@@ -1,0 +1,367 @@
+{
+  "test_results": [
+    {
+      "test": "Server Response",
+      "success": true,
+      "message": "Status: 200",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:17.095632"
+    },
+    {
+      "test": "Health Check Endpoint",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:19.188822"
+    },
+    {
+      "test": "API Info Endpoint",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:21.292243"
+    },
+    {
+      "test": "Public Stats Endpoint",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:23.362188"
+    },
+    {
+      "test": "Login Attempt (admin)",
+      "success": true,
+      "message": "Correctly rejects invalid credentials",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:25.670042"
+    },
+    {
+      "test": "Login Success",
+      "success": true,
+      "message": "Logged in as testuser",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:27.939192"
+    },
+    {
+      "test": "Access Token",
+      "success": true,
+      "message": "Token: eyJhbGciOiJIUzI1NiIs...",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:27.939192"
+    },
+    {
+      "test": "Checklist API (Auth)",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:30.015696"
+    },
+    {
+      "test": "Regulations API (Auth)",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:32.114111"
+    },
+    {
+      "test": "Compliance Report API (Auth)",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:34.231431"
+    },
+    {
+      "test": "User Profile API (Auth)",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:36.337508"
+    },
+    {
+      "test": "GET Checklist",
+      "success": true,
+      "message": "Retrieved 8 items",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:38.414801"
+    },
+    {
+      "test": "POST Checklist",
+      "success": false,
+      "message": "Status: 400",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:40.467319"
+    },
+    {
+      "test": "GET Regulations",
+      "success": true,
+      "message": "Retrieved 0 regulations",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:42.569067"
+    },
+    {
+      "test": "POST Regulation",
+      "success": true,
+      "message": "Created regulation with ID: 29",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:44.675459"
+    },
+    {
+      "test": "GET Compliance Report",
+      "success": true,
+      "message": "Generated compliance report",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:46.749095"
+    },
+    {
+      "test": "Report Data",
+      "success": true,
+      "message": "Report: {'user': 'testuser', 'total_items': 5, 'completed_items': 0, 'completion_percentage': 0.0, 'risks': ...",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:46.750092"
+    },
+    {
+      "test": "GET Report Trends",
+      "success": true,
+      "message": "Retrieved report trends",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:48.834015"
+    },
+    {
+      "test": "CSV Export",
+      "success": true,
+      "message": "CSV export successful, size: 1376 bytes",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:50.931808"
+    },
+    {
+      "test": "PDF Export",
+      "success": true,
+      "message": "PDF export successful, size: 2429 bytes",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:53.034440"
+    },
+    {
+      "test": "Health Check Performance",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:55.090746"
+    },
+    {
+      "test": "API Info Performance",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:57.140525"
+    },
+    {
+      "test": "Public Stats Performance",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:57:59.218924"
+    },
+    {
+      "test": "404 Handling",
+      "success": true,
+      "message": "Correctly returns 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:58:01.293408"
+    },
+    {
+      "test": "Invalid JSON Handling",
+      "success": true,
+      "message": "Correctly returns 400",
+      "data": null,
+      "timestamp": "2025-09-11T11:58:03.351420"
+    },
+    {
+      "test": "Cleanup Regulation",
+      "success": false,
+      "message": "Status: 404",
+      "data": null,
+      "timestamp": "2025-09-11T11:58:05.443997"
+    }
+  ],
+  "test_data": {
+    "checklist_items": [
+      {
+        "id": 14,
+        "user": "testuser",
+        "regulation_update_title": "HIPAA (TEST)",
+        "likelihood": 3,
+        "impact": 4,
+        "mitigation_steps": "Test mitigation steps from improved script",
+        "completed": false,
+        "notes": "Test notes from improved script",
+        "admin_notes": null,
+        "last_updated": "2025-09-07T04:07:27.704581Z",
+        "regulation_update": 1
+      },
+      {
+        "id": 13,
+        "user": "testuser",
+        "regulation_update_title": "HIPAA (TEST)",
+        "likelihood": 3,
+        "impact": 4,
+        "mitigation_steps": "Test mitigation steps from improved script",
+        "completed": false,
+        "notes": "Test notes from improved script",
+        "admin_notes": null,
+        "last_updated": "2025-09-07T03:53:37.237039Z",
+        "regulation_update": 1
+      },
+      {
+        "id": 12,
+        "user": "testuser",
+        "regulation_update_title": "HIPAA (TEST)",
+        "likelihood": 3,
+        "impact": 4,
+        "mitigation_steps": "Test mitigation steps from improved script",
+        "completed": false,
+        "notes": "Test notes from improved script",
+        "admin_notes": null,
+        "last_updated": "2025-09-07T03:36:01.673717Z",
+        "regulation_update": 1
+      },
+      {
+        "id": 11,
+        "user": "testuser",
+        "regulation_update_title": "HIPAA (TEST)",
+        "likelihood": 3,
+        "impact": 4,
+        "mitigation_steps": "Test mitigation steps",
+        "completed": false,
+        "notes": "Test notes",
+        "admin_notes": null,
+        "last_updated": "2025-09-07T03:35:13.053031Z",
+        "regulation_update": 1
+      },
+      {
+        "id": 10,
+        "user": "testuser",
+        "regulation_update_title": "HIPAA (TEST)",
+        "likelihood": 3,
+        "impact": 4,
+        "mitigation_steps": "Test mitigation steps from improved script",
+        "completed": false,
+        "notes": "Test notes from improved script",
+        "admin_notes": null,
+        "last_updated": "2025-09-07T03:33:50.892070Z",
+        "regulation_update": 1
+      },
+      {
+        "id": 4,
+        "user": "TestUsername",
+        "regulation_update_title": "HIPAA Privacy Rule Amendment 2024",
+        "likelihood": 3,
+        "impact": 3,
+        "mitigation_steps": "1. Review existing consent forms\r\n2. Update language for new requirements\r\n3. Train staff on new protocols\r\n4. Update patient information materials",
+        "completed": true,
+        "notes": "Review current consent forms and update as needed",
+        "admin_notes": "Medium priority - affects research data sharing",
+        "last_updated": "2025-09-04T17:27:31.204467Z",
+        "regulation_update": 3
+      },
+      {
+        "id": 3,
+        "user": "TestUsername",
+        "regulation_update_title": "HIPAA Security Rule Update 2025",
+        "likelihood": 4,
+        "impact": 5,
+        "mitigation_steps": "1. Audit current encryption methods\r\n2. Plan upgrade timeline\r\n3. Train IT staff on new protocols\r\n4. Test implementation in staging environment",
+        "completed": true,
+        "notes": "Need to implement new encryption standards by Q2 2025",
+        "admin_notes": "High priority - affects all patient data systems",
+        "last_updated": "2025-09-04T17:27:28.444746Z",
+        "regulation_update": 2
+      },
+      {
+        "id": 2,
+        "user": "TestUsername",
+        "regulation_update_title": "HIPAA (TEST)",
+        "likelihood": 1,
+        "impact": 1,
+        "mitigation_steps": null,
+        "completed": true,
+        "notes": null,
+        "admin_notes": null,
+        "last_updated": "2025-08-14T17:04:48.559394Z",
+        "regulation_update": 1
+      }
+    ],
+    "regulations": [],
+    "created_regulation_id": 29,
+    "compliance_report": {
+      "user": "testuser",
+      "total_items": 5,
+      "completed_items": 0,
+      "completion_percentage": 0.0,
+      "risks": [
+        {
+          "id": 10,
+          "regulation": "HIPAA (TEST)",
+          "completed": false,
+          "likelihood": 3,
+          "impact": 4,
+          "notes": "Test notes from improved script",
+          "admin_notes": null
+        },
+        {
+          "id": 11,
+          "regulation": "HIPAA (TEST)",
+          "completed": false,
+          "likelihood": 3,
+          "impact": 4,
+          "notes": "Test notes",
+          "admin_notes": null
+        },
+        {
+          "id": 12,
+          "regulation": "HIPAA (TEST)",
+          "completed": false,
+          "likelihood": 3,
+          "impact": 4,
+          "notes": "Test notes from improved script",
+          "admin_notes": null
+        },
+        {
+          "id": 13,
+          "regulation": "HIPAA (TEST)",
+          "completed": false,
+          "likelihood": 3,
+          "impact": 4,
+          "notes": "Test notes from improved script",
+          "admin_notes": null
+        },
+        {
+          "id": 14,
+          "regulation": "HIPAA (TEST)",
+          "completed": false,
+          "likelihood": 3,
+          "impact": 4,
+          "notes": "Test notes from improved script",
+          "admin_notes": null
+        }
+      ]
+    },
+    "report_trends": [
+      {
+        "month": "2025-08",
+        "completed": 1,
+        "incomplete": 0
+      },
+      {
+        "month": "2025-09",
+        "completed": 2,
+        "incomplete": 5
+      }
+    ]
+  },
+  "summary": {
+    "total_tests": 26,
+    "passed_tests": 14,
+    "failed_tests": 12,
+    "success_rate": 53.84615384615385
+  }
+}

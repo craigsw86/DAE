@@ -1,0 +1,134 @@
+[
+  {
+    "test": "Server Response",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-09-05T13:58:19.645145"
+  },
+  {
+    "test": "Checklist API Endpoint",
+    "success": false,
+    "message": "Authentication required: 401",
+    "timestamp": "2025-09-05T13:58:21.741789"
+  },
+  {
+    "test": "Regulations API Endpoint",
+    "success": false,
+    "message": "Authentication required: 401",
+    "timestamp": "2025-09-05T13:58:23.790692"
+  },
+  {
+    "test": "Compliance Report API Endpoint",
+    "success": false,
+    "message": "Authentication required: 401",
+    "timestamp": "2025-09-05T13:58:25.845815"
+  },
+  {
+    "test": "Admin Interface Endpoint",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-09-05T13:58:27.960588"
+  },
+  {
+    "test": "Static Files Endpoint",
+    "success": true,
+    "message": "Status: 200",
+    "timestamp": "2025-09-05T13:58:30.069754"
+  },
+  {
+    "test": "JWT Token Generation",
+    "success": true,
+    "message": "Tokens generated successfully",
+    "timestamp": "2025-09-05T13:58:32.427667"
+  },
+  {
+    "test": "JWT Authentication",
+    "success": true,
+    "message": "Authenticated request successful",
+    "timestamp": "2025-09-05T13:58:34.489707"
+  },
+  {
+    "test": "Database Encryption",
+    "success": false,
+    "message": "Encryption setup failed",
+    "timestamp": "2025-09-05T13:58:34.671274"
+  },
+  {
+    "test": "db.sqlite3 Permissions",
+    "success": false,
+    "message": "Insecure permissions: 0o100666",
+    "timestamp": "2025-09-05T13:58:34.672274"
+  },
+  {
+    "test": "db.sqlite3.encrypted Permissions",
+    "success": true,
+    "message": "File not found (expected)",
+    "timestamp": "2025-09-05T13:58:34.672274"
+  },
+  {
+    "test": "Header X-Frame-Options",
+    "success": true,
+    "message": "Value: DENY",
+    "timestamp": "2025-09-05T13:58:36.731420"
+  },
+  {
+    "test": "Header X-Content-Type-Options",
+    "success": true,
+    "message": "Value: nosniff",
+    "timestamp": "2025-09-05T13:58:36.731420"
+  },
+  {
+    "test": "Header X-XSS-Protection",
+    "success": true,
+    "message": "Value: 1; mode=block",
+    "timestamp": "2025-09-05T13:58:36.731420"
+  },
+  {
+    "test": "Header Strict-Transport-Security",
+    "success": true,
+    "message": "Value: max-age=31536000; includeSubDomains",
+    "timestamp": "2025-09-05T13:58:36.731420"
+  },
+  {
+    "test": "Overall Security Headers",
+    "success": true,
+    "message": "4/4 headers present",
+    "timestamp": "2025-09-05T13:58:36.732420"
+  },
+  {
+    "test": "Database Tables",
+    "success": true,
+    "message": "Found 15 tables",
+    "timestamp": "2025-09-05T13:58:36.735735"
+  },
+  {
+    "test": "Security Audit Table",
+    "success": true,
+    "message": "Security audit table exists",
+    "timestamp": "2025-09-05T13:58:36.735735"
+  },
+  {
+    "test": "Journal Mode",
+    "success": true,
+    "message": "Mode: wal",
+    "timestamp": "2025-09-05T13:58:36.735735"
+  },
+  {
+    "test": "Secure Delete",
+    "success": true,
+    "message": "Enabled: False",
+    "timestamp": "2025-09-05T13:58:36.736734"
+  },
+  {
+    "test": "Response Time",
+    "success": false,
+    "message": "Slow: 2.06s",
+    "timestamp": "2025-09-05T13:58:42.914001"
+  },
+  {
+    "test": "Log Files",
+    "success": true,
+    "message": "Found 0 log files",
+    "timestamp": "2025-09-05T13:58:42.914001"
+  }
+]
