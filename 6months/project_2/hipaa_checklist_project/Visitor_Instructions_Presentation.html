@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIPAA Checklist Project - Visitor Instructions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            overflow: hidden;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide {
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 60px;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .slide h1 {
+            font-size: 3.5rem;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .slide h2 {
+            font-size: 2.5rem;
+            color: #34495e;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .slide h3 {
+            font-size: 2rem;
+            color: #2980b9;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .slide p {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .slide ul {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            padding-left: 30px;
+        }
+
+        .slide li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature-card h4 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 0;
+        }
+
+        .credentials-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .credentials-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2rem;
+        }
+
+        .credentials-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 1.1rem;
+        }
+
+        .credentials-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .demo-step {
+            background: #e8f5e8;
+            border: 2px solid #27ae60;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .demo-step h4 {
+            color: #27ae60;
+            margin-bottom: 10px;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .warning h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .success {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        .success h4 {
+            color: #155724;
+            margin-bottom: 10px;
+        }
+
+        .icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            vertical-align: middle;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .center-content {
+            text-align: center;
+        }
+
+        .large-text {
+            font-size: 1.6rem;
+        }
+
+        .emoji {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="presentation-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="center-content">
+                <div class="emoji">🏥</div>
+                <h1>HIPAA Checklist Project</h1>
+                <h2>Visitor Instructions</h2>
+                <p class="large-text">Complete Guide for Exploring the HIPAA Compliance Management System</p>
+                <div class="highlight">
+                    <p><strong>Welcome!</strong> This presentation will guide you through everything you need to know to explore and test this comprehensive healthcare compliance management system.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: What is This Project? -->
+        <div class="slide">
+            <h2>What is the HIPAA Checklist Project?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🏥 Healthcare Compliance</h4>
+                    <p>Comprehensive HIPAA compliance management system for healthcare organizations</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔧 Full-Stack Application</h4>
+                    <p>Django backend + React frontend with modern web technologies</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔒 Enterprise Security</h4>
+                    <p>JWT authentication, data encryption, security scanning, audit logging</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Compliance Reporting</h4>
+                    <p>Generate reports, track progress, manage regulations and checklist items</p>
+                </div>
+            </div>
+            <div class="highlight">
+                <p><strong>Built for Real Healthcare Use:</strong> This isn't just a demo - it's a production-ready system with enterprise-grade features for actual HIPAA compliance management.</p>
+            </div>
+        </div>
+
+        <!-- Slide 3: Quick Start Options -->
+        <div class="slide">
+            <h2>🚀 Quick Start Options</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Option 1: One-Click Demo</h3>
+                    <div class="demo-step">
+                        <h4>Perfect for: Quick testing, demos</h4>
+                        <ol>
+                            <li>Download project files</li>
+                            <li>Run: <code>run-hipaa-project.bat</code></li>
+                            <li>Choose Option 1 (Backend)</li>
+                            <li>Choose Option 2 (Frontend)</li>
+                            <li>Open: <code>http://localhost:3000</code></li>
+                        </ol>
+                    </div>
+                </div>
+                <div>
+                    <h3>Option 2: Manual Setup</h3>
+                    <div class="demo-step">
+                        <h4>Perfect for: Developers, customization</h4>
+                        <ol>
+                            <li>Follow detailed setup guide</li>
+                            <li>Install dependencies</li>
+                            <li>Configure database</li>
+                            <li>Start servers manually</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="success">
+                <h4>⚡ Recommended: Start with Option 1</h4>
+                <p>Get the system running in under 5 minutes and explore all features immediately!</p>
+            </div>
+        </div>
+
+        <!-- Slide 4: Demo Credentials -->
+        <div class="slide">
+            <h2>🔑 Demo Credentials</h2>
+            <p>Use these credentials to explore different user roles and permissions:</p>
+            <table class="credentials-table">
+                <thead>
+                    <tr>
+                        <th>Role</th>
+                        <th>Username</th>
+                        <th>Password</th>
+                        <th>Access Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Administrator</strong></td>
+                        <td><code>admin</code></td>
+                        <td><code>admin123</code></td>
+                        <td>Full system access</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security Officer</strong></td>
+                        <td><code>security</code></td>
+                        <td><code>security123</code></td>
+                        <td>Security-focused</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compliance Manager</strong></td>
+                        <td><code>compliance</code></td>
+                        <td><code>compliance123</code></td>
+                        <td>Compliance oversight</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IT Manager</strong></td>
+                        <td><code>itmanager</code></td>
+                        <td><code>it123</code></td>
+                        <td>Technical management</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Standard User</strong></td>
+                        <td><code>user</code></td>
+                        <td><code>user123</code></td>
+                        <td>Basic access</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="highlight">
+                <p><strong>Start with Administrator:</strong> Use <code>admin</code> / <code>admin123</code> to explore all features without restrictions.</p>
+            </div>
+        </div>
+
+        <!-- Slide 5: What You Can Try -->
+        <div class="slide">
+            <h2>🎯 What You Can Try</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🔐 User Authentication</h4>
+                    <p>Experience different user roles and permissions. See how access control works in a healthcare environment.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📋 Compliance Management</h4>
+                    <p>Browse HIPAA regulations, manage checklist items, track progress, and update compliance status.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔒 Security Dashboard</h4>
+                    <p>Run security scans, view vulnerability reports, monitor dependency security with Black Duck Detect.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Reporting & Analytics</h4>
+                    <p>Generate compliance reports, export data in multiple formats, view audit logs and analytics.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>👥 User Management</h4>
+                    <p>Create users, assign roles, manage permissions, and track user activity and performance.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🛡️ Security Features</h4>
+                    <p>Explore JWT authentication, data encryption, audit logging, and comprehensive security controls.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Demo Scenarios -->
+        <div class="slide">
+            <h2>🎭 Demo Scenarios (5 Minutes Each)</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Scenario A: Security Officer</h3>
+                    <div class="demo-step">
+                        <h4>Goal: Conduct security audit</h4>
+                        <ol>
+                            <li>Login as <code>security</code> / <code>security123</code></li>
+                            <li>Go to Security Dashboard</li>
+                            <li>Run security scan</li>
+                            <li>Review vulnerabilities</li>
+                            <li>Create security checklist items</li>
+                        </ol>
+                    </div>
+                </div>
+                <div>
+                    <h3>Scenario B: Compliance Manager</h3>
+                    <div class="demo-step">
+                        <h4>Goal: Prepare for audit</h4>
+                        <ol>
+                            <li>Login as <code>compliance</code> / <code>compliance123</code></li>
+                            <li>Go to Reports section</li>
+                            <li>Generate compliance report</li>
+                            <li>Export to PDF</li>
+                            <li>Review overdue items</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="two-column">
+                <div>
+                    <h3>Scenario C: Healthcare Administrator</h3>
+                    <div class="demo-step">
+                        <h4>Goal: Set up compliance tracking</h4>
+                        <ol>
+                            <li>Login as <code>admin</code> / <code>admin123</code></li>
+                            <li>Create new regulations</li>
+                            <li>Assign checklist items</li>
+                            <li>Set up user accounts</li>
+                            <li>Generate initial report</li>
+                        </ol>
+                    </div>
+                </div>
+                <div>
+                    <h3>Scenario D: IT Manager</h3>
+                    <div class="demo-step">
+                        <h4>Goal: Implement technical controls</h4>
+                        <ol>
+                            <li>Login as <code>itmanager</code> / <code>it123</code></li>
+                            <li>Focus on technical regulations</li>
+                            <li>Create implementation tasks</li>
+                            <li>Monitor system security</li>
+                            <li>Coordinate with security team</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: System Features -->
+        <div class="slide">
+            <h2>🔧 System Features to Explore</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Frontend Features</h3>
+                    <ul>
+                        <li>📱 <strong>Responsive Design:</strong> Works on desktop, tablet, mobile</li>
+                        <li>⚡ <strong>Real-time Updates:</strong> Data refreshes automatically</li>
+                        <li>📊 <strong>Interactive Dashboards:</strong> Visual compliance tracking</li>
+                        <li>📤 <strong>Export Capabilities:</strong> Multiple format options</li>
+                        <li>🔍 <strong>Search & Filtering:</strong> Easy data navigation</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Backend Features</h3>
+                    <ul>
+                        <li>🔌 <strong>RESTful API:</strong> Complete API for all operations</li>
+                        <li>🔐 <strong>JWT Authentication:</strong> Secure token-based auth</li>
+                        <li>🔒 <strong>Database Encryption:</strong> Sensitive data protection</li>
+                        <li>📝 <strong>Audit Logging:</strong> Complete activity tracking</li>
+                        <li>🛡️ <strong>Security Scanning:</strong> Automated vulnerability detection</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight">
+                <h4>🏥 Healthcare-Specific Features</h4>
+                <p><strong>HIPAA Compliance:</strong> Built specifically for healthcare regulations with administrative, physical, technical, and notification safeguards. Includes audit trails, data encryption, and role-based access control designed for healthcare environments.</p>
+            </div>
+        </div>
+
+        <!-- Slide 8: Sample Data -->
+        <div class="slide">
+            <h2>📊 Sample Data Included</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📋 Regulations</h4>
+                    <ul>
+                        <li>Administrative Safeguards</li>
+                        <li>Physical Safeguards</li>
+                        <li>Technical Safeguards</li>
+                        <li>Notification Requirements</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>✅ Checklist Items</h4>
+                    <ul>
+                        <li>High Priority (Critical)</li>
+                        <li>Medium Priority (Important)</li>
+                        <li>Low Priority (Nice-to-have)</li>
+                        <li>Overdue Items (Past-due)</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>👥 Users</h4>
+                    <ul>
+                        <li>Admin User (Full access)</li>
+                        <li>Demo Users (All roles)</li>
+                        <li>Test Data (Sample records)</li>
+                        <li>Role Examples</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>🔒 Security Data</h4>
+                    <ul>
+                        <li>Vulnerability Reports</li>
+                        <li>Dependency Scans</li>
+                        <li>Security Metrics</li>
+                        <li>Audit Logs</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="success">
+                <h4>✨ Ready to Explore</h4>
+                <p>The system comes pre-loaded with realistic healthcare compliance data so you can immediately see how it works in practice!</p>
+            </div>
+        </div>
+
+        <!-- Slide 9: Troubleshooting -->
+        <div class="slide">
+            <h2>🛠️ Common Issues & Solutions</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Quick Fixes</h3>
+                    <div class="warning">
+                        <h4>❌ "Cannot connect to server"</h4>
+                        <p><strong>Solution:</strong> Ensure both backend (port 8000) and frontend (port 3000) are running</p>
+                    </div>
+                    <div class="warning">
+                        <h4>❌ "Login failed"</h4>
+                        <p><strong>Solution:</strong> Use demo credentials: <code>admin</code> / <code>admin123</code></p>
+                    </div>
+                    <div class="warning">
+                        <h4>❌ "Page not loading"</h4>
+                        <p><strong>Solution:</strong> Clear browser cache and cookies</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Advanced Troubleshooting</h3>
+                    <div class="code-block">
+# Check system health
+python security_verification_final.py
+
+# Test API connectivity
+python test_backend_api.py
+
+# Run comprehensive tests
+python comprehensive_testing_suite.py
+                    </div>
+                    <div class="demo-step">
+                        <h4>📁 Check Logs</h4>
+                        <ul>
+                            <li>Backend: <code>backend/logs/django.log</code></li>
+                            <li>Browser: F12 → Console tab</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: What Makes This Special -->
+        <div class="slide">
+            <h2>🌟 What Makes This Project Special</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🏥 Real-World Application</h4>
+                    <p>Built for actual healthcare compliance needs, follows HIPAA regulations and industry best practices</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💼 Professional Quality</h4>
+                    <p>Enterprise-grade security, comprehensive audit logging, role-based access control, data encryption</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🚀 Modern Technology</h4>
+                    <p>Django REST API, React frontend, JWT authentication, Docker containerization, security scanning</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📚 Comprehensive Documentation</h4>
+                    <p>Complete user manuals, technical documentation, API docs, security policies and procedures</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🧪 Extensive Testing</h4>
+                    <p>Unit tests, integration testing, security testing, performance testing, end-to-end testing</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔒 Security First</h4>
+                    <p>Multi-layered security, vulnerability scanning, audit trails, compliance reporting</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Next Steps -->
+        <div class="slide">
+            <h2>🚀 Next Steps</h2>
+            <div class="two-column">
+                <div>
+                    <h3>For Visitors</h3>
+                    <div class="demo-step">
+                        <h4>🎯 Try the Demo Scenarios</h4>
+                        <ul>
+                            <li>Security Officer workflow</li>
+                            <li>Compliance Manager tasks</li>
+                            <li>Administrator setup</li>
+                            <li>IT Manager controls</li>
+                        </ul>
+                    </div>
+                    <div class="demo-step">
+                        <h4>🔍 Explore Features</h4>
+                        <ul>
+                            <li>Test different user roles</li>
+                            <li>Run security scans</li>
+                            <li>Generate reports</li>
+                            <li>Review the code</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <h3>For Developers</h3>
+                    <div class="demo-step">
+                        <h4>📖 Study the Architecture</h4>
+                        <ul>
+                            <li>Review <code>docs/</code> directory</li>
+                            <li>Examine API endpoints</li>
+                            <li>Study security implementation</li>
+                            <li>Run test suites</li>
+                        </ul>
+                    </div>
+                    <div class="demo-step">
+                        <h4>🔧 Customize & Extend</h4>
+                        <ul>
+                            <li>Modify for your needs</li>
+                            <li>Add new features</li>
+                            <li>Integrate with other systems</li>
+                            <li>Deploy to production</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 12: Resources & Support -->
+        <div class="slide">
+            <h2>📚 Resources & Support</h2>
+            <div class="two-column">
+                <div>
+                    <h3>📖 Documentation</h3>
+                    <ul>
+                        <li><strong>VISITOR_INSTRUCTIONS.md</strong> - Complete visitor guide</li>
+                        <li><strong>QUICK_START_GUIDE.md</strong> - 5-minute start guide</li>
+                        <li><strong>USER_MANUAL.md</strong> - Detailed user manual</li>
+                        <li><strong>SETUP_AND_INSTALLATION_GUIDE.md</strong> - Technical setup</li>
+                        <li><strong>docs/</strong> - Complete technical documentation</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🚀 Demo Scripts</h3>
+                    <ul>
+                        <li><strong>run-hipaa-project.bat</strong> - One-click demo</li>
+                        <li><strong>start_demo_servers.ps1</strong> - PowerShell demo</li>
+                        <li><strong>class_demo.bat</strong> - Class demonstration</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="two-column">
+                <div>
+                    <h3>🧪 Test Scripts</h3>
+                    <ul>
+                        <li><strong>security_verification_final.py</strong> - Health check</li>
+                        <li><strong>test_backend_api.py</strong> - API testing</li>
+                        <li><strong>comprehensive_testing_suite.py</strong> - Full testing</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>🔗 System URLs</h3>
+                    <ul>
+                        <li><strong>Frontend:</strong> http://localhost:3000</li>
+                        <li><strong>Backend API:</strong> http://localhost:8000</li>
+                        <li><strong>Admin Panel:</strong> http://localhost:8000/admin</li>
+                        <li><strong>API Docs:</strong> http://localhost:8000/api/</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: Final Slide -->
+        <div class="slide">
+            <div class="center-content">
+                <div class="emoji">🎉</div>
+                <h1>Ready to Explore!</h1>
+                <p class="large-text">This HIPAA Checklist Project represents months of development work and includes enterprise-grade features for healthcare compliance management.</p>
+                <div class="highlight">
+                    <h3>🚀 Get Started Now:</h3>
+                    <ol style="text-align: left; display: inline-block;">
+                        <li>Run <code>run-hipaa-project.bat</code></li>
+                        <li>Choose options 1 & 2</li>
+                        <li>Open http://localhost:3000</li>
+                        <li>Login as <code>admin</code> / <code>admin123</code></li>
+                        <li>Start exploring!</li>
+                    </ol>
+                </div>
+                <div class="success">
+                    <h4>🏥 Happy Exploring!</h4>
+                    <p>Take your time to explore all the features and see how this system can help healthcare organizations maintain HIPAA compliance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">13</span>
+    </div>
+
+    <div class="navigation">
+        <button class="nav-btn" id="prev-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        document.getElementById('total-slides').textContent = totalSlides;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+            
+            document.getElementById('current-slide').textContent = currentSlide + 1;
+            
+            // Update navigation buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 0;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides - 1;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+{
+  "timestamp": "2025-09-19T10:49:38.856880",
+  "original_tests": {
+    "server_connectivity": {
+      "status": "PASS",
+      "details": "Status: 200",
+      "timestamp": "2025-09-19T10:49:43.002348"
+    },
+    "endpoint__health_": {
+      "status": "PASS",
+      "details": "Status: 200",
+      "timestamp": "2025-09-19T10:49:45.057795"
+    },
+    "endpoint__info_": {
+      "status": "PASS",
+      "details": "Status: 200",
+      "timestamp": "2025-09-19T10:49:47.127532"
+    },
+    "endpoint__stats_": {
+      "status": "PASS",
+      "details": "Status: 200",
+      "timestamp": "2025-09-19T10:49:49.182755"
+    },
+    "auth_admin": {
+      "status": "FAIL",
+      "details": "Status: 401",
+      "timestamp": "2025-09-19T10:49:51.501710"
+    },
+    "auth_testuser": {
+      "status": "PASS",
+      "details": "Status: 200",
+      "timestamp": "2025-09-19T10:49:53.784106"
+    },
+    "auth_user": {
+      "status": "FAIL",
+      "details": "Status: 401",
+      "timestamp": "2025-09-19T10:49:56.049097"
+    },
+    "protected__checklist_": {
+      "status": "PASS",
+      "details": "Status: 401 (should be 401 for unauthorized)",
+      "timestamp": "2025-09-19T10:49:58.106904"
+    },
+    "protected__regulations_": {
+      "status": "PASS",
+      "details": "Status: 401 (should be 401 for unauthorized)",
+      "timestamp": "2025-09-19T10:50:00.171745"
+    },
+    "protected__report_": {
+      "status": "PASS",
+      "details": "Status: 401 (should be 401 for unauthorized)",
+      "timestamp": "2025-09-19T10:50:02.237107"
+    },
+    "protected__profile_": {
+      "status": "PASS",
+      "details": "Status: 401 (should be 401 for unauthorized)",
+      "timestamp": "2025-09-19T10:50:04.306741"
+    },
+    "export_csv": {
+      "status": "PASS",
+      "details": "Status: 401",
+      "timestamp": "2025-09-19T10:50:06.344008"
+    },
+    "export_pdf": {
+      "status": "PASS",
+      "details": "Status: 401",
+      "timestamp": "2025-09-19T10:50:08.395193"
+    }
+  },
+  "black_duck_tests": {
+    "script_run-detect-jdk11.bat": {
+      "status": "PASS",
+      "details": "Script exists",
+      "timestamp": "2025-09-19T10:50:08.403364"
+    },
+    "script_run-detect-jdk11.ps1": {
+      "status": "PASS",
+      "details": "Script exists",
+      "timestamp": "2025-09-19T10:50:08.404377"
+    },
+    "script_switch-java-version.ps1": {
+      "status": "PASS",
+      "details": "Script exists",
+      "timestamp": "2025-09-19T10:50:08.406413"
+    },
+    "java_version": {
+      "status": "PASS",
+      "details": "Java is available",
+      "timestamp": "2025-09-19T10:50:13.152034"
+    },
+    "frontend_deps": {
+      "status": "PASS",
+      "details": "node_modules exists",
+      "timestamp": "2025-09-19T10:50:13.153070"
+    },
+    "backend_deps": {
+      "status": "PASS",
+      "details": "requirements.txt exists",
+      "timestamp": "2025-09-19T10:50:13.154073"
+    },
+    "security_report": {
+      "status": "PASS",
+      "details": "Status: 200",
+      "timestamp": "2025-09-19T10:50:15.221689"
+    },
+    "security_scan": {
+      "status": "FAIL",
+      "details": "Status: 405",
+      "timestamp": "2025-09-19T10:50:17.253838"
+    },
+    "mock_security_data": {
+      "status": "FAIL",
+      "details": "Error: usage: manage.py scan_detect [-h] [--output-dir OUTPUT_DIR]\n                             [--log-level {TRACE,DEBUG,INFO,WARN,ERROR}]\n                             [--version] [-v {0,1,2,3}] [--settings SETTINGS]\n                             [--pythonpath PYTHONPATH] [--traceback]\n                             [--no-color] [--force-color] [--skip-checks]\nmanage.py scan_detect: error: unrecognized arguments: --mock\n",
+      "timestamp": "2025-09-19T10:50:20.981195"
+    },
+    "reports_directory": {
+      "status": "PASS",
+      "details": "Reports directory exists",
+      "timestamp": "2025-09-19T10:50:20.983199"
+    }
+  },
+  "integration_tests": {
+    "security_dashboard_access": {
+      "status": "PASS",
+      "details": "Status: 200",
+      "timestamp": "2025-09-19T10:50:23.073253"
+    },
+    "react_security_dashboard": {
+      "status": "PASS",
+      "details": "SecurityDashboard component exists",
+      "timestamp": "2025-09-19T10:50:23.085236"
+    },
+    "django_management_command": {
+      "status": "PASS",
+      "details": "scan_detect command exists",
+      "timestamp": "2025-09-19T10:50:23.090379"
+    },
+    "security_views": {
+      "status": "PASS",
+      "details": "security_views.py exists",
+      "timestamp": "2025-09-19T10:50:23.093555"
+    },
+    "url_configuration": {
+      "status": "PASS",
+      "details": "Security URLs configured",
+      "timestamp": "2025-09-19T10:50:23.097169"
+    }
+  },
+  "summary": {
+    "original_plan": {
+      "passed": 11,
+      "total": 13,
+      "success_rate": 84.62
+    },
+    "black_duck_detect": {
+      "passed": 8,
+      "total": 10,
+      "success_rate": 80.0
+    },
+    "integration": {
+      "passed": 5,
+      "total": 5,
+      "success_rate": 100.0
+    },
+    "hipaa_compliance": {
+      "passed": 5,
+      "total": 5,
+      "success_rate": 100.0
+    },
+    "overall": {
+      "passed": 29,
+      "total": 33,
+      "success_rate": 87.88
+    }
+  },
+  "hipaa_compliance": {
+    "data_encryption": {
+      "status": "PASS",
+      "details": "Database encryption implemented",
+      "timestamp": "2025-09-19T10:50:23.104036"
+    },
+    "auth_security": {
+      "status": "PASS",
+      "details": "Invalid credentials properly rejected",
+      "timestamp": "2025-09-19T10:50:25.516451"
+    },
+    "https_support": {
+      "status": "PASS",
+      "details": "HTTPS configuration exists",
+      "timestamp": "2025-09-19T10:50:25.518457"
+    },
+    "security_headers": {
+      "status": "PASS",
+      "details": "Found headers: ['X-Content-Type-Options', 'X-Frame-Options', 'X-XSS-Protection']",
+      "timestamp": "2025-09-19T10:50:27.577671"
+    },
+    "audit_logging": {
+      "status": "PASS",
+      "details": "Logs directory exists",
+      "timestamp": "2025-09-19T10:50:27.591273"
+    }
+  }
+}
