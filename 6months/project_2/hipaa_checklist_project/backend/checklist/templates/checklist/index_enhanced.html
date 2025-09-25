@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIPAA Checklist - Enhanced</title>
+    <link rel="stylesheet" href="{% static 'checklist/style.css' %}">
+    <style>
+        .regulation-details {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .regulation-title {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .regulation-description {
+            color: #6c757d;
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .regulation-source {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 0.85em;
+        }
+        .regulation-source:hover {
+            text-decoration: underline;
+        }
+        .risk-score {
+            display: inline-block;
+            background: #e9ecef;
+            border-radius: 4px;
+            padding: 4px 8px;
+            margin: 2px;
+            font-size: 0.85em;
+        }
+        .risk-high { background: #f8d7da; color: #721c24; }
+        .risk-medium { background: #fff3cd; color: #856404; }
+        .risk-low { background: #d4edda; color: #155724; }
+        .mitigation-steps {
+            background: #e7f3ff;
+            border-left: 4px solid #007bff;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        .category-badge {
+            display: inline-block;
+            background: #6c757d;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-right: 5px;
+        }
+        .category-privacy { background: #28a745; }
+        .category-security { background: #dc3545; }
+        .category-breach { background: #ffc107; color: #212529; }
+        .category-enforcement { background: #6f42c1; }
+        .category-admin { background: #17a2b8; }
+    </style>
+</head>
+<body>
+    {% include 'checklist/nav.html' %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li style="color: green; font-weight: bold;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <div class="welcome-message">
+        <h2>Welcome to the HIPAA Checklist Application!</h2>
+        <p>This tool helps you track and manage HIPAA compliance tasks efficiently with official regulatory guidance.</p>
+    </div>
+    
+    <h1>HIPAA Compliance Checklist</h1>
+    
+    <!-- Add/Edit Checklist Item Form -->
+    <div>
+        <h3>{% if item_to_edit %}Edit Checklist Item{% else %}Add New Compliance Item{% endif %}</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">{% if item_to_edit %}Update{% else %}Submit{% endif %}</button>
+            {% if item_to_edit %}
+                <a href="?">Cancel</a>
+            {% endif %}
+        </form>
+        {% if form.errors %}
+            <div style="color: red;">{{ form.errors }}</div>
+        {% endif %}
+    </div>
+    
+    <!-- Current Checklist Items -->
+    <div>
+        <h3>Your Compliance Checklist Items</h3>
+        {% if items %}
+            <div class="checklist-items">
+                {% for item in items %}
+                    <div class="regulation-details">
+                        <!-- Regulation Category Badge -->
+                        {% if 'Privacy Rule' in item.regulation_update.title %}
+                            <span class="category-badge category-privacy">Privacy Rule</span>
+                        {% elif 'Security Rule' in item.regulation_update.title %}
+                            <span class="category-badge category-security">Security Rule</span>
+                        {% elif 'Breach Notification' in item.regulation_update.title %}
+                            <span class="category-badge category-breach">Breach Notification</span>
+                        {% elif 'Enforcement' in item.regulation_update.title %}
+                            <span class="category-badge category-enforcement">Enforcement</span>
+                        {% else %}
+                            <span class="category-badge category-admin">Administrative</span>
+                        {% endif %}
+                        
+                        <!-- Regulation Title -->
+                        <div class="regulation-title">
+                            {{ item.regulation_update.title }}
+                        </div>
+                        
+                        <!-- Regulation Description -->
+                        <div class="regulation-description">
+                            {{ item.regulation_update.description|truncatewords:30 }}
+                        </div>
+                        
+                        <!-- Official Source Link -->
+                        <div>
+                            <a href="{{ item.regulation_update.source_url }}" target="_blank" class="regulation-source">
+                                📋 View Official HHS Source
+                            </a>
+                        </div>
+                        
+                        <!-- Status and Risk Information -->
+                        <div style="margin: 10px 0;">
+                            <strong>Status:</strong> 
+                            {% if item.completed %}
+                                <span style="color: green;">✅ Completed</span>
+                            {% else %}
+                                <span style="color: orange;">⏳ In Progress</span>
+                            {% endif %}
+                            
+                            <!-- Risk Score -->
+                            {% with risk_score=item.likelihood|add:0|mul:item.impact %}
+                                <span class="risk-score {% if risk_score >= 20 %}risk-high{% elif risk_score >= 10 %}risk-medium{% else %}risk-low{% endif %}">
+                                    Risk: L{{ item.likelihood }} × I{{ item.impact }} = {{ risk_score }}
+                                </span>
+                            {% endwith %}
+                        </div>
+                        
+                        <!-- User Notes -->
+                        {% if item.notes %}
+                            <div style="background: #f8f9fa; padding: 8px; border-radius: 4px; margin: 5px 0;">
+                                <strong>Notes:</strong> {{ item.notes }}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Mitigation Steps -->
+                        {% if item.mitigation_steps %}
+                            <div class="mitigation-steps">
+                                <strong>Mitigation Steps:</strong><br>
+                                {{ item.mitigation_steps }}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Admin Notes (if user is staff) -->
+                        {% if user.is_staff and item.admin_notes %}
+                            <div style="background: #fff3cd; padding: 8px; border-radius: 4px; margin: 5px 0; border-left: 4px solid #ffc107;">
+                                <strong>Admin Notes:</strong> {{ item.admin_notes }}
+                            </div>
+                        {% endif %}
+                        
+                        <!-- Last Updated -->
+                        <div style="font-size: 0.85em; color: #6c757d; margin-top: 10px;">
+                            Last updated: {{ item.last_updated|date:"M d, Y H:i" }}
+                        </div>
+                        
+                        <!-- Action Links -->
+                        <div style="margin-top: 10px;">
+                            <a href="?edit={{ item.id }}&highlight=notes" style="color: #007bff; text-decoration: none; margin-right: 15px;">
+                                ✏️ Edit
+                            </a>
+                            <a href="{{ item.regulation_update.source_url }}" target="_blank" style="color: #28a745; text-decoration: none;">
+                                📖 View Regulation Details
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div style="text-align: center; padding: 40px; color: #6c757d;">
+                <h4>No compliance items yet</h4>
+                <p>Start by adding your first HIPAA compliance item using the form above.</p>
+                <p>Select from official HIPAA regulations to ensure compliance with current requirements.</p>
+            </div>
+        {% endif %}
+    </div>
+    
+    <!-- Quick Stats -->
+    {% if items %}
+        <div style="background: #e9ecef; padding: 15px; border-radius: 8px; margin-top: 20px;">
+            <h4>Quick Stats</h4>
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div>
+                    <strong>Total Items:</strong> {{ items|length }}
+                </div>
+                <div>
+                    <strong>Completed:</strong> 
+                    {% with completed_count=0 %}
+                        {% for item in items %}
+                            {% if item.completed %}
+                                {% with completed_count=completed_count|add:1 %}{% endwith %}
+                            {% endif %}
+                        {% endfor %}
+                        {{ completed_count }}
+                    {% endwith %}
+                </div>
+                <div>
+                    <strong>In Progress:</strong> 
+                    {% with in_progress_count=0 %}
+                        {% for item in items %}
+                            {% if not item.completed %}
+                                {% with in_progress_count=in_progress_count|add:1 %}{% endwith %}
+                            {% endif %}
+                        {% endfor %}
+                        {{ in_progress_count }}
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>

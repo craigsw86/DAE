@@ -19,6 +19,7 @@ from .real_security_scanner import RealSecurityScanner
 
 
 @api_view(['GET'])
+@permission_classes([])  # No authentication required
 def security_report(request):
     """
     Get security scan report including dependency vulnerabilities
@@ -88,6 +89,7 @@ def security_report(request):
 
 
 @api_view(['POST'])
+@permission_classes([])  # No authentication required
 def run_security_scan(request):
     """
     Trigger a new security scan using real dependency scanning tools
