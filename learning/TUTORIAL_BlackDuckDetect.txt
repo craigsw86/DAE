@@ -221,9 +221,9 @@ Essential resources for Black Duck Detect and security scanning:
 
 ---
 
-## 👤 Authored by: [Your Name]
+## 👤 Authored by: Craig Weinstein
 
-🗓️ Date: 2025-01-17  
+🗓️ Date: 2025-09-25  
 🔁 Validated by: [Educator or Peer Name if applicable]
 
 ---

@@ -86,4 +86,5 @@ List any access or external requirements that could block completion. For exampl
 ## UPDATES (9/8/2025):
 - Tried to download the Black Duck SCA program directly from the website, but encountered roadblocks there (the Black Duck website wouldn't accept messages from a Gmail address); now investigating free open-souce alternatives on GitHub from Black Duck themselves.
 - Downloaded Detect as well as Black Duck Security Scan from GitHub.
+- Used Black Duck Detect by itself for my project.
 
