@@ -2,13 +2,22 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Paper, Typography, TextField, Button, Alert } from '@mui/material';
 
-// Utility to parse API errors
+/**
+ * Utility function to parse and format API error messages.
+ * 
+ * Provides user-friendly error messages by analyzing different types
+ * of API errors including authentication, validation, and network issues.
+ * 
+ * @param {Error} err - The error object from axios request
+ * @returns {string} User-friendly error message
+ */
 function parseApiError(err) {
   if (err.response) {
+    // Handle HTTP response errors
     if (err.response.status === 401) {
       return 'Invalid username or password.';
     } else if (err.response.status === 400 && typeof err.response.data === 'object') {
-      // Handle field errors
+      // Handle field validation errors
       return Object.entries(err.response.data)
         .map(([field, msgs]) => `${field}: ${Array.isArray(msgs) ? msgs.join(', ') : msgs}`)
         .join(' ');
@@ -18,19 +27,38 @@ function parseApiError(err) {
       return 'Login failed. Please try again.';
     }
   } else if (err.request) {
+    // Handle network errors
     return 'Network error. Please check your connection.';
   } else {
+    // Handle unexpected errors
     return 'An unexpected error occurred.';
   }
 }
 
+/**
+ * Login component for user authentication.
+ * 
+ * Provides a secure login interface with JWT token authentication.
+ * Handles form submission, error display, and token storage.
+ * 
+ * @param {Object} props - Component props
+ * @param {Function} props.setToken - Function to set authentication token
+ * @returns {JSX.Element} Login form component
+ */
 function Login({ setToken }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [retry, setRetry] = useState(false);
+  // Component state management
+  const [username, setUsername] = useState('');     // Username input value
+  const [password, setPassword] = useState('');     // Password input value
+  const [error, setError] = useState('');          // Error message display
+  const [loading, setLoading] = useState(false);   // Loading state for form submission
+  const [retry, setRetry] = useState(false);       // Retry button visibility
 
+  /**
+   * Effect hook to auto-hide error messages after 5 seconds.
+   * 
+   * Provides better UX by automatically clearing error messages
+   * to avoid cluttering the interface.
+   */
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => setError(''), 5000);
@@ -38,17 +66,30 @@ function Login({ setToken }) {
     }
   }, [error]);
 
+  /**
+   * Handle form submission for user authentication.
+   * 
+   * Sends credentials to the backend API, stores JWT token on success,
+   * and handles various error scenarios with user-friendly messages.
+   * 
+   * @param {Event} e - Form submission event
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
     setRetry(false);
+    
     try {
+      // Send authentication request to backend
       const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/token/`, { username, password });
+      
+      // Store JWT token in localStorage for session persistence
       localStorage.setItem('token', response.data.access);
       setToken(response.data.access);
     } catch (err) {
       setError(parseApiError(err));
+      // Show retry button for network errors
       if (err.request && !err.response) setRetry(true);
     } finally {
       setLoading(false);

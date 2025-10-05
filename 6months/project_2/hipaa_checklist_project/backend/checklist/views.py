@@ -30,56 +30,142 @@ import datetime
 # Create your views here.
 @login_required
 def checklist_view(request):
+    """
+    Main checklist view for displaying and managing user's checklist items.
+    
+    This view handles both GET and POST requests for the checklist page:
+    - GET: Displays the checklist form and user's existing items
+    - POST: Processes form submission for creating/updating checklist items
+    
+    URL Parameters:
+    - edit: ID of checklist item to edit (optional)
+    - highlight: Field to highlight in the form (optional, e.g., 'notes')
+    
+    Args:
+        request: Django HttpRequest object containing user session and form data
+        
+    Returns:
+        HttpResponse: Rendered checklist template with form and items context
+    """
     user = request.user
     edit_id = request.GET.get('edit')
     highlight = request.GET.get('highlight')
+    
+    # Get the item to edit if edit_id is provided
     if edit_id:
         item_to_edit = get_object_or_404(ChecklistItem, id=edit_id, user=user)
     else:
         item_to_edit = None
 
     if request.method == 'POST':
+        # Handle form submission for creating or updating checklist items
         if item_to_edit:
             form = ChecklistItemForm(request.POST, instance=item_to_edit, user=user)
         else:
             form = ChecklistItemForm(request.POST, user=user)
+            
         if form.is_valid():
             checklist_item = form.save(commit=False)
             checklist_item.user = user
             checklist_item.save()
+            
+            # Display success message based on operation type
             if item_to_edit:
                 messages.success(request, 'Checklist item updated successfully!')
             else:
                 messages.success(request, 'Checklist item submitted successfully!')
             return redirect('checklist_page')
     else:
+        # Handle GET request - display form and existing items
         form = ChecklistItemForm(instance=item_to_edit, user=user) if item_to_edit else ChecklistItemForm(user=user)
-        # Highlight notes field if requested
+        
+        # Highlight specific field if requested (e.g., for user guidance)
         if highlight == 'notes':
             form.fields['notes'].widget.attrs['style'] = 'background: #fffbe6; border: 2px solid #ffd700;'
+    
+    # Get user's checklist items with optimized query using select_related
     items = ChecklistItem.objects.filter(user=user).select_related('regulation_update').order_by('-last_updated')
+    
     return render(request, 'checklist/index.html', {'form': form, 'items': items, 'item_to_edit': item_to_edit})
 
 def index(request):
+    """
+    Simple index view that renders the checklist template.
+    
+    This is a basic view that serves the main checklist page without
+    any specific functionality - used as a fallback or landing page.
+    
+    Args:
+        request: Django HttpRequest object
+        
+    Returns:
+        HttpResponse: Rendered checklist template
+    """
     return render(request, 'checklist/index.html')
 
 class RegulationUpdateViewSet(viewsets.ModelViewSet):
+    """
+    REST API ViewSet for managing regulation updates.
+    
+    Provides full CRUD operations for regulation updates through the API.
+    Uses JWT authentication and includes comprehensive serialization.
+    
+    Attributes:
+        queryset: Empty queryset (overridden in get_queryset)
+        serializer_class: RegulationUpdateSerializer for API serialization
+        permission_classes: Requires JWT authentication
+    """
     queryset = RegulationUpdate.objects.none()  # Dummy queryset for router
     serializer_class = RegulationUpdateSerializer
     permission_classes = [IsAuthenticated]
 
 class ChecklistItemViewSet(viewsets.ModelViewSet):
+    """
+    REST API ViewSet for managing checklist items.
+    
+    Provides full CRUD operations for checklist items with user-specific
+    filtering. Staff users can see all items, regular users see only their own.
+    
+    Attributes:
+        queryset: Empty queryset (overridden in get_queryset)
+        serializer_class: ChecklistItemSerializer for API serialization
+        permission_classes: Requires JWT authentication
+    """
     queryset = ChecklistItem.objects.none()  # Dummy queryset for router
     serializer_class = ChecklistItemSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        """
+        Get queryset filtered by user permissions.
+        
+        Staff users can access all checklist items, while regular users
+        can only access their own items. Results are ordered by last_updated.
+        
+        Returns:
+            QuerySet: Filtered and ordered checklist items
+        """
         user = self.request.user
         if user.is_staff:
             return ChecklistItem.objects.all().order_by('-last_updated')
         return ChecklistItem.objects.filter(user=user).order_by('-last_updated')
 
     def create(self, request, *args, **kwargs):
+        """
+        Create a new checklist item via API.
+        
+        Handles POST requests to create new checklist items with proper
+        error handling and logging. Validates data through serializer
+        before saving to database.
+        
+        Args:
+            request: HTTP request containing checklist item data
+            *args: Variable length argument list
+            **kwargs: Arbitrary keyword arguments
+            
+        Returns:
+            Response: JSON response with created item data or error details
+        """
         try:
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
@@ -92,6 +178,20 @@ class ChecklistItemViewSet(viewsets.ModelViewSet):
             return Response({'detail': str(exc)}, status=400)
 
     def update(self, request, *args, **kwargs):
+        """
+        Update an existing checklist item via API.
+        
+        Handles PUT/PATCH requests to update existing checklist items.
+        Supports partial updates and includes comprehensive error handling.
+        
+        Args:
+            request: HTTP request containing updated item data
+            *args: Variable length argument list
+            **kwargs: Arbitrary keyword arguments (partial update flag)
+            
+        Returns:
+            Response: JSON response with updated item data or error details
+        """
         try:
             partial = kwargs.pop('partial', False)
             instance = self.get_object()
@@ -107,6 +207,19 @@ class ChecklistItemViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def my_items_raw(self, request):
+        """
+        Custom API action to retrieve user's checklist items using raw SQL.
+        
+        This endpoint provides direct database access for performance-critical
+        operations. Uses raw SQL to bypass ORM overhead and return data
+        in a simplified format.
+        
+        Args:
+            request: HTTP request with authenticated user
+            
+        Returns:
+            Response: JSON response containing list of user's checklist items
+        """
         user_id = request.user.id
         with connection.cursor() as cursor:
             cursor.execute(
@@ -121,15 +234,37 @@ class ChecklistItemViewSet(viewsets.ModelViewSet):
         return Response(results)
 
 class ComplianceReportView(APIView):
+    """
+    API view for generating compliance reports.
+    
+    Provides comprehensive compliance reporting including completion statistics,
+    risk assessment data, and detailed item information for authenticated users.
+    """
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
+        """
+        Generate a comprehensive compliance report for the authenticated user.
+        
+        Calculates completion statistics, risk assessments, and provides
+        detailed information about all user's checklist items. Includes
+        error handling for robust reporting.
+        
+        Args:
+            request: HTTP request with authenticated user
+            
+        Returns:
+            Response: JSON response containing compliance report data
+        """
         try:
             user = request.user
+            
+            # Calculate completion statistics
             total = ChecklistItem.objects.filter(user=user).count()
             completed = ChecklistItem.objects.filter(user=user, completed=True).count()
             percent = (completed / total * 100) if total > 0 else 0
             
+            # Build detailed risk information for each checklist item
             risks = [
                 {
                     'id': item.id,
@@ -158,10 +293,29 @@ class ComplianceReportView(APIView):
 
 @login_required
 def compliance_report_view(request):
+    """
+    Web-based compliance report view with filtering and export capabilities.
+    
+    Provides a comprehensive compliance report interface with support for:
+    - Status filtering (completed/incomplete)
+    - Risk level filtering (likelihood/impact)
+    - Sorting options
+    - Export formats (PDF, CSV)
+    
+    Args:
+        request: Django HttpRequest with user session and query parameters
+        
+    Returns:
+        HttpResponse: Rendered compliance report template or file download
+    """
     user = request.user
+    
+    # Calculate basic completion statistics
     total = ChecklistItem.objects.filter(user=user).count()
     completed = ChecklistItem.objects.filter(user=user, completed=True).count()
     percent = (completed / total * 100) if total > 0 else 0
+    
+    # Build detailed risk information for each checklist item
     risks = [
         {
             'id': item.id,

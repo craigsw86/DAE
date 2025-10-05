@@ -5,18 +5,39 @@ import ComplianceReport from './components/ComplianceReport';
 import SecurityDashboard from './components/SecurityDashboard';
 import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Container, Box, Tabs, Tab } from '@mui/material';
 
+// Material-UI theme configuration for consistent styling
 const theme = createTheme({
   palette: {
-    primary: { main: '#1976d2' },
-    secondary: { main: '#388e3c' },
-    background: { default: '#f5f5f5' },
+    primary: { main: '#1976d2' },    // Blue primary color
+    secondary: { main: '#388e3c' },   // Green secondary color
+    background: { default: '#f5f5f5' }, // Light gray background
   },
 });
 
+/**
+ * Main App component for the HIPAA Checklist application.
+ * 
+ * This component manages the overall application state including:
+ * - User authentication (JWT token management)
+ * - Tab navigation between different sections
+ * - Theme and styling configuration
+ * 
+ * The app uses a tabbed interface with three main sections:
+ * 1. Checklist - Main checklist management
+ * 2. Compliance Report - Reporting and analytics
+ * 3. Security Dashboard - Security monitoring
+ */
 function App() {
-  const [token, setToken] = useState(null);
-  const [tab, setTab] = useState(0);
+  // State management for authentication and navigation
+  const [token, setToken] = useState(null);  // JWT authentication token
+  const [tab, setTab] = useState(0);          // Active tab index (0=Checklist, 1=Report, 2=Security)
 
+  /**
+   * Effect hook to check for existing authentication token on app load.
+   * 
+   * Retrieves stored JWT token from localStorage to maintain user session
+   * across browser refreshes and page reloads.
+   */
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -24,6 +45,7 @@ function App() {
     }
   }, []);
 
+  // Render login component if user is not authenticated
   if (!token) {
     return (
       <ThemeProvider theme={theme}>
@@ -33,9 +55,21 @@ function App() {
     );
   }
 
+  /**
+   * Render the main application interface for authenticated users.
+   * 
+   * Returns a complete application layout with:
+   * - Navigation bar with application title
+   * - Tabbed interface for different sections
+   * - Footer with copyright information
+   * 
+   * @returns {JSX.Element} Complete application interface
+   */
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      
+      {/* Application header with title */}
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
@@ -43,16 +77,22 @@ function App() {
           </Typography>
         </Toolbar>
       </AppBar>
+      
+      {/* Main content area with tabbed navigation */}
       <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
         <Tabs value={tab} onChange={(_, v) => setTab(v)} centered sx={{ mb: 4 }}>
           <Tab label="Checklist" />
           <Tab label="Compliance Report" />
           <Tab label="Security Dashboard" />
         </Tabs>
+        
+        {/* Conditional rendering based on active tab */}
         {tab === 0 && <ChecklistDisplay />}
         {tab === 1 && <ComplianceReport />}
         {tab === 2 && <SecurityDashboard />}
       </Container>
+      
+      {/* Application footer */}
       <Box component="footer" sx={{ p: 2, textAlign: 'center', bgcolor: 'grey.100' }}>
         <Typography variant="body2" color="text.secondary">
           © 2025 HIPAA Checklist Project
