@@ -104,14 +104,14 @@ Use your browser or tools like curl/Postman to test:
 
 ## Expected Test Results
 
-### ✅ Successful Tests Should Show:
+###  Successful Tests Should Show:
 - All CRUD operations working correctly
 - Proper authentication and authorization
 - Correct HTTP status codes (200, 201, 204, 400, 401, 404)
 - Data integrity maintained
 - Performance within acceptable limits
 
-### 📊 Generated Reports:
+###  Generated Reports:
 - `database_summary.csv`: SQL verification results
 - `api_test_report.json`: API testing summary
 - Console output with detailed test results
@@ -227,7 +227,7 @@ python manage.py check
 
 ## Success Criteria
 
-✅ **Week 9 Complete When:**
+ **Week 9 Complete When:**
 - All CRUD operations tested and working
 - SQL queries verified and optimized
 - API endpoints responding correctly

@@ -131,14 +131,14 @@ For production, replace self-signed certificates with:
 ## File Structure
 ```
 project/
-├── ssl/
-│   ├── hipaa_checklist.crt
-│   ├── hipaa_checklist.key
-│   └── hipaa_checklist.pfx
-├── nginx-https.conf
-├── docker-compose.nginx.yml
-├── test_https_setup.py
-└── frontend/build/
+ ssl/
+    hipaa_checklist.crt
+    hipaa_checklist.key
+    hipaa_checklist.pfx
+ nginx-https.conf
+ docker-compose.nginx.yml
+ test_https_setup.py
+ frontend/build/
 ```
 
 ## Next Steps

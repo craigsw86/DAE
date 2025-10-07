@@ -32,8 +32,8 @@ This document presents a risk evaluation for the HIPAA Checklist Project, focusi
 
 | Top Risk                  | Score | Status      | Recommended Action                |
 |---------------------------|-------|-------------|-----------------------------------|
-| Data Breach (PHI) 🔴      | 5.00  | Open        | Enforce encryption, MFA           |
-| Ransomware Attack 🔴      | 4.45  | Open        | Patch, backup, incident response  |
+| Data Breach (PHI)       | 5.00  | Open        | Enforce encryption, MFA           |
+| Ransomware Attack       | 4.45  | Open        | Patch, backup, incident response  |
 | Checklist App Downtime 🟡 | 3.35  | Mitigated   | Improve redundancy, monitor       |
 
 *This section provides a high-level overview of the most critical risks and recommended actions for the project.*
@@ -139,8 +139,8 @@ Weighted Score = (Financial × 0.4) + (Operational × 0.25) + (Compliance × 0.2
 
 | Risk                        | Financial | Operational | Compliance | Reputation | Weighted Score | Status    |
 |-----------------------------|-----------|-------------|------------|------------|----------------|-----------|
-| Ransomware Attack 🔴        | 5         | 4           | 4          | 5          | 4.45           | Open      |
-| Data Breach (PHI Exposure) 🔴| 5         | 5           | 5          | 5          | 5.00           | Open      |
+| Ransomware Attack         | 5         | 4           | 4          | 5          | 4.45           | Open      |
+| Data Breach (PHI Exposure) | 5         | 5           | 5          | 5          | 5.00           | Open      |
 | Checklist App Downtime 🟡   | 3         | 4           | 3          | 3          | 3.35           | Mitigated |
 
 *This section explains the risk scoring model and shows how risks are prioritized.*
@@ -180,9 +180,9 @@ Weighted Score = (Financial × 0.4) + (Operational × 0.25) + (Compliance × 0.2
 
 | Asset/Process   | Threat Exposure         | Vulnerabilities                | Dependencies                | Risk Score | Mitigation Status | Next Review | Notes                        |
 |-----------------|------------------------|-------------------------------|-----------------------------|------------|-------------------|-------------|------------------------------|
-| PHI Database    | Data breach, ransomware| Misconfig, weak auth, no MFA  | App server, backup system   | 5.00 🔴    | Open              | 2025-09-01  | High-value target            |
+| PHI Database    | Data breach, ransomware| Misconfig, weak auth, no MFA  | App server, backup system   | 5.00     | Open              | 2025-09-01  | High-value target            |
 | Checklist App   | Downtime, data loss    | Outdated deps, config errors  | PHI DB, user auth service   | 3.35 🟡    | Mitigated         | 2025-09-01  | User access critical         |
-| User Credentials| Credential theft       | Weak password, phishing       | Auth system, email          | 4.00 🔴    | Open              | 2025-09-01  | Needs MFA enforcement        |
+| User Credentials| Credential theft       | Weak password, phishing       | Auth system, email          | 4.00     | Open              | 2025-09-01  | Needs MFA enforcement        |
 
 *This section provides a detailed register of critical assets and their risk exposure.*
 

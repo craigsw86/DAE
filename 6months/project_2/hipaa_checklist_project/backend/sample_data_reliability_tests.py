@@ -47,7 +47,7 @@ class SampleDataReliabilityTester:
         
     def setup_test_environment(self):
         """Create test user and sample data"""
-        print("🔧 Setting up test environment...")
+        print(" Setting up test environment...")
         
         # Create test user
         self.test_user, created = User.objects.get_or_create(
@@ -61,9 +61,9 @@ class SampleDataReliabilityTester:
         if created:
             self.test_user.set_password('testpass123')
             self.test_user.save()
-            print(f"✅ Created test user: {self.test_user.username}")
+            print(f" Created test user: {self.test_user.username}")
         else:
-            print(f"✅ Using existing test user: {self.test_user.username}")
+            print(f" Using existing test user: {self.test_user.username}")
             
         # Create sample regulations
         self.create_sample_regulations()
@@ -71,7 +71,7 @@ class SampleDataReliabilityTester:
         # Create sample checklist items
         self.create_sample_checklist_items()
         
-        print(f"✅ Test environment ready with {len(self.sample_regulations)} regulations and {len(self.sample_checklist_items)} checklist items")
+        print(f" Test environment ready with {len(self.sample_regulations)} regulations and {len(self.sample_checklist_items)} checklist items")
         
     def create_sample_regulations(self):
         """Create diverse sample regulations for testing"""
@@ -110,9 +110,9 @@ class SampleDataReliabilityTester:
             )
             self.sample_regulations.append(regulation)
             if created:
-                print(f"✅ Created regulation: {regulation.title}")
+                print(f" Created regulation: {regulation.title}")
             else:
-                print(f"✅ Using existing regulation: {regulation.title}")
+                print(f" Using existing regulation: {regulation.title}")
                 
     def create_sample_checklist_items(self):
         """Create diverse sample checklist items for testing"""
@@ -172,13 +172,13 @@ class SampleDataReliabilityTester:
             )
             self.sample_checklist_items.append(checklist_item)
             if created:
-                print(f"✅ Created checklist item: {checklist_item.regulation_update.title}")
+                print(f" Created checklist item: {checklist_item.regulation_update.title}")
             else:
-                print(f"✅ Using existing checklist item: {checklist_item.regulation_update.title}")
+                print(f" Using existing checklist item: {checklist_item.regulation_update.title}")
                 
     def test_basic_crud_reliability(self):
         """Test basic CRUD operations for reliability"""
-        print("\n🔍 Testing Basic CRUD Reliability...")
+        print("\n Testing Basic CRUD Reliability...")
         
         test_results = {
             'test_name': 'Basic CRUD Reliability',
@@ -195,23 +195,23 @@ class SampleDataReliabilityTester:
                 source_url='https://test.example.com'
             )
             test_results['passed'] += 1
-            test_results['details'].append('✅ CREATE operation successful')
+            test_results['details'].append(' CREATE operation successful')
         except Exception as e:
             test_results['failed'] += 1
-            test_results['details'].append(f'❌ CREATE operation failed: {str(e)}')
+            test_results['details'].append(f' CREATE operation failed: {str(e)}')
             
         # Test READ
         try:
             retrieved_regulation = RegulationUpdate.objects.get(id=new_regulation.id)
             if retrieved_regulation.title == new_regulation.title:
                 test_results['passed'] += 1
-                test_results['details'].append('✅ READ operation successful')
+                test_results['details'].append(' READ operation successful')
             else:
                 test_results['failed'] += 1
-                test_results['details'].append('❌ READ operation failed: Data mismatch')
+                test_results['details'].append(' READ operation failed: Data mismatch')
         except Exception as e:
             test_results['failed'] += 1
-            test_results['details'].append(f'❌ READ operation failed: {str(e)}')
+            test_results['details'].append(f' READ operation failed: {str(e)}')
             
         # Test UPDATE
         try:
@@ -223,13 +223,13 @@ class SampleDataReliabilityTester:
             updated_regulation = RegulationUpdate.objects.get(id=new_regulation.id)
             if updated_regulation.title == 'Updated Test Regulation':
                 test_results['passed'] += 1
-                test_results['details'].append('✅ UPDATE operation successful')
+                test_results['details'].append(' UPDATE operation successful')
             else:
                 test_results['failed'] += 1
-                test_results['details'].append('❌ UPDATE operation failed: Data not updated')
+                test_results['details'].append(' UPDATE operation failed: Data not updated')
         except Exception as e:
             test_results['failed'] += 1
-            test_results['details'].append(f'❌ UPDATE operation failed: {str(e)}')
+            test_results['details'].append(f' UPDATE operation failed: {str(e)}')
             
         # Test DELETE
         try:
@@ -240,20 +240,20 @@ class SampleDataReliabilityTester:
             try:
                 RegulationUpdate.objects.get(id=regulation_id)
                 test_results['failed'] += 1
-                test_results['details'].append('❌ DELETE operation failed: Record still exists')
+                test_results['details'].append(' DELETE operation failed: Record still exists')
             except RegulationUpdate.DoesNotExist:
                 test_results['passed'] += 1
-                test_results['details'].append('✅ DELETE operation successful')
+                test_results['details'].append(' DELETE operation successful')
         except Exception as e:
             test_results['failed'] += 1
-            test_results['details'].append(f'❌ DELETE operation failed: {str(e)}')
+            test_results['details'].append(f' DELETE operation failed: {str(e)}')
             
         self.test_results['tests'].append(test_results)
-        print(f"✅ Basic CRUD test completed: {test_results['passed']} passed, {test_results['failed']} failed")
+        print(f" Basic CRUD test completed: {test_results['passed']} passed, {test_results['failed']} failed")
         
     def test_concurrent_updates(self):
         """Test concurrent update scenarios"""
-        print("\n🔄 Testing Concurrent Updates...")
+        print("\n Testing Concurrent Updates...")
         
         test_results = {
             'test_name': 'Concurrent Updates',
@@ -281,14 +281,14 @@ class SampleDataReliabilityTester:
             final_item = ChecklistItem.objects.get(id=test_item.id)
             if final_item.notes == "Update 3":
                 test_results['passed'] += 1
-                test_results['details'].append('✅ Concurrent updates handled correctly')
+                test_results['details'].append(' Concurrent updates handled correctly')
             else:
                 test_results['failed'] += 1
-                test_results['details'].append('❌ Concurrent updates failed: Final state incorrect')
+                test_results['details'].append(' Concurrent updates failed: Final state incorrect')
                 
         except Exception as e:
             test_results['failed'] += 1
-            test_results['details'].append(f'❌ Concurrent updates failed: {str(e)}')
+            test_results['details'].append(f' Concurrent updates failed: {str(e)}')
             
         # Test transaction rollback
         try:
@@ -306,17 +306,17 @@ class SampleDataReliabilityTester:
             test_item = ChecklistItem.objects.get(id=self.sample_checklist_items[1].id)
             if test_item.completed == original_status:
                 test_results['passed'] += 1
-                test_results['details'].append('✅ Transaction rollback successful')
+                test_results['details'].append(' Transaction rollback successful')
             else:
                 test_results['failed'] += 1
-                test_results['details'].append('❌ Transaction rollback failed')
+                test_results['details'].append(' Transaction rollback failed')
                 
         self.test_results['tests'].append(test_results)
-        print(f"✅ Concurrent updates test completed: {test_results['passed']} passed, {test_results['failed']} failed")
+        print(f" Concurrent updates test completed: {test_results['passed']} passed, {test_results['failed']} failed")
         
     def test_data_consistency(self):
         """Test data consistency across operations"""
-        print("\n🔍 Testing Data Consistency...")
+        print("\n Testing Data Consistency...")
         
         test_results = {
             'test_name': 'Data Consistency',
@@ -333,14 +333,14 @@ class SampleDataReliabilityTester:
                     test_results['passed'] += 1
                 else:
                     test_results['failed'] += 1
-                    test_results['details'].append(f'❌ Foreign key relationship broken for item: {item.title}')
+                    test_results['details'].append(f' Foreign key relationship broken for item: {item.title}')
                     
             if test_results['passed'] > 0:
-                test_results['details'].append('✅ All foreign key relationships intact')
+                test_results['details'].append(' All foreign key relationships intact')
                 
         except Exception as e:
             test_results['failed'] += 1
-            test_results['details'].append(f'❌ Foreign key test failed: {str(e)}')
+            test_results['details'].append(f' Foreign key test failed: {str(e)}')
             
         # Test data integrity constraints
         try:
@@ -351,10 +351,10 @@ class SampleDataReliabilityTester:
             )
             duplicate_regulation.save()
             test_results['failed'] += 1
-            test_results['details'].append('❌ Unique constraint not enforced')
+            test_results['details'].append(' Unique constraint not enforced')
         except Exception as e:
             test_results['passed'] += 1
-            test_results['details'].append('✅ Unique constraints properly enforced')
+            test_results['details'].append(' Unique constraints properly enforced')
             
         # Test required field constraints
         try:
@@ -363,17 +363,17 @@ class SampleDataReliabilityTester:
             )
             incomplete_item.save()
             test_results['failed'] += 1
-            test_results['details'].append('❌ Required field constraints not enforced')
+            test_results['details'].append(' Required field constraints not enforced')
         except Exception as e:
             test_results['passed'] += 1
-            test_results['details'].append('✅ Required field constraints properly enforced')
+            test_results['details'].append(' Required field constraints properly enforced')
             
         self.test_results['tests'].append(test_results)
-        print(f"✅ Data consistency test completed: {test_results['passed']} passed, {test_results['failed']} failed")
+        print(f" Data consistency test completed: {test_results['passed']} passed, {test_results['failed']} failed")
         
     def test_sql_query_performance(self):
         """Test and analyze SQL query performance"""
-        print("\n⚡ Testing SQL Query Performance...")
+        print("\n Testing SQL Query Performance...")
         
         test_results = {
             'test_name': 'SQL Query Performance',
@@ -435,17 +435,17 @@ class SampleDataReliabilityTester:
                 
                 if execution_time < 0.1:  # Less than 100ms
                     test_results['passed'] += 1
-                    test_results['details'].append(f'✅ {query_name}: {execution_time:.4f}s (Fast)')
+                    test_results['details'].append(f' {query_name}: {execution_time:.4f}s (Fast)')
                 elif execution_time < 1.0:  # Less than 1 second
                     test_results['passed'] += 1
-                    test_results['details'].append(f'⚠️ {query_name}: {execution_time:.4f}s (Acceptable)')
+                    test_results['details'].append(f' {query_name}: {execution_time:.4f}s (Acceptable)')
                 else:
                     test_results['failed'] += 1
-                    test_results['details'].append(f'❌ {query_name}: {execution_time:.4f}s (Slow)')
+                    test_results['details'].append(f' {query_name}: {execution_time:.4f}s (Slow)')
                     
             except Exception as e:
                 test_results['failed'] += 1
-                test_results['details'].append(f'❌ {query_name}: Query failed - {str(e)}')
+                test_results['details'].append(f' {query_name}: Query failed - {str(e)}')
                 test_results['performance_metrics'][query_name] = {
                     'execution_time': None,
                     'result_count': 0,
@@ -455,11 +455,11 @@ class SampleDataReliabilityTester:
                 
         self.test_results['tests'].append(test_results)
         self.test_results['performance_metrics'] = test_results['performance_metrics']
-        print(f"✅ SQL performance test completed: {test_results['passed']} passed, {test_results['failed']} failed")
+        print(f" SQL performance test completed: {test_results['passed']} passed, {test_results['failed']} failed")
         
     def test_bulk_operations(self):
         """Test bulk operations for reliability"""
-        print("\n📦 Testing Bulk Operations...")
+        print("\n Testing Bulk Operations...")
         
         test_results = {
             'test_name': 'Bulk Operations',
@@ -489,14 +489,14 @@ class SampleDataReliabilityTester:
             created_count = RegulationUpdate.objects.filter(title__startswith='Bulk Test Regulation').count()
             if created_count == 10:
                 test_results['passed'] += 1
-                test_results['details'].append(f'✅ Bulk create successful: {created_count} records in {execution_time:.4f}s')
+                test_results['details'].append(f' Bulk create successful: {created_count} records in {execution_time:.4f}s')
             else:
                 test_results['failed'] += 1
-                test_results['details'].append(f'❌ Bulk create failed: Expected 10, got {created_count}')
+                test_results['details'].append(f' Bulk create failed: Expected 10, got {created_count}')
                 
         except Exception as e:
             test_results['failed'] += 1
-            test_results['details'].append(f'❌ Bulk create failed: {str(e)}')
+            test_results['details'].append(f' Bulk create failed: {str(e)}')
             
         # Test bulk update
         try:
@@ -519,14 +519,14 @@ class SampleDataReliabilityTester:
             
             if updated_count == 10:
                 test_results['passed'] += 1
-                test_results['details'].append(f'✅ Bulk update successful: {updated_count} records in {execution_time:.4f}s')
+                test_results['details'].append(f' Bulk update successful: {updated_count} records in {execution_time:.4f}s')
             else:
                 test_results['failed'] += 1
-                test_results['details'].append(f'❌ Bulk update failed: Expected 10, got {updated_count}')
+                test_results['details'].append(f' Bulk update failed: Expected 10, got {updated_count}')
                 
         except Exception as e:
             test_results['failed'] += 1
-            test_results['details'].append(f'❌ Bulk update failed: {str(e)}')
+            test_results['details'].append(f' Bulk update failed: {str(e)}')
             
         # Test bulk delete
         try:
@@ -539,17 +539,17 @@ class SampleDataReliabilityTester:
             
             if deleted_count == 10:
                 test_results['passed'] += 1
-                test_results['details'].append(f'✅ Bulk delete successful: {deleted_count} records in {execution_time:.4f}s')
+                test_results['details'].append(f' Bulk delete successful: {deleted_count} records in {execution_time:.4f}s')
             else:
                 test_results['failed'] += 1
-                test_results['details'].append(f'❌ Bulk delete failed: Expected 10, got {deleted_count}')
+                test_results['details'].append(f' Bulk delete failed: Expected 10, got {deleted_count}')
                 
         except Exception as e:
             test_results['failed'] += 1
-            test_results['details'].append(f'❌ Bulk delete failed: {str(e)}')
+            test_results['details'].append(f' Bulk delete failed: {str(e)}')
             
         self.test_results['tests'].append(test_results)
-        print(f"✅ Bulk operations test completed: {test_results['passed']} passed, {test_results['failed']} failed")
+        print(f" Bulk operations test completed: {test_results['passed']} passed, {test_results['failed']} failed")
         
     def calculate_reliability_score(self):
         """Calculate overall reliability score"""
@@ -567,7 +567,7 @@ class SampleDataReliabilityTester:
             
     def generate_report(self):
         """Generate comprehensive test report"""
-        print("\n📊 Generating Test Report...")
+        print("\n Generating Test Report...")
         
         self.calculate_reliability_score()
         
@@ -577,25 +577,25 @@ class SampleDataReliabilityTester:
             
         # Generate summary report
         summary = f"""
-🎯 SAMPLE DATA RELIABILITY TEST REPORT
+ SAMPLE DATA RELIABILITY TEST REPORT
 =====================================
 Generated: {self.test_results['timestamp']}
 Overall Reliability Score: {self.test_results['reliability_score']:.1f}%
 
-📋 TEST SUMMARY:
+ TEST SUMMARY:
 """
         
         for test in self.test_results['tests']:
             summary += f"""
 {test['test_name']}:
-  ✅ Passed: {test['passed']}
-  ❌ Failed: {test['failed']}
+   Passed: {test['passed']}
+   Failed: {test['failed']}
   Details: {', '.join(test['details'][:3])}{'...' if len(test['details']) > 3 else ''}
 """
         
         if self.test_results['performance_metrics']:
             summary += f"""
-⚡ PERFORMANCE METRICS:
+ PERFORMANCE METRICS:
 """
             for query_name, metrics in self.test_results['performance_metrics'].items():
                 if metrics['status'] == 'success':
@@ -604,7 +604,7 @@ Overall Reliability Score: {self.test_results['reliability_score']:.1f}%
                     summary += f"  {query_name}: FAILED - {metrics.get('error', 'Unknown error')}\n"
         
         summary += f"""
-🎯 RECOMMENDATIONS:
+ RECOMMENDATIONS:
 """
         
         if self.test_results['reliability_score'] >= 95:
@@ -623,7 +623,7 @@ Overall Reliability Score: {self.test_results['reliability_score']:.1f}%
             summary += f"  • Consider optimizing these slow queries: {', '.join(slow_queries)}\n"
             
         summary += """
-📁 REPORTS GENERATED:
+ REPORTS GENERATED:
   • sample_data_reliability_report.json (Detailed results)
   • This summary report
 """
@@ -634,11 +634,11 @@ Overall Reliability Score: {self.test_results['reliability_score']:.1f}%
         with open('sample_data_reliability_summary.txt', 'w') as f:
             f.write(summary)
             
-        print("✅ Reports generated successfully!")
+        print(" Reports generated successfully!")
         
     def cleanup_test_data(self):
         """Clean up test data"""
-        print("\n🧹 Cleaning up test data...")
+        print("\n Cleaning up test data...")
         
         try:
             # Clean up bulk test data (should already be deleted)
@@ -648,14 +648,14 @@ Overall Reliability Score: {self.test_results['reliability_score']:.1f}%
             if self.test_user:
                 self.test_user.delete()
                 
-            print("✅ Test data cleanup completed")
+            print(" Test data cleanup completed")
             
         except Exception as e:
-            print(f"⚠️ Cleanup warning: {str(e)}")
+            print(f" Cleanup warning: {str(e)}")
             
     def run_all_tests(self):
         """Run all reliability tests"""
-        print("🚀 Starting Sample Data Reliability Tests...")
+        print(" Starting Sample Data Reliability Tests...")
         print("=" * 60)
         
         try:
@@ -668,14 +668,14 @@ Overall Reliability Score: {self.test_results['reliability_score']:.1f}%
             self.generate_report()
             
         except Exception as e:
-            print(f"❌ Test execution failed: {str(e)}")
+            print(f" Test execution failed: {str(e)}")
             logger.exception("Test execution error")
             
         finally:
             self.cleanup_test_data()
             
-        print("\n🎉 Sample Data Reliability Tests Completed!")
-        print(f"📊 Overall Reliability Score: {self.test_results['reliability_score']:.1f}%")
+        print("\n Sample Data Reliability Tests Completed!")
+        print(f" Overall Reliability Score: {self.test_results['reliability_score']:.1f}%")
 
 if __name__ == '__main__':
     tester = SampleDataReliabilityTester()

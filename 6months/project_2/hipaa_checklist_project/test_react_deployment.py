@@ -17,7 +17,7 @@ class ReactDeploymentTester:
     
     def log_test(self, test_name, success, message=""):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = " PASS" if success else " FAIL"
         print(f"{test_name}: {status} {message}")
         self.test_results.append({
             'test': test_name,
@@ -28,7 +28,7 @@ class ReactDeploymentTester:
     
     def test_nginx_health(self):
         """Test Nginx health endpoint"""
-        print("\n📝 Test 1: Nginx Health Check")
+        print("\n Test 1: Nginx Health Check")
         print("-" * 40)
         
         try:
@@ -42,7 +42,7 @@ class ReactDeploymentTester:
     
     def test_react_app_serving(self):
         """Test React app serving"""
-        print("\n📝 Test 2: React App Serving")
+        print("\n Test 2: React App Serving")
         print("-" * 40)
         
         try:
@@ -74,7 +74,7 @@ class ReactDeploymentTester:
     
     def test_static_files(self):
         """Test static file serving"""
-        print("\n📝 Test 3: Static Files")
+        print("\n Test 3: Static Files")
         print("-" * 40)
         
         # Test common static file types
@@ -99,7 +99,7 @@ class ReactDeploymentTester:
     
     def test_spa_routing(self):
         """Test Single Page Application routing"""
-        print("\n📝 Test 4: SPA Routing")
+        print("\n Test 4: SPA Routing")
         print("-" * 40)
         
         # Test various routes that should serve index.html
@@ -127,7 +127,7 @@ class ReactDeploymentTester:
     
     def test_caching_headers(self):
         """Test caching headers"""
-        print("\n📝 Test 5: Caching Headers")
+        print("\n Test 5: Caching Headers")
         print("-" * 40)
         
         try:
@@ -160,7 +160,7 @@ class ReactDeploymentTester:
     
     def test_security_headers(self):
         """Test security headers"""
-        print("\n📝 Test 6: Security Headers")
+        print("\n Test 6: Security Headers")
         print("-" * 40)
         
         try:
@@ -192,7 +192,7 @@ class ReactDeploymentTester:
     
     def test_performance(self):
         """Test performance metrics"""
-        print("\n📝 Test 7: Performance")
+        print("\n Test 7: Performance")
         print("-" * 40)
         
         try:
@@ -224,7 +224,7 @@ class ReactDeploymentTester:
     
     def test_api_proxy(self):
         """Test API proxy to Django backend"""
-        print("\n📝 Test 8: API Proxy")
+        print("\n Test 8: API Proxy")
         print("-" * 40)
         
         # Test API endpoints through Nginx proxy
@@ -247,7 +247,7 @@ class ReactDeploymentTester:
     def generate_report(self):
         """Generate test report"""
         print("\n" + "=" * 60)
-        print("📊 REACT DEPLOYMENT TEST REPORT")
+        print(" REACT DEPLOYMENT TEST REPORT")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -260,7 +260,7 @@ class ReactDeploymentTester:
         print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ Failed Tests:")
+            print("\n Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
@@ -270,13 +270,13 @@ class ReactDeploymentTester:
         with open(report_file, 'w') as f:
             json.dump(self.test_results, f, indent=2)
         
-        print(f"\n📄 Detailed report saved to: {report_file}")
+        print(f"\n Detailed report saved to: {report_file}")
         
         return passed_tests == total_tests
     
     def run_all_tests(self):
         """Run all React deployment tests"""
-        print("🧪 Starting React Deployment Tests")
+        print(" Starting React Deployment Tests")
         print("=" * 60)
         
         self.test_nginx_health()
@@ -296,10 +296,10 @@ def main():
     success = tester.run_all_tests()
     
     if success:
-        print("\n🎉 All React deployment tests passed!")
-        print("✅ React app is properly deployed via Nginx!")
+        print("\n All React deployment tests passed!")
+        print(" React app is properly deployed via Nginx!")
     else:
-        print("\n⚠️  Some React deployment tests failed.")
+        print("\n  Some React deployment tests failed.")
         print("Please check the configuration and try again.")
     
     return success

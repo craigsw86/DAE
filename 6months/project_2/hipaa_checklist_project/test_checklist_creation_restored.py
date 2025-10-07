@@ -12,7 +12,7 @@ def test_checklist_creation():
     base_url = "http://localhost:8000"
     
     # Step 1: Get fresh token
-    print("🔑 Getting fresh authentication token...")
+    print(" Getting fresh authentication token...")
     auth_data = {"username": "testuser", "password": "testpass123"}
     
     try:
@@ -20,14 +20,14 @@ def test_checklist_creation():
         if auth_response.status_code == 200:
             token_data = auth_response.json()
             access_token = token_data.get('access')
-            print(f"✅ Token received: {access_token[:50]}...")
+            print(f" Token received: {access_token[:50]}...")
             
             # Step 2: Test checklist creation
-            print("\n📝 Testing checklist creation...")
+            print("\n Testing checklist creation...")
             headers = {"Authorization": f"Bearer {access_token}"}
             
             # First, let's check what regulations exist
-            print("📋 Checking available regulations...")
+            print(" Checking available regulations...")
             regs_response = requests.get(f"{base_url}/api/regulations/", headers=headers, timeout=10)
             print(f"Regulations API Status: {regs_response.status_code}")
             if regs_response.status_code == 200:
@@ -73,7 +73,7 @@ def test_checklist_creation():
             ]
             
             for test_case in test_cases:
-                print(f"\n🧪 Testing: {test_case['name']}")
+                print(f"\n Testing: {test_case['name']}")
                 print(f"Data: {json.dumps(test_case['data'], indent=2)}")
                 
                 try:
@@ -88,22 +88,22 @@ def test_checklist_creation():
                     print(f"Response: {create_response.text}")
                     
                     if create_response.status_code == 201:
-                        print("✅ SUCCESS!")
+                        print(" SUCCESS!")
                         created_item = create_response.json()
                         print(f"Created item ID: {created_item.get('id')}")
                         break
                     else:
-                        print("❌ FAILED")
+                        print(" FAILED")
                         
                 except Exception as e:
-                    print(f"❌ ERROR: {e}")
+                    print(f" ERROR: {e}")
             
         else:
-            print(f"❌ Authentication failed: {auth_response.status_code}")
+            print(f" Authentication failed: {auth_response.status_code}")
             print(f"Response: {auth_response.text}")
             
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
 
 if __name__ == "__main__":
     test_checklist_creation()

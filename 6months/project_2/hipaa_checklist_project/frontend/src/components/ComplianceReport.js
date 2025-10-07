@@ -280,7 +280,7 @@ export default function ComplianceReport() {
                 ].map(col => (
                   <TableCell key={col.field} onClick={() => handleSort(col.field)} style={{ cursor: 'pointer', fontWeight: 'bold' }}>
                     {col.label}
-                    {sort.field === col.field ? (sort.order === 'asc' ? ' ▲' : ' ▼') : ''}
+                    {sort.field === col.field ? (sort.order === 'asc' ? ' ' : ' ') : ''}
                   </TableCell>
                 ))}
               </TableRow>

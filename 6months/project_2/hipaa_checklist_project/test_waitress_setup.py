@@ -24,7 +24,7 @@ class WaitressSetupTester:
     
     def log_test(self, test_name, success, message=""):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = " PASS" if success else " FAIL"
         print(f"{test_name}: {status} {message}")
         self.test_results.append({
             'test': test_name,
@@ -35,7 +35,7 @@ class WaitressSetupTester:
     
     def test_server_availability(self):
         """Test if the server is running and accessible"""
-        print("\n📝 Test 1: Server Availability")
+        print("\n Test 1: Server Availability")
         print("-" * 40)
         
         try:
@@ -51,7 +51,7 @@ class WaitressSetupTester:
     
     def test_api_endpoints(self):
         """Test API endpoints functionality"""
-        print("\n📝 Test 2: API Endpoints")
+        print("\n Test 2: API Endpoints")
         print("-" * 40)
         
         endpoints = [
@@ -72,7 +72,7 @@ class WaitressSetupTester:
     
     def test_database_encryption(self):
         """Test database encryption status"""
-        print("\n📝 Test 3: Database Encryption")
+        print("\n Test 3: Database Encryption")
         print("-" * 40)
         
         # Check if encrypted database exists
@@ -97,7 +97,7 @@ class WaitressSetupTester:
     
     def test_database_permissions(self):
         """Test database file permissions"""
-        print("\n📝 Test 4: Database Permissions")
+        print("\n Test 4: Database Permissions")
         print("-" * 40)
         
         db_files = [self.db_path, self.encrypted_db_path]
@@ -126,7 +126,7 @@ class WaitressSetupTester:
     
     def test_security_headers(self):
         """Test security headers"""
-        print("\n📝 Test 5: Security Headers")
+        print("\n Test 5: Security Headers")
         print("-" * 40)
         
         try:
@@ -158,7 +158,7 @@ class WaitressSetupTester:
     
     def test_database_functionality(self):
         """Test database functionality"""
-        print("\n📝 Test 6: Database Functionality")
+        print("\n Test 6: Database Functionality")
         print("-" * 40)
         
         # First restore database for testing
@@ -210,7 +210,7 @@ class WaitressSetupTester:
     
     def test_performance_metrics(self):
         """Test performance and monitoring"""
-        print("\n📝 Test 7: Performance Metrics")
+        print("\n Test 7: Performance Metrics")
         print("-" * 40)
         
         try:
@@ -238,7 +238,7 @@ class WaitressSetupTester:
     def generate_report(self):
         """Generate test report"""
         print("\n" + "=" * 60)
-        print("📊 WAITRESS SETUP TEST REPORT")
+        print(" WAITRESS SETUP TEST REPORT")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -251,7 +251,7 @@ class WaitressSetupTester:
         print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ Failed Tests:")
+            print("\n Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
@@ -261,13 +261,13 @@ class WaitressSetupTester:
         with open(report_file, 'w') as f:
             json.dump(self.test_results, f, indent=2)
         
-        print(f"\n📄 Detailed report saved to: {report_file}")
+        print(f"\n Detailed report saved to: {report_file}")
         
         return passed_tests == total_tests
     
     def run_all_tests(self):
         """Run all tests"""
-        print("🧪 Starting Waitress Setup Tests")
+        print(" Starting Waitress Setup Tests")
         print("=" * 60)
         
         self.test_server_availability()
@@ -286,10 +286,10 @@ def main():
     success = tester.run_all_tests()
     
     if success:
-        print("\n🎉 All tests passed! Waitress setup is working correctly.")
+        print("\n All tests passed! Waitress setup is working correctly.")
         sys.exit(0)
     else:
-        print("\n⚠️  Some tests failed. Please check the configuration.")
+        print("\n  Some tests failed. Please check the configuration.")
         sys.exit(1)
 
 if __name__ == '__main__':

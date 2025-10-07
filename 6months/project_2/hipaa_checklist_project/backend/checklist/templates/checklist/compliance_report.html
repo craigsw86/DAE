@@ -81,7 +81,7 @@
                     <a href="?{% if request.GET.status %}status={{ request.GET.status }}&{% endif %}{% if request.GET.likelihood %}likelihood={{ request.GET.likelihood }}&{% endif %}{% if request.GET.impact %}impact={{ request.GET.impact }}&{% endif %}sort={{ col }}&order={% if sort == col and order == 'asc' %}desc{% else %}asc{% endif %}" class="sort-link">
                         {{ label }}
                         {% if sort == col %}
-                            <span class="sort-indicator">{% if order == 'asc' %}▲{% else %}▼{% endif %}</span>
+                            <span class="sort-indicator">{% if order == 'asc' %}{% else %}{% endif %}</span>
                         {% endif %}
                     </a>
                 </th>
@@ -91,7 +91,7 @@
                     <a href="?{% if request.GET.status %}status={{ request.GET.status }}&{% endif %}{% if request.GET.likelihood %}likelihood={{ request.GET.likelihood }}&{% endif %}{% if request.GET.impact %}impact={{ request.GET.impact }}&{% endif %}sort=admin_notes&order={% if sort == 'admin_notes' and order == 'asc' %}desc{% else %}asc{% endif %}" class="sort-link">
                         Admin Notes
                         {% if sort == 'admin_notes' %}
-                            <span class="sort-indicator">{% if order == 'asc' %}▲{% else %}▼{% endif %}</span>
+                            <span class="sort-indicator">{% if order == 'asc' %}{% else %}{% endif %}</span>
                         {% endif %}
                     </a>
                 </th>

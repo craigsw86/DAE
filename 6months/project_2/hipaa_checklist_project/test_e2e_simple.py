@@ -22,7 +22,7 @@ class SimpleE2ETester:
         
     def log_test(self, test_name, success, message="", data=None):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = " PASS" if success else " FAIL"
         print(f"{test_name}: {status} {message}")
         self.test_results.append({
             'test': test_name,
@@ -34,7 +34,7 @@ class SimpleE2ETester:
     
     def create_test_user_via_admin(self):
         """Create test user via Django admin or API"""
-        print("\n📝 Creating Test User")
+        print("\n Creating Test User")
         print("-" * 40)
         
         try:
@@ -57,7 +57,7 @@ class SimpleE2ETester:
     
     def test_public_endpoints(self):
         """Test public endpoints first"""
-        print("\n📝 Test 1: Public Endpoints")
+        print("\n Test 1: Public Endpoints")
         print("-" * 40)
         
         public_endpoints = [
@@ -80,7 +80,7 @@ class SimpleE2ETester:
     
     def test_authentication_endpoints(self):
         """Test authentication endpoints"""
-        print("\n📝 Test 2: Authentication Endpoints")
+        print("\n Test 2: Authentication Endpoints")
         print("-" * 40)
         
         # Test token endpoint with invalid credentials
@@ -110,7 +110,7 @@ class SimpleE2ETester:
     
     def test_protected_endpoints_without_auth(self):
         """Test protected endpoints without authentication"""
-        print("\n📝 Test 3: Protected Endpoints (No Auth)")
+        print("\n Test 3: Protected Endpoints (No Auth)")
         print("-" * 40)
         
         protected_endpoints = [
@@ -134,7 +134,7 @@ class SimpleE2ETester:
     
     def test_protected_endpoints_with_auth(self):
         """Test protected endpoints with authentication"""
-        print("\n📝 Test 4: Protected Endpoints (With Auth)")
+        print("\n Test 4: Protected Endpoints (With Auth)")
         print("-" * 40)
         
         if not self.auth_token:
@@ -166,7 +166,7 @@ class SimpleE2ETester:
     
     def test_crud_operations(self):
         """Test CRUD operations if authenticated"""
-        print("\n📝 Test 5: CRUD Operations")
+        print("\n Test 5: CRUD Operations")
         print("-" * 40)
         
         if not self.auth_token:
@@ -234,7 +234,7 @@ class SimpleE2ETester:
     
     def test_export_functionality(self):
         """Test export functionality"""
-        print("\n📝 Test 6: Export Functionality")
+        print("\n Test 6: Export Functionality")
         print("-" * 40)
         
         if not self.auth_token:
@@ -266,7 +266,7 @@ class SimpleE2ETester:
     
     def test_performance(self):
         """Test API performance"""
-        print("\n📝 Test 7: Performance Testing")
+        print("\n Test 7: Performance Testing")
         print("-" * 40)
         
         endpoints = [
@@ -295,7 +295,7 @@ class SimpleE2ETester:
     
     def test_error_handling(self):
         """Test error handling"""
-        print("\n📝 Test 8: Error Handling")
+        print("\n Test 8: Error Handling")
         print("-" * 40)
         
         # Test 404 endpoint
@@ -323,7 +323,7 @@ class SimpleE2ETester:
     
     def cleanup_test_data(self):
         """Clean up test data"""
-        print("\n📝 Cleaning up Test Data")
+        print("\n Cleaning up Test Data")
         print("-" * 40)
         
         if not self.auth_token or 'created_item_id' not in self.test_data:
@@ -346,7 +346,7 @@ class SimpleE2ETester:
     def generate_report(self):
         """Generate comprehensive test report"""
         print("\n" + "=" * 60)
-        print("📊 END-TO-END LOCAL NETWORK TEST REPORT")
+        print(" END-TO-END LOCAL NETWORK TEST REPORT")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -359,7 +359,7 @@ class SimpleE2ETester:
         print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ Failed Tests:")
+            print("\n Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
@@ -378,13 +378,13 @@ class SimpleE2ETester:
                 }
             }, f, indent=2)
         
-        print(f"\n📄 Detailed report saved to: {report_file}")
+        print(f"\n Detailed report saved to: {report_file}")
         
         return passed_tests == total_tests
     
     def run_all_tests(self):
         """Run all end-to-end tests"""
-        print("🧪 Starting Simple End-to-End Local Network Tests")
+        print(" Starting Simple End-to-End Local Network Tests")
         print("=" * 60)
         
         # Core tests
@@ -408,11 +408,11 @@ def main():
     success = tester.run_all_tests()
     
     if success:
-        print("\n🎉 All end-to-end tests passed!")
-        print("✅ Complete user workflow is functioning!")
-        print("✅ Login, checklist, updates, and reports all working!")
+        print("\n All end-to-end tests passed!")
+        print(" Complete user workflow is functioning!")
+        print(" Login, checklist, updates, and reports all working!")
     else:
-        print("\n⚠️  Some end-to-end tests failed.")
+        print("\n  Some end-to-end tests failed.")
         print("Please check the configuration and try again.")
     
     return success

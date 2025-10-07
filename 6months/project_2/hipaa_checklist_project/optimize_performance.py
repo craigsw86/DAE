@@ -9,12 +9,12 @@ from pathlib import Path
 
 def optimize_django_settings():
     """Optimize Django settings for performance"""
-    print("⚡ Optimizing Django settings for performance...")
+    print(" Optimizing Django settings for performance...")
     
     settings_file = Path("backend/hipaa_checklist/settings.py")
     
     if not settings_file.exists():
-        print("❌ Settings file not found")
+        print(" Settings file not found")
         return False
     
     try:
@@ -74,7 +74,7 @@ LOGGING = {
         
         # Check if performance settings already exist
         if 'CACHES = {' in content:
-            print("✅ Performance settings already exist")
+            print(" Performance settings already exist")
             return True
         
         # Add performance settings before the last line
@@ -85,21 +85,21 @@ LOGGING = {
         with open(settings_file, 'w') as f:
             f.write('\n'.join(lines))
         
-        print("✅ Performance settings added")
+        print(" Performance settings added")
         return True
         
     except Exception as e:
-        print(f"❌ Performance optimization failed: {e}")
+        print(f" Performance optimization failed: {e}")
         return False
 
 def optimize_waitress_config():
     """Optimize Waitress configuration"""
-    print("⚡ Optimizing Waitress configuration...")
+    print(" Optimizing Waitress configuration...")
     
     config_file = Path("backend/waitress_config.py")
     
     if not config_file.exists():
-        print("❌ Waitress config file not found")
+        print(" Waitress config file not found")
         return False
     
     try:
@@ -123,28 +123,28 @@ WAITRESS_CONFIG.update({
         
         # Check if optimization already exists
         if 'threads\': 8' in content:
-            print("✅ Waitress optimization already exists")
+            print(" Waitress optimization already exists")
             return True
         
         # Add optimization
         with open(config_file, 'a') as f:
             f.write('\n' + optimized_config)
         
-        print("✅ Waitress configuration optimized")
+        print(" Waitress configuration optimized")
         return True
         
     except Exception as e:
-        print(f"❌ Waitress optimization failed: {e}")
+        print(f" Waitress optimization failed: {e}")
         return False
 
 def create_performance_middleware():
     """Create performance middleware"""
-    print("⚡ Creating performance middleware...")
+    print(" Creating performance middleware...")
     
     middleware_file = Path("backend/checklist/performance_middleware.py")
     
     if middleware_file.exists():
-        print("✅ Performance middleware already exists")
+        print(" Performance middleware already exists")
         return True
     
     middleware_content = '''"""
@@ -179,16 +179,16 @@ class PerformanceMiddleware(MiddlewareMixin):
         with open(middleware_file, 'w') as f:
             f.write(middleware_content)
         
-        print("✅ Performance middleware created")
+        print(" Performance middleware created")
         return True
         
     except Exception as e:
-        print(f"❌ Performance middleware creation failed: {e}")
+        print(f" Performance middleware creation failed: {e}")
         return False
 
 def main():
     """Run all performance optimizations"""
-    print("🚀 Starting performance optimization...")
+    print(" Starting performance optimization...")
     print("=" * 50)
     
     optimizations = [
@@ -201,21 +201,21 @@ def main():
     total_count = len(optimizations)
     
     for name, func in optimizations:
-        print(f"\n📋 {name}...")
+        print(f"\n {name}...")
         if func():
             success_count += 1
-            print(f"✅ {name} optimization completed")
+            print(f" {name} optimization completed")
         else:
-            print(f"❌ {name} optimization failed")
+            print(f" {name} optimization failed")
     
-    print(f"\n📊 Performance Optimization Results:")
+    print(f"\n Performance Optimization Results:")
     print(f"Completed: {success_count}/{total_count}")
     
     if success_count == total_count:
-        print("🎉 All performance optimizations completed!")
+        print(" All performance optimizations completed!")
         return True
     else:
-        print("⚠️  Some optimizations failed")
+        print("  Some optimizations failed")
         return False
 
 if __name__ == '__main__':

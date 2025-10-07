@@ -19,19 +19,19 @@ django.setup()
 
 def print_status(message, status="INFO"):
     """Print status message with formatting"""
-    symbols = {"INFO": "ℹ️", "SUCCESS": "✅", "ERROR": "❌", "WARNING": "⚠️"}
-    print(f"{symbols.get(status, 'ℹ️')} {message}")
+    symbols = {"INFO": "ℹ", "SUCCESS": "", "ERROR": "", "WARNING": ""}
+    print(f"{symbols.get(status, 'ℹ')} {message}")
 
 def analyze_database_performance():
     """Analyze database performance issues"""
-    print_status("🔍 Analyzing Database Performance", "INFO")
+    print_status(" Analyzing Database Performance", "INFO")
     
     try:
         from checklist.models import ChecklistItem, RegulationUpdate
         from django.contrib.auth.models import User
         
         # Test 1: Basic query performance
-        print_status("📊 Testing basic queries...", "INFO")
+        print_status(" Testing basic queries...", "INFO")
         
         start_time = time.time()
         items = list(ChecklistItem.objects.all())
@@ -69,30 +69,30 @@ def analyze_database_performance():
         }
         
     except Exception as e:
-        print_status(f"❌ Database analysis error: {e}", "ERROR")
+        print_status(f" Database analysis error: {e}", "ERROR")
         return None
 
 def optimize_database():
     """Optimize database for better performance"""
-    print_status("🔧 Optimizing Database", "INFO")
+    print_status(" Optimizing Database", "INFO")
     
     try:
         with connection.cursor() as cursor:
             # Analyze current indexes
-            print_status("📊 Current indexes:", "INFO")
+            print_status(" Current indexes:", "INFO")
             cursor.execute("PRAGMA index_list('checklist_checklistitem')")
             indexes = cursor.fetchall()
             for idx in indexes:
                 print_status(f"  - {idx[1]} (unique: {bool(idx[2])})", "INFO")
             
             # Optimize database
-            print_status("🔧 Running VACUUM and ANALYZE...", "INFO")
+            print_status(" Running VACUUM and ANALYZE...", "INFO")
             cursor.execute("VACUUM")
             cursor.execute("ANALYZE")
-            print_status("✅ Database optimized", "SUCCESS")
+            print_status(" Database optimized", "SUCCESS")
             
             # Check query plan for common queries
-            print_status("📋 Query execution plans:", "INFO")
+            print_status(" Query execution plans:", "INFO")
             
             # Test query plan for user items
             cursor.execute("EXPLAIN QUERY PLAN SELECT * FROM checklist_checklistitem WHERE user_id = ?", [2])
@@ -111,12 +111,12 @@ def optimize_database():
         return True
         
     except Exception as e:
-        print_status(f"❌ Database optimization error: {e}", "ERROR")
+        print_status(f" Database optimization error: {e}", "ERROR")
         return False
 
 def test_api_performance():
     """Test API endpoint performance"""
-    print_status("🌐 Testing API Performance", "INFO")
+    print_status(" Testing API Performance", "INFO")
     
     base_url = "http://localhost:8000"
     endpoints = [
@@ -157,13 +157,13 @@ def test_api_performance():
 
 def optimize_django_settings():
     """Optimize Django settings for better performance"""
-    print_status("⚙️ Optimizing Django Settings", "INFO")
+    print_status(" Optimizing Django Settings", "INFO")
     
     try:
         from django.conf import settings
         
         # Check current settings
-        print_status("📊 Current Django settings:", "INFO")
+        print_status(" Current Django settings:", "INFO")
         print_status(f"  - DEBUG: {settings.DEBUG}", "INFO")
         print_status(f"  - Database: {settings.DATABASES['default']['ENGINE']}", "INFO")
         print_status(f"  - Middleware count: {len(settings.MIDDLEWARE)}", "INFO")
@@ -182,12 +182,12 @@ def optimize_django_settings():
         return True
         
     except Exception as e:
-        print_status(f"❌ Settings analysis error: {e}", "ERROR")
+        print_status(f" Settings analysis error: {e}", "ERROR")
         return False
 
 def create_performance_optimizations():
     """Create performance optimization files"""
-    print_status("📝 Creating Performance Optimizations", "INFO")
+    print_status(" Creating Performance Optimizations", "INFO")
     
     # Create optimized settings
     optimized_settings = """
@@ -244,7 +244,7 @@ LOGGING = {
     with open('backend/hipaa_checklist/performance_settings.py', 'w') as f:
         f.write(optimized_settings)
     
-    print_status("✅ Performance settings created", "SUCCESS")
+    print_status(" Performance settings created", "SUCCESS")
     
     # Create database optimization script
     db_optimization = """
@@ -277,7 +277,7 @@ def optimize_database():
         cursor.execute("PRAGMA mmap_size=268435456")  # 256MB
         cursor.execute("PRAGMA optimize")
         
-        print("✅ Database performance optimizations applied")
+        print(" Database performance optimizations applied")
 
 if __name__ == "__main__":
     optimize_database()
@@ -286,34 +286,34 @@ if __name__ == "__main__":
     with open('optimize_database.py', 'w') as f:
         f.write(db_optimization)
     
-    print_status("✅ Database optimization script created", "SUCCESS")
+    print_status(" Database optimization script created", "SUCCESS")
     
     return True
 
 def main():
     """Main performance optimization function"""
-    print_status("🚀 HIPAA Checklist Performance Optimization", "INFO")
+    print_status(" HIPAA Checklist Performance Optimization", "INFO")
     print_status("=" * 60)
     
     # Step 1: Analyze current performance
-    print_status("📊 Step 1: Analyzing Current Performance", "INFO")
+    print_status(" Step 1: Analyzing Current Performance", "INFO")
     db_perf = analyze_database_performance()
     api_perf = test_api_performance()
     
     # Step 2: Optimize database
-    print_status("\n🔧 Step 2: Optimizing Database", "INFO")
+    print_status("\n Step 2: Optimizing Database", "INFO")
     optimize_database()
     
     # Step 3: Check Django settings
-    print_status("\n⚙️ Step 3: Checking Django Settings", "INFO")
+    print_status("\n Step 3: Checking Django Settings", "INFO")
     optimize_django_settings()
     
     # Step 4: Create optimization files
-    print_status("\n📝 Step 4: Creating Optimization Files", "INFO")
+    print_status("\n Step 4: Creating Optimization Files", "INFO")
     create_performance_optimizations()
     
     # Step 5: Test performance after optimizations
-    print_status("\n🧪 Step 5: Testing Performance After Optimizations", "INFO")
+    print_status("\n Step 5: Testing Performance After Optimizations", "INFO")
     print_status("Running database optimization script...", "INFO")
     os.system("python optimize_database.py")
     
@@ -330,13 +330,13 @@ def main():
         print_status("Database Performance:", "INFO")
         for query_type, time_ms in db_perf.items():
             if time_ms < 100:
-                status = "✅ EXCELLENT"
+                status = " EXCELLENT"
             elif time_ms < 500:
-                status = "✅ GOOD"
+                status = " GOOD"
             elif time_ms < 1000:
-                status = "⚠️ FAIR"
+                status = " FAIR"
             else:
-                status = "❌ POOR"
+                status = " POOR"
             print_status(f"  {query_type}: {time_ms:.2f}ms - {status}", "INFO")
     
     if api_perf_after:
@@ -344,13 +344,13 @@ def main():
         for endpoint, perf in api_perf_after.items():
             avg_time = perf['avg']
             if avg_time < 500:
-                status = "✅ EXCELLENT"
+                status = " EXCELLENT"
             elif avg_time < 1000:
-                status = "✅ GOOD"
+                status = " GOOD"
             elif avg_time < 2000:
-                status = "⚠️ FAIR"
+                status = " FAIR"
             else:
-                status = "❌ POOR"
+                status = " POOR"
             print_status(f"  {endpoint}: {avg_time:.2f}ms - {status}", "INFO")
     
     print_status("\nNext steps:", "INFO")

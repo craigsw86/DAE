@@ -23,7 +23,7 @@ This rubric outlines the requirements for incident response environment setup, d
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| IR Environment Setup |     ☐     |      ☐      |
+| IR Environment Setup |          |            |
 
 ---
 
@@ -36,7 +36,7 @@ This rubric outlines the requirements for incident response environment setup, d
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| Incident Detection and Analysis |     ☐     |      ☐      |
+| Incident Detection and Analysis |          |            |
 
 ---
 
@@ -48,7 +48,7 @@ This rubric outlines the requirements for incident response environment setup, d
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| Incident Response and Containment |     ☐     |      ☐      |
+| Incident Response and Containment |          |            |
 
 ---
 
@@ -61,7 +61,7 @@ This rubric outlines the requirements for incident response environment setup, d
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| Digital Evidence Management |     ☐     |      ☐      |
+| Digital Evidence Management |          |            |
 
 ---
 
@@ -73,7 +73,7 @@ This rubric outlines the requirements for incident response environment setup, d
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| IR Documentation & Reporting |     ☐     |      ☐      |
+| IR Documentation & Reporting |          |            |
 
 ---
 
@@ -85,10 +85,10 @@ This rubric outlines the requirements for incident response environment setup, d
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| Post-Incident Procedures |     ☐     |      ☐      |
+| Post-Incident Procedures |          |            |
 
 ---
 
 **Instructions:**
-- For each criterion, check the appropriate box (☑) when the requirement is fully met and evidence is documented.
+- For each criterion, check the appropriate box () when the requirement is fully met and evidence is documented.
 - Attach supporting evidence and documentation as appendices or in referenced project files.

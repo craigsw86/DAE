@@ -49,14 +49,14 @@ class DatabaseSecuritySetup:
             current_perms = logs_dir.stat().st_mode
             new_perms = current_perms & ~stat.S_IWGRP & ~stat.S_IWOTH & ~stat.S_IRGRP & ~stat.S_IROTH
             logs_dir.chmod(new_perms)
-            logger.info(f"✅ Logs directory permissions set: {oct(new_perms)}")
+            logger.info(f" Logs directory permissions set: {oct(new_perms)}")
         except Exception as e:
-            logger.warning(f"⚠️  Could not set logs directory permissions: {e}")
+            logger.warning(f"  Could not set logs directory permissions: {e}")
     
     def check_database_exists(self):
         """Check if database exists and is accessible"""
         if not self.db_path.exists():
-            logger.error("❌ Database file not found. Please run migrations first.")
+            logger.error(" Database file not found. Please run migrations first.")
             return False
         
         try:
@@ -66,39 +66,39 @@ class DatabaseSecuritySetup:
             tables = cursor.fetchall()
             conn.close()
             
-            logger.info(f"✅ Database accessible with {len(tables)} tables")
+            logger.info(f" Database accessible with {len(tables)} tables")
             return True
         except Exception as e:
-            logger.error(f"❌ Database access failed: {e}")
+            logger.error(f" Database access failed: {e}")
             return False
     
     def setup_encryption(self):
         """Set up database encryption"""
-        logger.info("🔐 Setting up database encryption...")
+        logger.info(" Setting up database encryption...")
         
         # Check current encryption status
         db_info = self.db_manager.get_database_info()
         logger.info(f"Database info: {db_info}")
         
         if db_info['is_encrypted']:
-            logger.info("✅ Database is already encrypted")
+            logger.info(" Database is already encrypted")
             return True
         
         if not db_info['plaintext_exists']:
-            logger.error("❌ No database file found to encrypt")
+            logger.error(" No database file found to encrypt")
             return False
         
         # Encrypt the database
         if self.db_manager.setup_secure_database():
-            logger.info("✅ Database encryption completed")
+            logger.info(" Database encryption completed")
             return True
         else:
-            logger.error("❌ Database encryption failed")
+            logger.error(" Database encryption failed")
             return False
     
     def configure_sqlite_security(self):
         """Configure SQLite security settings"""
-        logger.info("🔒 Configuring SQLite security settings...")
+        logger.info(" Configuring SQLite security settings...")
         
         try:
             # Restore database temporarily for configuration
@@ -125,9 +125,9 @@ class DatabaseSecuritySetup:
                 try:
                     cursor.execute(pragma)
                     result = cursor.fetchone()
-                    logger.info(f"✅ {pragma}: {result[0] if result else 'OK'}")
+                    logger.info(f" {pragma}: {result[0] if result else 'OK'}")
                 except Exception as e:
-                    logger.warning(f"⚠️  {pragma} failed: {e}")
+                    logger.warning(f"  {pragma} failed: {e}")
             
             # Create security audit table
             cursor.execute("""
@@ -149,16 +149,16 @@ class DatabaseSecuritySetup:
             conn.commit()
             conn.close()
             
-            logger.info("✅ SQLite security configuration completed")
+            logger.info(" SQLite security configuration completed")
             return True
             
         except Exception as e:
-            logger.error(f"❌ SQLite security configuration failed: {e}")
+            logger.error(f" SQLite security configuration failed: {e}")
             return False
     
     def set_file_permissions(self):
         """Set secure file permissions"""
-        logger.info("🔒 Setting secure file permissions...")
+        logger.info(" Setting secure file permissions...")
         
         try:
             import stat
@@ -174,21 +174,21 @@ class DatabaseSecuritySetup:
                     if file_path.is_file():
                         # File permissions: owner read/write, no group/other access
                         file_path.chmod(stat.S_IRUSR | stat.S_IWUSR)
-                        logger.info(f"✅ File permissions set: {file_path.name}")
+                        logger.info(f" File permissions set: {file_path.name}")
                     elif file_path.is_dir():
                         # Directory permissions: owner read/write/execute, no group/other access
                         file_path.chmod(stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
-                        logger.info(f"✅ Directory permissions set: {file_path.name}")
+                        logger.info(f" Directory permissions set: {file_path.name}")
             
             return True
             
         except Exception as e:
-            logger.warning(f"⚠️  Could not set file permissions: {e}")
+            logger.warning(f"  Could not set file permissions: {e}")
             return False
     
     def create_backup(self):
         """Create encrypted backup of database"""
-        logger.info("💾 Creating encrypted backup...")
+        logger.info(" Creating encrypted backup...")
         
         try:
             backup_dir = backend_dir / 'backups'
@@ -209,47 +209,47 @@ class DatabaseSecuritySetup:
                 encrypted_data = encryption.encrypt_database()
                 
                 if encrypted_data:
-                    logger.info(f"✅ Backup created: {backup_path}")
+                    logger.info(f" Backup created: {backup_path}")
                     return True
             
             return False
             
         except Exception as e:
-            logger.error(f"❌ Backup creation failed: {e}")
+            logger.error(f" Backup creation failed: {e}")
             return False
     
     def run_security_tests(self):
         """Run security tests"""
-        logger.info("🧪 Running security tests...")
+        logger.info(" Running security tests...")
         
         tests_passed = 0
         total_tests = 4
         
         # Test 1: Database encryption
         if self.db_manager.encryption.verify_encryption():
-            logger.info("✅ Test 1: Database encryption - PASSED")
+            logger.info(" Test 1: Database encryption - PASSED")
             tests_passed += 1
         else:
-            logger.warning("⚠️  Test 1: Database encryption - FAILED")
+            logger.warning("  Test 1: Database encryption - FAILED")
         
         # Test 2: File permissions
         if self.db_path.exists():
             import stat
             perms = self.db_path.stat().st_mode
             if not (perms & stat.S_IRGRP or perms & stat.S_IWGRP or perms & stat.S_IROTH or perms & stat.S_IWOTH):
-                logger.info("✅ Test 2: File permissions - PASSED")
+                logger.info(" Test 2: File permissions - PASSED")
                 tests_passed += 1
             else:
-                logger.warning("⚠️  Test 2: File permissions - FAILED")
+                logger.warning("  Test 2: File permissions - FAILED")
         
         # Test 3: Database accessibility
         try:
             conn = sqlite3.connect(str(self.db_path))
             conn.close()
-            logger.info("✅ Test 3: Database accessibility - PASSED")
+            logger.info(" Test 3: Database accessibility - PASSED")
             tests_passed += 1
         except:
-            logger.warning("⚠️  Test 3: Database accessibility - FAILED")
+            logger.warning("  Test 3: Database accessibility - FAILED")
         
         # Test 4: Security audit table
         try:
@@ -257,20 +257,20 @@ class DatabaseSecuritySetup:
             cursor = conn.cursor()
             cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='security_audit'")
             if cursor.fetchone():
-                logger.info("✅ Test 4: Security audit table - PASSED")
+                logger.info(" Test 4: Security audit table - PASSED")
                 tests_passed += 1
             else:
-                logger.warning("⚠️  Test 4: Security audit table - FAILED")
+                logger.warning("  Test 4: Security audit table - FAILED")
             conn.close()
         except:
-            logger.warning("⚠️  Test 4: Security audit table - FAILED")
+            logger.warning("  Test 4: Security audit table - FAILED")
         
-        logger.info(f"📊 Security tests: {tests_passed}/{total_tests} passed")
+        logger.info(f" Security tests: {tests_passed}/{total_tests} passed")
         return tests_passed == total_tests
     
     def run_full_setup(self):
         """Run complete security setup"""
-        logger.info("🔐 Starting comprehensive database security setup...")
+        logger.info(" Starting comprehensive database security setup...")
         logger.info("=" * 60)
         
         # Step 1: Check database exists
@@ -279,11 +279,11 @@ class DatabaseSecuritySetup:
         
         # Step 2: Configure SQLite security
         if not self.configure_sqlite_security():
-            logger.warning("⚠️  SQLite security configuration had issues")
+            logger.warning("  SQLite security configuration had issues")
         
         # Step 3: Set up encryption
         if not self.setup_encryption():
-            logger.error("❌ Encryption setup failed")
+            logger.error(" Encryption setup failed")
             return False
         
         # Step 4: Set file permissions
@@ -294,10 +294,10 @@ class DatabaseSecuritySetup:
         
         # Step 6: Run security tests
         if self.run_security_tests():
-            logger.info("🎉 Database security setup completed successfully!")
+            logger.info(" Database security setup completed successfully!")
             return True
         else:
-            logger.warning("⚠️  Database security setup completed with warnings")
+            logger.warning("  Database security setup completed with warnings")
             return True
 
 def main():

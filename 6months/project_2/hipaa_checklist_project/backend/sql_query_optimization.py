@@ -38,7 +38,7 @@ class SQLQueryOptimizer:
         
     def analyze_current_queries(self):
         """Analyze current query performance"""
-        print("🔍 Analyzing Current Query Performance...")
+        print(" Analyzing Current Query Performance...")
         
         queries_to_analyze = [
             {
@@ -105,7 +105,7 @@ class SQLQueryOptimizer:
                     'status': 'success'
                 })
                 
-                print(f"✅ {query_info['name']}: {execution_time:.4f}s")
+                print(f" {query_info['name']}: {execution_time:.4f}s")
                 
             except Exception as e:
                 self.optimization_results['queries_analyzed'].append({
@@ -115,11 +115,11 @@ class SQLQueryOptimizer:
                     'status': 'failed',
                     'error': str(e)
                 })
-                print(f"❌ {query_info['name']}: Failed - {str(e)}")
+                print(f" {query_info['name']}: Failed - {str(e)}")
                 
     def test_optimization_techniques(self):
         """Test various optimization techniques"""
-        print("\n⚡ Testing Optimization Techniques...")
+        print("\n Testing Optimization Techniques...")
         
         # Test 1: select_related vs prefetch_related
         self.test_related_optimization()
@@ -135,7 +135,7 @@ class SQLQueryOptimizer:
         
     def test_related_optimization(self):
         """Test select_related and prefetch_related optimization"""
-        print("🔗 Testing Related Object Optimization...")
+        print(" Testing Related Object Optimization...")
         
         # Without optimization
         start_time = time.time()
@@ -169,7 +169,7 @@ class SQLQueryOptimizer:
         
     def test_index_optimization(self):
         """Test database index effectiveness"""
-        print("📊 Testing Database Index Optimization...")
+        print(" Testing Database Index Optimization...")
         
         # Test queries that should benefit from indexes
         index_tests = [
@@ -207,11 +207,11 @@ class SQLQueryOptimizer:
                 print(f"  {test['name']}: {execution_time:.4f}s ({len(result)} results)")
                 
             except Exception as e:
-                print(f"  ❌ {test['name']}: Failed - {str(e)}")
+                print(f"   {test['name']}: Failed - {str(e)}")
                 
     def test_query_optimization(self):
         """Test query structure optimization"""
-        print("🔧 Testing Query Structure Optimization...")
+        print(" Testing Query Structure Optimization...")
         
         # Test 1: Avoid N+1 queries
         print("  Testing N+1 Query Prevention...")
@@ -281,7 +281,7 @@ class SQLQueryOptimizer:
         
     def test_bulk_optimization(self):
         """Test bulk operation optimization"""
-        print("📦 Testing Bulk Operation Optimization...")
+        print(" Testing Bulk Operation Optimization...")
         
         # Test bulk create
         print("  Testing Bulk Create...")
@@ -329,7 +329,7 @@ class SQLQueryOptimizer:
         
     def generate_optimization_recommendations(self):
         """Generate optimization recommendations"""
-        print("\n💡 Generating Optimization Recommendations...")
+        print("\n Generating Optimization Recommendations...")
         
         recommendations = []
         
@@ -386,7 +386,7 @@ class SQLQueryOptimizer:
             
     def generate_report(self):
         """Generate optimization report"""
-        print("\n📊 Generating Optimization Report...")
+        print("\n Generating Optimization Report...")
         
         # Save detailed report
         with open('sql_optimization_report.json', 'w') as f:
@@ -394,21 +394,21 @@ class SQLQueryOptimizer:
             
         # Generate summary
         summary = f"""
-🎯 SQL QUERY OPTIMIZATION REPORT
+ SQL QUERY OPTIMIZATION REPORT
 ===============================
 Generated: {self.optimization_results['timestamp']}
 
-📋 QUERIES ANALYZED: {len(self.optimization_results['queries_analyzed'])}
+ QUERIES ANALYZED: {len(self.optimization_results['queries_analyzed'])}
 """
         
         for query in self.optimization_results['queries_analyzed']:
             if query['status'] == 'success':
-                summary += f"  ✅ {query['name']}: {query['execution_time']:.4f}s\n"
+                summary += f"   {query['name']}: {query['execution_time']:.4f}s\n"
             else:
-                summary += f"  ❌ {query['name']}: FAILED\n"
+                summary += f"   {query['name']}: FAILED\n"
                 
         summary += f"""
-⚡ OPTIMIZATIONS APPLIED: {len(self.optimization_results['optimizations_applied'])}
+ OPTIMIZATIONS APPLIED: {len(self.optimization_results['optimizations_applied'])}
 """
         
         for opt in self.optimization_results['optimizations_applied']:
@@ -418,14 +418,14 @@ Generated: {self.optimization_results['timestamp']}
                 summary += f"  {opt['technique']}: Applied\n"
                 
         summary += f"""
-💡 RECOMMENDATIONS: {len(self.optimization_results['recommendations'])}
+ RECOMMENDATIONS: {len(self.optimization_results['recommendations'])}
 """
         
         for rec in self.optimization_results['recommendations']:
             summary += f"  {rec['priority']} - {rec['category']}: {rec['recommendation']}\n"
             
         summary += """
-📁 REPORTS GENERATED:
+ REPORTS GENERATED:
   • sql_optimization_report.json (Detailed results)
   • This summary report
 """
@@ -436,11 +436,11 @@ Generated: {self.optimization_results['timestamp']}
         with open('sql_optimization_summary.txt', 'w') as f:
             f.write(summary)
             
-        print("✅ Optimization report generated!")
+        print(" Optimization report generated!")
         
     def run_optimization_analysis(self):
         """Run complete optimization analysis"""
-        print("🚀 Starting SQL Query Optimization Analysis...")
+        print(" Starting SQL Query Optimization Analysis...")
         print("=" * 60)
         
         try:
@@ -450,9 +450,9 @@ Generated: {self.optimization_results['timestamp']}
             self.generate_report()
             
         except Exception as e:
-            print(f"❌ Optimization analysis failed: {str(e)}")
+            print(f" Optimization analysis failed: {str(e)}")
             
-        print("\n🎉 SQL Query Optimization Analysis Completed!")
+        print("\n SQL Query Optimization Analysis Completed!")
 
 if __name__ == '__main__':
     optimizer = SQLQueryOptimizer()

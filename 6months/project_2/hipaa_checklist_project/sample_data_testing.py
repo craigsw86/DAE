@@ -35,7 +35,7 @@ class SampleDataTester:
         
     def run_complete_testing(self):
         """Run complete sample data testing and feedback collection"""
-        logger.info("🧪 Starting Sample Data Testing and Feedback Collection")
+        logger.info(" Starting Sample Data Testing and Feedback Collection")
         logger.info("=" * 60)
         
         # 1. Create comprehensive sample data
@@ -57,7 +57,7 @@ class SampleDataTester:
     
     def create_sample_data(self):
         """Create comprehensive sample data for testing"""
-        logger.info("📊 Creating Comprehensive Sample Data...")
+        logger.info(" Creating Comprehensive Sample Data...")
         
         sample_data = {
             'regulations': [
@@ -249,7 +249,7 @@ class SampleDataTester:
         
         self.results['sample_data'] = sample_data
         self.sample_data_created = True
-        logger.info("✅ Sample data created successfully")
+        logger.info(" Sample data created successfully")
         logger.info(f"  • {len(sample_data['regulations'])} regulations")
         logger.info(f"  • {len(sample_data['checklist_items'])} checklist items")
         logger.info(f"  • {len(sample_data['users'])} users")
@@ -257,7 +257,7 @@ class SampleDataTester:
     
     def test_with_sample_data(self):
         """Test system functionality with sample data"""
-        logger.info("🧪 Testing System with Sample Data...")
+        logger.info(" Testing System with Sample Data...")
         
         test_results = {
             'api_connectivity': False,
@@ -275,9 +275,9 @@ class SampleDataTester:
             response = requests.get(f'{self.base_url}/api/health/', timeout=10)
             if response.status_code == 200:
                 test_results['api_connectivity'] = True
-                logger.info("✅ API connectivity test passed")
+                logger.info(" API connectivity test passed")
             else:
-                logger.warning(f"⚠️ API connectivity test failed: {response.status_code}")
+                logger.warning(f" API connectivity test failed: {response.status_code}")
             
             # Test data retrieval
             endpoints_to_test = [
@@ -294,41 +294,41 @@ class SampleDataTester:
                     if response.status_code in [200, 401]:  # 401 is expected for protected endpoints
                         successful_endpoints += 1
                 except Exception as e:
-                    logger.warning(f"⚠️ Endpoint {endpoint} test failed: {e}")
+                    logger.warning(f" Endpoint {endpoint} test failed: {e}")
             
             if successful_endpoints >= len(endpoints_to_test) * 0.5:
                 test_results['data_retrieval'] = True
-                logger.info(f"✅ Data retrieval test passed ({successful_endpoints}/{len(endpoints_to_test)} endpoints)")
+                logger.info(f" Data retrieval test passed ({successful_endpoints}/{len(endpoints_to_test)} endpoints)")
             
             # Test search functionality (if available)
             try:
                 response = requests.get(f'{self.base_url}/api/regulations/?search=HIPAA', timeout=10)
                 if response.status_code in [200, 401]:
                     test_results['search_functionality'] = True
-                    logger.info("✅ Search functionality test passed")
+                    logger.info(" Search functionality test passed")
             except Exception as e:
-                logger.warning(f"⚠️ Search functionality test failed: {e}")
+                logger.warning(f" Search functionality test failed: {e}")
             
             # Test filtering functionality (if available)
             try:
                 response = requests.get(f'{self.base_url}/api/checklist/?status=Completed', timeout=10)
                 if response.status_code in [200, 401]:
                     test_results['filtering_functionality'] = True
-                    logger.info("✅ Filtering functionality test passed")
+                    logger.info(" Filtering functionality test passed")
             except Exception as e:
-                logger.warning(f"⚠️ Filtering functionality test failed: {e}")
+                logger.warning(f" Filtering functionality test failed: {e}")
             
             # Test export functionality (if available)
             try:
                 response = requests.get(f'{self.base_url}/api/checklist/export/csv/', timeout=10)
                 if response.status_code in [200, 401]:
                     test_results['export_functionality'] = True
-                    logger.info("✅ Export functionality test passed")
+                    logger.info(" Export functionality test passed")
             except Exception as e:
-                logger.warning(f"⚠️ Export functionality test failed: {e}")
+                logger.warning(f" Export functionality test failed: {e}")
             
         except requests.exceptions.ConnectionError:
-            logger.error("❌ Cannot connect to server. Please ensure Django server is running.")
+            logger.error(" Cannot connect to server. Please ensure Django server is running.")
             self.results['vulnerabilities'] = [{
                 'type': 'Connectivity',
                 'severity': 'HIGH',
@@ -336,13 +336,13 @@ class SampleDataTester:
                 'recommendation': 'Start Django server with: python manage.py runserver 8000'
             }]
         except Exception as e:
-            logger.error(f"❌ Sample data testing failed: {e}")
+            logger.error(f" Sample data testing failed: {e}")
         
         self.results['test_results'] = test_results
     
     def test_major_workflows(self):
         """Test major user workflows with sample data"""
-        logger.info("🔄 Testing Major User Workflows...")
+        logger.info(" Testing Major User Workflows...")
         
         workflow_tests = {
             'user_registration': False,
@@ -363,9 +363,9 @@ class SampleDataTester:
                                        timeout=10)
                 if response.status_code in [200, 401]:
                     workflow_tests['user_login'] = True
-                    logger.info("✅ User login workflow test passed")
+                    logger.info(" User login workflow test passed")
             except Exception as e:
-                logger.warning(f"⚠️ User login workflow test failed: {e}")
+                logger.warning(f" User login workflow test failed: {e}")
             
             # Test checklist creation workflow (if authenticated)
             try:
@@ -375,39 +375,39 @@ class SampleDataTester:
                                        timeout=10)
                 if response.status_code in [200, 201, 401, 403]:
                     workflow_tests['checklist_creation'] = True
-                    logger.info("✅ Checklist creation workflow test passed")
+                    logger.info(" Checklist creation workflow test passed")
             except Exception as e:
-                logger.warning(f"⚠️ Checklist creation workflow test failed: {e}")
+                logger.warning(f" Checklist creation workflow test failed: {e}")
             
             # Test report generation workflow
             try:
                 response = requests.get(f'{self.base_url}/api/report/', timeout=10)
                 if response.status_code in [200, 401]:
                     workflow_tests['report_generation'] = True
-                    logger.info("✅ Report generation workflow test passed")
+                    logger.info(" Report generation workflow test passed")
             except Exception as e:
-                logger.warning(f"⚠️ Report generation workflow test failed: {e}")
+                logger.warning(f" Report generation workflow test failed: {e}")
             
             # Test data export workflow
             try:
                 response = requests.get(f'{self.base_url}/api/checklist/export/csv/', timeout=10)
                 if response.status_code in [200, 401]:
                     workflow_tests['data_export'] = True
-                    logger.info("✅ Data export workflow test passed")
+                    logger.info(" Data export workflow test passed")
             except Exception as e:
-                logger.warning(f"⚠️ Data export workflow test failed: {e}")
+                logger.warning(f" Data export workflow test failed: {e}")
             
             # Test admin management workflow
             try:
                 response = requests.get(f'{self.base_url}/admin/', timeout=10)
                 if response.status_code in [200, 302]:
                     workflow_tests['admin_management'] = True
-                    logger.info("✅ Admin management workflow test passed")
+                    logger.info(" Admin management workflow test passed")
             except Exception as e:
-                logger.warning(f"⚠️ Admin management workflow test failed: {e}")
+                logger.warning(f" Admin management workflow test failed: {e}")
             
         except Exception as e:
-            logger.error(f"❌ Workflow testing failed: {e}")
+            logger.error(f" Workflow testing failed: {e}")
         
         # Add workflow tests to results
         if 'workflow_tests' not in self.results:
@@ -416,7 +416,7 @@ class SampleDataTester:
     
     def collect_user_feedback(self):
         """Collect user feedback and input"""
-        logger.info("📝 Collecting User Feedback and Input...")
+        logger.info(" Collecting User Feedback and Input...")
         
         # Simulate user feedback collection
         user_feedback = {
@@ -503,7 +503,7 @@ class SampleDataTester:
         }
         
         self.results['user_feedback'] = user_feedback
-        logger.info("✅ User feedback collected successfully")
+        logger.info(" User feedback collected successfully")
         logger.info(f"  • {len(user_feedback['usability_feedback'])} usability feedback items")
         logger.info(f"  • {len(user_feedback['feature_requests'])} feature requests")
         logger.info(f"  • {len(user_feedback['performance_feedback'])} performance feedback items")
@@ -511,7 +511,7 @@ class SampleDataTester:
     
     def generate_testing_report(self):
         """Generate comprehensive testing report"""
-        logger.info("📋 Generating Sample Data Testing Report...")
+        logger.info(" Generating Sample Data Testing Report...")
         
         # Calculate overall status
         test_results = self.results['test_results']
@@ -542,7 +542,7 @@ class SampleDataTester:
         with open(report_file, 'w') as f:
             json.dump(self.results, f, indent=2, default=str)
         
-        logger.info(f"📄 Sample data testing report saved: {report_file}")
+        logger.info(f" Sample data testing report saved: {report_file}")
         
         # Print summary
         self.print_testing_summary()
@@ -594,26 +594,26 @@ class SampleDataTester:
     def print_testing_summary(self):
         """Print testing summary"""
         print("\n" + "=" * 60)
-        print("🧪 SAMPLE DATA TESTING AND FEEDBACK SUMMARY")
+        print(" SAMPLE DATA TESTING AND FEEDBACK SUMMARY")
         print("=" * 60)
         
-        print(f"📅 Timestamp: {self.results['timestamp']}")
-        print(f"🎯 Overall Status: {self.results['overall_status']}")
-        print(f"📊 Sample Data Created: {self.sample_data_created}")
-        print(f"💡 Total Recommendations: {len(self.results['recommendations'])}")
+        print(f" Timestamp: {self.results['timestamp']}")
+        print(f" Overall Status: {self.results['overall_status']}")
+        print(f" Sample Data Created: {self.sample_data_created}")
+        print(f" Total Recommendations: {len(self.results['recommendations'])}")
         
         # Test results
         test_results = self.results['test_results']
         tests_passed = sum(1 for v in test_results.values() if v)
         total_tests = len(test_results)
-        print(f"\n🧪 System Tests: {tests_passed}/{total_tests} passed ({(tests_passed/total_tests)*100:.1f}%)")
+        print(f"\n System Tests: {tests_passed}/{total_tests} passed ({(tests_passed/total_tests)*100:.1f}%)")
         
         # Workflow results
         workflow_tests = self.results.get('workflow_tests', {})
         if workflow_tests:
             workflows_passed = sum(1 for v in workflow_tests.values() if v)
             total_workflows = len(workflow_tests)
-            print(f"🔄 Workflow Tests: {workflows_passed}/{total_workflows} passed ({(workflows_passed/total_workflows)*100:.1f}%)")
+            print(f" Workflow Tests: {workflows_passed}/{total_workflows} passed ({(workflows_passed/total_workflows)*100:.1f}%)")
         
         # User feedback summary
         user_feedback = self.results['user_feedback']
@@ -621,24 +621,24 @@ class SampleDataTester:
             usability_feedback = user_feedback.get('usability_feedback', [])
             if usability_feedback:
                 avg_rating = sum(f['rating'] for f in usability_feedback) / len(usability_feedback)
-                print(f"👥 User Satisfaction: {avg_rating:.1f}/5.0 average rating")
+                print(f" User Satisfaction: {avg_rating:.1f}/5.0 average rating")
             
             feature_requests = user_feedback.get('feature_requests', [])
-            print(f"💡 Feature Requests: {len(feature_requests)} requests")
+            print(f" Feature Requests: {len(feature_requests)} requests")
         
         # Top recommendations
         if self.results['recommendations']:
-            print(f"\n💡 Top Recommendations:")
+            print(f"\n Top Recommendations:")
             for rec in self.results['recommendations'][:5]:
                 print(f"  • [{rec['priority']}] {rec['category']}: {rec['recommendation']}")
         
         print("\n" + "=" * 60)
-        print("🎉 Sample data testing completed!")
+        print(" Sample data testing completed!")
         print("=" * 60)
 
 def main():
     """Main function to run sample data testing"""
-    print("🧪 HIPAA Checklist Project - Sample Data Testing and Feedback")
+    print(" HIPAA Checklist Project - Sample Data Testing and Feedback")
     print("Run with samples; gather input")
     print("=" * 70)
     

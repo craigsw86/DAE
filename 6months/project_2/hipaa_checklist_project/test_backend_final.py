@@ -19,7 +19,7 @@ class FinalBackendTester:
     
     def log_test(self, test_name, success, message="", data=None):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = " PASS" if success else " FAIL"
         print(f"{test_name}: {status} {message}")
         self.test_results.append({
             'test': test_name,
@@ -31,7 +31,7 @@ class FinalBackendTester:
     
     def test_basic_connectivity(self):
         """Test basic server connectivity"""
-        print("\n📝 Test 1: Basic Connectivity")
+        print("\n Test 1: Basic Connectivity")
         print("-" * 40)
         
         try:
@@ -48,7 +48,7 @@ class FinalBackendTester:
     
     def test_health_endpoint(self):
         """Test health endpoint"""
-        print("\n📝 Test 2: Health Endpoint")
+        print("\n Test 2: Health Endpoint")
         print("-" * 40)
         
         try:
@@ -68,7 +68,7 @@ class FinalBackendTester:
     
     def test_info_endpoint(self):
         """Test API info endpoint"""
-        print("\n📝 Test 3: API Info Endpoint")
+        print("\n Test 3: API Info Endpoint")
         print("-" * 40)
         
         try:
@@ -88,7 +88,7 @@ class FinalBackendTester:
     
     def test_stats_endpoint(self):
         """Test public stats endpoint"""
-        print("\n📝 Test 4: Public Stats Endpoint")
+        print("\n Test 4: Public Stats Endpoint")
         print("-" * 40)
         
         try:
@@ -108,7 +108,7 @@ class FinalBackendTester:
     
     def test_admin_endpoint(self):
         """Test admin endpoint"""
-        print("\n📝 Test 5: Admin Endpoint")
+        print("\n Test 5: Admin Endpoint")
         print("-" * 40)
         
         try:
@@ -125,7 +125,7 @@ class FinalBackendTester:
     
     def test_jwt_endpoints(self):
         """Test JWT token endpoints"""
-        print("\n📝 Test 6: JWT Token Endpoints")
+        print("\n Test 6: JWT Token Endpoints")
         print("-" * 40)
         
         # Test token endpoint
@@ -160,7 +160,7 @@ class FinalBackendTester:
     
     def test_protected_endpoints(self):
         """Test protected endpoints without authentication"""
-        print("\n📝 Test 7: Protected Endpoints (No Auth)")
+        print("\n Test 7: Protected Endpoints (No Auth)")
         print("-" * 40)
         
         protected_endpoints = [
@@ -184,7 +184,7 @@ class FinalBackendTester:
     
     def test_performance(self):
         """Test API performance"""
-        print("\n📝 Test 8: API Performance")
+        print("\n Test 8: API Performance")
         print("-" * 40)
         
         endpoints = [
@@ -215,7 +215,7 @@ class FinalBackendTester:
     
     def test_error_handling(self):
         """Test error handling"""
-        print("\n📝 Test 9: Error Handling")
+        print("\n Test 9: Error Handling")
         print("-" * 40)
         
         # Test 404 endpoint
@@ -243,7 +243,7 @@ class FinalBackendTester:
     
     def test_database_connectivity(self):
         """Test database connectivity through API"""
-        print("\n📝 Test 10: Database Connectivity")
+        print("\n Test 10: Database Connectivity")
         print("-" * 40)
         
         try:
@@ -268,7 +268,7 @@ class FinalBackendTester:
     def generate_report(self):
         """Generate comprehensive test report"""
         print("\n" + "=" * 60)
-        print("📊 BACKEND SQLITE API CONNECTIVITY TEST REPORT")
+        print(" BACKEND SQLITE API CONNECTIVITY TEST REPORT")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -281,7 +281,7 @@ class FinalBackendTester:
         print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ Failed Tests:")
+            print("\n Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
@@ -291,13 +291,13 @@ class FinalBackendTester:
         with open(report_file, 'w') as f:
             json.dump(self.test_results, f, indent=2)
         
-        print(f"\n📄 Detailed report saved to: {report_file}")
+        print(f"\n Detailed report saved to: {report_file}")
         
         return passed_tests == total_tests
     
     def run_all_tests(self):
         """Run all backend tests"""
-        print("🧪 Starting Final Backend SQLite API Connectivity Tests")
+        print(" Starting Final Backend SQLite API Connectivity Tests")
         print("=" * 60)
         
         self.test_basic_connectivity()
@@ -319,12 +319,12 @@ def main():
     success = tester.run_all_tests()
     
     if success:
-        print("\n🎉 All backend API tests passed!")
-        print("✅ Django backend is properly connected to SQLite!")
-        print("✅ All API endpoints are working correctly!")
-        print("✅ Database connectivity is functioning!")
+        print("\n All backend API tests passed!")
+        print(" Django backend is properly connected to SQLite!")
+        print(" All API endpoints are working correctly!")
+        print(" Database connectivity is functioning!")
     else:
-        print("\n⚠️  Some backend API tests failed.")
+        print("\n  Some backend API tests failed.")
         print("Please check the configuration and try again.")
     
     return success

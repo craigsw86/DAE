@@ -16,9 +16,9 @@ if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 Write-Host "Step 1: Verifying Chocolatey installation..." -ForegroundColor Yellow
 try {
     $chocoVersion = choco --version
-    Write-Host "✓ Chocolatey version: $chocoVersion" -ForegroundColor Green
+    Write-Host " Chocolatey version: $chocoVersion" -ForegroundColor Green
 } catch {
-    Write-Host "✗ Chocolatey not found. Installing..." -ForegroundColor Red
+    Write-Host " Chocolatey not found. Installing..." -ForegroundColor Red
     Set-ExecutionPolicy Bypass -Scope Process -Force
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
     iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
@@ -27,7 +27,7 @@ try {
 # Step 2: Install JDK 11
 Write-Host "`nStep 2: Installing JDK 11..." -ForegroundColor Yellow
 choco install openjdk11 -y
-Write-Host "✓ JDK 11 installed" -ForegroundColor Green
+Write-Host " JDK 11 installed" -ForegroundColor Green
 
 # Step 3: Install supporting tools
 Write-Host "`nStep 3: Installing supporting tools..." -ForegroundColor Yellow
@@ -36,22 +36,22 @@ foreach ($tool in $tools) {
     Write-Host "Installing $tool..." -ForegroundColor Cyan
     choco install $tool -y
 }
-Write-Host "✓ Supporting tools installed" -ForegroundColor Green
+Write-Host " Supporting tools installed" -ForegroundColor Green
 
 # Step 4: Set up project environment
 Write-Host "`nStep 4: Setting up project environment..." -ForegroundColor Yellow
 
 # Create reports directory
 New-Item -ItemType Directory -Force -Path "reports\detect" | Out-Null
-Write-Host "✓ Reports directory created" -ForegroundColor Green
+Write-Host " Reports directory created" -ForegroundColor Green
 
 # Install Python dependencies
 Write-Host "Installing Python dependencies..." -ForegroundColor Cyan
 if (Test-Path "backend\requirements.txt") {
     pip install -r backend\requirements.txt
-    Write-Host "✓ Python dependencies installed" -ForegroundColor Green
+    Write-Host " Python dependencies installed" -ForegroundColor Green
 } else {
-    Write-Host "⚠ requirements.txt not found" -ForegroundColor Yellow
+    Write-Host " requirements.txt not found" -ForegroundColor Yellow
 }
 
 # Install Node.js dependencies
@@ -60,9 +60,9 @@ if (Test-Path "frontend\package.json") {
     Set-Location frontend
     npm install
     Set-Location ..
-    Write-Host "✓ Node.js dependencies installed" -ForegroundColor Green
+    Write-Host " Node.js dependencies installed" -ForegroundColor Green
 } else {
-    Write-Host "⚠ package.json not found" -ForegroundColor Yellow
+    Write-Host " package.json not found" -ForegroundColor Yellow
 }
 
 # Step 5: Verify installations
@@ -97,16 +97,16 @@ try {
     if (Test-Path "../reports/detect") {
         $outputFiles = Get-ChildItem "../reports/detect"
         if ($outputFiles.Count -gt 0) {
-            Write-Host "✓ Black Duck Detect test scan successful" -ForegroundColor Green
+            Write-Host " Black Duck Detect test scan successful" -ForegroundColor Green
             Write-Host "Output files created: $($outputFiles.Count)" -ForegroundColor Cyan
         } else {
-            Write-Host "⚠ No output files created, check test-scan-output.txt" -ForegroundColor Yellow
+            Write-Host " No output files created, check test-scan-output.txt" -ForegroundColor Yellow
         }
     } else {
-        Write-Host "⚠ No reports directory created" -ForegroundColor Yellow
+        Write-Host " No reports directory created" -ForegroundColor Yellow
     }
 } catch {
-    Write-Host "⚠ Test scan failed, check test-scan-output.txt for details" -ForegroundColor Yellow
+    Write-Host " Test scan failed, check test-scan-output.txt for details" -ForegroundColor Yellow
 }
 
 Set-Location ..\..
@@ -157,7 +157,7 @@ pause
 
 $mainRunner | Out-File -FilePath "run-hipaa-project.bat" -Encoding ASCII
 
-Write-Host "✓ Convenience scripts created" -ForegroundColor Green
+Write-Host " Convenience scripts created" -ForegroundColor Green
 
 # Final summary
 Write-Host ""

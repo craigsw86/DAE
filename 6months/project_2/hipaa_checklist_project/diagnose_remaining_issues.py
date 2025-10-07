@@ -10,12 +10,12 @@ import sys
 
 def print_status(message, status="INFO"):
     """Print status message with formatting"""
-    symbols = {"INFO": "ℹ️", "SUCCESS": "✅", "ERROR": "❌", "WARNING": "⚠️"}
-    print(f"{symbols.get(status, 'ℹ️')} {message}")
+    symbols = {"INFO": "ℹ", "SUCCESS": "", "ERROR": "", "WARNING": ""}
+    print(f"{symbols.get(status, 'ℹ')} {message}")
 
 def test_performance_detailed():
     """Test performance with detailed timing"""
-    print_status("🔍 Detailed Performance Analysis", "INFO")
+    print_status(" Detailed Performance Analysis", "INFO")
     
     base_url = "http://localhost:8000"
     endpoints = [
@@ -37,11 +37,11 @@ def test_performance_detailed():
                 response_time = (end_time - start_time) * 1000
                 times.append(response_time)
                 if response.status_code != 200:
-                    print_status(f"{name} (attempt {i+1}): ❌ Status {response.status_code}", "ERROR")
+                    print_status(f"{name} (attempt {i+1}):  Status {response.status_code}", "ERROR")
                 else:
-                    print_status(f"{name} (attempt {i+1}): ✅ {response_time:.2f}ms", "SUCCESS")
+                    print_status(f"{name} (attempt {i+1}):  {response_time:.2f}ms", "SUCCESS")
             except Exception as e:
-                print_status(f"{name} (attempt {i+1}): ❌ Error - {e}", "ERROR")
+                print_status(f"{name} (attempt {i+1}):  Error - {e}", "ERROR")
                 times.append(9999)  # Mark as very slow
         
         if times:
@@ -60,7 +60,7 @@ def test_performance_detailed():
 
 def test_database_operations():
     """Test database operations to identify constraint issues"""
-    print_status("🗄️ Database Operations Test", "INFO")
+    print_status(" Database Operations Test", "INFO")
     
     base_url = "http://localhost:8000"
     
@@ -77,7 +77,7 @@ def test_database_operations():
             headers = {"Authorization": f"Bearer {access_token}"}
             
             # Test 1: Check regulations
-            print_status("📋 Checking regulations...", "INFO")
+            print_status(" Checking regulations...", "INFO")
             regs_response = requests.get(f"{base_url}/api/regulations/", headers=headers, timeout=10)
             print_status(f"Regulations API: Status {regs_response.status_code}", "INFO")
             if regs_response.status_code == 200:
@@ -87,7 +87,7 @@ def test_database_operations():
                     print_status(f"  - ID: {reg.get('id')}, Title: {reg.get('title')}", "INFO")
             
             # Test 2: Check existing checklist items
-            print_status("📝 Checking existing checklist items...", "INFO")
+            print_status(" Checking existing checklist items...", "INFO")
             checklist_response = requests.get(f"{base_url}/api/checklist/", headers=headers, timeout=10)
             print_status(f"Checklist API: Status {checklist_response.status_code}", "INFO")
             if checklist_response.status_code == 200:
@@ -98,7 +98,7 @@ def test_database_operations():
             
             # Test 3: Try to create a new item with existing regulation
             if regulations:
-                print_status("🧪 Testing checklist creation with existing regulation...", "INFO")
+                print_status(" Testing checklist creation with existing regulation...", "INFO")
                 test_data = {
                     "regulation_update": regulations[0]['id'],
                     "completed": False,
@@ -117,21 +117,21 @@ def test_database_operations():
                 
                 print_status(f"Create Response: Status {create_response.status_code}", "INFO")
                 if create_response.status_code == 201:
-                    print_status("✅ Checklist creation successful!", "SUCCESS")
+                    print_status(" Checklist creation successful!", "SUCCESS")
                 else:
-                    print_status(f"❌ Checklist creation failed: {create_response.text}", "ERROR")
+                    print_status(f" Checklist creation failed: {create_response.text}", "ERROR")
             else:
-                print_status("⚠️ No regulations available for testing", "WARNING")
+                print_status(" No regulations available for testing", "WARNING")
                 
         else:
-            print_status(f"❌ Authentication failed: {auth_response.status_code}", "ERROR")
+            print_status(f" Authentication failed: {auth_response.status_code}", "ERROR")
             
     except Exception as e:
-        print_status(f"❌ Database test error: {e}", "ERROR")
+        print_status(f" Database test error: {e}", "ERROR")
 
 def test_server_health():
     """Test overall server health"""
-    print_status("🏥 Server Health Check", "INFO")
+    print_status(" Server Health Check", "INFO")
     
     base_url = "http://localhost:8000"
     
@@ -139,11 +139,11 @@ def test_server_health():
     try:
         response = requests.get(f"{base_url}/admin/", timeout=5)
         if response.status_code == 200:
-            print_status("✅ Server is running and accessible", "SUCCESS")
+            print_status(" Server is running and accessible", "SUCCESS")
         else:
-            print_status(f"⚠️ Server responded with status {response.status_code}", "WARNING")
+            print_status(f" Server responded with status {response.status_code}", "WARNING")
     except Exception as e:
-        print_status(f"❌ Server not accessible: {e}", "ERROR")
+        print_status(f" Server not accessible: {e}", "ERROR")
         return False
     
     # Test API endpoints
@@ -157,22 +157,22 @@ def test_server_health():
         try:
             response = requests.get(f"{base_url}{endpoint}", timeout=5)
             if response.status_code == 200:
-                print_status(f"✅ {endpoint} - Working", "SUCCESS")
+                print_status(f" {endpoint} - Working", "SUCCESS")
             else:
-                print_status(f"❌ {endpoint} - Status {response.status_code}", "ERROR")
+                print_status(f" {endpoint} - Status {response.status_code}", "ERROR")
         except Exception as e:
-            print_status(f"❌ {endpoint} - Error: {e}", "ERROR")
+            print_status(f" {endpoint} - Error: {e}", "ERROR")
     
     return True
 
 def main():
     """Main diagnostic function"""
-    print_status("🔍 HIPAA Checklist System - Detailed Diagnostics", "INFO")
+    print_status(" HIPAA Checklist System - Detailed Diagnostics", "INFO")
     print_status("=" * 60)
     
     # Test 1: Server Health
     if not test_server_health():
-        print_status("❌ Server health check failed. Cannot proceed.", "ERROR")
+        print_status(" Server health check failed. Cannot proceed.", "ERROR")
         return
     
     print_status("\n" + "=" * 60)
@@ -197,13 +197,13 @@ def main():
         print_status(f"Overall Average Response Time: {overall_avg:.2f}ms", "INFO")
         
         if overall_avg < 1000:
-            print_status("Performance: ✅ EXCELLENT", "SUCCESS")
+            print_status("Performance:  EXCELLENT", "SUCCESS")
         elif overall_avg < 2000:
-            print_status("Performance: ✅ GOOD", "SUCCESS")
+            print_status("Performance:  GOOD", "SUCCESS")
         elif overall_avg < 3000:
-            print_status("Performance: ⚠️ FAIR", "WARNING")
+            print_status("Performance:  FAIR", "WARNING")
         else:
-            print_status("Performance: ❌ POOR", "ERROR")
+            print_status("Performance:  POOR", "ERROR")
     
     print_status("\nNext steps:", "INFO")
     print_status("1. Address any performance issues found", "INFO")

@@ -5,7 +5,7 @@ This README serves as a guide to help you prepare for an entry-level SOC (Securi
 
 ---
 
-## 🔍 Focus Areas
+##  Focus Areas
 
 - Entry-level SOC Analyst roles, with a preference for remote work or roles around Stamford, CT.
 - Ideal industries: Healthcare, Finance, Entertainment, and Government.
@@ -13,7 +13,7 @@ This README serves as a guide to help you prepare for an entry-level SOC (Securi
 
 ---
 
-## 🛡️ Top Cybersecurity Incidents to Know
+##  Top Cybersecurity Incidents to Know
 
 Famous incidents worth knowing about (especially for interviews):
 - SolarWinds (2020)
@@ -26,7 +26,7 @@ Famous incidents worth knowing about (especially for interviews):
 
 ---
 
-## 📚 Key Concepts Explained
+##  Key Concepts Explained
 
 - **Zero-day:** A vulnerability with no known fix or patch.
 - **MFA Fatigue:** Tricking users into accepting repeated login prompts.
@@ -37,7 +37,7 @@ Famous incidents worth knowing about (especially for interviews):
 
 ---
 
-## 🧩 Best Cybersecurity Jobs for Asperger's Syndrome (Ranked)
+##  Best Cybersecurity Jobs for Asperger's Syndrome (Ranked)
 
 1. Security Automation Engineer
 2. Digital Forensics Analyst
@@ -48,7 +48,7 @@ Famous incidents worth knowing about (especially for interviews):
 
 ---
 
-## 📈 SOC Analyst Career Roadmap (90-120 Days)
+##  SOC Analyst Career Roadmap (90-120 Days)
 
 ### Phase 1: Core Learning
 - Networking Basics (Professor Messer)
@@ -67,7 +67,7 @@ Famous incidents worth knowing about (especially for interviews):
 
 ---
 
-## 💼 Day in the Life of a SOC Analyst
+##  Day in the Life of a SOC Analyst
 
 - Triage alerts using SIEM/EDR tools
 - Investigate suspicious activity
@@ -77,7 +77,7 @@ Famous incidents worth knowing about (especially for interviews):
 
 ---
 
-## 📁 Supporting Files
+##  Supporting Files
 
 - PDF: SOC_Analyst_Career_Prep_Summary.pdf
 

@@ -17,12 +17,12 @@ django.setup()
 
 def print_status(message, status="INFO"):
     """Print status message with formatting"""
-    symbols = {"INFO": "ℹ️", "SUCCESS": "✅", "ERROR": "❌", "WARNING": "⚠️"}
-    print(f"{symbols.get(status, 'ℹ️')} {message}")
+    symbols = {"INFO": "ℹ", "SUCCESS": "", "ERROR": "", "WARNING": ""}
+    print(f"{symbols.get(status, 'ℹ')} {message}")
 
 def create_production_server():
     """Create a production-ready server configuration"""
-    print_status("🚀 Creating Production Server Configuration", "INFO")
+    print_status(" Creating Production Server Configuration", "INFO")
     
     # Create production server script
     production_server = """#!/usr/bin/env python3
@@ -55,11 +55,11 @@ def optimize_database():
         cursor.execute("PRAGMA temp_store=MEMORY")
         cursor.execute("PRAGMA mmap_size=1073741824")  # 1GB
         cursor.execute("PRAGMA optimize")
-        print("✅ Database optimized for production")
+        print(" Database optimized for production")
 
 def main():
     \"\"\"Start production server\"\"\"
-    print("🚀 Starting HIPAA Checklist Production Server")
+    print(" Starting HIPAA Checklist Production Server")
     print("Using Waitress WSGI server for optimal performance")
     
     # Optimize database
@@ -70,7 +70,7 @@ def main():
     application = get_wsgi_application()
     
     # Start Waitress server with production settings
-    print("🌐 Server starting on http://0.0.0.0:8000")
+    print(" Server starting on http://0.0.0.0:8000")
     print("Press Ctrl+C to stop the server")
     
     serve(
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     with open('start_production_server.py', 'w') as f:
         f.write(production_server)
     
-    print_status("✅ Production server script created", "SUCCESS")
+    print_status(" Production server script created", "SUCCESS")
     
     # Create performance test script
     performance_test = """#!/usr/bin/env python3
@@ -114,7 +114,7 @@ def test_performance():
         ("/admin/", "Django Admin"),
     ]
     
-    print("🧪 Testing System Performance")
+    print(" Testing System Performance")
     print("=" * 50)
     
     total_time = 0
@@ -133,16 +133,16 @@ def test_performance():
             if response.status_code == 200:
                 passed_tests += 1
                 if response_time < 500:
-                    status = "✅ EXCELLENT"
+                    status = " EXCELLENT"
                 elif response_time < 1000:
-                    status = "✅ GOOD"
+                    status = " GOOD"
                 elif response_time < 2000:
-                    status = "⚠️ FAIR"
+                    status = " FAIR"
                 else:
-                    status = "❌ POOR"
+                    status = " POOR"
                 print(f"{name}: {response_time:.2f}ms - {status}")
             else:
-                print(f"{name}: {response_time:.2f}ms - ❌ Status {response.status_code}")
+                print(f"{name}: {response_time:.2f}ms -  Status {response.status_code}")
                 
         except Exception as e:
             print(f"{name}: Error - {e}")
@@ -156,13 +156,13 @@ def test_performance():
         print(f"Success Rate: {success_rate:.1f}%")
         
         if avg_time < 1000 and success_rate >= 90:
-            print("🎉 PERFORMANCE: EXCELLENT! System is optimized!")
+            print(" PERFORMANCE: EXCELLENT! System is optimized!")
             return True
         elif avg_time < 2000 and success_rate >= 80:
-            print("✅ PERFORMANCE: GOOD! System is working well!")
+            print(" PERFORMANCE: GOOD! System is working well!")
             return True
         else:
-            print("⚠️ PERFORMANCE: NEEDS IMPROVEMENT")
+            print(" PERFORMANCE: NEEDS IMPROVEMENT")
             return False
     
     return False
@@ -174,13 +174,13 @@ if __name__ == "__main__":
     with open('test_production_performance.py', 'w') as f:
         f.write(performance_test)
     
-    print_status("✅ Performance test script created", "SUCCESS")
+    print_status(" Performance test script created", "SUCCESS")
     
     return True
 
 def main():
     """Main function"""
-    print_status("🚀 Creating Production Server for HIPAA Checklist", "INFO")
+    print_status(" Creating Production Server for HIPAA Checklist", "INFO")
     print_status("=" * 60)
     
     # Create production server

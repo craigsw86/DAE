@@ -19,12 +19,12 @@ django.setup()
 
 def print_status(message, status="INFO"):
     """Print status message with formatting"""
-    symbols = {"INFO": "ℹ️", "SUCCESS": "✅", "ERROR": "❌", "WARNING": "⚠️"}
-    print(f"{symbols.get(status, 'ℹ️')} {message}")
+    symbols = {"INFO": "ℹ", "SUCCESS": "", "ERROR": "", "WARNING": ""}
+    print(f"{symbols.get(status, 'ℹ')} {message}")
 
 def optimize_database_performance():
     """Apply database performance optimizations"""
-    print_status("🔧 Optimizing Database Performance", "INFO")
+    print_status(" Optimizing Database Performance", "INFO")
     
     try:
         from django.db import connection
@@ -39,7 +39,7 @@ def optimize_database_performance():
             cursor.execute("PRAGMA mmap_size=536870912")  # 512MB
             cursor.execute("PRAGMA optimize")
             
-            print_status("✅ Database performance optimizations applied", "SUCCESS")
+            print_status(" Database performance optimizations applied", "SUCCESS")
             
             # Test query performance
             start_time = time.time()
@@ -52,12 +52,12 @@ def optimize_database_performance():
         return True
         
     except Exception as e:
-        print_status(f"❌ Database optimization error: {e}", "ERROR")
+        print_status(f" Database optimization error: {e}", "ERROR")
         return False
 
 def test_specific_endpoints():
     """Test specific endpoints that were slow"""
-    print_status("🧪 Testing Specific Endpoints", "INFO")
+    print_status(" Testing Specific Endpoints", "INFO")
     
     base_url = "http://localhost:8000"
     endpoints = [
@@ -97,13 +97,13 @@ def test_specific_endpoints():
             
             # Determine status
             if avg_time < 500:
-                status = "✅ EXCELLENT"
+                status = " EXCELLENT"
             elif avg_time < 1000:
-                status = "✅ GOOD"
+                status = " GOOD"
             elif avg_time < 2000:
-                status = "⚠️ FAIR"
+                status = " FAIR"
             else:
-                status = "❌ POOR"
+                status = " POOR"
             
             print_status(f"{name}: {avg_time:.2f}ms - {status}", "INFO")
     
@@ -111,7 +111,7 @@ def test_specific_endpoints():
 
 def create_optimized_django_settings():
     """Create optimized Django settings for better performance"""
-    print_status("⚙️ Creating Optimized Django Settings", "INFO")
+    print_status(" Creating Optimized Django Settings", "INFO")
     
     # Read current settings
     settings_file = "backend/hipaa_checklist/settings.py"
@@ -161,19 +161,19 @@ DATABASES = {
             with open(settings_file, 'w') as f:
                 f.write(new_content)
             
-            print_status("✅ Optimized settings added", "SUCCESS")
+            print_status(" Optimized settings added", "SUCCESS")
         else:
-            print_status("✅ Cache configuration already present", "INFO")
+            print_status(" Cache configuration already present", "INFO")
         
         return True
         
     except Exception as e:
-        print_status(f"❌ Settings optimization error: {e}", "ERROR")
+        print_status(f" Settings optimization error: {e}", "ERROR")
         return False
 
 def run_final_performance_test():
     """Run final comprehensive performance test"""
-    print_status("🎯 Final Performance Test", "INFO")
+    print_status(" Final Performance Test", "INFO")
     
     base_url = "http://localhost:8000"
     
@@ -201,13 +201,13 @@ def run_final_performance_test():
             if response.status_code == 200:
                 passed_tests += 1
                 if response_time < 1000:
-                    print_status(f"{name}: {response_time:.2f}ms - ✅ EXCELLENT", "SUCCESS")
+                    print_status(f"{name}: {response_time:.2f}ms -  EXCELLENT", "SUCCESS")
                 elif response_time < 2000:
-                    print_status(f"{name}: {response_time:.2f}ms - ✅ GOOD", "SUCCESS")
+                    print_status(f"{name}: {response_time:.2f}ms -  GOOD", "SUCCESS")
                 else:
-                    print_status(f"{name}: {response_time:.2f}ms - ⚠️ FAIR", "WARNING")
+                    print_status(f"{name}: {response_time:.2f}ms -  FAIR", "WARNING")
             else:
-                print_status(f"{name}: {response_time:.2f}ms - ❌ Status {response.status_code}", "ERROR")
+                print_status(f"{name}: {response_time:.2f}ms -  Status {response.status_code}", "ERROR")
                 
         except Exception as e:
             print_status(f"{name}: Error - {e}", "ERROR")
@@ -220,36 +220,36 @@ def run_final_performance_test():
         print_status(f"Success Rate: {success_rate:.1f}%", "INFO")
         
         if avg_time < 1000 and success_rate >= 90:
-            print_status("🎉 PERFORMANCE: EXCELLENT! System is optimized!", "SUCCESS")
+            print_status(" PERFORMANCE: EXCELLENT! System is optimized!", "SUCCESS")
             return True
         elif avg_time < 2000 and success_rate >= 80:
-            print_status("✅ PERFORMANCE: GOOD! System is working well!", "SUCCESS")
+            print_status(" PERFORMANCE: GOOD! System is working well!", "SUCCESS")
             return True
         else:
-            print_status("⚠️ PERFORMANCE: NEEDS IMPROVEMENT", "WARNING")
+            print_status(" PERFORMANCE: NEEDS IMPROVEMENT", "WARNING")
             return False
     
     return False
 
 def main():
     """Main performance optimization function"""
-    print_status("🚀 HIPAA Checklist Final Performance Fix", "INFO")
+    print_status(" HIPAA Checklist Final Performance Fix", "INFO")
     print_status("=" * 60)
     
     # Step 1: Optimize database
-    print_status("🔧 Step 1: Optimizing Database", "INFO")
+    print_status(" Step 1: Optimizing Database", "INFO")
     optimize_database_performance()
     
     # Step 2: Create optimized settings
-    print_status("\n⚙️ Step 2: Creating Optimized Settings", "INFO")
+    print_status("\n Step 2: Creating Optimized Settings", "INFO")
     create_optimized_django_settings()
     
     # Step 3: Test current performance
-    print_status("\n🧪 Step 3: Testing Current Performance", "INFO")
+    print_status("\n Step 3: Testing Current Performance", "INFO")
     test_specific_endpoints()
     
     # Step 4: Run final test
-    print_status("\n🎯 Step 4: Final Performance Test", "INFO")
+    print_status("\n Step 4: Final Performance Test", "INFO")
     success = run_final_performance_test()
     
     # Summary
@@ -258,10 +258,10 @@ def main():
     print_status("=" * 60)
     
     if success:
-        print_status("🎉 PERFORMANCE OPTIMIZATION SUCCESSFUL!", "SUCCESS")
+        print_status(" PERFORMANCE OPTIMIZATION SUCCESSFUL!", "SUCCESS")
         print_status("System is now optimized and ready for production!", "SUCCESS")
     else:
-        print_status("⚠️ Performance optimization completed with improvements", "WARNING")
+        print_status(" Performance optimization completed with improvements", "WARNING")
         print_status("System is functional but may need further optimization", "WARNING")
     
     print_status("\nNext steps:", "INFO")

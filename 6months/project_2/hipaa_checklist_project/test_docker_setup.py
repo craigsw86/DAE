@@ -23,7 +23,7 @@ class DockerSetupTester:
         
     def log_test(self, test_name, success, message=""):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = " PASS" if success else " FAIL"
         print(f"{test_name}: {status} {message}")
         self.test_results.append({
             'test': test_name,
@@ -34,7 +34,7 @@ class DockerSetupTester:
     
     def test_docker_installation(self):
         """Test if Docker is installed and running"""
-        print("\n📝 Test 1: Docker Installation")
+        print("\n Test 1: Docker Installation")
         print("-" * 40)
         
         try:
@@ -65,7 +65,7 @@ class DockerSetupTester:
     
     def test_docker_containers(self):
         """Test Docker containers status"""
-        print("\n📝 Test 2: Docker Containers")
+        print("\n Test 2: Docker Containers")
         print("-" * 40)
         
         try:
@@ -101,7 +101,7 @@ class DockerSetupTester:
     
     def test_nginx_proxy(self):
         """Test Nginx reverse proxy"""
-        print("\n📝 Test 3: Nginx Reverse Proxy")
+        print("\n Test 3: Nginx Reverse Proxy")
         print("-" * 40)
         
         try:
@@ -115,7 +115,7 @@ class DockerSetupTester:
     
     def test_django_backend(self):
         """Test Django backend through proxy"""
-        print("\n📝 Test 4: Django Backend")
+        print("\n Test 4: Django Backend")
         print("-" * 40)
         
         endpoints = [
@@ -136,7 +136,7 @@ class DockerSetupTester:
     
     def test_react_frontend(self):
         """Test React frontend"""
-        print("\n📝 Test 5: React Frontend")
+        print("\n Test 5: React Frontend")
         print("-" * 40)
         
         try:
@@ -154,7 +154,7 @@ class DockerSetupTester:
     
     def test_database_connectivity(self):
         """Test database connectivity"""
-        print("\n📝 Test 6: Database Connectivity")
+        print("\n Test 6: Database Connectivity")
         print("-" * 40)
         
         try:
@@ -172,7 +172,7 @@ class DockerSetupTester:
     
     def test_static_files(self):
         """Test static file serving"""
-        print("\n📝 Test 7: Static Files")
+        print("\n Test 7: Static Files")
         print("-" * 40)
         
         try:
@@ -186,7 +186,7 @@ class DockerSetupTester:
     
     def test_cors_headers(self):
         """Test CORS headers"""
-        print("\n📝 Test 8: CORS Headers")
+        print("\n Test 8: CORS Headers")
         print("-" * 40)
         
         try:
@@ -217,7 +217,7 @@ class DockerSetupTester:
     
     def test_performance(self):
         """Test performance metrics"""
-        print("\n📝 Test 9: Performance")
+        print("\n Test 9: Performance")
         print("-" * 40)
         
         try:
@@ -264,7 +264,7 @@ class DockerSetupTester:
     
     def test_docker_volumes(self):
         """Test Docker volumes"""
-        print("\n📝 Test 10: Docker Volumes")
+        print("\n Test 10: Docker Volumes")
         print("-" * 40)
         
         try:
@@ -301,7 +301,7 @@ class DockerSetupTester:
     def generate_report(self):
         """Generate test report"""
         print("\n" + "=" * 60)
-        print("📊 DOCKER SETUP TEST REPORT")
+        print(" DOCKER SETUP TEST REPORT")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -314,7 +314,7 @@ class DockerSetupTester:
         print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ Failed Tests:")
+            print("\n Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
@@ -324,17 +324,17 @@ class DockerSetupTester:
         with open(report_file, 'w') as f:
             json.dump(self.test_results, f, indent=2)
         
-        print(f"\n📄 Detailed report saved to: {report_file}")
+        print(f"\n Detailed report saved to: {report_file}")
         
         return passed_tests == total_tests
     
     def run_all_tests(self):
         """Run all Docker tests"""
-        print("🐳 Starting Docker Setup Tests")
+        print(" Starting Docker Setup Tests")
         print("=" * 60)
         
         if not self.test_docker_installation():
-            print("❌ Docker not available. Please install Docker and Docker Compose.")
+            print(" Docker not available. Please install Docker and Docker Compose.")
             return False
         
         self.test_docker_containers()
@@ -355,10 +355,10 @@ def main():
     success = tester.run_all_tests()
     
     if success:
-        print("\n🎉 All Docker tests passed! Setup is working correctly.")
+        print("\n All Docker tests passed! Setup is working correctly.")
         sys.exit(0)
     else:
-        print("\n⚠️  Some Docker tests failed. Please check the configuration.")
+        print("\n  Some Docker tests failed. Please check the configuration.")
         sys.exit(1)
 
 if __name__ == '__main__':

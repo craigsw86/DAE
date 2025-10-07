@@ -53,11 +53,11 @@ def setup_database_permissions():
             current_perms = db_path.stat().st_mode
             new_perms = current_perms & ~stat.S_IWGRP & ~stat.S_IWOTH
             db_path.chmod(new_perms)
-            logger.info(f"✅ Database permissions set: {oct(new_perms)}")
+            logger.info(f"Database permissions set: {oct(new_perms)}")
         except Exception as e:
-            logger.warning(f"⚠️  Could not set database permissions: {e}")
+            logger.warning(f"Could not set database permissions: {e}")
     else:
-        logger.warning("⚠️  Database file not found. Run migrations first.")
+        logger.warning("Database file not found. Run migrations first.")
 
 def setup_encryption():
     """
@@ -69,10 +69,10 @@ def setup_encryption():
     """
     encryption_key = os.environ.get('FIELD_ENCRYPTION_KEY')
     if not encryption_key:
-        logger.warning("⚠️  FIELD_ENCRYPTION_KEY not set. Using default key.")
+        logger.warning("FIELD_ENCRYPTION_KEY not set. Using default key.")
         os.environ['FIELD_ENCRYPTION_KEY'] = '1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54='
     else:
-        logger.info("✅ Encryption key is set")
+        logger.info("Encryption key is set")
 
 def run_migrations():
     """
@@ -82,11 +82,11 @@ def run_migrations():
     and ensure the database schema matches the current model definitions.
     """
     try:
-        logger.info("🔄 Running database migrations...")
+        logger.info("Running database migrations...")
         execute_from_command_line(['manage.py', 'migrate'])
-        logger.info("✅ Migrations completed")
+        logger.info("Migrations completed")
     except Exception as e:
-        logger.error(f"❌ Migration failed: {e}")
+        logger.error(f"Migration failed: {e}")
         sys.exit(1)
 
 def collect_static_files():
@@ -97,11 +97,11 @@ def collect_static_files():
     directory for efficient serving by the web server.
     """
     try:
-        logger.info("🔄 Collecting static files...")
+        logger.info("Collecting static files...")
         execute_from_command_line(['manage.py', 'collectstatic', '--noinput'])
-        logger.info("✅ Static files collected")
+        logger.info("Static files collected")
     except Exception as e:
-        logger.error(f"❌ Static file collection failed: {e}")
+        logger.error(f"Static file collection failed: {e}")
         sys.exit(1)
 
 def start_waitress_server():
@@ -119,8 +119,8 @@ def start_waitress_server():
     port = int(os.environ.get('WAITRESS_PORT', '8000'))
     threads = int(os.environ.get('WAITRESS_THREADS', '4'))
     
-    logger.info(f"🚀 Starting Waitress server on {host}:{port}")
-    logger.info(f"📊 Configuration: {threads} threads")
+    logger.info(f"Starting Waitress server on {host}:{port}")
+    logger.info(f"Configuration: {threads} threads")
     
     # Start server with security and performance optimizations
     serve(
@@ -154,7 +154,7 @@ def main():
     4. Database security setup
     5. Server startup
     """
-    logger.info("🔐 HIPAA Checklist - Waitress Server Starting...")
+    logger.info("HIPAA Checklist - Waitress Server Starting...")
     
     # Execute setup steps in order
     setup_encryption()

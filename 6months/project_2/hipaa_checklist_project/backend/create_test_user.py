@@ -40,17 +40,17 @@ def create_test_user():
     if created:
         user.set_password(password)
         user.save()
-        print(f"✅ Created test user: {username}")
+        print(f" Created test user: {username}")
     else:
-        print(f"✅ Test user already exists: {username}")
+        print(f" Test user already exists: {username}")
     
     # Generate JWT tokens
     refresh = RefreshToken.for_user(user)
     access_token = str(refresh.access_token)
     refresh_token = str(refresh)
     
-    print(f"🔑 Access Token: {access_token}")
-    print(f"🔄 Refresh Token: {refresh_token}")
+    print(f" Access Token: {access_token}")
+    print(f" Refresh Token: {refresh_token}")
     
     # Save tokens to file for testing
     with open('test_tokens.txt', 'w') as f:
@@ -59,7 +59,7 @@ def create_test_user():
         f.write(f"USERNAME={username}\n")
         f.write(f"PASSWORD={password}\n")
     
-    print("💾 Tokens saved to test_tokens.txt")
+    print(" Tokens saved to test_tokens.txt")
     
     return {
         'username': username,

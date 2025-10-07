@@ -40,18 +40,18 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write(
-            self.style.SUCCESS('🏥 HIPAA Regulations Loader')
+            self.style.SUCCESS(' HIPAA Regulations Loader')
         )
         self.stdout.write('=' * 50)
         
         if options['dry_run']:
             self.stdout.write(
-                self.style.WARNING('🔍 DRY RUN MODE - No changes will be made')
+                self.style.WARNING(' DRY RUN MODE - No changes will be made')
             )
             return
         
         if options['clear']:
-            self.stdout.write('🗑️  Clearing existing regulations...')
+            self.stdout.write('  Clearing existing regulations...')
             count = RegulationUpdate.objects.count()
             RegulationUpdate.objects.all().delete()
             self.stdout.write(
@@ -60,7 +60,7 @@ class Command(BaseCommand):
         
         if options['category']:
             self.stdout.write(
-                self.style.WARNING(f'⚠️  Category filtering not yet implemented - loading all regulations')
+                self.style.WARNING(f'  Category filtering not yet implemented - loading all regulations')
             )
         
         try:
@@ -69,12 +69,12 @@ class Command(BaseCommand):
             
             self.stdout.write('')
             self.stdout.write(
-                self.style.SUCCESS('✅ HIPAA regulations loaded successfully!')
+                self.style.SUCCESS(' HIPAA regulations loaded successfully!')
             )
             
             # Show summary
             total_count = RegulationUpdate.objects.count()
-            self.stdout.write(f'📊 Total regulations in database: {total_count}')
+            self.stdout.write(f' Total regulations in database: {total_count}')
             
             # Show categories
             categories = {}
@@ -93,7 +93,7 @@ class Command(BaseCommand):
                 
                 categories[category] = categories.get(category, 0) + 1
             
-            self.stdout.write('\n📋 Regulations by category:')
+            self.stdout.write('\n Regulations by category:')
             for category, count in categories.items():
                 self.stdout.write(f'  • {category}: {count}')
                 

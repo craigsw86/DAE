@@ -26,24 +26,24 @@ The HIPAA Checklist project is a secure, full-stack web application for managing
 ## Directory Structure
 ```
 project_root/
-├── backend/                # Django backend
-│   ├── checklist/          # Main app (models, views, admin, tests)
-│   ├── hipaa_checklist/    # Project settings
-│   ├── manage.py           # Django management script
-│   └── requirements.txt    # Python dependencies
-├── frontend/               # React frontend
-│   ├── src/                # React source code
-│   ├── public/             # Static files
-│   └── package.json        # JS dependencies
-├── docs/                   # Documentation
-│   ├── API.md
-│   ├── API_Testing_Postman.md
-│   ├── Security_Architecture.md
-│   ├── Security_Policy.md
-│   ├── Security_Playbooks.md
-│   ├── Incident_Response_Plan.md
-│   └── ...
-└── README.md               # This file
+ backend/                # Django backend
+    checklist/          # Main app (models, views, admin, tests)
+    hipaa_checklist/    # Project settings
+    manage.py           # Django management script
+    requirements.txt    # Python dependencies
+ frontend/               # React frontend
+    src/                # React source code
+    public/             # Static files
+    package.json        # JS dependencies
+ docs/                   # Documentation
+    API.md
+    API_Testing_Postman.md
+    Security_Architecture.md
+    Security_Policy.md
+    Security_Playbooks.md
+    Incident_Response_Plan.md
+    ...
+ README.md               # This file
 ```
 
 ## Security & Compliance Summary

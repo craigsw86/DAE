@@ -25,7 +25,7 @@ This rubric outlines the advanced requirements for the project in the areas of t
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| Advanced Threat Analysis |     ☐     |      ☐      |
+| Advanced Threat Analysis |          |            |
 
 ---
 
@@ -39,7 +39,7 @@ This rubric outlines the advanced requirements for the project in the areas of t
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| Enterprise Vulnerability Management |     ☐     |      ☐      |
+| Enterprise Vulnerability Management |          |            |
 
 ---
 
@@ -52,7 +52,7 @@ This rubric outlines the advanced requirements for the project in the areas of t
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| Advanced Threat Intelligence Operations |     ☐     |      ☐      |
+| Advanced Threat Intelligence Operations |          |            |
 
 ---
 
@@ -65,7 +65,7 @@ This rubric outlines the advanced requirements for the project in the areas of t
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| Risk Management & Audit Implementation |     ☐     |      ☐      |
+| Risk Management & Audit Implementation |          |            |
 
 ---
 
@@ -78,10 +78,10 @@ This rubric outlines the advanced requirements for the project in the areas of t
 
 | Criterion | Complete (1) | Incomplete (0) |
 |-----------|:-----------:|:--------------:|
-| Platform Development & Integration |     ☐     |      ☐      |
+| Platform Development & Integration |          |            |
 
 ---
 
 **Instructions:**
-- For each criterion, check the appropriate box (☑) when the requirement is fully met and evidence is documented.
+- For each criterion, check the appropriate box () when the requirement is fully met and evidence is documented.
 - Attach supporting evidence and documentation as appendices or in referenced project files.

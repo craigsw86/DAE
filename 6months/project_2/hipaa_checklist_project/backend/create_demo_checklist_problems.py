@@ -19,7 +19,7 @@ from django.contrib.auth.models import User
 def create_demo_checklist_problems():
     """Create a comprehensive demo checklist with various problems"""
     
-    print("🚨 Creating Demo Checklist with HIPAA Compliance Problems")
+    print("Creating Demo Checklist with HIPAA Compliance Problems")
     print("=" * 60)
     print()
     
@@ -32,24 +32,24 @@ def create_demo_checklist_problems():
     if created:
         demo_user.set_password('demo123')
         demo_user.save()
-        print(f"✅ Created demo user: {demo_user.username}")
+        print(f"Created demo user: {demo_user.username}")
     else:
-        print(f"👤 Using existing demo user: {demo_user.username}")
+        print(f"Using existing demo user: {demo_user.username}")
     
     print()
     
     # Clear existing checklist items for demo user
     ChecklistItem.objects.filter(user=demo_user).delete()
-    print("🗑️  Cleared existing checklist items for demo")
+    print("Cleared existing checklist items for demo")
     print()
     
     # Get regulations
     regulations = list(RegulationUpdate.objects.all())
     if not regulations:
-        print("❌ No regulations found! Run: python manage.py load_hipaa_regulations")
+        print("No regulations found! Run: python manage.py load_hipaa_regulations")
         return
     
-    print(f"📋 Found {len(regulations)} regulations to work with")
+    print(f"Found {len(regulations)} regulations to work with")
     print()
     
     # Create comprehensive demo problems
@@ -223,7 +223,7 @@ def create_demo_checklist_problems():
     
     created_items = []
     
-    print("🚨 CREATING DEMO PROBLEMS")
+    print("CREATING DEMO PROBLEMS")
     print("-" * 40)
     
     for i, problem in enumerate(demo_problems, 1):
@@ -269,11 +269,11 @@ def create_demo_checklist_problems():
         print()
     
     print("=" * 60)
-    print(f"🎉 Created {len(created_items)} demo problems!")
+    print(f"Created {len(created_items)} demo problems!")
     print()
     
     # Show summary statistics
-    print("📊 DEMO PROBLEM SUMMARY")
+    print("DEMO PROBLEM SUMMARY")
     print("-" * 40)
     
     total_items = len(created_items)
@@ -282,15 +282,15 @@ def create_demo_checklist_problems():
     medium_items = len([item for item in created_items if 10 <= item.likelihood * item.impact < 15])
     low_items = len([item for item in created_items if item.likelihood * item.impact < 10])
     
-    print(f"📋 Total Problems: {total_items}")
-    print(f"🔴 Critical Risk: {critical_items}")
-    print(f"🟠 High Risk: {high_items}")
-    print(f"🟡 Medium Risk: {medium_items}")
-    print(f"🟢 Low Risk: {low_items}")
+    print(f"Total Problems: {total_items}")
+    print(f"Critical Risk: {critical_items}")
+    print(f"High Risk: {high_items}")
+    print(f"Medium Risk: {medium_items}")
+    print(f"Low Risk: {low_items}")
     print()
     
     # Show by regulation category
-    print("📋 PROBLEMS BY REGULATION")
+    print("PROBLEMS BY REGULATION")
     print("-" * 40)
     
     regulation_counts = {}
@@ -313,14 +313,14 @@ def create_demo_checklist_problems():
         print(f"   • {category}: {count} problems")
     
     print()
-    print("🚀 DEMO READY!")
+    print("DEMO READY!")
     print("-" * 40)
-    print("✅ Login with: demo / demo123")
-    print("✅ Go to: http://127.0.0.1:8000/checklist-page/")
-    print("✅ Show various risk levels and compliance issues")
-    print("✅ Demonstrate mitigation tracking and admin notes")
+    print("Login with: demo / demo123")
+    print("Go to: http://127.0.0.1:8000/checklist-page/")
+    print("Show various risk levels and compliance issues")
+    print("Demonstrate mitigation tracking and admin notes")
     print()
-    print("🎯 Perfect for demonstrating:")
+    print("Perfect for demonstrating:")
     print("   • Risk scoring and prioritization")
     print("   • Compliance tracking and management")
     print("   • Mitigation planning and execution")

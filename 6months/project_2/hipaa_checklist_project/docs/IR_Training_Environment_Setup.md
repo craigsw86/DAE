@@ -215,22 +215,22 @@ Register-ScheduledTask -Action $action -Trigger $trigger -TaskName "SystemMainte
 
 ```
 scenarios/
-├── beginner/
-│   ├── phishing_attack/
-│   ├── malware_infection/
-│   └── unauthorized_access/
-├── intermediate/
-│   ├── lateral_movement/
-│   ├── privilege_escalation/
-│   └── data_exfiltration/
-├── advanced/
-│   ├── apt_simulation/
-│   ├── insider_threat/
-│   └── supply_chain_attack/
-└── custom/
-    ├── healthcare_specific/
-    ├── finance_specific/
-    └── government_specific/
+ beginner/
+    phishing_attack/
+    malware_infection/
+    unauthorized_access/
+ intermediate/
+    lateral_movement/
+    privilege_escalation/
+    data_exfiltration/
+ advanced/
+    apt_simulation/
+    insider_threat/
+    supply_chain_attack/
+ custom/
+     healthcare_specific/
+     finance_specific/
+     government_specific/
 ```
 
 ### Scenario Configuration Files

@@ -39,7 +39,7 @@ class SecurityVerification:
         
     def run_complete_verification(self):
         """Run all security verification checks"""
-        logger.info("🔐 Starting Comprehensive Security Verification")
+        logger.info(" Starting Comprehensive Security Verification")
         logger.info("=" * 60)
         
         # 1. Database Security Verification
@@ -67,7 +67,7 @@ class SecurityVerification:
     
     def verify_database_security(self):
         """Verify database encryption and access controls"""
-        logger.info("📊 Verifying Database Security...")
+        logger.info(" Verifying Database Security...")
         
         db_security = {
             'status': 'PENDING',
@@ -139,7 +139,7 @@ class SecurityVerification:
     
     def verify_ssl_tls_security(self):
         """Verify SSL/TLS certificate implementation"""
-        logger.info("🔒 Verifying SSL/TLS Security...")
+        logger.info(" Verifying SSL/TLS Security...")
         
         ssl_security = {
             'status': 'PENDING',
@@ -222,7 +222,7 @@ class SecurityVerification:
     
     def verify_network_security(self):
         """Verify network security and firewall rules"""
-        logger.info("🌐 Verifying Network Security...")
+        logger.info(" Verifying Network Security...")
         
         network_security = {
             'status': 'PENDING',
@@ -289,7 +289,7 @@ class SecurityVerification:
     
     def verify_authentication_security(self):
         """Verify authentication and authorization mechanisms"""
-        logger.info("🔑 Verifying Authentication Security...")
+        logger.info(" Verifying Authentication Security...")
         
         auth_security = {
             'status': 'PENDING',
@@ -355,7 +355,7 @@ class SecurityVerification:
     
     def verify_file_permissions(self):
         """Verify file permissions and access controls"""
-        logger.info("📁 Verifying File Permissions...")
+        logger.info(" Verifying File Permissions...")
         
         file_security = {
             'status': 'PENDING',
@@ -418,7 +418,7 @@ class SecurityVerification:
     
     def verify_security_headers(self):
         """Verify security headers implementation"""
-        logger.info("🛡️ Verifying Security Headers...")
+        logger.info(" Verifying Security Headers...")
         
         headers_security = {
             'status': 'PENDING',
@@ -479,7 +479,7 @@ class SecurityVerification:
     
     def generate_final_report(self):
         """Generate comprehensive security verification report"""
-        logger.info("📋 Generating Final Security Report...")
+        logger.info(" Generating Final Security Report...")
         
         # Calculate overall status
         categories = self.results['categories']
@@ -519,7 +519,7 @@ class SecurityVerification:
         with open(report_file, 'w') as f:
             json.dump(self.results, f, indent=2)
         
-        logger.info(f"📄 Security verification report saved: {report_file}")
+        logger.info(f" Security verification report saved: {report_file}")
         
         # Print summary
         self.print_summary()
@@ -527,39 +527,39 @@ class SecurityVerification:
     def print_summary(self):
         """Print security verification summary"""
         print("\n" + "=" * 60)
-        print("🔐 HIPAA CHECKLIST PROJECT - SECURITY VERIFICATION SUMMARY")
+        print(" HIPAA CHECKLIST PROJECT - SECURITY VERIFICATION SUMMARY")
         print("=" * 60)
         
-        print(f"📅 Timestamp: {self.results['timestamp']}")
-        print(f"🎯 Overall Status: {self.results['overall_status']}")
-        print(f"📊 Success Rate: {self.results['summary']['success_rate']}")
+        print(f" Timestamp: {self.results['timestamp']}")
+        print(f" Overall Status: {self.results['overall_status']}")
+        print(f" Success Rate: {self.results['summary']['success_rate']}")
         
-        print(f"\n📋 Category Results:")
+        print(f"\n Category Results:")
         for category_name, category_data in self.results['categories'].items():
-            status_emoji = "✅" if category_data['status'] == 'PASS' else "❌" if category_data['status'] == 'FAIL' else "⚠️"
+            status_emoji = "" if category_data['status'] == 'PASS' else "" if category_data['status'] == 'FAIL' else ""
             print(f"  {status_emoji} {category_name.replace('_', ' ').title()}: {category_data['status']}")
         
         if self.results['critical_issues']:
-            print(f"\n🚨 Critical Issues ({len(self.results['critical_issues'])}):")
+            print(f"\n Critical Issues ({len(self.results['critical_issues'])}):")
             for issue in self.results['critical_issues'][:5]:  # Show first 5
                 print(f"  • {issue}")
             if len(self.results['critical_issues']) > 5:
                 print(f"  ... and {len(self.results['critical_issues']) - 5} more")
         
         if self.results['recommendations']:
-            print(f"\n💡 Recommendations ({len(self.results['recommendations'])}):")
+            print(f"\n Recommendations ({len(self.results['recommendations'])}):")
             for rec in self.results['recommendations'][:5]:  # Show first 5
                 print(f"  • {rec}")
             if len(self.results['recommendations']) > 5:
                 print(f"  ... and {len(self.results['recommendations']) - 5} more")
         
         print("\n" + "=" * 60)
-        print("🎉 Security verification completed!")
+        print(" Security verification completed!")
         print("=" * 60)
 
 def main():
     """Main function to run security verification"""
-    print("🔐 HIPAA Checklist Project - Final Week Security Verification")
+    print(" HIPAA Checklist Project - Final Week Security Verification")
     print("Encryption and Security Verification (Notes/DB checks; firewall rules)")
     print("=" * 70)
     

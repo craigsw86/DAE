@@ -29,7 +29,7 @@ class ManualFlowVerifier:
         
     def log_test(self, test_name, success, message="", data=None, issue_type=None):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = " PASS" if success else " FAIL"
         print(f"{test_name}: {status} {message}")
         
         result = {
@@ -53,7 +53,7 @@ class ManualFlowVerifier:
     
     def test_server_availability(self):
         """Test 1: Server Availability"""
-        print("\n🔍 Test 1: Server Availability")
+        print("\n Test 1: Server Availability")
         print("=" * 50)
         
         try:
@@ -70,7 +70,7 @@ class ManualFlowVerifier:
     
     def test_public_endpoints(self):
         """Test 2: Public Endpoints"""
-        print("\n🔍 Test 2: Public Endpoints")
+        print("\n Test 2: Public Endpoints")
         print("=" * 50)
         
         public_endpoints = [
@@ -94,7 +94,7 @@ class ManualFlowVerifier:
     
     def test_user_creation_flow(self):
         """Test 3: User Creation Flow"""
-        print("\n🔍 Test 3: User Creation Flow")
+        print("\n Test 3: User Creation Flow")
         print("=" * 50)
         
         try:
@@ -160,7 +160,7 @@ class ManualFlowVerifier:
     
     def test_authentication_flow(self):
         """Test 4: Authentication Flow"""
-        print("\n🔍 Test 4: Authentication Flow")
+        print("\n Test 4: Authentication Flow")
         print("=" * 50)
         
         # Test login with test user
@@ -191,7 +191,7 @@ class ManualFlowVerifier:
     
     def test_protected_endpoints(self):
         """Test 5: Protected Endpoints"""
-        print("\n🔍 Test 5: Protected Endpoints")
+        print("\n Test 5: Protected Endpoints")
         print("=" * 50)
         
         if not self.auth_token:
@@ -223,7 +223,7 @@ class ManualFlowVerifier:
     
     def test_checklist_workflow(self):
         """Test 6: Checklist Workflow"""
-        print("\n🔍 Test 6: Checklist Workflow")
+        print("\n Test 6: Checklist Workflow")
         print("=" * 50)
         
         if not self.auth_token:
@@ -292,7 +292,7 @@ class ManualFlowVerifier:
     
     def test_regulation_workflow(self):
         """Test 7: Regulation Workflow"""
-        print("\n🔍 Test 7: Regulation Workflow")
+        print("\n Test 7: Regulation Workflow")
         print("=" * 50)
         
         if not self.auth_token:
@@ -342,7 +342,7 @@ class ManualFlowVerifier:
     
     def test_compliance_reports(self):
         """Test 8: Compliance Reports"""
-        print("\n🔍 Test 8: Compliance Reports")
+        print("\n Test 8: Compliance Reports")
         print("=" * 50)
         
         if not self.auth_token:
@@ -380,7 +380,7 @@ class ManualFlowVerifier:
     
     def test_export_functionality(self):
         """Test 9: Export Functionality"""
-        print("\n🔍 Test 9: Export Functionality")
+        print("\n Test 9: Export Functionality")
         print("=" * 50)
         
         if not self.auth_token:
@@ -412,7 +412,7 @@ class ManualFlowVerifier:
     
     def test_error_handling(self):
         """Test 10: Error Handling"""
-        print("\n🔍 Test 10: Error Handling")
+        print("\n Test 10: Error Handling")
         print("=" * 50)
         
         # Test 404 endpoint
@@ -440,7 +440,7 @@ class ManualFlowVerifier:
     
     def cleanup_test_data(self):
         """Clean up test data"""
-        print("\n🧹 Cleaning up Test Data")
+        print("\n Cleaning up Test Data")
         print("=" * 50)
         
         if not self.auth_token:
@@ -476,11 +476,11 @@ class ManualFlowVerifier:
     def generate_issues_report(self):
         """Generate comprehensive issues report"""
         print("\n" + "=" * 60)
-        print("📋 MANUAL FLOW VERIFICATION - ISSUES REPORT")
+        print(" MANUAL FLOW VERIFICATION - ISSUES REPORT")
         print("=" * 60)
         
         if not self.issues_found:
-            print("🎉 No issues found during manual testing!")
+            print(" No issues found during manual testing!")
             return
         
         print(f"Total Issues Found: {len(self.issues_found)}")
@@ -495,7 +495,7 @@ class ManualFlowVerifier:
             issues_by_type[issue_type].append(issue)
         
         for issue_type, issues in issues_by_type.items():
-            print(f"\n🔴 {issue_type.upper()} ({len(issues)} issues):")
+            print(f"\n {issue_type.upper()} ({len(issues)} issues):")
             for issue in issues:
                 print(f"  - {issue['test']}: {issue['issue']}")
         
@@ -511,12 +511,12 @@ class ManualFlowVerifier:
                 }
             }, f, indent=2)
         
-        print(f"\n📄 Detailed issues report saved to: {issues_file}")
+        print(f"\n Detailed issues report saved to: {issues_file}")
     
     def generate_test_report(self):
         """Generate comprehensive test report"""
         print("\n" + "=" * 60)
-        print("📊 MANUAL FLOW VERIFICATION TEST REPORT")
+        print(" MANUAL FLOW VERIFICATION TEST REPORT")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -529,7 +529,7 @@ class ManualFlowVerifier:
         print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ Failed Tests:")
+            print("\n Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
@@ -549,13 +549,13 @@ class ManualFlowVerifier:
                 }
             }, f, indent=2)
         
-        print(f"\n📄 Detailed report saved to: {report_file}")
+        print(f"\n Detailed report saved to: {report_file}")
         
         return passed_tests == total_tests
     
     def run_all_tests(self):
         """Run all manual flow verification tests"""
-        print("🧪 Starting Manual Flow Verification and Documentation")
+        print(" Starting Manual Flow Verification and Documentation")
         print("=" * 60)
         
         # Core tests
@@ -583,10 +583,10 @@ def main():
     success = verifier.run_all_tests()
     
     if success:
-        print("\n🎉 All manual flow tests passed!")
-        print("✅ Complete application flow is working correctly!")
+        print("\n All manual flow tests passed!")
+        print(" Complete application flow is working correctly!")
     else:
-        print("\n⚠️  Some manual flow tests failed.")
+        print("\n  Some manual flow tests failed.")
         print("Please review the issues report and fix the problems.")
     
     return success

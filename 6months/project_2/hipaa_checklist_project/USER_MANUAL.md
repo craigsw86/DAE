@@ -7,7 +7,7 @@
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 1. [Getting Started](#getting-started)
 2. [User Roles and Permissions](#user-roles-and-permissions)
@@ -22,7 +22,7 @@
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### System Access
 1. **Open your web browser** and navigate to the HIPAA Checklist system
@@ -44,7 +44,7 @@
 
 ---
 
-## 👥 User Roles and Permissions
+##  User Roles and Permissions
 
 ### Administrator
 **Full system access and management capabilities**
@@ -89,7 +89,7 @@
 
 ---
 
-## 📊 Dashboard Overview
+##  Dashboard Overview
 
 ### Main Dashboard Components
 
@@ -119,7 +119,7 @@
 
 ---
 
-## 📋 Regulations Management
+##  Regulations Management
 
 ### Viewing Regulations
 1. **Navigate to "Regulations"** from the main menu
@@ -155,7 +155,7 @@
 
 ---
 
-## ✅ Checklist Management
+##  Checklist Management
 
 ### Viewing Checklist Items
 1. **Navigate to "Checklist"** from the main menu
@@ -211,7 +211,7 @@
 
 ---
 
-## 👤 User Management
+##  User Management
 
 ### User Profile Management
 1. **Click on your username** in the top-right corner
@@ -257,7 +257,7 @@
 
 ---
 
-## 📊 Reports and Analytics
+##  Reports and Analytics
 
 ### Compliance Reports
 1. **Navigate to "Reports"** from the main menu
@@ -307,7 +307,7 @@
 
 ---
 
-## 🔒 Security Features
+##  Security Features
 
 ### Authentication and Authorization
 - **Secure Login**: JWT-based authentication
@@ -336,7 +336,7 @@
 
 ---
 
-## 🔧 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -388,7 +388,7 @@
 
 ---
 
-## 💡 Best Practices
+##  Best Practices
 
 ### General Usage
 1. **Regular Updates**: Update checklist items regularly
@@ -420,7 +420,7 @@
 
 ---
 
-## 📞 Support and Contact
+##  Support and Contact
 
 ### Getting Help
 1. **Check Documentation**: Review this manual and other guides

@@ -1,10 +1,10 @@
 # Black Duck Detect Integration - Demonstration Guide
 
-## 🎯 How to Test and Demonstrate the Integration
+##  How to Test and Demonstrate the Integration
 
 This guide will help you test the Black Duck Detect integration and demonstrate it effectively to your class.
 
-## 📋 Pre-Demonstration Checklist
+##  Pre-Demonstration Checklist
 
 ### 1. Verify Prerequisites
 ```bash
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 cd ..
 ```
 
-## 🚀 Step-by-Step Testing Process
+##  Step-by-Step Testing Process
 
 ### Phase 1: Backend Testing
 
@@ -98,7 +98,7 @@ npm start
 3. Click on **"Security Dashboard"** tab
 4. Verify the dashboard loads with mock data
 
-## 🎭 Class Demonstration Script
+##  Class Demonstration Script
 
 ### Introduction (2 minutes)
 "Today I'll demonstrate how I've integrated Black Duck Detect, a professional security scanning tool, into our HIPAA Self-Audit Tool. This integration provides real-time vulnerability scanning of all our project dependencies."
@@ -167,7 +167,7 @@ Be prepared to answer questions about:
 - Integration with other tools
 - Performance impact
 
-## 🎯 Key Demonstration Points
+##  Key Demonstration Points
 
 ### 1. Show the User Interface
 - **Clean, professional dashboard** with summary cards
@@ -193,7 +193,7 @@ Be prepared to answer questions about:
 - **Audit trail** for security activities
 - **Automated security monitoring**
 
-## 🛠️ Troubleshooting Common Issues
+##  Troubleshooting Common Issues
 
 ### Issue 1: Java Not Found
 ```bash
@@ -231,7 +231,7 @@ python manage.py runserver --verbosity=2
 # Look for error messages in the console
 ```
 
-## 📊 Demonstration Data
+##  Demonstration Data
 
 The integration includes mock security data for demonstration:
 
@@ -245,18 +245,18 @@ The integration includes mock security data for demonstration:
 - **django@4.2.0** (pip) - 1 vulnerability  
 - **requests@2.31.0** (pip) - 1 vulnerability
 
-## 🎯 Success Criteria
+##  Success Criteria
 
 Your demonstration is successful if you can show:
 
-1. ✅ **Security Dashboard loads** with data
-2. ✅ **Run Security Scan button works** and shows results
-3. ✅ **Vulnerability data displays** correctly
-4. ✅ **Django management command** executes successfully
-5. ✅ **API endpoints respond** with proper data
-6. ✅ **File reports are generated** in reports/detect/
+1.  **Security Dashboard loads** with data
+2.  **Run Security Scan button works** and shows results
+3.  **Vulnerability data displays** correctly
+4.  **Django management command** executes successfully
+5.  **API endpoints respond** with proper data
+6.  **File reports are generated** in reports/detect/
 
-## 🚀 Advanced Demonstration Tips
+##  Advanced Demonstration Tips
 
 ### 1. Show Real-Time Updates
 - Run a scan while the dashboard is open
@@ -280,4 +280,4 @@ Your demonstration is successful if you can show:
 
 ---
 
-**🎉 With this guide, you'll be able to confidently demonstrate your Black Duck Detect integration to your class and show them a professional, working security scanning system!**
+** With this guide, you'll be able to confidently demonstrate your Black Duck Detect integration to your class and show them a professional, working security scanning system!**

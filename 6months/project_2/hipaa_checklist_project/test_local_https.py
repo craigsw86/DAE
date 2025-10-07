@@ -21,12 +21,12 @@ def create_https_server():
     
     # Check if required files exist
     if not frontend_build.exists():
-        print("❌ Frontend build directory not found!")
+        print(" Frontend build directory not found!")
         print("   Please build the frontend first: cd frontend && npm run build")
         return False
     
     if not ssl_cert.exists() or not ssl_key.exists():
-        print("❌ SSL certificate files not found!")
+        print(" SSL certificate files not found!")
         print("   Please run: powershell -ExecutionPolicy Bypass -File ssl\\create_working_certs.ps1")
         return False
     
@@ -52,23 +52,23 @@ def create_https_server():
             context.load_cert_chain(str(ssl_cert.absolute()), str(ssl_key.absolute()))
             httpd.socket = context.wrap_socket(httpd.socket, server_side=True)
             
-            print(f"🔐 HTTPS Server started on https://localhost:{PORT}")
-            print("📁 Serving files from frontend/build/")
-            print("🔒 Using self-signed SSL certificates")
-            print("⚠️  Browser will show security warning - click 'Advanced' and 'Proceed'")
+            print(f" HTTPS Server started on https://localhost:{PORT}")
+            print(" Serving files from frontend/build/")
+            print(" Using self-signed SSL certificates")
+            print("  Browser will show security warning - click 'Advanced' and 'Proceed'")
             print("\nPress Ctrl+C to stop the server")
             
             httpd.serve_forever()
             
     except KeyboardInterrupt:
-        print("\n🛑 Server stopped by user")
+        print("\n Server stopped by user")
         return True
     except Exception as e:
-        print(f"❌ Error starting server: {e}")
+        print(f" Error starting server: {e}")
         return False
 
 if __name__ == "__main__":
-    print("🚀 Starting Local HTTPS Test Server")
+    print(" Starting Local HTTPS Test Server")
     print("=" * 50)
     
     success = create_https_server()

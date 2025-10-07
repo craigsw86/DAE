@@ -11,8 +11,8 @@ import time
 
 def print_status(message, status="INFO"):
     """Print status message with formatting"""
-    symbols = {"INFO": "ℹ️", "SUCCESS": "✅", "ERROR": "❌", "WARNING": "⚠️"}
-    print(f"{symbols.get(status, 'ℹ️')} {message}")
+    symbols = {"INFO": "ℹ", "SUCCESS": "", "ERROR": "", "WARNING": ""}
+    print(f"{symbols.get(status, 'ℹ')} {message}")
 
 def check_server_running():
     """Check if Django server is running"""
@@ -135,8 +135,8 @@ from datetime import datetime
 
 def print_status(message, status="INFO"):
     """Print status message with formatting"""
-    symbols = {"INFO": "ℹ️", "SUCCESS": "✅", "ERROR": "❌", "WARNING": "⚠️"}
-    print(f"{symbols.get(status, 'ℹ️')} {message}")
+    symbols = {"INFO": "ℹ", "SUCCESS": "", "ERROR": "", "WARNING": ""}
+    print(f"{symbols.get(status, 'ℹ')} {message}")
 
 def test_endpoint(url, name, method="GET", data=None, headers=None, expected_status=200):
     """Test a single endpoint"""
@@ -149,7 +149,7 @@ def test_endpoint(url, name, method="GET", data=None, headers=None, expected_sta
             return False, f"Unsupported method: {method}"
         
         success = response.status_code == expected_status
-        status_symbol = "✅" if success else "❌"
+        status_symbol = "" if success else ""
         print_status(f"{name}: {status_symbol} Status {response.status_code}")
         
         if success and response.status_code == 200:
@@ -161,7 +161,7 @@ def test_endpoint(url, name, method="GET", data=None, headers=None, expected_sta
         
         return success, response.status_code
     except Exception as e:
-        print_status(f"{name}: ❌ Error - {e}", "ERROR")
+        print_status(f"{name}:  Error - {e}", "ERROR")
         return False, str(e)
 
 def main():
@@ -201,7 +201,7 @@ def main():
             access_token = token_data.get('access')
             
             if access_token:
-                print_status("Authentication: ✅ Token received", "SUCCESS")
+                print_status("Authentication:  Token received", "SUCCESS")
                 headers = {"Authorization": f"Bearer {access_token}"}
                 
                 # Test 4: Protected Endpoints
@@ -251,13 +251,13 @@ def main():
                     results[name] = {"success": success, "status": status}
                 
             else:
-                print_status("Authentication: ❌ No access token", "ERROR")
+                print_status("Authentication:  No access token", "ERROR")
                 results["Authentication"] = {"success": False, "status": "No token"}
         except Exception as e:
-            print_status(f"Authentication: ❌ Error - {e}", "ERROR")
+            print_status(f"Authentication:  Error - {e}", "ERROR")
             results["Authentication"] = {"success": False, "status": str(e)}
     else:
-        print_status("Authentication: ❌ Failed", "ERROR")
+        print_status("Authentication:  Failed", "ERROR")
         results["Authentication"] = {"success": False, "status": status}
     
     # Test 7: Performance Test
@@ -268,9 +268,9 @@ def main():
     response_time = round((end_time - start_time) * 1000, 2)
     
     if response_time < 1000:  # Less than 1 second
-        print_status(f"Performance: ✅ {response_time}ms", "SUCCESS")
+        print_status(f"Performance:  {response_time}ms", "SUCCESS")
     else:
-        print_status(f"Performance: ⚠️ {response_time}ms (slow)", "WARNING")
+        print_status(f"Performance:  {response_time}ms (slow)", "WARNING")
     
     results["Performance"] = {"success": response_time < 1000, "response_time": response_time}
     
@@ -289,18 +289,18 @@ def main():
     print_status(f"Success Rate: {success_rate}%")
     
     if success_rate >= 90:
-        print_status("Overall System: ✅ EXCELLENT", "SUCCESS")
+        print_status("Overall System:  EXCELLENT", "SUCCESS")
     elif success_rate >= 80:
-        print_status("Overall System: ✅ GOOD", "SUCCESS")
+        print_status("Overall System:  GOOD", "SUCCESS")
     elif success_rate >= 70:
-        print_status("Overall System: ⚠️ FAIR", "WARNING")
+        print_status("Overall System:  FAIR", "WARNING")
     else:
-        print_status("Overall System: ❌ NEEDS IMPROVEMENT", "ERROR")
+        print_status("Overall System:  NEEDS IMPROVEMENT", "ERROR")
     
     # Detailed results
     print_status("\\nDetailed Results:", "INFO")
     for test_name, result in results.items():
-        status_symbol = "✅" if result.get("success", False) else "❌"
+        status_symbol = "" if result.get("success", False) else ""
         print_status(f"  {test_name}: {status_symbol} {result.get('status', 'Unknown')}")
     
     return results

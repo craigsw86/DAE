@@ -14,7 +14,7 @@ from cryptography.fernet import Fernet
 
 def test_and_fix_all():
     """Test and fix all issues comprehensively"""
-    print("🔧 FINAL COMPREHENSIVE TEST AND FIX")
+    print(" FINAL COMPREHENSIVE TEST AND FIX")
     print("=" * 50)
     
     # 1. Fix file permissions
@@ -28,9 +28,9 @@ def test_and_fix_all():
     for file_path in files_to_secure:
         if os.path.exists(file_path):
             os.chmod(file_path, 0o600)
-            print(f"   ✅ Secured: {file_path}")
+            print(f"    Secured: {file_path}")
         else:
-            print(f"   ⚠️  Not found: {file_path}")
+            print(f"     Not found: {file_path}")
     
     # 2. Fix database encryption
     print("\n2. Fixing database encryption...")
@@ -42,7 +42,7 @@ def test_and_fix_all():
         with open(key_file, 'wb') as f:
             f.write(key)
         os.chmod(key_file, 0o600)
-        print(f"   ✅ Generated encryption key: {key_file}")
+        print(f"    Generated encryption key: {key_file}")
         
         # Encrypt database
         fernet = Fernet(key)
@@ -57,7 +57,7 @@ def test_and_fix_all():
             f.write(encrypted_data)
         
         os.chmod(encrypted_path, 0o600)
-        print(f"   ✅ Encrypted database: {encrypted_path}")
+        print(f"    Encrypted database: {encrypted_path}")
     
     # 3. Test database functionality
     print("\n3. Testing database functionality...")
@@ -69,7 +69,7 @@ def test_and_fix_all():
             # Test basic functionality
             cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
             tables = cursor.fetchall()
-            print(f"   ✅ Found {len(tables)} tables in database")
+            print(f"    Found {len(tables)} tables in database")
             
             # Apply security pragmas
             security_pragmas = [
@@ -85,10 +85,10 @@ def test_and_fix_all():
             
             conn.commit()
             conn.close()
-            print("   ✅ Database security pragmas applied")
+            print("    Database security pragmas applied")
             
         except Exception as e:
-            print(f"   ❌ Database test failed: {e}")
+            print(f"    Database test failed: {e}")
     
     # 4. Test Django setup
     print("\n4. Testing Django setup...")
@@ -99,24 +99,24 @@ def test_and_fix_all():
         result = subprocess.run([sys.executable, "manage.py", "migrate", "--check"], 
                               capture_output=True, text=True, timeout=30)
         if result.returncode == 0:
-            print("   ✅ Django migrations are up to date")
+            print("    Django migrations are up to date")
         else:
-            print("   ⚠️  Running migrations...")
+            print("     Running migrations...")
             subprocess.run([sys.executable, "manage.py", "migrate"], timeout=60)
-            print("   ✅ Migrations completed")
+            print("    Migrations completed")
         
         # Test static files
         result = subprocess.run([sys.executable, "manage.py", "collectstatic", "--noinput"], 
                               capture_output=True, text=True, timeout=30)
         if result.returncode == 0:
-            print("   ✅ Static files collected")
+            print("    Static files collected")
         else:
-            print("   ⚠️  Static file collection had issues")
+            print("     Static file collection had issues")
         
         os.chdir("..")
         
     except Exception as e:
-        print(f"   ❌ Django setup failed: {e}")
+        print(f"    Django setup failed: {e}")
         os.chdir("..")
     
     # 5. Test server startup
@@ -137,12 +137,12 @@ def test_and_fix_all():
         try:
             response = requests.get("http://localhost:8000/api/health/", timeout=5)
             if response.status_code == 200:
-                print("   ✅ Server is running and responding!")
-                print(f"   ✅ Health check response: {response.json()}")
+                print("    Server is running and responding!")
+                print(f"    Health check response: {response.json()}")
             else:
-                print(f"   ⚠️  Server responded with status: {response.status_code}")
+                print(f"     Server responded with status: {response.status_code}")
         except requests.exceptions.RequestException as e:
-            print(f"   ❌ Server not responding: {e}")
+            print(f"    Server not responding: {e}")
         
         # Test additional endpoints
         endpoints_to_test = [
@@ -155,23 +155,23 @@ def test_and_fix_all():
             try:
                 response = requests.get(f"http://localhost:8000{endpoint}", timeout=5)
                 if response.status_code in [200, 401, 403]:
-                    print(f"   ✅ {name} endpoint: Status {response.status_code}")
+                    print(f"    {name} endpoint: Status {response.status_code}")
                 else:
-                    print(f"   ⚠️  {name} endpoint: Status {response.status_code}")
+                    print(f"     {name} endpoint: Status {response.status_code}")
             except requests.exceptions.RequestException as e:
-                print(f"   ❌ {name} endpoint: {e}")
+                print(f"    {name} endpoint: {e}")
         
         # Stop server
         server_process.terminate()
         server_process.wait()
-        print("   ✅ Server stopped")
+        print("    Server stopped")
         
     except Exception as e:
-        print(f"   ❌ Server test failed: {e}")
+        print(f"    Server test failed: {e}")
     
     # 6. Final status report
     print("\n" + "=" * 50)
-    print("📊 FINAL STATUS REPORT")
+    print(" FINAL STATUS REPORT")
     print("=" * 50)
     
     # Check file permissions
@@ -181,17 +181,17 @@ def test_and_fix_all():
             stat_info = os.stat(file_path)
             permissions = oct(stat_info.st_mode)[-3:]
             if permissions == "600":
-                print(f"   ✅ {file_path}: {permissions}")
+                print(f"    {file_path}: {permissions}")
             else:
-                print(f"   ❌ {file_path}: {permissions}")
+                print(f"    {file_path}: {permissions}")
     
     # Check database encryption
     print("\nDatabase Encryption:")
     if os.path.exists("backend/encryption.key") and os.path.exists("backend/db.sqlite3.encrypted"):
-        print("   ✅ Encryption key exists")
-        print("   ✅ Encrypted database exists")
+        print("    Encryption key exists")
+        print("    Encrypted database exists")
     else:
-        print("   ❌ Encryption setup incomplete")
+        print("    Encryption setup incomplete")
     
     # Check database functionality
     print("\nDatabase Functionality:")
@@ -201,12 +201,12 @@ def test_and_fix_all():
             cursor = conn.cursor()
             cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
             tables = cursor.fetchall()
-            print(f"   ✅ Database has {len(tables)} tables")
+            print(f"    Database has {len(tables)} tables")
             conn.close()
         except Exception as e:
-            print(f"   ❌ Database error: {e}")
+            print(f"    Database error: {e}")
     
-    print("\n🎉 Final test and fix completed!")
+    print("\n Final test and fix completed!")
     return True
 
 if __name__ == '__main__':

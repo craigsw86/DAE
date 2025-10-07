@@ -107,38 +107,38 @@ class WaitressMonitor:
     
     def print_metrics(self, metrics):
         """Print metrics in a readable format"""
-        print(f"\n📊 Waitress Server Metrics - {metrics['timestamp']}")
+        print(f"\n Waitress Server Metrics - {metrics['timestamp']}")
         print("=" * 50)
         
         # System metrics
         sys_metrics = metrics['system']
-        print(f"🖥️  CPU Usage: {sys_metrics['cpu_percent']:.1f}%")
-        print(f"💾 Memory Usage: {sys_metrics['memory_percent']:.1f}% ({sys_metrics['memory_available']:,} bytes available)")
-        print(f"💿 Disk Usage: {sys_metrics['disk_usage']:.1f}%")
+        print(f"  CPU Usage: {sys_metrics['cpu_percent']:.1f}%")
+        print(f" Memory Usage: {sys_metrics['memory_percent']:.1f}% ({sys_metrics['memory_available']:,} bytes available)")
+        print(f" Disk Usage: {sys_metrics['disk_usage']:.1f}%")
         
         # Database metrics
         db_metrics = metrics['database']
         if 'error' not in db_metrics:
-            print(f"🗄️  Database Size: {db_metrics['db_size_mb']} MB")
-            print(f"📄 Pages: {db_metrics['page_count']:,} (size: {db_metrics['page_size']} bytes)")
-            print(f"📝 Journal Mode: {db_metrics['journal_mode']}")
-            print("📊 Table Counts:")
+            print(f"  Database Size: {db_metrics['db_size_mb']} MB")
+            print(f" Pages: {db_metrics['page_count']:,} (size: {db_metrics['page_size']} bytes)")
+            print(f" Journal Mode: {db_metrics['journal_mode']}")
+            print(" Table Counts:")
             for table, count in db_metrics['table_counts'].items():
                 print(f"   {table}: {count:,} records")
         else:
-            print(f"❌ Database Error: {db_metrics['error']}")
+            print(f" Database Error: {db_metrics['error']}")
         
         # Security metrics
         sec_metrics = metrics['security']
-        print(f"🔒 Database Permissions: {sec_metrics['db_permissions']}")
-        print(f"🔐 Database Encrypted: {sec_metrics['db_encrypted']}")
-        print(f"📋 Log Files: {'✅' if sec_metrics['log_files_exist'] else '❌'}")
-        print(f"⚠️  Recent Security Events: {sec_metrics['recent_security_events']}")
+        print(f" Database Permissions: {sec_metrics['db_permissions']}")
+        print(f" Database Encrypted: {sec_metrics['db_encrypted']}")
+        print(f" Log Files: {'' if sec_metrics['log_files_exist'] else ''}")
+        print(f"  Recent Security Events: {sec_metrics['recent_security_events']}")
     
     def monitor_loop(self, interval=30):
         """Main monitoring loop"""
-        print("🔍 Starting Waitress Server Monitoring...")
-        print(f"📊 Monitoring interval: {interval} seconds")
+        print(" Starting Waitress Server Monitoring...")
+        print(f" Monitoring interval: {interval} seconds")
         print("Press Ctrl+C to stop monitoring\n")
         
         try:
@@ -156,9 +156,9 @@ class WaitressMonitor:
                 time.sleep(interval)
                 
         except KeyboardInterrupt:
-            print("\n🛑 Monitoring stopped by user")
+            print("\n Monitoring stopped by user")
         except Exception as e:
-            print(f"\n❌ Monitoring error: {e}")
+            print(f"\n Monitoring error: {e}")
 
 def main():
     """Main function"""

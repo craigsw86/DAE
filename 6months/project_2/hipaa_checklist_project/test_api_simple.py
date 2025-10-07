@@ -19,7 +19,7 @@ class SimpleAPITester:
     
     def log_test(self, test_name, success, message="", data=None):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = " PASS" if success else " FAIL"
         print(f"{test_name}: {status} {message}")
         self.test_results.append({
             'test': test_name,
@@ -31,7 +31,7 @@ class SimpleAPITester:
     
     def test_health_endpoint(self):
         """Test health endpoint"""
-        print("\n📝 Test 1: Health Endpoint")
+        print("\n Test 1: Health Endpoint")
         print("-" * 40)
         
         try:
@@ -50,7 +50,7 @@ class SimpleAPITester:
     
     def test_info_endpoint(self):
         """Test API info endpoint"""
-        print("\n📝 Test 2: API Info Endpoint")
+        print("\n Test 2: API Info Endpoint")
         print("-" * 40)
         
         try:
@@ -69,7 +69,7 @@ class SimpleAPITester:
     
     def test_stats_endpoint(self):
         """Test public stats endpoint"""
-        print("\n📝 Test 3: Public Stats Endpoint")
+        print("\n Test 3: Public Stats Endpoint")
         print("-" * 40)
         
         try:
@@ -88,7 +88,7 @@ class SimpleAPITester:
     
     def test_token_endpoint(self):
         """Test JWT token endpoint"""
-        print("\n📝 Test 4: JWT Token Endpoint")
+        print("\n Test 4: JWT Token Endpoint")
         print("-" * 40)
         
         try:
@@ -113,7 +113,7 @@ class SimpleAPITester:
     
     def test_admin_endpoint(self):
         """Test admin endpoint"""
-        print("\n📝 Test 5: Admin Endpoint")
+        print("\n Test 5: Admin Endpoint")
         print("-" * 40)
         
         try:
@@ -130,7 +130,7 @@ class SimpleAPITester:
     
     def test_protected_endpoints(self):
         """Test protected endpoints without auth"""
-        print("\n📝 Test 6: Protected Endpoints (No Auth)")
+        print("\n Test 6: Protected Endpoints (No Auth)")
         print("-" * 40)
         
         protected_endpoints = [
@@ -151,7 +151,7 @@ class SimpleAPITester:
     
     def test_performance(self):
         """Test API performance"""
-        print("\n📝 Test 7: API Performance")
+        print("\n Test 7: API Performance")
         print("-" * 40)
         
         endpoints = [
@@ -180,7 +180,7 @@ class SimpleAPITester:
     
     def test_error_handling(self):
         """Test error handling"""
-        print("\n📝 Test 8: Error Handling")
+        print("\n Test 8: Error Handling")
         print("-" * 40)
         
         # Test 404 endpoint
@@ -209,7 +209,7 @@ class SimpleAPITester:
     def generate_report(self):
         """Generate test report"""
         print("\n" + "=" * 60)
-        print("📊 BACKEND SQLITE API CONNECTIVITY TEST REPORT")
+        print(" BACKEND SQLITE API CONNECTIVITY TEST REPORT")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -222,7 +222,7 @@ class SimpleAPITester:
         print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ Failed Tests:")
+            print("\n Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
@@ -232,13 +232,13 @@ class SimpleAPITester:
         with open(report_file, 'w') as f:
             json.dump(self.test_results, f, indent=2)
         
-        print(f"\n📄 Detailed report saved to: {report_file}")
+        print(f"\n Detailed report saved to: {report_file}")
         
         return passed_tests == total_tests
     
     def run_all_tests(self):
         """Run all API tests"""
-        print("🧪 Starting Simple Backend API Tests")
+        print(" Starting Simple Backend API Tests")
         print("=" * 60)
         
         self.test_health_endpoint()
@@ -258,11 +258,11 @@ def main():
     success = tester.run_all_tests()
     
     if success:
-        print("\n🎉 All backend API tests passed!")
-        print("✅ Django backend is properly connected to SQLite!")
-        print("✅ All API endpoints are working correctly!")
+        print("\n All backend API tests passed!")
+        print(" Django backend is properly connected to SQLite!")
+        print(" All API endpoints are working correctly!")
     else:
-        print("\n⚠️  Some backend API tests failed.")
+        print("\n  Some backend API tests failed.")
         print("Please check the configuration and try again.")
     
     return success

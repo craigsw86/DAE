@@ -61,11 +61,11 @@ class SQLiteEncryption:
             # Set secure permissions
             self._set_secure_permissions(self.encrypted_db_path)
             
-            logger.info(f"✅ Database encrypted: {self.encrypted_db_path}")
+            logger.info(f" Database encrypted: {self.encrypted_db_path}")
             return True
             
         except Exception as e:
-            logger.error(f"❌ Encryption failed: {e}")
+            logger.error(f" Encryption failed: {e}")
             return False
     
     def decrypt_database(self):
@@ -90,11 +90,11 @@ class SQLiteEncryption:
             # Set secure permissions
             self._set_secure_permissions(self.db_path)
             
-            logger.info(f"✅ Database decrypted: {self.db_path}")
+            logger.info(f" Database decrypted: {self.db_path}")
             return True
             
         except Exception as e:
-            logger.error(f"❌ Decryption failed: {e}")
+            logger.error(f" Decryption failed: {e}")
             return False
     
     def _set_secure_permissions(self, file_path):
@@ -105,9 +105,9 @@ class SQLiteEncryption:
             current_perms = file_path.stat().st_mode
             new_perms = current_perms & ~stat.S_IWGRP & ~stat.S_IWOTH & ~stat.S_IRGRP & ~stat.S_IROTH
             file_path.chmod(new_perms)
-            logger.info(f"✅ Secure permissions set: {oct(new_perms)}")
+            logger.info(f" Secure permissions set: {oct(new_perms)}")
         except Exception as e:
-            logger.warning(f"⚠️  Could not set permissions: {e}")
+            logger.warning(f"  Could not set permissions: {e}")
     
     def verify_encryption(self):
         """Verify that the database is properly encrypted"""
@@ -127,10 +127,10 @@ class SQLiteEncryption:
         if self.encrypted_db_path.exists() and self.db_path.exists():
             try:
                 self.db_path.unlink()
-                logger.info("✅ Plaintext database removed")
+                logger.info(" Plaintext database removed")
                 return True
             except Exception as e:
-                logger.warning(f"⚠️  Could not remove plaintext database: {e}")
+                logger.warning(f"  Could not remove plaintext database: {e}")
                 return False
         return True
 
@@ -143,7 +143,7 @@ class DatabaseSecurityManager:
     
     def setup_secure_database(self):
         """Set up secure database with encryption"""
-        logger.info("🔐 Setting up secure database...")
+        logger.info(" Setting up secure database...")
         
         # Ensure database exists
         if not self.db_path.exists():
@@ -154,26 +154,26 @@ class DatabaseSecurityManager:
         if self.encryption.encrypt_database():
             # Verify encryption
             if self.encryption.verify_encryption():
-                logger.info("✅ Database encryption verified")
+                logger.info(" Database encryption verified")
                 # Clean up plaintext
                 self.encryption.cleanup_plaintext()
                 return True
             else:
-                logger.error("❌ Database encryption verification failed")
+                logger.error(" Database encryption verification failed")
                 return False
         else:
-            logger.error("❌ Database encryption failed")
+            logger.error(" Database encryption failed")
             return False
     
     def restore_database(self):
         """Restore database from encrypted version"""
-        logger.info("🔄 Restoring database from encrypted version...")
+        logger.info(" Restoring database from encrypted version...")
         
         if self.encryption.decrypt_database():
-            logger.info("✅ Database restored successfully")
+            logger.info(" Database restored successfully")
             return True
         else:
-            logger.error("❌ Database restoration failed")
+            logger.error(" Database restoration failed")
             return False
     
     def get_database_info(self):
@@ -214,7 +214,7 @@ if __name__ == '__main__':
     manager = DatabaseSecurityManager(db_path)
     info = manager.get_database_info()
     
-    print("🔐 Database Security Information")
+    print(" Database Security Information")
     print("=" * 40)
     for key, value in info.items():
         print(f"{key}: {value}")

@@ -186,11 +186,11 @@ def validate_config():
 
 def print_config():
     """Print the current configuration"""
-    print("🔧 Waitress Configuration")
+    print(" Waitress Configuration")
     print("=" * 40)
     
     for category, config in get_config().items():
-        print(f"\n📋 {category.upper()}:")
+        print(f"\n {category.upper()}:")
         for key, value in config.items():
             print(f"  {key}: {value}")
 
@@ -200,11 +200,11 @@ if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'validate':
         errors = validate_config()
         if errors:
-            print("❌ Configuration validation failed:")
+            print(" Configuration validation failed:")
             for error in errors:
                 print(f"  - {error}")
             sys.exit(1)
         else:
-            print("✅ Configuration is valid")
+            print(" Configuration is valid")
     else:
         print_config()

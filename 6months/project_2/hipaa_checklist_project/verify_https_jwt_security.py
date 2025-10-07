@@ -38,7 +38,7 @@ class HTTPSJWTSecurityVerifier:
         
     def run_complete_verification(self):
         """Run complete HTTPS and JWT security verification"""
-        logger.info("🔍 Starting HTTPS and JWT Security Verification")
+        logger.info(" Starting HTTPS and JWT Security Verification")
         logger.info("=" * 60)
         
         # 1. Test HTTPS Security
@@ -60,7 +60,7 @@ class HTTPSJWTSecurityVerifier:
     
     def verify_https_security(self):
         """Verify HTTPS implementation security"""
-        logger.info("🔒 Verifying HTTPS Security...")
+        logger.info(" Verifying HTTPS Security...")
         
         https_tests = {
             'http_server_accessible': False,
@@ -78,9 +78,9 @@ class HTTPSJWTSecurityVerifier:
             response = requests.get(f'{self.base_url}/api/health/', timeout=10)
             if response.status_code == 200:
                 https_tests['http_server_accessible'] = True
-                logger.info("✅ HTTP server is accessible")
+                logger.info(" HTTP server is accessible")
             else:
-                logger.warning(f"⚠️ HTTP server returned status: {response.status_code}")
+                logger.warning(f" HTTP server returned status: {response.status_code}")
             
             # Test HTTPS server accessibility
             try:
@@ -88,13 +88,13 @@ class HTTPSJWTSecurityVerifier:
                                             verify=False, timeout=10)
                 if https_response.status_code == 200:
                     https_tests['https_server_accessible'] = True
-                    logger.info("✅ HTTPS server is accessible")
+                    logger.info(" HTTPS server is accessible")
                 else:
-                    logger.warning(f"⚠️ HTTPS server returned status: {https_response.status_code}")
+                    logger.warning(f" HTTPS server returned status: {https_response.status_code}")
             except requests.exceptions.SSLError as e:
-                logger.warning(f"⚠️ HTTPS SSL error: {e}")
+                logger.warning(f" HTTPS SSL error: {e}")
             except requests.exceptions.ConnectionError:
-                logger.warning("⚠️ HTTPS server not accessible")
+                logger.warning(" HTTPS server not accessible")
             
             # Test SSL certificate
             try:
@@ -108,9 +108,9 @@ class HTTPSJWTSecurityVerifier:
                         https_tests['ssl_certificate_valid'] = True
                         https_tests['ssl_protocols_secure'] = True
                         https_tests['ssl_ciphers_secure'] = True
-                        logger.info(f"✅ SSL certificate valid, protocol: {ssock.version()}")
+                        logger.info(f" SSL certificate valid, protocol: {ssock.version()}")
             except Exception as e:
-                logger.warning(f"⚠️ SSL certificate test failed: {e}")
+                logger.warning(f" SSL certificate test failed: {e}")
             
             # Test security headers
             if https_tests['http_server_accessible']:
@@ -126,12 +126,12 @@ class HTTPSJWTSecurityVerifier:
                 present_headers = [h for h in security_headers if h in headers]
                 if len(present_headers) >= 3:
                     https_tests['security_headers_present'] = True
-                    logger.info(f"✅ Security headers present: {', '.join(present_headers)}")
+                    logger.info(f" Security headers present: {', '.join(present_headers)}")
                 
                 # Check HSTS
                 if 'Strict-Transport-Security' in headers:
                     https_tests['hsts_headers_present'] = True
-                    logger.info("✅ HSTS header present")
+                    logger.info(" HSTS header present")
             
         except requests.exceptions.ConnectionError:
             self.results['vulnerabilities'].append({
@@ -152,7 +152,7 @@ class HTTPSJWTSecurityVerifier:
     
     def verify_jwt_security(self):
         """Verify JWT authentication security"""
-        logger.info("🔑 Verifying JWT Security...")
+        logger.info(" Verifying JWT Security...")
         
         jwt_tests = {
             'jwt_endpoint_accessible': False,
@@ -185,9 +185,9 @@ class HTTPSJWTSecurityVerifier:
                         decoded = jwt.decode(access_token, options={"verify_signature": False})
                         if 'user_id' in decoded or 'username' in decoded or 'exp' in decoded:
                             jwt_tests['jwt_token_structure_valid'] = True
-                            logger.info("✅ JWT token structure is valid")
+                            logger.info(" JWT token structure is valid")
                     except Exception as e:
-                        logger.warning(f"⚠️ JWT token structure invalid: {e}")
+                        logger.warning(f" JWT token structure invalid: {e}")
                     
                     # Test JWT token validation
                     headers = {'Authorization': f'Bearer {access_token}'}
@@ -197,7 +197,7 @@ class HTTPSJWTSecurityVerifier:
                     if protected_response.status_code in [200, 401, 403]:
                         jwt_tests['jwt_token_validation'] = True
                         jwt_tests['jwt_protected_endpoints'] = True
-                        logger.info("✅ JWT token validation working")
+                        logger.info(" JWT token validation working")
                     
                     # Test refresh token
                     if 'refresh' in token_data:
@@ -207,13 +207,13 @@ class HTTPSJWTSecurityVerifier:
                                                        timeout=10)
                         if refresh_response.status_code == 200:
                             jwt_tests['jwt_refresh_token_working'] = True
-                            logger.info("✅ JWT refresh token working")
+                            logger.info(" JWT refresh token working")
                 
             elif response.status_code == 401:
                 jwt_tests['jwt_endpoint_accessible'] = True
-                logger.info("✅ JWT endpoint accessible (authentication failed as expected)")
+                logger.info(" JWT endpoint accessible (authentication failed as expected)")
             else:
-                logger.warning(f"⚠️ JWT endpoint returned status: {response.status_code}")
+                logger.warning(f" JWT endpoint returned status: {response.status_code}")
             
             # Check JWT configuration
             settings_file = Path('backend/hipaa_checklist/settings.py')
@@ -222,7 +222,7 @@ class HTTPSJWTSecurityVerifier:
                     settings_content = f.read()
                     if 'JWT' in settings_content and 'SECRET_KEY' in settings_content:
                         jwt_tests['jwt_secret_configured'] = True
-                        logger.info("✅ JWT secret configuration found")
+                        logger.info(" JWT secret configuration found")
             
         except requests.exceptions.ConnectionError:
             self.results['vulnerabilities'].append({
@@ -243,7 +243,7 @@ class HTTPSJWTSecurityVerifier:
     
     def verify_authentication_flow(self):
         """Verify complete authentication flow"""
-        logger.info("🔐 Verifying Authentication Flow...")
+        logger.info(" Verifying Authentication Flow...")
         
         auth_tests = {
             'public_endpoints_accessible': False,
@@ -265,7 +265,7 @@ class HTTPSJWTSecurityVerifier:
             
             if accessible_public > 0:
                 auth_tests['public_endpoints_accessible'] = True
-                logger.info(f"✅ {accessible_public}/{len(public_endpoints)} public endpoints accessible")
+                logger.info(f" {accessible_public}/{len(public_endpoints)} public endpoints accessible")
             
             # Test protected endpoints
             protected_endpoints = ['/api/checklist/', '/api/regulations/', '/api/profile/']
@@ -278,7 +278,7 @@ class HTTPSJWTSecurityVerifier:
             
             if protected_count > 0:
                 auth_tests['protected_endpoints_require_auth'] = True
-                logger.info(f"✅ {protected_count}/{len(protected_endpoints)} protected endpoints require authentication")
+                logger.info(f" {protected_count}/{len(protected_endpoints)} protected endpoints require authentication")
             
             # Test invalid token rejection
             invalid_headers = {'Authorization': 'Bearer invalid_token_12345'}
@@ -286,7 +286,7 @@ class HTTPSJWTSecurityVerifier:
                                   headers=invalid_headers, timeout=10)
             if response.status_code == 401:
                 auth_tests['invalid_token_rejected'] = True
-                logger.info("✅ Invalid tokens are properly rejected")
+                logger.info(" Invalid tokens are properly rejected")
             
         except Exception as e:
             self.results['vulnerabilities'].append({
@@ -303,7 +303,7 @@ class HTTPSJWTSecurityVerifier:
     
     def verify_api_security(self):
         """Verify API security implementation"""
-        logger.info("🛡️ Verifying API Security...")
+        logger.info(" Verifying API Security...")
         
         api_tests = {
             'rate_limiting_working': False,
@@ -319,7 +319,7 @@ class HTTPSJWTSecurityVerifier:
                 response = requests.get(f'{self.base_url}/api/health/', timeout=5)
                 if response.status_code == 429:
                     api_tests['rate_limiting_working'] = True
-                    logger.info("✅ Rate limiting is working")
+                    logger.info(" Rate limiting is working")
                     break
                 time.sleep(0.1)
             
@@ -337,14 +337,14 @@ class HTTPSJWTSecurityVerifier:
                     api_tests['input_validation_working'] = True
                     api_tests['sql_injection_protection'] = True
                     api_tests['xss_protection'] = True
-                    logger.info("✅ Input validation and protection working")
+                    logger.info(" Input validation and protection working")
                     break
             
             # Test CORS headers
             response = requests.get(f'{self.base_url}/api/health/', timeout=10)
             if 'Access-Control-Allow-Origin' in response.headers:
                 api_tests['cors_configured'] = True
-                logger.info("✅ CORS is configured")
+                logger.info(" CORS is configured")
             
         except Exception as e:
             self.results['vulnerabilities'].append({
@@ -361,7 +361,7 @@ class HTTPSJWTSecurityVerifier:
     
     def generate_verification_report(self):
         """Generate comprehensive verification report"""
-        logger.info("📋 Generating HTTPS and JWT Verification Report...")
+        logger.info(" Generating HTTPS and JWT Verification Report...")
         
         # Calculate overall status
         https_passed = sum(1 for v in self.results['https_tests'].values() if v)
@@ -390,7 +390,7 @@ class HTTPSJWTSecurityVerifier:
         with open(report_file, 'w') as f:
             json.dump(self.results, f, indent=2)
         
-        logger.info(f"📄 HTTPS and JWT verification report saved: {report_file}")
+        logger.info(f" HTTPS and JWT verification report saved: {report_file}")
         
         # Print summary
         self.print_verification_summary()
@@ -436,43 +436,43 @@ class HTTPSJWTSecurityVerifier:
     def print_verification_summary(self):
         """Print verification summary"""
         print("\n" + "=" * 60)
-        print("🔍 HTTPS AND JWT SECURITY VERIFICATION SUMMARY")
+        print(" HTTPS AND JWT SECURITY VERIFICATION SUMMARY")
         print("=" * 60)
         
-        print(f"📅 Timestamp: {self.results['timestamp']}")
-        print(f"🎯 Overall Status: {self.results['overall_status']}")
-        print(f"🚨 Total Vulnerabilities: {len(self.results['vulnerabilities'])}")
-        print(f"💡 Total Recommendations: {len(self.results['recommendations'])}")
+        print(f" Timestamp: {self.results['timestamp']}")
+        print(f" Overall Status: {self.results['overall_status']}")
+        print(f" Total Vulnerabilities: {len(self.results['vulnerabilities'])}")
+        print(f" Total Recommendations: {len(self.results['recommendations'])}")
         
         # HTTPS test results
         https_passed = sum(1 for v in self.results['https_tests'].values() if v)
         https_total = len(self.results['https_tests'])
-        print(f"\n🔒 HTTPS Security: {https_passed}/{https_total} tests passed ({(https_passed/https_total)*100:.1f}%)")
+        print(f"\n HTTPS Security: {https_passed}/{https_total} tests passed ({(https_passed/https_total)*100:.1f}%)")
         
         # JWT test results
         jwt_passed = sum(1 for v in self.results['jwt_tests'].values() if v)
         jwt_total = len(self.results['jwt_tests'])
-        print(f"🔑 JWT Security: {jwt_passed}/{jwt_total} tests passed ({(jwt_passed/jwt_total)*100:.1f}%)")
+        print(f" JWT Security: {jwt_passed}/{jwt_total} tests passed ({(jwt_passed/jwt_total)*100:.1f}%)")
         
         # Top vulnerabilities
         if self.results['vulnerabilities']:
-            print(f"\n🚨 Top Vulnerabilities:")
+            print(f"\n Top Vulnerabilities:")
             for vuln in self.results['vulnerabilities'][:3]:
                 print(f"  • [{vuln['severity']}] {vuln['type']}: {vuln['description']}")
         
         # Top recommendations
         if self.results['recommendations']:
-            print(f"\n💡 Top Recommendations:")
+            print(f"\n Top Recommendations:")
             for rec in self.results['recommendations'][:3]:
                 print(f"  • [{rec['priority']}] {rec['category']}: {rec['recommendation']}")
         
         print("\n" + "=" * 60)
-        print("🎉 HTTPS and JWT verification completed!")
+        print(" HTTPS and JWT verification completed!")
         print("=" * 60)
 
 def main():
     """Main function to run HTTPS and JWT verification"""
-    print("🔍 HIPAA Checklist Project - HTTPS and JWT Security Verification")
+    print(" HIPAA Checklist Project - HTTPS and JWT Security Verification")
     print("OWASP ZAP Security Audit - Local scan; confirm HTTPS/JWT")
     print("=" * 70)
     

@@ -1,6 +1,6 @@
-# 🚀 HIPAA Checklist Project - Quick Start Guide
+#  HIPAA Checklist Project - Quick Start Guide
 
-## ⚡ Get Started in 5 Minutes!
+##  Get Started in 5 Minutes!
 
 ### Step 1: Download & Extract
 - Download the project files
@@ -21,7 +21,7 @@ run-hipaa-project.bat
 
 ---
 
-## 🎯 What to Try First
+##  What to Try First
 
 ### 1. **Login & Explore Dashboard**
 - See compliance overview
@@ -51,7 +51,7 @@ run-hipaa-project.bat
 
 ---
 
-## 🔑 Demo Credentials
+##  Demo Credentials
 
 | Role | Username | Password | Access Level |
 |------|----------|----------|--------------|
@@ -63,7 +63,7 @@ run-hipaa-project.bat
 
 ---
 
-## 🎭 Quick Demo Scenarios
+##  Quick Demo Scenarios
 
 ### Scenario A: Security Audit (5 minutes)
 1. Login as `security` / `security123`
@@ -88,7 +88,7 @@ run-hipaa-project.bat
 
 ---
 
-## 🛠️ Common Issues & Quick Fixes
+##  Common Issues & Quick Fixes
 
 | Problem | Quick Fix |
 |---------|-----------|
@@ -100,7 +100,7 @@ run-hipaa-project.bat
 
 ---
 
-## 📱 System URLs
+##  System URLs
 
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:8000
@@ -109,28 +109,28 @@ run-hipaa-project.bat
 
 ---
 
-## 🎯 Key Features to Explore
+##  Key Features to Explore
 
-### ✅ Compliance Management
+###  Compliance Management
 - HIPAA regulation tracking
 - Checklist item management
 - Progress monitoring
 - Deadline tracking
 
-### 🔒 Security Features
+###  Security Features
 - JWT authentication
 - Role-based access control
 - Data encryption
 - Security scanning
 - Audit logging
 
-### 📊 Reporting & Analytics
+###  Reporting & Analytics
 - Compliance reports
 - Department analytics
 - User performance
 - Export capabilities
 
-### 👥 User Management
+###  User Management
 - Multiple user roles
 - Permission management
 - Activity tracking
@@ -138,7 +138,7 @@ run-hipaa-project.bat
 
 ---
 
-## 🚀 Advanced Features
+##  Advanced Features
 
 ### Security Dashboard
 - Black Duck Detect integration
@@ -160,7 +160,7 @@ run-hipaa-project.bat
 
 ---
 
-## 📞 Need Help?
+##  Need Help?
 
 ### Quick Resources
 - **Full Guide**: `VISITOR_INSTRUCTIONS.md`
@@ -180,11 +180,11 @@ run-hipaa-project.bat
 
 ---
 
-## 🎉 You're Ready!
+##  You're Ready!
 
 This system includes everything you need to manage HIPAA compliance in a healthcare organization. Take your time to explore all the features and see how it can help streamline compliance management.
 
-**Happy exploring! 🏥✨**
+**Happy exploring! **
 
 ---
 

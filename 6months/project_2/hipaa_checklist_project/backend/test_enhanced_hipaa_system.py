@@ -19,7 +19,7 @@ from checklist.forms import ChecklistItemForm
 def test_enhanced_hipaa_system():
     """Test the enhanced HIPAA system with sample data"""
     
-    print("🧪 Testing Enhanced HIPAA System")
+    print(" Testing Enhanced HIPAA System")
     print("=" * 50)
     print()
     
@@ -29,12 +29,12 @@ def test_enhanced_hipaa_system():
         defaults={'email': 'test@hipaa-checklist.com'}
     )
     
-    print(f"👤 Test user: {test_user.username}")
+    print(f" Test user: {test_user.username}")
     print()
     
     # 2. Get sample regulations
     regulations = RegulationUpdate.objects.all()[:5]  # Get first 5
-    print(f"📋 Using {regulations.count()} sample regulations")
+    print(f" Using {regulations.count()} sample regulations")
     print()
     
     # 3. Create sample checklist items
@@ -82,26 +82,26 @@ def test_enhanced_hipaa_system():
             
             if item_created:
                 created_items.append(checklist_item)
-                print(f"✅ Created item {i+1}: {checklist_item.regulation_update.title}")
+                print(f" Created item {i+1}: {checklist_item.regulation_update.title}")
             else:
-                print(f"📋 Item {i+1} already exists: {checklist_item.regulation_update.title}")
+                print(f" Item {i+1} already exists: {checklist_item.regulation_update.title}")
     
     print()
     
     # 4. Show all checklist items
-    print("4️⃣ ALL CHECKLIST ITEMS")
+    print("4⃣ ALL CHECKLIST ITEMS")
     print("-" * 40)
     
     all_items = ChecklistItem.objects.filter(user=test_user)
-    print(f"📊 Total items: {all_items.count()}")
+    print(f" Total items: {all_items.count()}")
     print()
     
     for item in all_items:
-        status = "✅ Completed" if item.completed else "⏳ In Progress"
+        status = " Completed" if item.completed else "⏳ In Progress"
         risk_score = item.likelihood * item.impact
         risk_level = "HIGH" if risk_score >= 20 else "MEDIUM" if risk_score >= 10 else "LOW"
         
-        print(f"📋 {item.regulation_update.title}")
+        print(f" {item.regulation_update.title}")
         print(f"   Status: {status}")
         print(f"   Risk: L{item.likelihood} × I{item.impact} = {risk_score} ({risk_level})")
         print(f"   Notes: {item.notes}")
@@ -109,20 +109,20 @@ def test_enhanced_hipaa_system():
         print()
     
     # 5. Show form usage
-    print("5️⃣ FORM USAGE")
+    print("5⃣ FORM USAGE")
     print("-" * 40)
     
     form = ChecklistItemForm(user=test_user)
-    print("📝 ChecklistItemForm fields:")
+    print(" ChecklistItemForm fields:")
     for field_name, field in form.fields.items():
         print(f"   • {field_name}: {field.label}")
     print()
     
     # 6. Show API usage
-    print("6️⃣ API USAGE")
+    print("6⃣ API USAGE")
     print("-" * 40)
     
-    print("🔌 Available API endpoints:")
+    print(" Available API endpoints:")
     print("   • GET /api/regulation-updates/ - List all regulations")
     print("   • GET /api/checklist-items/ - List user's checklist items")
     print("   • POST /api/checklist-items/ - Create new checklist item")
@@ -130,10 +130,10 @@ def test_enhanced_hipaa_system():
     print()
     
     # 7. Show template usage
-    print("7️⃣ TEMPLATE USAGE")
+    print("7⃣ TEMPLATE USAGE")
     print("-" * 40)
     
-    print("🌐 Template variables available:")
+    print(" Template variables available:")
     print("   • {{ item.regulation_update.title }} - Regulation title")
     print("   • {{ item.regulation_update.description }} - Full regulation text")
     print("   • {{ item.regulation_update.source_url }} - Official source URL")
@@ -145,7 +145,7 @@ def test_enhanced_hipaa_system():
     print()
     
     # 8. Show statistics
-    print("8️⃣ SYSTEM STATISTICS")
+    print("8⃣ SYSTEM STATISTICS")
     print("-" * 40)
     
     total_regulations = RegulationUpdate.objects.count()
@@ -153,17 +153,17 @@ def test_enhanced_hipaa_system():
     completed_items = ChecklistItem.objects.filter(completed=True).count()
     in_progress_items = ChecklistItem.objects.filter(completed=False).count()
     
-    print(f"📊 Total regulations: {total_regulations}")
-    print(f"📊 Total checklist items: {total_items}")
-    print(f"📊 Completed items: {completed_items}")
-    print(f"📊 In progress items: {in_progress_items}")
+    print(f" Total regulations: {total_regulations}")
+    print(f" Total checklist items: {total_items}")
+    print(f" Completed items: {completed_items}")
+    print(f" In progress items: {in_progress_items}")
     print()
     
     # 9. Show next steps
-    print("9️⃣ NEXT STEPS")
+    print("9⃣ NEXT STEPS")
     print("-" * 40)
     
-    print("✅ Your system is ready with:")
+    print(" Your system is ready with:")
     print("   • 15 official HIPAA regulations loaded")
     print("   • Sample checklist items created")
     print("   • Enhanced template available (index_enhanced.html)")
@@ -171,13 +171,13 @@ def test_enhanced_hipaa_system():
     print("   • Risk scoring and mitigation tracking")
     print()
     
-    print("🚀 To use the enhanced template:")
+    print(" To use the enhanced template:")
     print("   1. Copy index_enhanced.html to index.html")
     print("   2. Restart your Django server")
     print("   3. Visit your checklist page to see the enhancements")
     print()
     
-    print("🎉 Enhanced HIPAA system test completed successfully!")
+    print(" Enhanced HIPAA system test completed successfully!")
 
 if __name__ == '__main__':
     test_enhanced_hipaa_system()

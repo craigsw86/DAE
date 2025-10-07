@@ -4,7 +4,7 @@ This README serves as a guide to help you pivot toward or prepare for a Governan
 
 ---
 
-## 🎯 Focus Areas
+##  Focus Areas
 
 - Entry-level GRC Analyst roles with a preference for remote opportunities or positions near Stamford, CT
 - Industries of interest: Healthcare, Finance, Government, Education, and Technology
@@ -12,7 +12,7 @@ This README serves as a guide to help you pivot toward or prepare for a Governan
 
 ---
 
-## 🛡️ Core GRC Responsibilities
+##  Core GRC Responsibilities
 
 Typical duties and competencies include:
 - Developing and implementing governance policies and standards
@@ -23,7 +23,7 @@ Typical duties and competencies include:
 
 ---
 
-## 📚 Key GRC Concepts Explained
+##  Key GRC Concepts Explained
 
 - **Governance**: The frameworks and policies that guide security and compliance decisions
 - **Risk Management**: The process of identifying, assessing, and mitigating organizational risks
@@ -34,7 +34,7 @@ Typical duties and competencies include:
 
 ---
 
-## 📈 GRC Career Roadmap (90-120 Days)
+##  GRC Career Roadmap (90-120 Days)
 
 ### Phase 1: Foundation
 - Cybersecurity Fundamentals (IBM or Google GRC courses)
@@ -52,7 +52,7 @@ Typical duties and competencies include:
 
 ---
 
-## 🧩 Roles That Overlap With GRC
+##  Roles That Overlap With GRC
 
 1. Compliance Analyst
 2. Information Security Auditor
@@ -63,7 +63,7 @@ Typical duties and competencies include:
 
 ---
 
-## 💼 Day in the Life of a GRC Analyst
+##  Day in the Life of a GRC Analyst
 
 - Review and update policies based on regulatory changes
 - Conduct interviews or send questionnaires to gather risk data
@@ -73,7 +73,7 @@ Typical duties and competencies include:
 
 ---
 
-## 📁 Supporting Files
+##  Supporting Files
 
 - PDF: GRC_Analyst_Career_Prep_Summary.pdf (Coming Soon)
 

@@ -102,7 +102,7 @@ def run_security_scan(request):
         scanner = RealSecurityScanner(project_root)
         
         # Run the real security scan
-        print("🚀 Starting real security scan...")
+        print(" Starting real security scan...")
         report_data = scanner.run_complete_scan()
         
         # Extract scan ID from the report

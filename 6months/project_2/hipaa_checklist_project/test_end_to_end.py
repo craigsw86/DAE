@@ -32,7 +32,7 @@ class EndToEndTester:
         
     def log_test(self, test_name, success, message="", data=None):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = " PASS" if success else " FAIL"
         print(f"{test_name}: {status} {message}")
         self.test_results.append({
             'test': test_name,
@@ -44,7 +44,7 @@ class EndToEndTester:
     
     def setup_test_user(self):
         """Create or get test user"""
-        print("\n📝 Setting up Test User")
+        print("\n Setting up Test User")
         print("-" * 40)
         
         try:
@@ -93,7 +93,7 @@ class EndToEndTester:
     
     def test_login_flow(self):
         """Test user login and JWT token generation"""
-        print("\n📝 Test 1: Login Flow")
+        print("\n Test 1: Login Flow")
         print("-" * 40)
         
         try:
@@ -125,7 +125,7 @@ class EndToEndTester:
     
     def test_token_refresh(self):
         """Test JWT token refresh"""
-        print("\n📝 Test 2: Token Refresh")
+        print("\n Test 2: Token Refresh")
         print("-" * 40)
         
         if not self.refresh_token:
@@ -158,7 +158,7 @@ class EndToEndTester:
     
     def test_protected_endpoints_access(self):
         """Test access to protected endpoints with authentication"""
-        print("\n📝 Test 3: Protected Endpoints Access")
+        print("\n Test 3: Protected Endpoints Access")
         print("-" * 40)
         
         if not self.auth_token:
@@ -190,7 +190,7 @@ class EndToEndTester:
     
     def test_checklist_operations(self):
         """Test checklist CRUD operations"""
-        print("\n📝 Test 4: Checklist Operations")
+        print("\n Test 4: Checklist Operations")
         print("-" * 40)
         
         if not self.auth_token:
@@ -259,7 +259,7 @@ class EndToEndTester:
     
     def test_regulation_updates(self):
         """Test regulation updates functionality"""
-        print("\n📝 Test 5: Regulation Updates")
+        print("\n Test 5: Regulation Updates")
         print("-" * 40)
         
         if not self.auth_token:
@@ -309,7 +309,7 @@ class EndToEndTester:
     
     def test_compliance_reports(self):
         """Test compliance report generation"""
-        print("\n📝 Test 6: Compliance Reports")
+        print("\n Test 6: Compliance Reports")
         print("-" * 40)
         
         if not self.auth_token:
@@ -347,7 +347,7 @@ class EndToEndTester:
     
     def test_user_profile(self):
         """Test user profile functionality"""
-        print("\n📝 Test 7: User Profile")
+        print("\n Test 7: User Profile")
         print("-" * 40)
         
         if not self.auth_token:
@@ -376,7 +376,7 @@ class EndToEndTester:
     
     def test_export_functionality(self):
         """Test export functionality (CSV/PDF)"""
-        print("\n📝 Test 8: Export Functionality")
+        print("\n Test 8: Export Functionality")
         print("-" * 40)
         
         if not self.auth_token:
@@ -408,7 +408,7 @@ class EndToEndTester:
     
     def test_audit_logging(self):
         """Test audit logging functionality"""
-        print("\n📝 Test 9: Audit Logging")
+        print("\n Test 9: Audit Logging")
         print("-" * 40)
         
         if not self.auth_token:
@@ -437,7 +437,7 @@ class EndToEndTester:
     
     def test_complete_workflow(self):
         """Test complete user workflow"""
-        print("\n📝 Test 10: Complete Workflow")
+        print("\n Test 10: Complete Workflow")
         print("-" * 40)
         
         workflow_steps = [
@@ -472,7 +472,7 @@ class EndToEndTester:
     
     def cleanup_test_data(self):
         """Clean up test data"""
-        print("\n📝 Cleaning up Test Data")
+        print("\n Cleaning up Test Data")
         print("-" * 40)
         
         if not self.auth_token:
@@ -507,7 +507,7 @@ class EndToEndTester:
     def generate_report(self):
         """Generate comprehensive test report"""
         print("\n" + "=" * 60)
-        print("📊 END-TO-END LOCAL NETWORK TEST REPORT")
+        print(" END-TO-END LOCAL NETWORK TEST REPORT")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -520,7 +520,7 @@ class EndToEndTester:
         print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ Failed Tests:")
+            print("\n Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
@@ -539,13 +539,13 @@ class EndToEndTester:
                 }
             }, f, indent=2)
         
-        print(f"\n📄 Detailed report saved to: {report_file}")
+        print(f"\n Detailed report saved to: {report_file}")
         
         return passed_tests == total_tests
     
     def run_all_tests(self):
         """Run all end-to-end tests"""
-        print("🧪 Starting End-to-End Local Network Tests")
+        print(" Starting End-to-End Local Network Tests")
         print("=" * 60)
         
         # Setup
@@ -576,11 +576,11 @@ def main():
     success = tester.run_all_tests()
     
     if success:
-        print("\n🎉 All end-to-end tests passed!")
-        print("✅ Complete user workflow is functioning!")
-        print("✅ Login, checklist, updates, and reports all working!")
+        print("\n All end-to-end tests passed!")
+        print(" Complete user workflow is functioning!")
+        print(" Login, checklist, updates, and reports all working!")
     else:
-        print("\n⚠️  Some end-to-end tests failed.")
+        print("\n  Some end-to-end tests failed.")
         print("Please check the configuration and try again.")
     
     return success

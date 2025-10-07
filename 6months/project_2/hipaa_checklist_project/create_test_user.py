@@ -37,24 +37,24 @@ def create_test_user():
         if created:
             user.set_password('testpass123')
             user.save()
-            print("✅ Test user created successfully")
+            print(" Test user created successfully")
         else:
             # Update password to ensure it's correct
             user.set_password('testpass123')
             user.save()
-            print("✅ Test user already exists, password updated")
+            print(" Test user already exists, password updated")
         
         # Test authentication
         auth_user = authenticate(username='testuser', password='testpass123')
         if auth_user:
-            print("✅ User authentication successful")
+            print(" User authentication successful")
             return True
         else:
-            print("❌ User authentication failed")
+            print(" User authentication failed")
             return False
             
     except Exception as e:
-        print(f"❌ Error creating test user: {e}")
+        print(f" Error creating test user: {e}")
         return False
 
 if __name__ == '__main__':

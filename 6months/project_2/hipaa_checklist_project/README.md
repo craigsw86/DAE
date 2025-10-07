@@ -1,10 +1,10 @@
 # HIPAA Checklist Project
 
-## 🏥 Welcome to the HIPAA Compliance Management System!
+##  Welcome to the HIPAA Compliance Management System!
 
 A comprehensive, full-stack web application designed to help healthcare organizations manage HIPAA compliance through an intuitive checklist system. Features Django backend, React frontend, JWT authentication, encrypted data storage, and comprehensive security features.
 
-## 🚀 Quick Start for Visitors
+##  Quick Start for Visitors
 
 **New to this project? Start here:**
 - **[VISITOR_INSTRUCTIONS.md](VISITOR_INSTRUCTIONS.md)** - Complete visitor guide
@@ -57,7 +57,7 @@ A comprehensive, full-stack web application designed to help healthcare organiza
    npm start
    ```
 
-## 📚 Documentation
+##  Documentation
 
 ### For Visitors
 - **[VISITOR_INSTRUCTIONS.md](VISITOR_INSTRUCTIONS.md)** - Complete visitor guide with demo scenarios

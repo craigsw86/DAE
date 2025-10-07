@@ -89,7 +89,7 @@ const SecurityDashboard = () => {
   const getSeverityIcon = (severity) => {
     switch (severity.toLowerCase()) {
       case 'critical':
-        return '🔴';
+        return '';
       case 'high':
         return '🟠';
       case 'medium':
@@ -97,7 +97,7 @@ const SecurityDashboard = () => {
       case 'low':
         return '🟢';
       default:
-        return '⚪';
+        return '';
     }
   };
 
@@ -257,7 +257,7 @@ const SecurityDashboard = () => {
                               {dep.vulnerabilities > 0 ? (
                                 <span className="vuln-count">{dep.vulnerabilities}</span>
                               ) : (
-                                <span className="no-vulns">✓</span>
+                                <span className="no-vulns"></span>
                               )}
                             </td>
                             <td className="dep-license">{dep.license}</td>

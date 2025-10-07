@@ -16,12 +16,12 @@ django.setup()
 
 def print_status(message, status="INFO"):
     """Print status message with formatting"""
-    symbols = {"INFO": "ℹ️", "SUCCESS": "✅", "ERROR": "❌", "WARNING": "⚠️"}
-    print(f"{symbols.get(status, 'ℹ️')} {message}")
+    symbols = {"INFO": "ℹ", "SUCCESS": "", "ERROR": "", "WARNING": ""}
+    print(f"{symbols.get(status, 'ℹ')} {message}")
 
 def main():
     """Main fix function"""
-    print_status("🔧 Simple Database Fix", "INFO")
+    print_status(" Simple Database Fix", "INFO")
     print_status("=" * 40)
     
     try:
@@ -30,47 +30,47 @@ def main():
         from django.db import connection
         
         # Check current state
-        print_status("📊 Current Database State:", "INFO")
+        print_status(" Current Database State:", "INFO")
         print_status(f"  Users: {User.objects.count()}", "INFO")
         print_status(f"  Regulations: {RegulationUpdate.objects.count()}", "INFO")
         print_status(f"  Checklist Items: {ChecklistItem.objects.count()}", "INFO")
         
         # Check database schema
-        print_status("🔍 Checking database schema...", "INFO")
+        print_status(" Checking database schema...", "INFO")
         with connection.cursor() as cursor:
             cursor.execute("PRAGMA table_info('checklist_checklistitem')")
             columns = cursor.fetchall()
-            print_status("📋 ChecklistItem table columns:", "INFO")
+            print_status(" ChecklistItem table columns:", "INFO")
             for col in columns:
                 print_status(f"  - {col[1]} ({col[2]})", "INFO")
         
         # Test basic queries
-        print_status("🧪 Testing basic queries...", "INFO")
+        print_status(" Testing basic queries...", "INFO")
         
         # Test regulations query
         regulations = RegulationUpdate.objects.all()
-        print_status(f"✅ Regulations query: {regulations.count()} items", "SUCCESS")
+        print_status(f" Regulations query: {regulations.count()} items", "SUCCESS")
         
         # Test checklist items query
         items = ChecklistItem.objects.all()
-        print_status(f"✅ Checklist items query: {items.count()} items", "SUCCESS")
+        print_status(f" Checklist items query: {items.count()} items", "SUCCESS")
         
         # Test related queries
         items_with_regs = ChecklistItem.objects.select_related('regulation_update').all()
-        print_status(f"✅ Related query: {items_with_regs.count()} items", "SUCCESS")
+        print_status(f" Related query: {items_with_regs.count()} items", "SUCCESS")
         
         # Check for any issues
-        print_status("🔍 Checking for data issues...", "INFO")
+        print_status(" Checking for data issues...", "INFO")
         
         # Check if any items have null regulation_update
         null_regs = ChecklistItem.objects.filter(regulation_update__isnull=True)
         if null_regs.exists():
-            print_status(f"⚠️ Found {null_regs.count()} items with null regulation_update", "WARNING")
+            print_status(f" Found {null_regs.count()} items with null regulation_update", "WARNING")
         else:
-            print_status("✅ All items have valid regulation_update", "SUCCESS")
+            print_status(" All items have valid regulation_update", "SUCCESS")
         
         # Test performance
-        print_status("⏱️ Testing query performance...", "INFO")
+        print_status("⏱ Testing query performance...", "INFO")
         import time
         
         start_time = time.time()
@@ -79,23 +79,23 @@ def main():
         end_time = time.time()
         query_time = (end_time - start_time) * 1000
         
-        print_status(f"📊 Query time: {query_time:.2f}ms", "INFO")
+        print_status(f" Query time: {query_time:.2f}ms", "INFO")
         
         if query_time < 100:
-            print_status("✅ Performance: EXCELLENT", "SUCCESS")
+            print_status(" Performance: EXCELLENT", "SUCCESS")
         elif query_time < 500:
-            print_status("✅ Performance: GOOD", "SUCCESS")
+            print_status(" Performance: GOOD", "SUCCESS")
         elif query_time < 1000:
-            print_status("⚠️ Performance: FAIR", "WARNING")
+            print_status(" Performance: FAIR", "WARNING")
         else:
-            print_status("❌ Performance: POOR", "ERROR")
+            print_status(" Performance: POOR", "ERROR")
         
         # Optimize database
-        print_status("🔧 Optimizing database...", "INFO")
+        print_status(" Optimizing database...", "INFO")
         with connection.cursor() as cursor:
             cursor.execute("VACUUM")
             cursor.execute("ANALYZE")
-            print_status("✅ Database optimized", "SUCCESS")
+            print_status(" Database optimized", "SUCCESS")
         
         print_status("\n" + "=" * 40)
         print_status("FIX COMPLETE", "SUCCESS")
@@ -104,7 +104,7 @@ def main():
         return True
         
     except Exception as e:
-        print_status(f"❌ Error: {e}", "ERROR")
+        print_status(f" Error: {e}", "ERROR")
         import traceback
         traceback.print_exc()
         return False

@@ -16,7 +16,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'hipaa_checklist.settings')
 
 def setup_encryption():
     """Set up database encryption"""
-    print("🔐 Setting up database encryption...")
+    print(" Setting up database encryption...")
     
     try:
         from sqlite_encryption import DatabaseSecurityManager
@@ -26,7 +26,7 @@ def setup_encryption():
         
         # Check if database exists
         if not db_path.exists():
-            print("❌ Database not found")
+            print(" Database not found")
             return False
         
         # Get current info
@@ -35,27 +35,27 @@ def setup_encryption():
         
         # Set up encryption
         if manager.setup_secure_database():
-            print("✅ Database encryption setup completed")
+            print(" Database encryption setup completed")
             
             # Verify encryption
             if manager.encryption.verify_encryption():
-                print("✅ Encryption verified")
+                print(" Encryption verified")
                 return True
             else:
-                print("❌ Encryption verification failed")
+                print(" Encryption verification failed")
                 return False
         else:
-            print("❌ Encryption setup failed")
+            print(" Encryption setup failed")
             return False
             
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
         return False
 
 if __name__ == '__main__':
     success = setup_encryption()
     if success:
-        print("🎉 Database encryption setup completed successfully!")
+        print(" Database encryption setup completed successfully!")
     else:
-        print("⚠️  Database encryption setup failed")
+        print("  Database encryption setup failed")
 

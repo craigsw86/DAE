@@ -54,7 +54,7 @@ class SecureWaitressServer:
     
     def _signal_handler(self, signum, frame):
         """Handle shutdown signals gracefully"""
-        logger.info(f"🛑 Received signal {signum}, shutting down gracefully...")
+        logger.info(f" Received signal {signum}, shutting down gracefully...")
         self.running = False
         sys.exit(0)
     
@@ -63,12 +63,12 @@ class SecureWaitressServer:
         # Encryption key for field encryption
         if not os.environ.get('FIELD_ENCRYPTION_KEY'):
             os.environ['FIELD_ENCRYPTION_KEY'] = '1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54='
-            logger.info("✅ Field encryption key set")
+            logger.info(" Field encryption key set")
         
         # Database encryption password
         if not os.environ.get('DB_ENCRYPTION_PASSWORD'):
             os.environ['DB_ENCRYPTION_PASSWORD'] = 'hipaa_secure_password_2024'
-            logger.info("✅ Database encryption password set")
+            logger.info(" Database encryption password set")
         
         # Security settings
         os.environ['DJANGO_SETTINGS_MODULE'] = 'hipaa_checklist.settings'
@@ -76,30 +76,30 @@ class SecureWaitressServer:
         # Disable debug in production
         if os.environ.get('ENVIRONMENT') == 'production':
             os.environ['DEBUG'] = 'False'
-            logger.info("🔒 Production mode enabled")
+            logger.info(" Production mode enabled")
     
     def setup_database_security(self):
         """Set up database encryption and security"""
-        logger.info("🔐 Setting up database security...")
+        logger.info(" Setting up database security...")
         
         # Check if we need to restore from encrypted version
         if not self.db_path.exists() and self.db_manager.encryption.encrypted_db_path.exists():
-            logger.info("🔄 Restoring database from encrypted version...")
+            logger.info(" Restoring database from encrypted version...")
             if not self.db_manager.restore_database():
-                logger.error("❌ Failed to restore database")
+                logger.error(" Failed to restore database")
                 return False
         
         # Set up encryption if not already encrypted
         if self.db_path.exists() and not self.db_manager.encryption.verify_encryption():
-            logger.info("🔐 Encrypting database...")
+            logger.info(" Encrypting database...")
             if not self.db_manager.setup_secure_database():
-                logger.error("❌ Failed to encrypt database")
+                logger.error(" Failed to encrypt database")
                 return False
         
         # Set secure file permissions
         self._set_secure_permissions()
         
-        logger.info("✅ Database security configured")
+        logger.info(" Database security configured")
         return True
     
     def _set_secure_permissions(self):
@@ -112,38 +112,38 @@ class SecureWaitressServer:
                 current_perms = self.db_path.stat().st_mode
                 new_perms = current_perms & ~stat.S_IWGRP & ~stat.S_IWOTH & ~stat.S_IRGRP & ~stat.S_IROTH
                 self.db_path.chmod(new_perms)
-                logger.info(f"✅ Database permissions: {oct(new_perms)}")
+                logger.info(f" Database permissions: {oct(new_perms)}")
             
             # Log directory permissions
             if log_dir.exists():
                 current_perms = log_dir.stat().st_mode
                 new_perms = current_perms & ~stat.S_IWGRP & ~stat.S_IWOTH & ~stat.S_IRGRP & ~stat.S_IROTH
                 log_dir.chmod(new_perms)
-                logger.info(f"✅ Log directory permissions: {oct(new_perms)}")
+                logger.info(f" Log directory permissions: {oct(new_perms)}")
                 
         except Exception as e:
-            logger.warning(f"⚠️  Could not set permissions: {e}")
+            logger.warning(f"  Could not set permissions: {e}")
     
     def run_migrations(self):
         """Run database migrations"""
         try:
-            logger.info("🔄 Running database migrations...")
+            logger.info(" Running database migrations...")
             execute_from_command_line(['manage.py', 'migrate'])
-            logger.info("✅ Migrations completed")
+            logger.info(" Migrations completed")
             return True
         except Exception as e:
-            logger.error(f"❌ Migration failed: {e}")
+            logger.error(f" Migration failed: {e}")
             return False
     
     def collect_static_files(self):
         """Collect static files for production"""
         try:
-            logger.info("🔄 Collecting static files...")
+            logger.info(" Collecting static files...")
             execute_from_command_line(['manage.py', 'collectstatic', '--noinput'])
-            logger.info("✅ Static files collected")
+            logger.info(" Static files collected")
             return True
         except Exception as e:
-            logger.error(f"❌ Static file collection failed: {e}")
+            logger.error(f" Static file collection failed: {e}")
             return False
     
     def setup_security_headers(self):
@@ -161,7 +161,7 @@ class SecureWaitressServer:
         for setting, value in security_settings.items():
             os.environ[f'DJANGO_{setting}'] = str(value)
         
-        logger.info("✅ Security headers configured")
+        logger.info(" Security headers configured")
     
     def start_server(self):
         """Start the Waitress server with security enhancements"""
@@ -173,9 +173,9 @@ class SecureWaitressServer:
         port = int(os.environ.get('WAITRESS_PORT', '8000'))
         threads = int(os.environ.get('WAITRESS_THREADS', '4'))
         
-        logger.info(f"🚀 Starting Secure Waitress server on {host}:{port}")
-        logger.info(f"📊 Configuration: {threads} threads")
-        logger.info(f"🔐 Database: {'Encrypted' if self.db_manager.encryption.verify_encryption() else 'Plaintext'}")
+        logger.info(f" Starting Secure Waitress server on {host}:{port}")
+        logger.info(f" Configuration: {threads} threads")
+        logger.info(f" Database: {'Encrypted' if self.db_manager.encryption.verify_encryption() else 'Plaintext'}")
         
         # Security and performance settings
         serve(
@@ -203,7 +203,7 @@ class SecureWaitressServer:
     
     def run(self):
         """Main run method"""
-        logger.info("🔐 HIPAA Checklist - Secure Waitress Server Starting...")
+        logger.info(" HIPAA Checklist - Secure Waitress Server Starting...")
         
         try:
             # Setup steps
@@ -211,15 +211,15 @@ class SecureWaitressServer:
             self.setup_security_headers()
             
             if not self.setup_database_security():
-                logger.error("❌ Database security setup failed")
+                logger.error(" Database security setup failed")
                 sys.exit(1)
             
             if not self.run_migrations():
-                logger.error("❌ Database migrations failed")
+                logger.error(" Database migrations failed")
                 sys.exit(1)
             
             if not self.collect_static_files():
-                logger.error("❌ Static file collection failed")
+                logger.error(" Static file collection failed")
                 sys.exit(1)
             
             # Log security information
@@ -231,9 +231,9 @@ class SecureWaitressServer:
             self.start_server()
             
         except KeyboardInterrupt:
-            logger.info("🛑 Server stopped by user")
+            logger.info(" Server stopped by user")
         except Exception as e:
-            logger.error(f"❌ Server error: {e}")
+            logger.error(f" Server error: {e}")
             sys.exit(1)
 
 def main():

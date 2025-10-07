@@ -38,32 +38,32 @@ class DockerManager:
         """Check if Docker is available"""
         success, stdout, stderr = self.run_command("docker --version", capture_output=True)
         if not success:
-            print("❌ Docker not found. Please install Docker.")
+            print(" Docker not found. Please install Docker.")
             return False
         
         success, stdout, stderr = self.run_command("docker-compose --version", capture_output=True)
         if not success:
-            print("❌ Docker Compose not found. Please install Docker Compose.")
+            print(" Docker Compose not found. Please install Docker Compose.")
             return False
         
-        print("✅ Docker and Docker Compose are available")
+        print(" Docker and Docker Compose are available")
         return True
     
     def build_images(self, environment='dev'):
         """Build Docker images"""
         compose_file = self.compose_files.get(environment)
         if not compose_file:
-            print(f"❌ Unknown environment: {environment}")
+            print(f" Unknown environment: {environment}")
             return False
         
-        print(f"🔨 Building Docker images for {environment}...")
+        print(f" Building Docker images for {environment}...")
         command = f"docker-compose -f {compose_file} build"
         success, stdout, stderr = self.run_command(command)
         
         if success:
-            print("✅ Images built successfully")
+            print(" Images built successfully")
         else:
-            print(f"❌ Build failed: {stderr}")
+            print(f" Build failed: {stderr}")
         
         return success
     
@@ -71,17 +71,17 @@ class DockerManager:
         """Start Docker services"""
         compose_file = self.compose_files.get(environment)
         if not compose_file:
-            print(f"❌ Unknown environment: {environment}")
+            print(f" Unknown environment: {environment}")
             return False
         
-        print(f"🚀 Starting services for {environment}...")
+        print(f" Starting services for {environment}...")
         command = f"docker-compose -f {compose_file} up -d"
         success, stdout, stderr = self.run_command(command)
         
         if success:
-            print("✅ Services started successfully")
+            print(" Services started successfully")
         else:
-            print(f"❌ Start failed: {stderr}")
+            print(f" Start failed: {stderr}")
         
         return success
     
@@ -89,23 +89,23 @@ class DockerManager:
         """Stop Docker services"""
         compose_file = self.compose_files.get(environment)
         if not compose_file:
-            print(f"❌ Unknown environment: {environment}")
+            print(f" Unknown environment: {environment}")
             return False
         
-        print(f"🛑 Stopping services for {environment}...")
+        print(f" Stopping services for {environment}...")
         command = f"docker-compose -f {compose_file} down"
         success, stdout, stderr = self.run_command(command)
         
         if success:
-            print("✅ Services stopped successfully")
+            print(" Services stopped successfully")
         else:
-            print(f"❌ Stop failed: {stderr}")
+            print(f" Stop failed: {stderr}")
         
         return success
     
     def restart_services(self, environment='dev'):
         """Restart Docker services"""
-        print(f"🔄 Restarting services for {environment}...")
+        print(f" Restarting services for {environment}...")
         self.stop_services(environment)
         return self.start_services(environment)
     
@@ -113,7 +113,7 @@ class DockerManager:
         """Show Docker logs"""
         compose_file = self.compose_files.get(environment)
         if not compose_file:
-            print(f"❌ Unknown environment: {environment}")
+            print(f" Unknown environment: {environment}")
             return False
         
         if service:
@@ -121,7 +121,7 @@ class DockerManager:
         else:
             command = f"docker-compose -f {compose_file} logs -f"
         
-        print(f"📋 Showing logs for {environment}...")
+        print(f" Showing logs for {environment}...")
         success, stdout, stderr = self.run_command(command)
         return success
     
@@ -129,23 +129,23 @@ class DockerManager:
         """Show service status"""
         compose_file = self.compose_files.get(environment)
         if not compose_file:
-            print(f"❌ Unknown environment: {environment}")
+            print(f" Unknown environment: {environment}")
             return False
         
-        print(f"📊 Service status for {environment}:")
+        print(f" Service status for {environment}:")
         command = f"docker-compose -f {compose_file} ps"
         success, stdout, stderr = self.run_command(command, capture_output=True)
         
         if success:
             print(stdout)
         else:
-            print(f"❌ Status check failed: {stderr}")
+            print(f" Status check failed: {stderr}")
         
         return success
     
     def clean_up(self):
         """Clean up Docker resources"""
-        print("🧹 Cleaning up Docker resources...")
+        print(" Cleaning up Docker resources...")
         
         commands = [
             "docker system prune -f",
@@ -156,13 +156,13 @@ class DockerManager:
         for command in commands:
             success, stdout, stderr = self.run_command(command)
             if success:
-                print(f"✅ {command}")
+                print(f" {command}")
             else:
-                print(f"❌ {command}: {stderr}")
+                print(f" {command}: {stderr}")
     
     def setup_development(self):
         """Set up development environment"""
-        print("🛠️  Setting up development environment...")
+        print("  Setting up development environment...")
         
         if not self.check_docker():
             return False
@@ -175,16 +175,16 @@ class DockerManager:
         if not self.start_services('dev'):
             return False
         
-        print("✅ Development environment ready!")
-        print("🌐 Frontend: http://localhost:3000")
-        print("🔧 Backend: http://localhost:8000")
-        print("🌍 Nginx: http://localhost")
+        print(" Development environment ready!")
+        print(" Frontend: http://localhost:3000")
+        print(" Backend: http://localhost:8000")
+        print(" Nginx: http://localhost")
         
         return True
     
     def setup_production(self):
         """Set up production environment"""
-        print("🏭 Setting up production environment...")
+        print(" Setting up production environment...")
         
         if not self.check_docker():
             return False
@@ -197,16 +197,16 @@ class DockerManager:
         if not self.start_services('prod'):
             return False
         
-        print("✅ Production environment ready!")
-        print("🌍 Application: http://localhost")
-        print("🔧 Admin: http://localhost/admin")
+        print(" Production environment ready!")
+        print(" Application: http://localhost")
+        print(" Admin: http://localhost/admin")
         
         return True
 
 def main():
     """Main function"""
     if len(sys.argv) < 2:
-        print("🐳 Docker Management for HIPAA Checklist Project")
+        print(" Docker Management for HIPAA Checklist Project")
         print("=" * 50)
         print("Usage: python docker_management.py <command> [environment] [service]")
         print("\nCommands:")
@@ -251,7 +251,7 @@ def main():
     elif command == 'clean':
         success = manager.clean_up()
     else:
-        print(f"❌ Unknown command: {command}")
+        print(f" Unknown command: {command}")
         success = False
     
     sys.exit(0 if success else 1)

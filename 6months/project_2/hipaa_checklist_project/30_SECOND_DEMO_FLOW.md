@@ -7,7 +7,7 @@
 
 ---
 
-## 🎯 **30-Second Demo Script**
+## **30-Second Demo Script**
 
 ### **Opening (5 seconds)**
 **"Let me show you how this HIPAA compliance system helps medical offices:"**
@@ -32,7 +32,7 @@
 
 ---
 
-## 🚀 **Pre-Demo Setup Checklist**
+## **Pre-Demo Setup Checklist**
 
 ### **Before Your Presentation**
 - [ ] **Start Django server**: `cd backend && python manage.py runserver`
@@ -54,7 +54,7 @@ npm start
 
 ---
 
-## 🎭 **Demo Flow Breakdown**
+## **Demo Flow Breakdown**
 
 ### **0-5 seconds: Application Launch**
 - **Action**: Open browser to localhost:3000
@@ -88,7 +88,7 @@ npm start
 
 ---
 
-## 🎯 **Key Demo Points**
+## **Key Demo Points**
 
 ### **What to Highlight**
 1. **Professional UI**: Clean, responsive design
@@ -106,7 +106,7 @@ npm start
 
 ---
 
-## 🛠️ **Troubleshooting**
+## **Troubleshooting**
 
 ### **If Login Fails**
 - Check Django server is running on port 8000
@@ -128,7 +128,7 @@ npm start
 
 ---
 
-## 📱 **Demo Tips**
+## **Demo Tips**
 
 ### **Presentation Tips**
 1. **Practice the flow** - Run through it once before presenting
@@ -146,19 +146,19 @@ npm start
 
 ---
 
-## 🎉 **Success Criteria**
+## **Success Criteria**
 
 Your 30-second demo is successful if you can show:
 
-1. ✅ **Application loads** - Professional login screen
-2. ✅ **Authentication works** - Successful login
-3. ✅ **Navigation works** - All tabs accessible
-4. ✅ **Data displays** - Checklist and security data
-5. ✅ **System functions** - Complete workflow
+1. **Application loads** - Professional login screen
+2. **Authentication works** - Successful login
+3. **Navigation works** - All tabs accessible
+4. **Data displays** - Checklist and security data
+5. **System functions** - Complete workflow
 
 ---
 
-## 🚀 **Final Demo Script**
+## **Final Demo Script**
 
 **"Let me show you the system in action:"**
 

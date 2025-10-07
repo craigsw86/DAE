@@ -31,20 +31,20 @@ class ComprehensiveTestingSuite:
         self.total_tests += 1
         if status == "PASS":
             self.passed_tests += 1
-            print(f"✅ {test_name}: PASS")
+            print(f" {test_name}: PASS")
         else:
-            print(f"❌ {test_name}: FAIL - {details}")
+            print(f" {test_name}: FAIL - {details}")
         
         return {"status": status, "details": details, "timestamp": datetime.now().isoformat()}
     
     def wait_for_server(self, max_attempts=30):
         """Wait for Django server to be ready"""
-        print("🔄 Waiting for Django server to start...")
+        print(" Waiting for Django server to start...")
         for attempt in range(max_attempts):
             try:
                 response = requests.get(f"{self.base_url}/api/health/", timeout=5)
                 if response.status_code == 200:
-                    print("✅ Django server is ready!")
+                    print(" Django server is ready!")
                     return True
             except:
                 pass
@@ -54,13 +54,13 @@ class ComprehensiveTestingSuite:
     def test_original_plan(self):
         """Execute original project testing plan"""
         print("\n" + "="*60)
-        print("🧪 EXECUTING ORIGINAL PROJECT TESTING PLAN")
+        print(" EXECUTING ORIGINAL PROJECT TESTING PLAN")
         print("="*60)
         
         original_tests = {}
         
         # Test 1: Server Connectivity
-        print("\n📝 Test 1: Server Connectivity")
+        print("\n Test 1: Server Connectivity")
         print("-" * 40)
         try:
             response = requests.get(f"{self.base_url}/", timeout=10)
@@ -74,7 +74,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 2: Public Endpoints
-        print("\n📝 Test 2: Public Endpoints")
+        print("\n Test 2: Public Endpoints")
         print("-" * 40)
         endpoints = [
             ("/api/health/", "Health Check"),
@@ -95,7 +95,7 @@ class ComprehensiveTestingSuite:
                 )
         
         # Test 3: Authentication Flow
-        print("\n📝 Test 3: Authentication Flow")
+        print("\n Test 3: Authentication Flow")
         print("-" * 40)
         auth_tests = [
             ("admin", "admin123"),
@@ -118,7 +118,7 @@ class ComprehensiveTestingSuite:
                 )
         
         # Test 4: Protected Endpoints
-        print("\n📝 Test 4: Protected Endpoints")
+        print("\n Test 4: Protected Endpoints")
         print("-" * 40)
         protected_endpoints = [
             ("/api/checklist/", "Checklist API"),
@@ -140,7 +140,7 @@ class ComprehensiveTestingSuite:
                 )
         
         # Test 5: Export Functionality
-        print("\n📝 Test 5: Export Functionality")
+        print("\n Test 5: Export Functionality")
         print("-" * 40)
         export_endpoints = [
             ("/api/checklist/export/csv/", "CSV Export"),
@@ -165,13 +165,13 @@ class ComprehensiveTestingSuite:
     def test_black_duck_detect(self):
         """Execute Black Duck Detect security scanning"""
         print("\n" + "="*60)
-        print("🔍 EXECUTING BLACK DUCK DETECT SECURITY SCANNING")
+        print(" EXECUTING BLACK DUCK DETECT SECURITY SCANNING")
         print("="*60)
         
         black_duck_tests = {}
         
         # Test 1: Black Duck Detect Script Availability
-        print("\n📝 Test 1: Black Duck Detect Script Availability")
+        print("\n Test 1: Black Duck Detect Script Availability")
         print("-" * 50)
         detect_scripts = [
             "tools/detect/run-detect-jdk11.bat",
@@ -190,7 +190,7 @@ class ComprehensiveTestingSuite:
                 )
         
         # Test 2: Java Environment
-        print("\n📝 Test 2: Java Environment")
+        print("\n Test 2: Java Environment")
         print("-" * 50)
         try:
             result = subprocess.run(["java", "-version"], capture_output=True, text=True, timeout=10)
@@ -208,7 +208,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 3: Dependencies Installation
-        print("\n📝 Test 3: Dependencies Installation")
+        print("\n Test 3: Dependencies Installation")
         print("-" * 50)
         
         # Check frontend dependencies
@@ -237,7 +237,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 4: Security API Endpoints
-        print("\n📝 Test 4: Security API Endpoints")
+        print("\n Test 4: Security API Endpoints")
         print("-" * 50)
         security_endpoints = [
             ("/api/security/report/", "Security Report"),
@@ -257,7 +257,7 @@ class ComprehensiveTestingSuite:
                 )
         
         # Test 5: Mock Security Data Generation
-        print("\n📝 Test 5: Mock Security Data Generation")
+        print("\n Test 5: Mock Security Data Generation")
         print("-" * 50)
         try:
             # Try to run the Django management command
@@ -279,7 +279,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 6: Reports Directory
-        print("\n📝 Test 6: Reports Directory")
+        print("\n Test 6: Reports Directory")
         print("-" * 50)
         reports_dir = "reports/detect"
         if os.path.exists(reports_dir):
@@ -298,13 +298,13 @@ class ComprehensiveTestingSuite:
     def test_integration(self):
         """Test integration between original plan and Black Duck Detect"""
         print("\n" + "="*60)
-        print("🔗 TESTING INTEGRATION BETWEEN ORIGINAL PLAN AND BLACK DUCK DETECT")
+        print(" TESTING INTEGRATION BETWEEN ORIGINAL PLAN AND BLACK DUCK DETECT")
         print("="*60)
         
         integration_tests = {}
         
         # Test 1: Security Dashboard Access
-        print("\n📝 Test 1: Security Dashboard Access")
+        print("\n Test 1: Security Dashboard Access")
         print("-" * 50)
         try:
             response = requests.get(f"{self.base_url}/api/security/report/", timeout=10)
@@ -318,7 +318,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 2: React Frontend Integration
-        print("\n📝 Test 2: React Frontend Integration")
+        print("\n Test 2: React Frontend Integration")
         print("-" * 50)
         if os.path.exists("frontend/src/components/SecurityDashboard.js"):
             integration_tests["react_security_dashboard"] = self.log_test(
@@ -330,7 +330,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 3: Django Management Command
-        print("\n📝 Test 3: Django Management Command")
+        print("\n Test 3: Django Management Command")
         print("-" * 50)
         if os.path.exists("backend/checklist/management/commands/scan_detect.py"):
             integration_tests["django_management_command"] = self.log_test(
@@ -342,7 +342,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 4: Security Views Integration
-        print("\n📝 Test 4: Security Views Integration")
+        print("\n Test 4: Security Views Integration")
         print("-" * 50)
         if os.path.exists("backend/checklist/security_views.py"):
             integration_tests["security_views"] = self.log_test(
@@ -354,7 +354,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 5: URL Configuration
-        print("\n📝 Test 5: URL Configuration")
+        print("\n Test 5: URL Configuration")
         print("-" * 50)
         try:
             with open("backend/checklist/urls.py", "r") as f:
@@ -378,13 +378,13 @@ class ComprehensiveTestingSuite:
     def test_hipaa_compliance(self):
         """Test HIPAA compliance requirements"""
         print("\n" + "="*60)
-        print("🏥 TESTING HIPAA COMPLIANCE REQUIREMENTS")
+        print(" TESTING HIPAA COMPLIANCE REQUIREMENTS")
         print("="*60)
         
         hipaa_tests = {}
         
         # Test 1: Data Encryption
-        print("\n📝 Test 1: Data Encryption")
+        print("\n Test 1: Data Encryption")
         print("-" * 50)
         if os.path.exists("backend/sqlite_encryption.py"):
             hipaa_tests["data_encryption"] = self.log_test(
@@ -396,7 +396,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 2: Authentication Security
-        print("\n📝 Test 2: Authentication Security")
+        print("\n Test 2: Authentication Security")
         print("-" * 50)
         try:
             response = requests.post(f"{self.base_url}/api/token/", 
@@ -416,7 +416,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 3: HTTPS Support
-        print("\n📝 Test 3: HTTPS Support")
+        print("\n Test 3: HTTPS Support")
         print("-" * 50)
         if os.path.exists("nginx-https.conf"):
             hipaa_tests["https_support"] = self.log_test(
@@ -428,7 +428,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 4: Security Headers
-        print("\n📝 Test 4: Security Headers")
+        print("\n Test 4: Security Headers")
         print("-" * 50)
         try:
             response = requests.get(f"{self.base_url}/api/health/", timeout=10)
@@ -452,7 +452,7 @@ class ComprehensiveTestingSuite:
             )
         
         # Test 5: Audit Logging
-        print("\n📝 Test 5: Audit Logging")
+        print("\n Test 5: Audit Logging")
         print("-" * 50)
         if os.path.exists("logs"):
             hipaa_tests["audit_logging"] = self.log_test(
@@ -469,7 +469,7 @@ class ComprehensiveTestingSuite:
     def generate_summary(self):
         """Generate comprehensive test summary"""
         print("\n" + "="*60)
-        print("📊 COMPREHENSIVE TEST SUMMARY")
+        print(" COMPREHENSIVE TEST SUMMARY")
         print("="*60)
         
         # Calculate success rates
@@ -521,7 +521,7 @@ class ComprehensiveTestingSuite:
             }
         }
         
-        print(f"\n📈 Test Results Summary:")
+        print(f"\n Test Results Summary:")
         print(f"   Original Plan Tests: {original_success}/{original_total} ({original_rate:.1f}%)")
         print(f"   Black Duck Detect Tests: {black_duck_success}/{black_duck_total} ({black_duck_rate:.1f}%)")
         print(f"   Integration Tests: {integration_success}/{integration_total} ({integration_rate:.1f}%)")
@@ -538,17 +538,17 @@ class ComprehensiveTestingSuite:
         with open(filename, 'w') as f:
             json.dump(self.test_results, f, indent=2)
         
-        print(f"\n💾 Test results saved to: {filename}")
+        print(f"\n Test results saved to: {filename}")
         return filename
     
     def run_all_tests(self):
         """Run all tests in sequence"""
-        print("🚀 Starting Comprehensive Testing Suite")
+        print(" Starting Comprehensive Testing Suite")
         print("=" * 60)
         
         # Wait for server to be ready
         if not self.wait_for_server():
-            print("❌ Django server is not running. Please start it first.")
+            print(" Django server is not running. Please start it first.")
             return False
         
         # Run all test categories
@@ -563,9 +563,9 @@ class ComprehensiveTestingSuite:
         # Save results
         filename = self.save_results()
         
-        print(f"\n🎉 Comprehensive testing completed!")
-        print(f"📊 Overall Success Rate: {self.test_results['summary']['overall']['success_rate']:.1f}%")
-        print(f"💾 Results saved to: {filename}")
+        print(f"\n Comprehensive testing completed!")
+        print(f" Overall Success Rate: {self.test_results['summary']['overall']['success_rate']:.1f}%")
+        print(f" Results saved to: {filename}")
         
         return True
 

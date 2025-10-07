@@ -28,7 +28,7 @@ class SecurityFixer:
     
     def fix_all_security_issues(self):
         """Apply all security fixes"""
-        logger.info("🔧 Starting Security Issues Fix")
+        logger.info(" Starting Security Issues Fix")
         logger.info("=" * 50)
         
         # 1. Fix file permissions
@@ -50,7 +50,7 @@ class SecurityFixer:
     
     def fix_file_permissions(self):
         """Fix overly permissive file permissions"""
-        logger.info("📁 Fixing File Permissions...")
+        logger.info(" Fixing File Permissions...")
         
         # Files that need secure permissions
         sensitive_files = [
@@ -66,10 +66,10 @@ class SecurityFixer:
                 try:
                     # Set secure permissions (owner read/write only)
                     file_path.chmod(stat.S_IRUSR | stat.S_IWUSR)
-                    logger.info(f"✅ Fixed permissions for {file_path.name}")
+                    logger.info(f" Fixed permissions for {file_path.name}")
                     self.fixes_applied.append(f"Fixed permissions: {file_path.name}")
                 except Exception as e:
-                    logger.error(f"❌ Failed to fix permissions for {file_path.name}: {e}")
+                    logger.error(f" Failed to fix permissions for {file_path.name}: {e}")
                     self.errors.append(f"Permission fix failed: {file_path.name}")
         
         # Fix directory permissions
@@ -79,15 +79,15 @@ class SecurityFixer:
                 try:
                     # Set secure directory permissions (owner read/write/execute only)
                     dir_path.chmod(stat.S_IRUSR | stat.S_IWUSR | stat.S_IXUSR)
-                    logger.info(f"✅ Fixed directory permissions for {dir_path.name}")
+                    logger.info(f" Fixed directory permissions for {dir_path.name}")
                     self.fixes_applied.append(f"Fixed directory permissions: {dir_path.name}")
                 except Exception as e:
-                    logger.error(f"❌ Failed to fix directory permissions for {dir_path.name}: {e}")
+                    logger.error(f" Failed to fix directory permissions for {dir_path.name}: {e}")
                     self.errors.append(f"Directory permission fix failed: {dir_path.name}")
     
     def fix_database_encryption(self):
         """Fix database encryption issues"""
-        logger.info("🔐 Fixing Database Encryption...")
+        logger.info(" Fixing Database Encryption...")
         
         try:
             # Import the encryption module
@@ -101,21 +101,21 @@ class SecurityFixer:
                 
                 # Ensure database is properly encrypted
                 if manager.setup_secure_database():
-                    logger.info("✅ Database encryption fixed")
+                    logger.info(" Database encryption fixed")
                     self.fixes_applied.append("Database encryption properly configured")
                 else:
-                    logger.error("❌ Database encryption setup failed")
+                    logger.error(" Database encryption setup failed")
                     self.errors.append("Database encryption setup failed")
             else:
-                logger.warning("⚠️ Database file not found, skipping encryption fix")
+                logger.warning(" Database file not found, skipping encryption fix")
                 
         except Exception as e:
-            logger.error(f"❌ Database encryption fix failed: {e}")
+            logger.error(f" Database encryption fix failed: {e}")
             self.errors.append(f"Database encryption fix failed: {e}")
     
     def fix_ssl_certificates(self):
         """Fix SSL certificate issues"""
-        logger.info("🔒 Fixing SSL Certificates...")
+        logger.info(" Fixing SSL Certificates...")
         
         try:
             # Check if certificate generation script exists
@@ -128,21 +128,21 @@ class SecurityFixer:
                 ], capture_output=True, text=True, cwd=str(self.ssl_path))
                 
                 if result.returncode == 0:
-                    logger.info("✅ SSL certificates regenerated")
+                    logger.info(" SSL certificates regenerated")
                     self.fixes_applied.append("SSL certificates regenerated")
                 else:
-                    logger.error(f"❌ SSL certificate generation failed: {result.stderr}")
+                    logger.error(f" SSL certificate generation failed: {result.stderr}")
                     self.errors.append("SSL certificate generation failed")
             else:
-                logger.warning("⚠️ Certificate generation script not found")
+                logger.warning(" Certificate generation script not found")
                 
         except Exception as e:
-            logger.error(f"❌ SSL certificate fix failed: {e}")
+            logger.error(f" SSL certificate fix failed: {e}")
             self.errors.append(f"SSL certificate fix failed: {e}")
     
     def setup_encryption_key_management(self):
         """Setup proper encryption key management"""
-        logger.info("🔑 Setting up Encryption Key Management...")
+        logger.info(" Setting up Encryption Key Management...")
         
         try:
             # Create secure encryption key file
@@ -159,21 +159,21 @@ class SecurityFixer:
                 # Set secure permissions
                 key_file.chmod(stat.S_IRUSR | stat.S_IWUSR)
                 
-                logger.info("✅ Encryption key created with secure permissions")
+                logger.info(" Encryption key created with secure permissions")
                 self.fixes_applied.append("Encryption key created with secure permissions")
             else:
                 # Just fix permissions
                 key_file.chmod(stat.S_IRUSR | stat.S_IWUSR)
-                logger.info("✅ Encryption key permissions fixed")
+                logger.info(" Encryption key permissions fixed")
                 self.fixes_applied.append("Encryption key permissions fixed")
                 
         except Exception as e:
-            logger.error(f"❌ Encryption key management setup failed: {e}")
+            logger.error(f" Encryption key management setup failed: {e}")
             self.errors.append(f"Encryption key management setup failed: {e}")
     
     def generate_fix_report(self):
         """Generate security fix report"""
-        logger.info("📋 Generating Security Fix Report...")
+        logger.info(" Generating Security Fix Report...")
         
         report = {
             'timestamp': str(Path().cwd()),
@@ -190,23 +190,23 @@ class SecurityFixer:
         with open(report_file, 'w') as f:
             json.dump(report, f, indent=2)
         
-        logger.info(f"📄 Security fix report saved: {report_file}")
+        logger.info(f" Security fix report saved: {report_file}")
         
         # Print summary
         print("\n" + "=" * 50)
-        print("🔧 SECURITY FIX SUMMARY")
+        print(" SECURITY FIX SUMMARY")
         print("=" * 50)
-        print(f"✅ Fixes Applied: {len(self.fixes_applied)}")
-        print(f"❌ Errors: {len(self.errors)}")
-        print(f"📊 Success Rate: {report['success_rate']}")
+        print(f" Fixes Applied: {len(self.fixes_applied)}")
+        print(f" Errors: {len(self.errors)}")
+        print(f" Success Rate: {report['success_rate']}")
         
         if self.fixes_applied:
-            print(f"\n✅ Applied Fixes:")
+            print(f"\n Applied Fixes:")
             for fix in self.fixes_applied:
                 print(f"  • {fix}")
         
         if self.errors:
-            print(f"\n❌ Errors:")
+            print(f"\n Errors:")
             for error in self.errors:
                 print(f"  • {error}")
         
@@ -214,7 +214,7 @@ class SecurityFixer:
 
 def main():
     """Main function to run security fixes"""
-    print("🔧 HIPAA Checklist Project - Security Issues Fix")
+    print(" HIPAA Checklist Project - Security Issues Fix")
     print("Final Week Security Verification - Fixing Critical Issues")
     print("=" * 60)
     

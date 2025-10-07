@@ -18,12 +18,12 @@ django.setup()
 
 def print_status(message, status="INFO"):
     """Print status message with formatting"""
-    symbols = {"INFO": "ℹ️", "SUCCESS": "✅", "ERROR": "❌", "WARNING": "⚠️"}
-    print(f"{symbols.get(status, 'ℹ️')} {message}")
+    symbols = {"INFO": "ℹ", "SUCCESS": "", "ERROR": "", "WARNING": ""}
+    print(f"{symbols.get(status, 'ℹ')} {message}")
 
 def optimize_database_direct():
     """Optimize database directly with SQL"""
-    print_status("🔧 Optimizing Database Directly", "INFO")
+    print_status(" Optimizing Database Directly", "INFO")
     
     try:
         from django.db import connection
@@ -38,17 +38,17 @@ def optimize_database_direct():
             cursor.execute("PRAGMA mmap_size=268435456")  # 256MB
             cursor.execute("PRAGMA optimize")
             
-            print_status("✅ Database performance optimizations applied", "SUCCESS")
+            print_status(" Database performance optimizations applied", "SUCCESS")
             
             # Check current indexes
-            print_status("📊 Current indexes:", "INFO")
+            print_status(" Current indexes:", "INFO")
             cursor.execute("PRAGMA index_list('checklist_checklistitem')")
             indexes = cursor.fetchall()
             for idx in indexes:
                 print_status(f"  - {idx[1]} (unique: {bool(idx[2])})", "INFO")
             
             # Test query performance
-            print_status("🧪 Testing query performance...", "INFO")
+            print_status(" Testing query performance...", "INFO")
             start_time = time.time()
             cursor.execute("SELECT COUNT(*) FROM checklist_checklistitem")
             count = cursor.fetchone()[0]
@@ -67,12 +67,12 @@ def optimize_database_direct():
         return True
         
     except Exception as e:
-        print_status(f"❌ Database optimization error: {e}", "ERROR")
+        print_status(f" Database optimization error: {e}", "ERROR")
         return False
 
 def test_api_performance():
     """Test API endpoint performance"""
-    print_status("🌐 Testing API Performance", "INFO")
+    print_status(" Testing API Performance", "INFO")
     
     base_url = "http://localhost:8000"
     endpoints = [
@@ -112,7 +112,7 @@ def test_api_performance():
 
 def create_optimized_server_script():
     """Create an optimized server startup script"""
-    print_status("📝 Creating Optimized Server Script", "INFO")
+    print_status(" Creating Optimized Server Script", "INFO")
     
     optimized_server = """#!/usr/bin/env python3
 \"\"\"
@@ -143,11 +143,11 @@ def optimize_database():
         cursor.execute("PRAGMA temp_store=MEMORY")
         cursor.execute("PRAGMA mmap_size=268435456")
         cursor.execute("PRAGMA optimize")
-        print("✅ Database optimized for performance")
+        print(" Database optimized for performance")
 
 def main():
     \"\"\"Start optimized Django server\"\"\"
-    print("🚀 Starting Optimized HIPAA Checklist Server")
+    print(" Starting Optimized HIPAA Checklist Server")
     
     # Optimize database
     optimize_database()
@@ -163,28 +163,28 @@ if __name__ == "__main__":
     with open('start_optimized_server.py', 'w') as f:
         f.write(optimized_server)
     
-    print_status("✅ Optimized server script created", "SUCCESS")
+    print_status(" Optimized server script created", "SUCCESS")
     return True
 
 def main():
     """Main performance optimization function"""
-    print_status("🚀 HIPAA Checklist Performance Optimization", "INFO")
+    print_status(" HIPAA Checklist Performance Optimization", "INFO")
     print_status("=" * 60)
     
     # Step 1: Optimize database
-    print_status("🔧 Step 1: Optimizing Database", "INFO")
+    print_status(" Step 1: Optimizing Database", "INFO")
     optimize_database_direct()
     
     # Step 2: Test current API performance
-    print_status("\n🌐 Step 2: Testing Current API Performance", "INFO")
+    print_status("\n Step 2: Testing Current API Performance", "INFO")
     api_perf_before = test_api_performance()
     
     # Step 3: Create optimized server script
-    print_status("\n📝 Step 3: Creating Optimized Server Script", "INFO")
+    print_status("\n Step 3: Creating Optimized Server Script", "INFO")
     create_optimized_server_script()
     
     # Step 4: Test API performance again
-    print_status("\n🧪 Step 4: Testing API Performance After Optimization", "INFO")
+    print_status("\n Step 4: Testing API Performance After Optimization", "INFO")
     api_perf_after = test_api_performance()
     
     # Summary
@@ -203,13 +203,13 @@ def main():
             count += 1
             
             if avg_time < 500:
-                status = "✅ EXCELLENT"
+                status = " EXCELLENT"
             elif avg_time < 1000:
-                status = "✅ GOOD"
+                status = " GOOD"
             elif avg_time < 2000:
-                status = "⚠️ FAIR"
+                status = " FAIR"
             else:
-                status = "❌ POOR"
+                status = " POOR"
             print_status(f"  {endpoint}: {avg_time:.2f}ms - {status}", "INFO")
         
         if count > 0:
@@ -217,11 +217,11 @@ def main():
             print_status(f"Overall Average: {overall_avg:.2f}ms", "INFO")
             
             if overall_avg < 1000:
-                print_status("🎉 PERFORMANCE: EXCELLENT!", "SUCCESS")
+                print_status(" PERFORMANCE: EXCELLENT!", "SUCCESS")
             elif overall_avg < 2000:
-                print_status("✅ PERFORMANCE: GOOD", "SUCCESS")
+                print_status(" PERFORMANCE: GOOD", "SUCCESS")
             else:
-                print_status("⚠️ PERFORMANCE: NEEDS IMPROVEMENT", "WARNING")
+                print_status(" PERFORMANCE: NEEDS IMPROVEMENT", "WARNING")
     
     print_status("\nNext steps:", "INFO")
     print_status("1. Use 'python start_optimized_server.py' for better performance", "INFO")

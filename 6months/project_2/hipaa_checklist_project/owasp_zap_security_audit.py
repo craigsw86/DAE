@@ -41,7 +41,7 @@ class OWASPSecurityAudit:
         
     def run_complete_audit(self):
         """Run complete OWASP-style security audit"""
-        logger.info("🔍 Starting OWASP ZAP Security Audit")
+        logger.info(" Starting OWASP ZAP Security Audit")
         logger.info("=" * 60)
         
         # 1. Start local servers
@@ -72,7 +72,7 @@ class OWASPSecurityAudit:
     
     def start_local_servers(self):
         """Start local Django and Nginx servers for testing"""
-        logger.info("🚀 Starting Local Servers for Security Testing...")
+        logger.info(" Starting Local Servers for Security Testing...")
         
         try:
             # Start Django server in background
@@ -89,10 +89,10 @@ class OWASPSecurityAudit:
                 ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             
             self.servers_running = True
-            logger.info("✅ Local servers started")
+            logger.info(" Local servers started")
             
         except Exception as e:
-            logger.error(f"❌ Failed to start servers: {e}")
+            logger.error(f" Failed to start servers: {e}")
             self.servers_running = False
     
     def stop_local_servers(self):
@@ -103,13 +103,13 @@ class OWASPSecurityAudit:
                     self.django_process.terminate()
                 if hasattr(self, 'nginx_process'):
                     self.nginx_process.terminate()
-                logger.info("✅ Local servers stopped")
+                logger.info(" Local servers stopped")
             except Exception as e:
-                logger.error(f"❌ Error stopping servers: {e}")
+                logger.error(f" Error stopping servers: {e}")
     
     def test_https_security(self):
         """Test HTTPS implementation security"""
-        logger.info("🔒 Testing HTTPS Security...")
+        logger.info(" Testing HTTPS Security...")
         
         https_tests = {
             'ssl_certificate_valid': False,
@@ -171,7 +171,7 @@ class OWASPSecurityAudit:
     
     def test_jwt_security(self):
         """Test JWT authentication security"""
-        logger.info("🔑 Testing JWT Security...")
+        logger.info(" Testing JWT Security...")
         
         jwt_tests = {
             'jwt_endpoint_accessible': False,
@@ -231,7 +231,7 @@ class OWASPSecurityAudit:
     
     def test_authentication_security(self):
         """Test authentication security"""
-        logger.info("🔐 Testing Authentication Security...")
+        logger.info(" Testing Authentication Security...")
         
         auth_tests = {
             'login_endpoint_secure': False,
@@ -267,7 +267,7 @@ class OWASPSecurityAudit:
     
     def test_input_validation(self):
         """Test input validation security"""
-        logger.info("🛡️ Testing Input Validation...")
+        logger.info(" Testing Input Validation...")
         
         input_tests = {
             'sql_injection_protection': False,
@@ -319,7 +319,7 @@ class OWASPSecurityAudit:
     
     def test_session_management(self):
         """Test session management security"""
-        logger.info("📋 Testing Session Management...")
+        logger.info(" Testing Session Management...")
         
         session_tests = {
             'session_cookies_secure': False,
@@ -351,7 +351,7 @@ class OWASPSecurityAudit:
     
     def test_cryptographic_storage(self):
         """Test cryptographic storage security"""
-        logger.info("🔐 Testing Cryptographic Storage...")
+        logger.info(" Testing Cryptographic Storage...")
         
         crypto_tests = {
             'password_hashing': False,
@@ -388,7 +388,7 @@ class OWASPSecurityAudit:
     
     def test_access_control(self):
         """Test access control security"""
-        logger.info("🚪 Testing Access Control...")
+        logger.info(" Testing Access Control...")
         
         access_tests = {
             'authentication_required': False,
@@ -438,7 +438,7 @@ class OWASPSecurityAudit:
     
     def test_security_headers(self):
         """Test security headers implementation"""
-        logger.info("🛡️ Testing Security Headers...")
+        logger.info(" Testing Security Headers...")
         
         header_tests = {
             'x_frame_options': False,
@@ -476,7 +476,7 @@ class OWASPSecurityAudit:
     
     def test_error_handling(self):
         """Test error handling security"""
-        logger.info("⚠️ Testing Error Handling...")
+        logger.info(" Testing Error Handling...")
         
         error_tests = {
             'information_disclosure_protection': False,
@@ -517,7 +517,7 @@ class OWASPSecurityAudit:
     
     def test_logging_monitoring(self):
         """Test logging and monitoring security"""
-        logger.info("📊 Testing Logging and Monitoring...")
+        logger.info(" Testing Logging and Monitoring...")
         
         logging_tests = {
             'audit_logging_enabled': False,
@@ -555,7 +555,7 @@ class OWASPSecurityAudit:
     
     def generate_audit_report(self):
         """Generate comprehensive OWASP security audit report"""
-        logger.info("📋 Generating OWASP Security Audit Report...")
+        logger.info(" Generating OWASP Security Audit Report...")
         
         # Calculate overall risk level
         high_vulns = sum(1 for v in self.results['vulnerabilities'] if v['severity'] == 'HIGH')
@@ -579,7 +579,7 @@ class OWASPSecurityAudit:
         with open(report_file, 'w') as f:
             json.dump(self.results, f, indent=2)
         
-        logger.info(f"📄 OWASP security audit report saved: {report_file}")
+        logger.info(f" OWASP security audit report saved: {report_file}")
         
         # Print summary
         self.print_audit_summary()
@@ -627,26 +627,26 @@ class OWASPSecurityAudit:
     def print_audit_summary(self):
         """Print OWASP security audit summary"""
         print("\n" + "=" * 60)
-        print("🔍 OWASP ZAP SECURITY AUDIT SUMMARY")
+        print(" OWASP ZAP SECURITY AUDIT SUMMARY")
         print("=" * 60)
         
-        print(f"📅 Timestamp: {self.results['timestamp']}")
-        print(f"🎯 Overall Risk Level: {self.results['overall_risk']}")
-        print(f"🚨 Total Vulnerabilities: {len(self.results['vulnerabilities'])}")
-        print(f"💡 Total Recommendations: {len(self.results['recommendations'])}")
+        print(f" Timestamp: {self.results['timestamp']}")
+        print(f" Overall Risk Level: {self.results['overall_risk']}")
+        print(f" Total Vulnerabilities: {len(self.results['vulnerabilities'])}")
+        print(f" Total Recommendations: {len(self.results['recommendations'])}")
         
         # Vulnerability breakdown
         high_vulns = sum(1 for v in self.results['vulnerabilities'] if v['severity'] == 'HIGH')
         medium_vulns = sum(1 for v in self.results['vulnerabilities'] if v['severity'] == 'MEDIUM')
         low_vulns = sum(1 for v in self.results['vulnerabilities'] if v['severity'] == 'LOW')
         
-        print(f"\n📊 Vulnerability Breakdown:")
-        print(f"  🔴 High: {high_vulns}")
+        print(f"\n Vulnerability Breakdown:")
+        print(f"   High: {high_vulns}")
         print(f"  🟡 Medium: {medium_vulns}")
         print(f"  🟢 Low: {low_vulns}")
         
         # Security test results
-        print(f"\n🧪 Security Test Results:")
+        print(f"\n Security Test Results:")
         for test_category, test_results in self.results['security_tests'].items():
             passed_tests = sum(1 for v in test_results.values() if v)
             total_tests = len(test_results)
@@ -654,23 +654,23 @@ class OWASPSecurityAudit:
         
         # Top vulnerabilities
         if self.results['vulnerabilities']:
-            print(f"\n🚨 Top Vulnerabilities:")
+            print(f"\n Top Vulnerabilities:")
             for vuln in self.results['vulnerabilities'][:5]:
                 print(f"  • [{vuln['severity']}] {vuln['type']}: {vuln['description']}")
         
         # Top recommendations
         if self.results['recommendations']:
-            print(f"\n💡 Top Recommendations:")
+            print(f"\n Top Recommendations:")
             for rec in self.results['recommendations'][:5]:
                 print(f"  • [{rec['priority']}] {rec['category']}: {rec['recommendation']}")
         
         print("\n" + "=" * 60)
-        print("🎉 OWASP security audit completed!")
+        print(" OWASP security audit completed!")
         print("=" * 60)
 
 def main():
     """Main function to run OWASP security audit"""
-    print("🔍 HIPAA Checklist Project - OWASP ZAP Security Audit")
+    print(" HIPAA Checklist Project - OWASP ZAP Security Audit")
     print("Local scan; confirm HTTPS/JWT implementation")
     print("=" * 70)
     

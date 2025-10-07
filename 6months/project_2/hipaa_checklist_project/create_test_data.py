@@ -17,7 +17,7 @@ django.setup()
 
 def create_test_data():
     """Create test regulations and users"""
-    print("🔧 Creating test data...")
+    print(" Creating test data...")
     
     try:
         from django.contrib.auth.models import User
@@ -35,10 +35,10 @@ def create_test_data():
                 first_name="Test",
                 last_name="User"
             )
-            print(f"✅ Created test user: {username}")
+            print(f" Created test user: {username}")
         else:
             user = User.objects.get(username=username)
-            print(f"ℹ️ Test user {username} already exists")
+            print(f"ℹ Test user {username} already exists")
         
         # Create test regulations if they don't exist
         test_regulations = [
@@ -64,11 +64,11 @@ def create_test_data():
             if not RegulationUpdate.objects.filter(title=reg_data["title"]).exists():
                 regulation = RegulationUpdate.objects.create(**reg_data)
                 created_regulations.append(regulation)
-                print(f"✅ Created regulation: {regulation.title}")
+                print(f" Created regulation: {regulation.title}")
             else:
                 regulation = RegulationUpdate.objects.get(title=reg_data["title"])
                 created_regulations.append(regulation)
-                print(f"ℹ️ Regulation already exists: {regulation.title}")
+                print(f"ℹ Regulation already exists: {regulation.title}")
         
         # Create some test checklist items
         if created_regulations:
@@ -99,20 +99,20 @@ def create_test_data():
                     regulation_update=item_data["regulation_update"]
                 ).exists():
                     item = ChecklistItem.objects.create(**item_data)
-                    print(f"✅ Created checklist item: {item.regulation_update.title}")
+                    print(f" Created checklist item: {item.regulation_update.title}")
                 else:
-                    print(f"ℹ️ Checklist item already exists for: {item_data['regulation_update'].title}")
+                    print(f"ℹ Checklist item already exists for: {item_data['regulation_update'].title}")
         
-        print(f"\n📊 Database Summary:")
+        print(f"\n Database Summary:")
         print(f"  Users: {User.objects.count()}")
         print(f"  Regulations: {RegulationUpdate.objects.count()}")
         print(f"  Checklist Items: {ChecklistItem.objects.count()}")
         
-        print("\n✅ Test data creation complete!")
+        print("\n Test data creation complete!")
         return True
         
     except Exception as e:
-        print(f"❌ Error creating test data: {e}")
+        print(f" Error creating test data: {e}")
         return False
 
 if __name__ == "__main__":

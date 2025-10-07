@@ -21,12 +21,12 @@ from create_comprehensive_hipaa_regulations import create_comprehensive_hipaa_re
 def test_hipaa_regulations_loading():
     """Test the HIPAA regulations loading functionality"""
     
-    print("🧪 Testing HIPAA Regulations Loading...")
+    print(" Testing HIPAA Regulations Loading...")
     print("=" * 50)
     
     # Count regulations before loading
     initial_count = RegulationUpdate.objects.count()
-    print(f"📊 Initial regulation count: {initial_count}")
+    print(f" Initial regulation count: {initial_count}")
     
     try:
         # Load regulations
@@ -34,11 +34,11 @@ def test_hipaa_regulations_loading():
         
         # Count regulations after loading
         final_count = RegulationUpdate.objects.count()
-        print(f"📊 Final regulation count: {final_count}")
-        print(f"📈 Regulations added: {final_count - initial_count}")
+        print(f" Final regulation count: {final_count}")
+        print(f" Regulations added: {final_count - initial_count}")
         
         # Test specific regulations
-        print("\n🔍 Testing specific regulations...")
+        print("\n Testing specific regulations...")
         
         # Test Privacy Rule
         privacy_rules = RegulationUpdate.objects.filter(title__icontains='Privacy Rule')
@@ -59,13 +59,13 @@ def test_hipaa_regulations_loading():
         # Test a specific regulation
         test_reg = RegulationUpdate.objects.filter(title__icontains='Administrative Safeguards').first()
         if test_reg:
-            print(f"\n📝 Sample regulation: {test_reg.title}")
+            print(f"\n Sample regulation: {test_reg.title}")
             print(f"   Description length: {len(test_reg.description)} characters")
             print(f"   Source URL: {test_reg.source_url}")
             print(f"   Description preview: {test_reg.description[:100]}...")
         
         # Test database integrity
-        print("\n🔧 Testing database integrity...")
+        print("\n Testing database integrity...")
         
         # Check for required fields
         missing_titles = RegulationUpdate.objects.filter(title__isnull=True).count()
@@ -81,15 +81,15 @@ def test_hipaa_regulations_loading():
         print(f"  • Duplicate titles: {duplicates}")
         
         if missing_titles == 0 and missing_descriptions == 0 and duplicates == 0:
-            print("  ✅ Database integrity check passed!")
+            print("   Database integrity check passed!")
         else:
-            print("  ❌ Database integrity issues found!")
+            print("   Database integrity issues found!")
         
-        print("\n🎉 HIPAA regulations loading test completed successfully!")
+        print("\n HIPAA regulations loading test completed successfully!")
         return True
         
     except Exception as e:
-        print(f"❌ Error during testing: {str(e)}")
+        print(f" Error during testing: {str(e)}")
         import traceback
         traceback.print_exc()
         return False
@@ -97,7 +97,7 @@ def test_hipaa_regulations_loading():
 def display_regulation_summary():
     """Display a summary of all loaded regulations"""
     
-    print("\n📋 HIPAA Regulations Summary")
+    print("\n HIPAA Regulations Summary")
     print("=" * 50)
     
     regulations = RegulationUpdate.objects.all().order_by('title')
@@ -115,5 +115,5 @@ if __name__ == '__main__':
         print("\n" + "=" * 50)
         display_regulation_summary()
     else:
-        print("\n❌ Testing failed!")
+        print("\n Testing failed!")
         sys.exit(1)

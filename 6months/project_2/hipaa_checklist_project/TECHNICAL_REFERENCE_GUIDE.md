@@ -555,7 +555,7 @@ class FinalBackendTester:
     
     def log_test(self, test_name, success, message="", data=None):
         """Log test result"""
-        status = "✅ PASS" if success else "❌ FAIL"
+        status = " PASS" if success else " FAIL"
         print(f"{test_name}: {status} {message}")
         self.test_results.append({
             'test': test_name,
@@ -567,7 +567,7 @@ class FinalBackendTester:
     
     def test_health_endpoint(self):
         """Test health endpoint"""
-        print("\n📝 Test 1: Health Endpoint")
+        print("\n Test 1: Health Endpoint")
         print("-" * 40)
         
         try:
@@ -587,7 +587,7 @@ class FinalBackendTester:
     
     def test_info_endpoint(self):
         """Test API info endpoint"""
-        print("\n📝 Test 2: API Info Endpoint")
+        print("\n Test 2: API Info Endpoint")
         print("-" * 40)
         
         try:
@@ -607,7 +607,7 @@ class FinalBackendTester:
     
     def test_stats_endpoint(self):
         """Test public stats endpoint"""
-        print("\n📝 Test 3: Public Stats Endpoint")
+        print("\n Test 3: Public Stats Endpoint")
         print("-" * 40)
         
         try:
@@ -627,7 +627,7 @@ class FinalBackendTester:
     
     def test_authentication_flow(self):
         """Test authentication flow"""
-        print("\n📝 Test 4: Authentication Flow")
+        print("\n Test 4: Authentication Flow")
         print("-" * 40)
         
         # Test with common test credentials
@@ -660,7 +660,7 @@ class FinalBackendTester:
     
     def test_protected_endpoints(self):
         """Test protected endpoints"""
-        print("\n📝 Test 5: Protected Endpoints")
+        print("\n Test 5: Protected Endpoints")
         print("-" * 40)
         
         protected_endpoints = [
@@ -684,7 +684,7 @@ class FinalBackendTester:
     
     def test_performance(self):
         """Test API performance"""
-        print("\n📝 Test 6: Performance Testing")
+        print("\n Test 6: Performance Testing")
         print("-" * 40)
         
         endpoints = [
@@ -713,7 +713,7 @@ class FinalBackendTester:
     
     def test_error_handling(self):
         """Test error handling"""
-        print("\n📝 Test 7: Error Handling")
+        print("\n Test 7: Error Handling")
         print("-" * 40)
         
         # Test 404 endpoint
@@ -742,7 +742,7 @@ class FinalBackendTester:
     def generate_report(self):
         """Generate comprehensive test report"""
         print("\n" + "=" * 60)
-        print("📊 BACKEND SQLITE API CONNECTIVITY TEST REPORT")
+        print(" BACKEND SQLITE API CONNECTIVITY TEST REPORT")
         print("=" * 60)
         
         total_tests = len(self.test_results)
@@ -755,7 +755,7 @@ class FinalBackendTester:
         print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
         
         if failed_tests > 0:
-            print("\n❌ Failed Tests:")
+            print("\n Failed Tests:")
             for result in self.test_results:
                 if not result['success']:
                     print(f"  - {result['test']}: {result['message']}")
@@ -765,13 +765,13 @@ class FinalBackendTester:
         with open(report_file, 'w') as f:
             json.dump(self.test_results, f, indent=2)
         
-        print(f"\n📄 Detailed report saved to: {report_file}")
+        print(f"\n Detailed report saved to: {report_file}")
         
         return passed_tests == total_tests
     
     def run_all_tests(self):
         """Run all backend tests"""
-        print("🧪 Starting Final Backend SQLite API Connectivity Tests")
+        print(" Starting Final Backend SQLite API Connectivity Tests")
         print("=" * 60)
         
         self.test_health_endpoint()
@@ -790,11 +790,11 @@ def main():
     success = tester.run_all_tests()
     
     if success:
-        print("\n🎉 All backend API tests passed!")
-        print("✅ Django backend is properly connected to SQLite!")
-        print("✅ All API endpoints are working correctly!")
+        print("\n All backend API tests passed!")
+        print(" Django backend is properly connected to SQLite!")
+        print(" All API endpoints are working correctly!")
     else:
-        print("\n⚠️  Some backend API tests failed.")
+        print("\n  Some backend API tests failed.")
         print("Please check the configuration and try again.")
     
     return success
@@ -986,7 +986,7 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 def main():
     """Main optimization function"""
-    print("🚀 Starting performance optimization...")
+    print(" Starting performance optimization...")
     
     # Optimize database
     optimize_database()
@@ -994,7 +994,7 @@ def main():
     # Optimize Django settings
     optimize_django_settings()
     
-    print("✅ Performance optimization completed!")
+    print(" Performance optimization completed!")
 
 if __name__ == '__main__':
     main()
@@ -1029,73 +1029,73 @@ class ReactDeployer:
         
     def check_prerequisites(self):
         """Check if prerequisites are installed"""
-        print("🔍 Checking prerequisites...")
+        print(" Checking prerequisites...")
         
         # Check Node.js
         try:
             result = subprocess.run(['node', '--version'], capture_output=True, text=True, shell=True)
             if result.returncode == 0:
-                print(f"✅ Node.js: {result.stdout.strip()}")
+                print(f" Node.js: {result.stdout.strip()}")
             else:
-                print("❌ Node.js not found")
+                print(" Node.js not found")
                 return False
         except:
-            print("❌ Node.js not found")
+            print(" Node.js not found")
             return False
         
         # Check npm
         try:
             result = subprocess.run(['npm', '--version'], capture_output=True, text=True, shell=True)
             if result.returncode == 0:
-                print(f"✅ npm: {result.stdout.strip()}")
+                print(f" npm: {result.stdout.strip()}")
             else:
-                print("❌ npm not found")
+                print(" npm not found")
                 return False
         except:
-            print("❌ npm not found")
+            print(" npm not found")
             return False
         
         return True
     
     def install_dependencies(self):
         """Install npm dependencies"""
-        print("📦 Installing dependencies...")
+        print(" Installing dependencies...")
         
         try:
             result = subprocess.run(['npm', 'install'], cwd=self.frontend_dir, shell=True)
             if result.returncode == 0:
-                print("✅ Dependencies installed")
+                print(" Dependencies installed")
                 return True
             else:
-                print("❌ Failed to install dependencies")
+                print(" Failed to install dependencies")
                 return False
         except Exception as e:
-            print(f"❌ Error installing dependencies: {e}")
+            print(f" Error installing dependencies: {e}")
             return False
     
     def build_application(self):
         """Build React application"""
-        print("🏗️  Building application...")
+        print("  Building application...")
         
         try:
             result = subprocess.run(['npm', 'run', 'build'], cwd=self.frontend_dir, shell=True)
             if result.returncode == 0:
-                print("✅ Application built successfully")
+                print(" Application built successfully")
                 return True
             else:
-                print("❌ Failed to build application")
+                print(" Failed to build application")
                 return False
         except Exception as e:
-            print(f"❌ Error building application: {e}")
+            print(f" Error building application: {e}")
             return False
     
     def setup_nginx(self):
         """Setup Nginx configuration"""
-        print("🔧 Setting up Nginx...")
+        print(" Setting up Nginx...")
         
         nginx_conf = self.project_root / "nginx-react.conf"
         if not nginx_conf.exists():
-            print("❌ Nginx configuration not found")
+            print(" Nginx configuration not found")
             return False
         
         # Copy build files to nginx directory
@@ -1104,53 +1104,53 @@ class ReactDeployer:
         
         if self.build_dir.exists():
             shutil.copytree(self.build_dir, nginx_html_dir, dirs_exist_ok=True)
-            print("✅ Build files copied to Nginx directory")
+            print(" Build files copied to Nginx directory")
             return True
         else:
-            print("❌ Build directory not found")
+            print(" Build directory not found")
             return False
     
     def start_nginx(self):
         """Start Nginx server"""
-        print("🚀 Starting Nginx...")
+        print(" Starting Nginx...")
         
         try:
             # Check if Nginx is already running
             result = subprocess.run(['nginx', '-t'], capture_output=True, text=True)
             if result.returncode == 0:
-                print("✅ Nginx configuration is valid")
+                print(" Nginx configuration is valid")
                 
                 # Start Nginx
                 subprocess.run(['nginx'], shell=True)
-                print("✅ Nginx started successfully")
+                print(" Nginx started successfully")
                 return True
             else:
-                print(f"❌ Nginx configuration error: {result.stderr}")
+                print(f" Nginx configuration error: {result.stderr}")
                 return False
         except Exception as e:
-            print(f"❌ Error starting Nginx: {e}")
+            print(f" Error starting Nginx: {e}")
             return False
     
     def test_deployment(self):
         """Test the deployment"""
-        print("🧪 Testing deployment...")
+        print(" Testing deployment...")
         
         try:
             import requests
             response = requests.get("http://localhost", timeout=10)
             if response.status_code == 200:
-                print("✅ Deployment test successful")
+                print(" Deployment test successful")
                 return True
             else:
-                print(f"❌ Deployment test failed: {response.status_code}")
+                print(f" Deployment test failed: {response.status_code}")
                 return False
         except Exception as e:
-            print(f"❌ Error testing deployment: {e}")
+            print(f" Error testing deployment: {e}")
             return False
     
     def deploy(self):
         """Deploy React application"""
-        print("🚀 Starting React deployment...")
+        print(" Starting React deployment...")
         
         # Check prerequisites
         if not self.check_prerequisites():
@@ -1176,8 +1176,8 @@ class ReactDeployer:
         if not self.test_deployment():
             return False
         
-        print("🎉 React deployment completed successfully!")
-        print("🌐 Application available at: http://localhost")
+        print(" React deployment completed successfully!")
+        print(" Application available at: http://localhost")
         return True
 
 def main():
@@ -1186,7 +1186,7 @@ def main():
     success = deployer.deploy()
     
     if not success:
-        print("❌ Deployment failed!")
+        print(" Deployment failed!")
         sys.exit(1)
 
 if __name__ == '__main__':

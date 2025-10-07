@@ -1,12 +1,12 @@
-# 🏥 HIPAA Checklist Project - Start Here!
+#  HIPAA Checklist Project - Start Here!
 
-## Welcome! 👋
+## Welcome! 
 
 This is a comprehensive HIPAA compliance management system built with Django and React. Whether you're a visitor, developer, or healthcare professional, this guide will help you get started quickly.
 
 ---
 
-## 🚀 I Want to Try the System (5 minutes)
+##  I Want to Try the System (5 minutes)
 
 **Perfect for: Visitors, demos, quick testing**
 
@@ -16,12 +16,12 @@ This is a comprehensive HIPAA compliance management system built with Django and
 4. **Open**: http://localhost:3000
 5. **Login**: `admin` / `admin123`
 
-**📖 Full Guide**: [VISITOR_INSTRUCTIONS.md](VISITOR_INSTRUCTIONS.md)  
-**⚡ Quick Reference**: [QUICK_START_GUIDE.md](QUICK_START_GUIDE.md)
+** Full Guide**: [VISITOR_INSTRUCTIONS.md](VISITOR_INSTRUCTIONS.md)  
+** Quick Reference**: [QUICK_START_GUIDE.md](QUICK_START_GUIDE.md)
 
 ---
 
-## 🔧 I Want to Set Up the Development Environment
+##  I Want to Set Up the Development Environment
 
 **Perfect for: Developers, contributors, customization**
 
@@ -31,7 +31,7 @@ This is a comprehensive HIPAA compliance management system built with Django and
 
 ---
 
-## 📚 I Want to Learn About the System
+##  I Want to Learn About the System
 
 **Perfect for: Understanding features, architecture, capabilities**
 
@@ -42,7 +42,7 @@ This is a comprehensive HIPAA compliance management system built with Django and
 
 ---
 
-## 🎭 I Want to See a Demo
+##  I Want to See a Demo
 
 **Perfect for: Presentations, class demos, showcasing features**
 
@@ -52,7 +52,7 @@ This is a comprehensive HIPAA compliance management system built with Django and
 
 ---
 
-## 🏥 I'm a Healthcare Professional
+##  I'm a Healthcare Professional
 
 **Perfect for: Understanding compliance features, evaluating for use**
 
@@ -63,7 +63,7 @@ This is a comprehensive HIPAA compliance management system built with Django and
 
 ---
 
-## 🛠️ I'm Having Issues
+##  I'm Having Issues
 
 **Perfect for: Troubleshooting, getting help**
 
@@ -74,35 +74,35 @@ This is a comprehensive HIPAA compliance management system built with Django and
 
 ---
 
-## 📋 What's Included
+##  What's Included
 
 ### Core Features
-- ✅ HIPAA compliance management
-- ✅ User authentication & roles
-- ✅ Checklist item tracking
-- ✅ Regulation management
-- ✅ Compliance reporting
-- ✅ Audit logging
+-  HIPAA compliance management
+-  User authentication & roles
+-  Checklist item tracking
+-  Regulation management
+-  Compliance reporting
+-  Audit logging
 
 ### Security Features
-- 🔒 JWT authentication
-- 🔒 Role-based access control
-- 🔒 Data encryption
-- 🔒 Security scanning (Black Duck Detect)
-- 🔒 HTTPS enforcement
-- 🔒 Comprehensive audit trail
+-  JWT authentication
+-  Role-based access control
+-  Data encryption
+-  Security scanning (Black Duck Detect)
+-  HTTPS enforcement
+-  Comprehensive audit trail
 
 ### Technical Features
-- 🚀 Django REST API backend
-- 🚀 React frontend
-- 🚀 SQLite database with encryption
-- 🚀 Docker containerization
-- 🚀 Nginx reverse proxy
-- 🚀 Comprehensive testing suite
+-  Django REST API backend
+-  React frontend
+-  SQLite database with encryption
+-  Docker containerization
+-  Nginx reverse proxy
+-  Comprehensive testing suite
 
 ---
 
-## 🎯 Quick Demo Scenarios
+##  Quick Demo Scenarios
 
 ### 1. Security Officer (5 min)
 - Login as `security` / `security123`
@@ -124,7 +124,7 @@ This is a comprehensive HIPAA compliance management system built with Django and
 
 ---
 
-## 📞 Need More Help?
+##  Need More Help?
 
 ### Documentation
 - **Complete Guide**: [VISITOR_INSTRUCTIONS.md](VISITOR_INSTRUCTIONS.md)
@@ -144,11 +144,11 @@ This is a comprehensive HIPAA compliance management system built with Django and
 
 ---
 
-## 🎉 Ready to Start?
+##  Ready to Start?
 
 Choose your path above and dive in! This system represents months of development work and includes enterprise-grade features for HIPAA compliance management.
 
-**Happy exploring! 🏥✨**
+**Happy exploring! **
 
 ---
 

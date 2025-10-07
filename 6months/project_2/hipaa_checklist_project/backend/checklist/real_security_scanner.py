@@ -21,12 +21,12 @@ class RealSecurityScanner:
     
     def scan_npm_dependencies(self):
         """Scan npm dependencies using npm audit"""
-        print("🔍 Scanning npm dependencies...")
+        print(" Scanning npm dependencies...")
         vulnerabilities = []
         dependencies = []
         
         if not (self.frontend_dir / 'package.json').exists():
-            print("   ⚠️ No package.json found in frontend directory")
+            print("    No package.json found in frontend directory")
             return vulnerabilities, dependencies
         
         try:
@@ -70,26 +70,26 @@ class RealSecurityScanner:
                         'license': 'Unknown'  # Would need to check package.json or node_modules
                     })
                 
-                print(f"   ✅ Found {len(vulnerabilities)} npm vulnerabilities")
+                print(f"    Found {len(vulnerabilities)} npm vulnerabilities")
             else:
-                print(f"   ⚠️ npm audit failed: {result.stderr}")
+                print(f"    npm audit failed: {result.stderr}")
                 
         except subprocess.TimeoutExpired:
-            print("   ⚠️ npm audit timed out")
+            print("    npm audit timed out")
         except Exception as e:
-            print(f"   ❌ npm audit error: {e}")
+            print(f"    npm audit error: {e}")
         
         return vulnerabilities, dependencies
     
     def scan_pip_dependencies(self):
         """Scan pip dependencies using safety"""
-        print("🔍 Scanning pip dependencies...")
+        print(" Scanning pip dependencies...")
         vulnerabilities = []
         dependencies = []
         
         requirements_file = self.backend_dir / 'requirements.txt'
         if not requirements_file.exists():
-            print("   ⚠️ No requirements.txt found in backend directory")
+            print("    No requirements.txt found in backend directory")
             return vulnerabilities, dependencies
         
         try:
@@ -120,11 +120,11 @@ class RealSecurityScanner:
                             'source': 'safety'
                         })
                     
-                    print(f"   ✅ Found {len(vulnerabilities)} pip vulnerabilities")
+                    print(f"    Found {len(vulnerabilities)} pip vulnerabilities")
                 except json.JSONDecodeError:
-                    print("   ⚠️ Could not parse safety output")
+                    print("    Could not parse safety output")
             else:
-                print("   ✅ No pip vulnerabilities found")
+                print("    No pip vulnerabilities found")
             
             # Parse dependencies from requirements.txt
             with open(requirements_file, 'r') as f:
@@ -150,15 +150,15 @@ class RealSecurityScanner:
                         })
                         
         except subprocess.TimeoutExpired:
-            print("   ⚠️ safety check timed out")
+            print("    safety check timed out")
         except Exception as e:
-            print(f"   ❌ safety check error: {e}")
+            print(f"    safety check error: {e}")
         
         return vulnerabilities, dependencies
     
     def scan_bandit_security(self):
         """Scan Python code using bandit"""
-        print("🔍 Scanning Python code with bandit...")
+        print(" Scanning Python code with bandit...")
         vulnerabilities = []
         
         try:
@@ -189,22 +189,22 @@ class RealSecurityScanner:
                             'source': 'bandit'
                         })
                     
-                    print(f"   ✅ Found {len(vulnerabilities)} bandit issues")
+                    print(f"    Found {len(vulnerabilities)} bandit issues")
                 except json.JSONDecodeError:
-                    print("   ⚠️ Could not parse bandit output")
+                    print("    Could not parse bandit output")
             else:
-                print("   ✅ No bandit issues found")
+                print("    No bandit issues found")
                 
         except subprocess.TimeoutExpired:
-            print("   ⚠️ bandit scan timed out")
+            print("    bandit scan timed out")
         except Exception as e:
-            print(f"   ❌ bandit scan error: {e}")
+            print(f"    bandit scan error: {e}")
         
         return vulnerabilities
     
     def run_complete_scan(self):
         """Run complete security scan"""
-        print("🚀 Starting complete security scan...")
+        print(" Starting complete security scan...")
         print("=" * 50)
         
         # Scan npm dependencies
@@ -259,15 +259,15 @@ class RealSecurityScanner:
                 f.write(f"- {vuln['id']}: {vuln['severity']} - {vuln['description']}\n")
         
         print("\n" + "=" * 50)
-        print("🎯 SCAN COMPLETE!")
+        print(" SCAN COMPLETE!")
         print("=" * 50)
-        print(f"📊 Total Vulnerabilities: {len(all_vulnerabilities)}")
-        print(f"📊 Total Dependencies: {len(all_dependencies)}")
-        print(f"📊 Critical: {summary['critical_vulnerabilities']}")
-        print(f"📊 High: {summary['high_vulnerabilities']}")
-        print(f"📊 Medium: {summary['medium_vulnerabilities']}")
-        print(f"📊 Low: {summary['low_vulnerabilities']}")
-        print(f"📁 Report saved: {report_file}")
+        print(f" Total Vulnerabilities: {len(all_vulnerabilities)}")
+        print(f" Total Dependencies: {len(all_dependencies)}")
+        print(f" Critical: {summary['critical_vulnerabilities']}")
+        print(f" High: {summary['high_vulnerabilities']}")
+        print(f" Medium: {summary['medium_vulnerabilities']}")
+        print(f" Low: {summary['low_vulnerabilities']}")
+        print(f" Report saved: {report_file}")
         
         return report_data
     

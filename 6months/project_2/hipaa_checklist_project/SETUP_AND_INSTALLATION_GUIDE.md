@@ -7,7 +7,7 @@
 
 ---
 
-## 📋 Table of Contents
+##  Table of Contents
 
 1. [System Requirements](#system-requirements)
 2. [Installation Steps](#installation-steps)
@@ -23,7 +23,7 @@
 
 ---
 
-## 🖥️ System Requirements
+##  System Requirements
 
 ### Minimum Requirements
 - **OS**: Windows 10/11, macOS 10.15+, or Linux (Ubuntu 20.04+)
@@ -43,7 +43,7 @@
 
 ---
 
-## 🚀 Installation Steps
+##  Installation Steps
 
 ### Step 1: Clone Repository
 ```bash
@@ -87,7 +87,7 @@ python manage.py createsuperuser
 
 ---
 
-## ⚙️ Configuration
+##  Configuration
 
 ### Environment Variables
 Create a `.env` file in the backend directory:
@@ -144,7 +144,7 @@ SIMPLE_JWT = {
 
 ---
 
-## 🗄️ Database Setup
+##  Database Setup
 
 ### SQLite Configuration (Default)
 ```python
@@ -181,7 +181,7 @@ python backend/check_database_schema.py
 
 ---
 
-## 🔒 Security Configuration
+##  Security Configuration
 
 ### SSL/TLS Setup
 ```bash
@@ -219,7 +219,7 @@ security_headers = {
 
 ---
 
-## 🖥️ Server Setup
+##  Server Setup
 
 ### Development Server
 ```bash
@@ -257,7 +257,7 @@ systemctl restart nginx
 
 ---
 
-## 🎨 Frontend Setup
+##  Frontend Setup
 
 ### Development Build
 ```bash
@@ -283,7 +283,7 @@ REACT_APP_ENVIRONMENT=development
 
 ---
 
-## 🔐 SSL/HTTPS Setup
+##  SSL/HTTPS Setup
 
 ### Self-Signed Certificates (Development)
 ```bash
@@ -329,7 +329,7 @@ server {
 
 ---
 
-## 🐳 Docker Setup
+##  Docker Setup
 
 ### Development Environment
 ```bash
@@ -372,7 +372,7 @@ docker-compose up -d
 
 ---
 
-## ✅ Verification
+##  Verification
 
 ### System Health Check
 ```bash
@@ -404,7 +404,7 @@ python check_database_schema.py
 
 ---
 
-## 🔧 Troubleshooting
+##  Troubleshooting
 
 ### Common Issues
 
@@ -471,7 +471,7 @@ ls -la ssl/
 
 ---
 
-## 📞 Support and Maintenance
+##  Support and Maintenance
 
 ### Getting Help
 1. **Check Documentation**: Review all documentation in `docs/` directory

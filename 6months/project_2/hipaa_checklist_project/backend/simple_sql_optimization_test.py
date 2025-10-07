@@ -21,7 +21,7 @@ from django.contrib.auth.models import User
 
 def test_query_performance():
     """Test basic query performance"""
-    print("⚡ Testing SQL Query Performance...")
+    print(" Testing SQL Query Performance...")
     
     results = {
         'timestamp': datetime.now().isoformat(),
@@ -53,7 +53,7 @@ def test_query_performance():
                 'status': 'success'
             })
             
-            print(f"  ✅ {name}: {execution_time:.4f}s ({len(result)} results)")
+            print(f"   {name}: {execution_time:.4f}s ({len(result)} results)")
             
         except Exception as e:
             results['queries'].append({
@@ -63,10 +63,10 @@ def test_query_performance():
                 'status': 'failed',
                 'error': str(e)
             })
-            print(f"  ❌ {name}: Failed - {str(e)}")
+            print(f"   {name}: Failed - {str(e)}")
     
     # Test 2: Optimization techniques
-    print("\n🔧 Testing Optimization Techniques...")
+    print("\n Testing Optimization Techniques...")
     
     # Test select_related optimization
     try:
@@ -100,10 +100,10 @@ def test_query_performance():
         print(f"  Improvement: {improvement:.1f}%")
         
     except Exception as e:
-        print(f"  ❌ select_related test failed: {str(e)}")
+        print(f"   select_related test failed: {str(e)}")
     
     # Test 3: Index effectiveness
-    print("\n📊 Testing Index Effectiveness...")
+    print("\n Testing Index Effectiveness...")
     
     index_tests = [
         ('Likelihood Filter', lambda: list(ChecklistItem.objects.filter(likelihood=4))),
@@ -127,10 +127,10 @@ def test_query_performance():
             print(f"  {name}: {execution_time:.4f}s ({len(result)} results)")
             
         except Exception as e:
-            print(f"  ❌ {name}: Failed - {str(e)}")
+            print(f"   {name}: Failed - {str(e)}")
     
     # Test 4: Raw SQL performance
-    print("\n🔍 Testing Raw SQL Performance...")
+    print("\n Testing Raw SQL Performance...")
     
     raw_queries = [
         ('Simple SELECT', 'SELECT COUNT(*) FROM checklist_checklistitem'),
@@ -167,13 +167,13 @@ def test_query_performance():
             print(f"  {name}: {execution_time:.4f}s ({len(result)} results)")
             
         except Exception as e:
-            print(f"  ❌ {name}: Failed - {str(e)}")
+            print(f"   {name}: Failed - {str(e)}")
     
     return results
 
 def generate_optimization_report(results):
     """Generate optimization report"""
-    print("\n📊 Generating Optimization Report...")
+    print("\n Generating Optimization Report...")
     
     # Calculate performance metrics
     successful_queries = [q for q in results['queries'] if q['status'] == 'success']
@@ -199,17 +199,17 @@ def generate_optimization_report(results):
     
     # Generate report
     report = f"""
-🎯 SQL QUERY OPTIMIZATION REPORT
+ SQL QUERY OPTIMIZATION REPORT
 ===============================
 Generated: {results['timestamp']}
 
-📊 PERFORMANCE SUMMARY:
+ PERFORMANCE SUMMARY:
   • Total Queries Tested: {len(results['queries'])}
   • Successful Queries: {len(successful_queries)}
   • Average Query Time: {avg_query_time:.4f}s
   • Slow Queries (>100ms): {len(slow_queries)}
 
-⚡ OPTIMIZATION RESULTS:
+ OPTIMIZATION RESULTS:
 """
     
     for opt in results['optimizations']:
@@ -219,7 +219,7 @@ Generated: {results['timestamp']}
             report += f"  • {opt['technique']}: {opt.get('execution_time', 0):.4f}s\n"
     
     report += f"""
-💡 RECOMMENDATIONS:
+ RECOMMENDATIONS:
 """
     
     for rec in recommendations:
@@ -229,7 +229,7 @@ Generated: {results['timestamp']}
         report += "  • Excellent performance! No optimizations needed.\n"
     
     report += """
-📁 REPORTS GENERATED:
+ REPORTS GENERATED:
   • sql_optimization_simple_report.json
   • This summary report
 """
@@ -243,11 +243,11 @@ Generated: {results['timestamp']}
     with open('sql_optimization_simple_summary.txt', 'w') as f:
         f.write(report)
     
-    print("✅ Optimization report generated!")
+    print(" Optimization report generated!")
 
 def main():
     """Main function"""
-    print("🚀 Starting Simple SQL Query Optimization Test...")
+    print(" Starting Simple SQL Query Optimization Test...")
     print("=" * 60)
     
     try:
@@ -255,9 +255,9 @@ def main():
         generate_optimization_report(results)
         
     except Exception as e:
-        print(f"❌ Optimization test failed: {str(e)}")
+        print(f" Optimization test failed: {str(e)}")
     
-    print("\n🎉 Simple SQL Query Optimization Test Completed!")
+    print("\n Simple SQL Query Optimization Test Completed!")
 
 if __name__ == '__main__':
     main()

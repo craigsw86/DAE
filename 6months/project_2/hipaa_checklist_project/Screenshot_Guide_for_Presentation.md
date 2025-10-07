@@ -1,11 +1,11 @@
-# 📸 Screenshot Guide for Week 9 Presentation
+#  Screenshot Guide for Week 9 Presentation
 ## Best Visual Evidence of Your Accomplishments
 
 ---
 
-## 🎯 **Priority Screenshots (Must-Have)**
+##  **Priority Screenshots (Must-Have)**
 
-### **1. Database Performance Results** ⭐⭐⭐
+### **1. Database Performance Results** 
 **Location**: Run this command and screenshot the output
 ```bash
 cd backend
@@ -21,7 +21,7 @@ python simple_sql_optimization_test.py
 
 ---
 
-### **2. Jest Test Results** ⭐⭐⭐
+### **2. Jest Test Results** 
 **Location**: Run this command and screenshot the output
 ```bash
 cd frontend
@@ -37,14 +37,14 @@ npm test -- --watchAll=false
 
 ---
 
-### **3. Sample Data Reliability Report** ⭐⭐⭐
+### **3. Sample Data Reliability Report** 
 **Location**: Open this file in your editor
 ```
 backend/sample_data_reliability_report.json
 ```
 **What to Screenshot**: The JSON content showing:
 - "reliability_score": 85.71428571428571
-- Test results with ✅ and ❌ indicators
+- Test results with  and  indicators
 - Performance metrics with execution times
 - "85.7% reliability" score
 
@@ -52,9 +52,9 @@ backend/sample_data_reliability_report.json
 
 ---
 
-## 🔧 **Secondary Screenshots (Nice-to-Have)**
+##  **Secondary Screenshots (Nice-to-Have)**
 
-### **4. Test File Structure** ⭐⭐
+### **4. Test File Structure** 
 **Location**: File explorer showing your test files
 **What to Screenshot**: 
 - `backend/` folder showing test files:
@@ -74,7 +74,7 @@ backend/sample_data_reliability_report.json
 
 ---
 
-### **5. Jest Configuration** ⭐⭐
+### **5. Jest Configuration** 
 **Location**: Open this file in your editor
 ```
 frontend/jest.config.js
@@ -89,7 +89,7 @@ frontend/jest.config.js
 
 ---
 
-### **6. Audit Logging Test Code** ⭐⭐
+### **6. Audit Logging Test Code** 
 **Location**: Open this file in your editor
 ```
 backend/audit_logging_tests.py
@@ -104,7 +104,7 @@ backend/audit_logging_tests.py
 
 ---
 
-### **7. Login Test Code** ⭐⭐
+### **7. Login Test Code** 
 **Location**: Open this file in your editor
 ```
 frontend/src/components/__tests__/Login.test.js
@@ -119,9 +119,9 @@ frontend/src/components/__tests__/Login.test.js
 
 ---
 
-## 🚀 **Live Demo Screenshots (If Time Allows)**
+##  **Live Demo Screenshots (If Time Allows)**
 
-### **8. Running Week 9 Tests** ⭐
+### **8. Running Week 9 Tests** 
 **Location**: Run this command and screenshot
 ```bash
 cd backend
@@ -136,7 +136,7 @@ run_week9_tests.bat
 
 ---
 
-### **9. Application Running** ⭐
+### **9. Application Running** 
 **Location**: Your running application
 **What to Screenshot**:
 - Login page
@@ -148,7 +148,7 @@ run_week9_tests.bat
 
 ---
 
-## 📋 **Screenshot Checklist**
+##  **Screenshot Checklist**
 
 ### **Before Taking Screenshots:**
 - [ ] Clean up your terminal/editor windows
@@ -172,7 +172,7 @@ run_week9_tests.bat
 
 ---
 
-## 🎯 **Quick Commands to Run for Screenshots**
+##  **Quick Commands to Run for Screenshots**
 
 ### **Database Performance:**
 ```bash
@@ -200,7 +200,7 @@ python audit_logging_tests.py
 
 ---
 
-## 💡 **Pro Tips for Presentation**
+##  **Pro Tips for Presentation**
 
 ### **Screenshot Timing:**
 - Take screenshots right before your presentation
@@ -220,7 +220,7 @@ python audit_logging_tests.py
 
 ---
 
-## 🏆 **Key Numbers to Highlight in Screenshots**
+##  **Key Numbers to Highlight in Screenshots**
 
 - **137+ test cases** (total across all test files)
 - **85.7% reliability** (system reliability score)

@@ -1,4 +1,4 @@
-# 🏥 HIPAA Checklist Project - Visitor Instructions
+#  HIPAA Checklist Project - Visitor Instructions
 
 ## Welcome to the HIPAA Compliance Management System!
 
@@ -6,7 +6,7 @@ This is a comprehensive, full-stack web application designed to help healthcare 
 
 ---
 
-## 🚀 Quick Start Options
+##  Quick Start Options
 
 ### Option 1: One-Click Demo (Recommended for Visitors)
 **Perfect for: Quick demonstration, testing features, seeing the system in action**
@@ -43,7 +43,7 @@ docker-compose up --build
 
 ---
 
-## 🎯 What You Can Try
+##  What You Can Try
 
 ### 1. **User Authentication System**
 - **Login with demo credentials**:
@@ -83,7 +83,7 @@ docker-compose up --build
 
 ---
 
-## 🎭 Demo Scenarios
+##  Demo Scenarios
 
 ### Scenario 1: Healthcare Administrator
 **Goal**: Set up compliance tracking for a new healthcare facility
@@ -124,7 +124,7 @@ docker-compose up --build
 
 ---
 
-## 🔧 System Features to Explore
+##  System Features to Explore
 
 ### Frontend Features
 - **Responsive Design**: Works on desktop, tablet, and mobile
@@ -149,7 +149,7 @@ docker-compose up --build
 
 ---
 
-## 📊 Sample Data Included
+##  Sample Data Included
 
 The system comes pre-loaded with sample data to help you explore:
 
@@ -172,7 +172,7 @@ The system comes pre-loaded with sample data to help you explore:
 
 ---
 
-## 🛠️ Troubleshooting
+##  Troubleshooting
 
 ### Common Issues and Solutions
 
@@ -232,7 +232,7 @@ The system comes pre-loaded with sample data to help you explore:
 
 ---
 
-## 🎯 What Makes This Project Special
+##  What Makes This Project Special
 
 ### 1. **Real-World Application**
 - Built for actual healthcare compliance needs
@@ -267,7 +267,7 @@ The system comes pre-loaded with sample data to help you explore:
 
 ---
 
-## 🚀 Next Steps
+##  Next Steps
 
 ### For Visitors
 1. **Try the demo scenarios** above
@@ -292,7 +292,7 @@ The system comes pre-loaded with sample data to help you explore:
 
 ---
 
-## 📞 Support and Resources
+##  Support and Resources
 
 ### Documentation
 - **User Manual**: `USER_MANUAL.md`
@@ -312,11 +312,11 @@ The system comes pre-loaded with sample data to help you explore:
 
 ---
 
-## 🎉 Enjoy Exploring!
+##  Enjoy Exploring!
 
 This HIPAA Checklist Project represents months of development work and includes enterprise-grade features typically found in commercial compliance management systems. Take your time to explore all the features, try different scenarios, and see how it can help healthcare organizations maintain HIPAA compliance.
 
-**Happy exploring! 🏥✨**
+**Happy exploring! **
 
 ---
 

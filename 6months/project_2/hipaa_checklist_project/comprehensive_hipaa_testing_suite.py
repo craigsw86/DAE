@@ -36,13 +36,13 @@ class ComprehensiveHIPAATestingSuite:
         self.total_tests += 1
         if status == "PASS":
             self.passed_tests += 1
-            print(f"✅ {test_name}: PASS")
+            print(f" {test_name}: PASS")
             if hipaa_reference:
-                print(f"   📋 HIPAA Reference: {hipaa_reference}")
+                print(f"    HIPAA Reference: {hipaa_reference}")
         else:
-            print(f"❌ {test_name}: FAIL - {details}")
+            print(f" {test_name}: FAIL - {details}")
             if hipaa_reference:
-                print(f"   📋 HIPAA Reference: {hipaa_reference}")
+                print(f"    HIPAA Reference: {hipaa_reference}")
         
         return {
             "status": status, 
@@ -53,12 +53,12 @@ class ComprehensiveHIPAATestingSuite:
     
     def wait_for_server(self, max_attempts=30):
         """Wait for Django server to be ready"""
-        print("🔄 Waiting for Django server to start...")
+        print(" Waiting for Django server to start...")
         for attempt in range(max_attempts):
             try:
                 response = requests.get(f"{self.base_url}/api/health/", timeout=5)
                 if response.status_code == 200:
-                    print("✅ Django server is ready!")
+                    print(" Django server is ready!")
                     return True
             except:
                 pass
@@ -68,13 +68,13 @@ class ComprehensiveHIPAATestingSuite:
     def test_hipaa_privacy_rule(self):
         """Test HIPAA Privacy Rule compliance (45 CFR 164.500-534)"""
         print("\n" + "="*60)
-        print("🔒 TESTING HIPAA PRIVACY RULE COMPLIANCE")
+        print(" TESTING HIPAA PRIVACY RULE COMPLIANCE")
         print("="*60)
         
         privacy_tests = {}
         
         # Test 1: Individual Rights - Access to PHI
-        print("\n📝 Test 1: Individual Rights - Access to PHI")
+        print("\n Test 1: Individual Rights - Access to PHI")
         print("-" * 50)
         try:
             # Test that users can only access their own data
@@ -98,7 +98,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 2: Minimum Necessary Standard
-        print("\n📝 Test 2: Minimum Necessary Standard")
+        print("\n Test 2: Minimum Necessary Standard")
         print("-" * 50)
         try:
             # Test that only necessary data is exposed
@@ -122,7 +122,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 3: Notice of Privacy Practices
-        print("\n📝 Test 3: Notice of Privacy Practices")
+        print("\n Test 3: Notice of Privacy Practices")
         print("-" * 50)
         if os.path.exists("docs/Security_Policy.md"):
             privacy_tests["privacy_notice"] = self.log_test(
@@ -138,7 +138,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 4: Uses and Disclosures
-        print("\n📝 Test 4: Uses and Disclosures")
+        print("\n Test 4: Uses and Disclosures")
         print("-" * 50)
         try:
             # Test that data is properly encrypted and access controlled
@@ -167,13 +167,13 @@ class ComprehensiveHIPAATestingSuite:
     def test_administrative_safeguards(self):
         """Test HIPAA Administrative Safeguards (45 CFR 164.308)"""
         print("\n" + "="*60)
-        print("👥 TESTING ADMINISTRATIVE SAFEGUARDS")
+        print(" TESTING ADMINISTRATIVE SAFEGUARDS")
         print("="*60)
         
         admin_tests = {}
         
         # Test 1: Security Officer Assignment
-        print("\n📝 Test 1: Security Officer Assignment")
+        print("\n Test 1: Security Officer Assignment")
         print("-" * 50)
         if os.path.exists("docs/Security_Policy.md"):
             admin_tests["security_officer"] = self.log_test(
@@ -189,7 +189,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 2: Workforce Training
-        print("\n📝 Test 2: Workforce Training")
+        print("\n Test 2: Workforce Training")
         print("-" * 50)
         training_docs = [
             "docs/IR_Training_Implementation_Plan.md",
@@ -212,7 +212,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 3: Access Management
-        print("\n📝 Test 3: Access Management")
+        print("\n Test 3: Access Management")
         print("-" * 50)
         try:
             # Test authentication system
@@ -238,7 +238,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 4: Information Access Management
-        print("\n📝 Test 4: Information Access Management")
+        print("\n Test 4: Information Access Management")
         print("-" * 50)
         if os.path.exists("backend/checklist/models.py"):
             with open("backend/checklist/models.py", "r") as f:
@@ -263,7 +263,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 5: Security Awareness Training
-        print("\n📝 Test 5: Security Awareness Training")
+        print("\n Test 5: Security Awareness Training")
         print("-" * 50)
         if os.path.exists("docs/IR_Training_Implementation_Plan.md"):
             admin_tests["security_awareness"] = self.log_test(
@@ -279,7 +279,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 6: Contingency Plan
-        print("\n📝 Test 6: Contingency Plan")
+        print("\n Test 6: Contingency Plan")
         print("-" * 50)
         contingency_docs = [
             "docs/IR_Tabletop_Exercise_Guide.md",
@@ -306,13 +306,13 @@ class ComprehensiveHIPAATestingSuite:
     def test_physical_safeguards(self):
         """Test HIPAA Physical Safeguards (45 CFR 164.310)"""
         print("\n" + "="*60)
-        print("🏢 TESTING PHYSICAL SAFEGUARDS")
+        print(" TESTING PHYSICAL SAFEGUARDS")
         print("="*60)
         
         physical_tests = {}
         
         # Test 1: Facility Access Controls
-        print("\n📝 Test 1: Facility Access Controls")
+        print("\n Test 1: Facility Access Controls")
         print("-" * 50)
         if os.path.exists("docs/Security_Policy.md"):
             physical_tests["facility_access"] = self.log_test(
@@ -328,7 +328,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 2: Workstation Use
-        print("\n📝 Test 2: Workstation Use")
+        print("\n Test 2: Workstation Use")
         print("-" * 50)
         if os.path.exists("backend/checklist/security_middleware.py"):
             physical_tests["workstation_use"] = self.log_test(
@@ -344,7 +344,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 3: Workstation Security
-        print("\n📝 Test 3: Workstation Security")
+        print("\n Test 3: Workstation Security")
         print("-" * 50)
         if os.path.exists("nginx-https.conf"):
             physical_tests["workstation_security"] = self.log_test(
@@ -360,7 +360,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 4: Device and Media Controls
-        print("\n📝 Test 4: Device and Media Controls")
+        print("\n Test 4: Device and Media Controls")
         print("-" * 50)
         if os.path.exists("backend/sqlite_encryption.py"):
             physical_tests["device_media_controls"] = self.log_test(
@@ -381,13 +381,13 @@ class ComprehensiveHIPAATestingSuite:
     def test_technical_safeguards(self):
         """Test HIPAA Technical Safeguards (45 CFR 164.312)"""
         print("\n" + "="*60)
-        print("🔧 TESTING TECHNICAL SAFEGUARDS")
+        print(" TESTING TECHNICAL SAFEGUARDS")
         print("="*60)
         
         technical_tests = {}
         
         # Test 1: Access Control
-        print("\n📝 Test 1: Access Control")
+        print("\n Test 1: Access Control")
         print("-" * 50)
         try:
             # Test that protected endpoints require authentication
@@ -411,7 +411,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 2: Audit Controls
-        print("\n📝 Test 2: Audit Controls")
+        print("\n Test 2: Audit Controls")
         print("-" * 50)
         if os.path.exists("backend/checklist/management/commands/monitor_risks.py"):
             technical_tests["audit_controls"] = self.log_test(
@@ -427,7 +427,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 3: Integrity
-        print("\n📝 Test 3: Integrity")
+        print("\n Test 3: Integrity")
         print("-" * 50)
         if os.path.exists("backend/checklist/models.py"):
             with open("backend/checklist/models.py", "r") as f:
@@ -452,7 +452,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 4: Person or Entity Authentication
-        print("\n📝 Test 4: Person or Entity Authentication")
+        print("\n Test 4: Person or Entity Authentication")
         print("-" * 50)
         try:
             # Test authentication endpoint
@@ -478,7 +478,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 5: Transmission Security
-        print("\n📝 Test 5: Transmission Security")
+        print("\n Test 5: Transmission Security")
         print("-" * 50)
         if os.path.exists("nginx-https.conf"):
             technical_tests["transmission_security"] = self.log_test(
@@ -499,13 +499,13 @@ class ComprehensiveHIPAATestingSuite:
     def test_breach_notification_rule(self):
         """Test HIPAA Breach Notification Rule (45 CFR 164.400-414)"""
         print("\n" + "="*60)
-        print("🚨 TESTING BREACH NOTIFICATION RULE")
+        print(" TESTING BREACH NOTIFICATION RULE")
         print("="*60)
         
         breach_tests = {}
         
         # Test 1: Breach Detection and Response
-        print("\n📝 Test 1: Breach Detection and Response")
+        print("\n Test 1: Breach Detection and Response")
         print("-" * 50)
         if os.path.exists("docs/IR_Tabletop_Exercise_Guide.md"):
             breach_tests["breach_detection"] = self.log_test(
@@ -521,7 +521,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 2: Notification Procedures
-        print("\n📝 Test 2: Notification Procedures")
+        print("\n Test 2: Notification Procedures")
         print("-" * 50)
         if os.path.exists("docs/IR_Simulation_Training_Scenarios.md"):
             breach_tests["notification_procedures"] = self.log_test(
@@ -537,7 +537,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 3: Risk Assessment
-        print("\n📝 Test 3: Risk Assessment")
+        print("\n Test 3: Risk Assessment")
         print("-" * 50)
         risk_docs = [
             "docs/Risk_Framework.md",
@@ -560,7 +560,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 4: Business Associate Agreements
-        print("\n📝 Test 4: Business Associate Agreements")
+        print("\n Test 4: Business Associate Agreements")
         print("-" * 50)
         if os.path.exists("docs/Security_Policy.md"):
             breach_tests["baa_requirements"] = self.log_test(
@@ -581,13 +581,13 @@ class ComprehensiveHIPAATestingSuite:
     def test_compliance_validation(self):
         """Test overall compliance validation and reporting"""
         print("\n" + "="*60)
-        print("📊 TESTING COMPLIANCE VALIDATION")
+        print(" TESTING COMPLIANCE VALIDATION")
         print("="*60)
         
         compliance_tests = {}
         
         # Test 1: Compliance Reporting
-        print("\n📝 Test 1: Compliance Reporting")
+        print("\n Test 1: Compliance Reporting")
         print("-" * 50)
         try:
             response = requests.get(f"{self.base_url}/api/report/", timeout=10)
@@ -610,7 +610,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 2: Documentation Completeness
-        print("\n📝 Test 2: Documentation Completeness")
+        print("\n Test 2: Documentation Completeness")
         print("-" * 50)
         required_docs = [
             "docs/Security_Policy.md",
@@ -636,7 +636,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 3: Security Testing
-        print("\n📝 Test 3: Security Testing")
+        print("\n Test 3: Security Testing")
         print("-" * 50)
         security_tests = [
             "comprehensive_testing_suite.py",
@@ -659,7 +659,7 @@ class ComprehensiveHIPAATestingSuite:
             )
         
         # Test 4: Data Encryption Validation
-        print("\n📝 Test 4: Data Encryption Validation")
+        print("\n Test 4: Data Encryption Validation")
         print("-" * 50)
         if os.path.exists("backend/checklist/models.py"):
             with open("backend/checklist/models.py", "r") as f:
@@ -689,7 +689,7 @@ class ComprehensiveHIPAATestingSuite:
     def generate_hipaa_summary(self):
         """Generate comprehensive HIPAA compliance summary"""
         print("\n" + "="*60)
-        print("📊 COMPREHENSIVE HIPAA COMPLIANCE SUMMARY")
+        print(" COMPREHENSIVE HIPAA COMPLIANCE SUMMARY")
         print("="*60)
         
         # Calculate success rates for each HIPAA rule category
@@ -732,16 +732,16 @@ class ComprehensiveHIPAATestingSuite:
             }
         }
         
-        print(f"\n📈 HIPAA Compliance Test Results:")
+        print(f"\n HIPAA Compliance Test Results:")
         print(f"   Overall Success Rate: {overall_passed}/{overall_total} ({overall_success_rate:.1f}%)")
-        print(f"\n📋 Category Breakdown:")
+        print(f"\n Category Breakdown:")
         
         for category_name, summary in category_summaries.items():
-            status_icon = "✅" if summary["success_rate"] >= 80 else "⚠️" if summary["success_rate"] >= 60 else "❌"
+            status_icon = "" if summary["success_rate"] >= 80 else "" if summary["success_rate"] >= 60 else ""
             print(f"   {status_icon} {category_name}: {summary['passed']}/{summary['total']} ({summary['success_rate']:.1f}%)")
         
         # HIPAA Compliance Assessment
-        print(f"\n🏥 HIPAA Compliance Assessment:")
+        print(f"\n HIPAA Compliance Assessment:")
         if overall_success_rate >= 90:
             print("   🟢 EXCELLENT - Fully HIPAA Compliant")
         elif overall_success_rate >= 80:
@@ -749,7 +749,7 @@ class ComprehensiveHIPAATestingSuite:
         elif overall_success_rate >= 70:
             print("   🟠 FAIR - HIPAA Compliant with some gaps requiring attention")
         else:
-            print("   🔴 POOR - Significant HIPAA compliance gaps requiring immediate attention")
+            print("    POOR - Significant HIPAA compliance gaps requiring immediate attention")
         
         return self.test_results["summary"]
     
@@ -761,18 +761,18 @@ class ComprehensiveHIPAATestingSuite:
         with open(filename, 'w') as f:
             json.dump(self.test_results, f, indent=2)
         
-        print(f"\n💾 HIPAA test results saved to: {filename}")
+        print(f"\n HIPAA test results saved to: {filename}")
         return filename
     
     def run_comprehensive_hipaa_tests(self):
         """Run all comprehensive HIPAA compliance tests"""
-        print("🏥 Starting Comprehensive HIPAA Testing Suite")
+        print(" Starting Comprehensive HIPAA Testing Suite")
         print("=" * 60)
         print("Testing against all HIPAA regulations and guidelines...")
         
         # Wait for server to be ready
         if not self.wait_for_server():
-            print("❌ Django server is not running. Please start it first.")
+            print(" Django server is not running. Please start it first.")
             return False
         
         # Run all HIPAA compliance test categories
@@ -789,9 +789,9 @@ class ComprehensiveHIPAATestingSuite:
         # Save results
         filename = self.save_hipaa_results()
         
-        print(f"\n🎉 Comprehensive HIPAA testing completed!")
-        print(f"📊 Overall HIPAA Compliance: {self.test_results['summary']['overall']['success_rate']:.1f}%")
-        print(f"💾 Results saved to: {filename}")
+        print(f"\n Comprehensive HIPAA testing completed!")
+        print(f" Overall HIPAA Compliance: {self.test_results['summary']['overall']['success_rate']:.1f}%")
+        print(f" Results saved to: {filename}")
         
         return True
 

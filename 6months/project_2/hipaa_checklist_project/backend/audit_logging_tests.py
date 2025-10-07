@@ -61,7 +61,7 @@ class AuditLoggingTester:
         
     def setup_test_data(self):
         """Create test data for audit logging tests"""
-        print("🔧 Setting up test data for audit logging tests...")
+        print(" Setting up test data for audit logging tests...")
         
         try:
             # Create test user
@@ -91,16 +91,16 @@ class AuditLoggingTester:
                 mitigation_steps='1. Test mitigation\n2. Verify audit logging'
             )
             
-            print("✅ Test data setup completed successfully")
+            print(" Test data setup completed successfully")
             return True
             
         except Exception as e:
-            print(f"❌ Error setting up test data: {e}")
+            print(f" Error setting up test data: {e}")
             return False
     
     def test_database_change_logging(self):
         """Test database change logging functionality"""
-        print("\n📊 Testing database change logging...")
+        print("\n Testing database change logging...")
         
         test_cases = [
             {
@@ -396,7 +396,7 @@ class AuditLoggingTester:
     
     def test_audit_log_api_endpoints(self):
         """Test audit log API endpoints"""
-        print("\n🔌 Testing audit log API endpoints...")
+        print("\n Testing audit log API endpoints...")
         
         test_cases = [
             {
@@ -564,7 +564,7 @@ class AuditLoggingTester:
     
     def test_audit_log_security(self):
         """Test audit log security features"""
-        print("\n🔒 Testing audit log security...")
+        print("\n Testing audit log security...")
         
         test_cases = [
             {
@@ -682,7 +682,7 @@ class AuditLoggingTester:
     
     def test_audit_log_performance(self):
         """Test audit logging performance"""
-        print("\n⚡ Testing audit logging performance...")
+        print("\n Testing audit logging performance...")
         
         test_cases = [
             {
@@ -817,7 +817,7 @@ class AuditLoggingTester:
         self.test_results['total_tests'] += 1
         
         try:
-            print(f"  🧪 Running: {test_name}")
+            print(f"   Running: {test_name}")
             result = test_function()
             
             self.test_results['passed_tests'] += 1
@@ -828,7 +828,7 @@ class AuditLoggingTester:
                 'timestamp': datetime.now().isoformat()
             })
             
-            print(f"    ✅ PASSED: {test_name}")
+            print(f"     PASSED: {test_name}")
             return True
             
         except Exception as e:
@@ -840,12 +840,12 @@ class AuditLoggingTester:
                 'timestamp': datetime.now().isoformat()
             })
             
-            print(f"    ❌ FAILED: {test_name} - {e}")
+            print(f"     FAILED: {test_name} - {e}")
             return False
     
     def generate_report(self):
         """Generate comprehensive test report"""
-        print("\n📊 Generating audit logging test report...")
+        print("\n Generating audit logging test report...")
         
         # Calculate success rate
         success_rate = (self.test_results['passed_tests'] / self.test_results['total_tests']) * 100 if self.test_results['total_tests'] > 0 else 0
@@ -874,10 +874,10 @@ class AuditLoggingTester:
         with open(report_filename, 'w', encoding='utf-8') as f:
             json.dump(self.test_results, f, indent=2, ensure_ascii=False)
         
-        print(f"📄 Report saved to: {report_filename}")
+        print(f" Report saved to: {report_filename}")
         
         # Print summary
-        print(f"\n🎯 Audit Logging Test Summary:")
+        print(f"\n Audit Logging Test Summary:")
         print(f"   Total Tests: {self.test_results['total_tests']}")
         print(f"   Passed: {self.test_results['passed_tests']}")
         print(f"   Failed: {self.test_results['failed_tests']}")
@@ -887,7 +887,7 @@ class AuditLoggingTester:
     
     def cleanup_test_data(self):
         """Clean up test data"""
-        print("\n🧹 Cleaning up test data...")
+        print("\n Cleaning up test data...")
         
         try:
             # Delete test checklist items
@@ -901,20 +901,20 @@ class AuditLoggingTester:
             if self.test_user:
                 self.test_user.delete()
             
-            print("✅ Test data cleanup completed")
+            print(" Test data cleanup completed")
             
         except Exception as e:
-            print(f"⚠️ Warning: Error during cleanup: {e}")
+            print(f" Warning: Error during cleanup: {e}")
     
     def run_all_tests(self):
         """Run all audit logging tests"""
-        print("🚀 Starting Week 9 Day 4: Audit Logging Tests")
+        print(" Starting Week 9 Day 4: Audit Logging Tests")
         print("=" * 60)
         
         try:
             # Setup
             if not self.setup_test_data():
-                print("❌ Failed to setup test data. Aborting tests.")
+                print(" Failed to setup test data. Aborting tests.")
                 return False
             
             # Run test suites
@@ -926,11 +926,11 @@ class AuditLoggingTester:
             # Generate report
             self.generate_report()
             
-            print("\n🎉 All audit logging tests completed!")
+            print("\n All audit logging tests completed!")
             return True
             
         except Exception as e:
-            print(f"❌ Critical error during testing: {e}")
+            print(f" Critical error during testing: {e}")
             return False
         
         finally:
@@ -943,10 +943,10 @@ def main():
     success = tester.run_all_tests()
     
     if success:
-        print("\n✅ Week 9 Day 4: Audit Logging Tests - COMPLETED SUCCESSFULLY")
+        print("\n Week 9 Day 4: Audit Logging Tests - COMPLETED SUCCESSFULLY")
         sys.exit(0)
     else:
-        print("\n❌ Week 9 Day 4: Audit Logging Tests - FAILED")
+        print("\n Week 9 Day 4: Audit Logging Tests - FAILED")
         sys.exit(1)
 
 if __name__ == '__main__':

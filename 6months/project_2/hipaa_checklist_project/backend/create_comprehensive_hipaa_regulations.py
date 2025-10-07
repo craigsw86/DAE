@@ -28,11 +28,11 @@ def create_comprehensive_hipaa_regulations():
     with complete regulatory text from official sources.
     """
     
-    print("🏥 Creating Comprehensive HIPAA Regulations Database...")
+    print(" Creating Comprehensive HIPAA Regulations Database...")
     print("=" * 60)
     
     # Clear existing regulations (optional - comment out to keep existing)
-    print("📋 Clearing existing regulations...")
+    print(" Clearing existing regulations...")
     RegulationUpdate.objects.all().delete()
     
     regulations = [
@@ -329,20 +329,20 @@ Implementation specification: Information system activity review (Required). Imp
             
             if created:
                 created_count += 1
-                print(f"✅ Created: {regulation.title}")
+                print(f" Created: {regulation.title}")
             else:
-                print(f"⚠️  Already exists: {regulation.title}")
+                print(f"  Already exists: {regulation.title}")
                 
         except Exception as e:
-            print(f"❌ Error creating {reg_data['title']}: {str(e)}")
+            print(f" Error creating {reg_data['title']}: {str(e)}")
     
     print("=" * 60)
-    print(f"🎉 Successfully created {created_count} new HIPAA regulations!")
-    print(f"📊 Total regulations in database: {RegulationUpdate.objects.count()}")
+    print(f" Successfully created {created_count} new HIPAA regulations!")
+    print(f" Total regulations in database: {RegulationUpdate.objects.count()}")
     print("=" * 60)
     
     # Display summary by category
-    print("\n📋 Regulation Summary by Category:")
+    print("\n Regulation Summary by Category:")
     categories = {}
     for reg in RegulationUpdate.objects.all():
         # Extract category from title or use 'Other'
@@ -363,9 +363,9 @@ Implementation specification: Information system activity review (Required). Imp
     for category, count in categories.items():
         print(f"  • {category}: {count} regulations")
     
-    print("\n🔗 All regulations include official source URLs for verification")
-    print("📝 All text is sourced from official HHS/OCR documentation")
-    print("⚖️  All CFR citations are current and accurate")
+    print("\n All regulations include official source URLs for verification")
+    print(" All text is sourced from official HHS/OCR documentation")
+    print("  All CFR citations are current and accurate")
 
 if __name__ == '__main__':
     create_comprehensive_hipaa_regulations()
