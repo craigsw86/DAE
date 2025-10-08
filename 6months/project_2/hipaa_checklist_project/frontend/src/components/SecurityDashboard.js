@@ -13,8 +13,8 @@ const SecurityDashboard = () => {
       setLoading(true);
       setError(null);
       
-      const token = localStorage.getItem('access_token');
-      const response = await fetch('/api/security/report/', {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/security/report/`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -40,8 +40,8 @@ const SecurityDashboard = () => {
       setScanning(true);
       setError(null);
       
-      const token = localStorage.getItem('access_token');
-      const response = await fetch('/api/security/scan/', {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/security/scan/`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -1,0 +1,177 @@
+[
+  {
+    "test": "Database Connection",
+    "success": true,
+    "message": "Connected successfully",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:21.161628"
+  },
+  {
+    "test": "Database Tables",
+    "success": true,
+    "message": "Found 15 tables",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:21.161628"
+  },
+  {
+    "test": "Table List",
+    "success": true,
+    "message": "Tables: django_migrations, sqlite_sequence, auth_group_permissions, auth_user_groups, auth_user_user_permissions...",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:21.161628"
+  },
+  {
+    "test": "Django Import",
+    "success": true,
+    "message": "Version: 4.2.16",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:21.395107"
+  },
+  {
+    "test": "Settings Load",
+    "success": true,
+    "message": "Debug: True",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:21.396127"
+  },
+  {
+    "test": "Database Config",
+    "success": true,
+    "message": "Engine: django.db.backends.sqlite3",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:21.396127"
+  },
+  {
+    "test": "Migrations Check",
+    "success": true,
+    "message": "Migrations are up to date",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:22.322977"
+  },
+  {
+    "test": "Server Health",
+    "success": true,
+    "message": "Status: healthy",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:24.369304"
+  },
+  {
+    "test": "Health Check Endpoint",
+    "success": false,
+    "message": "Status: 404",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:26.444814"
+  },
+  {
+    "test": "API Info Endpoint",
+    "success": false,
+    "message": "Status: 404",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:28.521791"
+  },
+  {
+    "test": "Public Stats Endpoint",
+    "success": false,
+    "message": "Status: 404",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:30.594615"
+  },
+  {
+    "test": "Token Generation",
+    "success": false,
+    "message": "Status: 401",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:32.859781"
+  },
+  {
+    "test": "Test User Creation",
+    "success": true,
+    "message": "User already exists",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:32.863720"
+  },
+  {
+    "test": "User Authentication",
+    "success": false,
+    "message": "Authentication failed",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:33.051393"
+  },
+  {
+    "test": "Protected Endpoints",
+    "success": false,
+    "message": "No authentication token available",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:33.052394"
+  },
+  {
+    "test": "Model Imports",
+    "success": true,
+    "message": "All models imported successfully",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:33.052394"
+  },
+  {
+    "test": "Checklist Items Count",
+    "success": true,
+    "message": "Count: 16",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:33.056277"
+  },
+  {
+    "test": "Regulations Count",
+    "success": true,
+    "message": "Count: 15",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:33.056277"
+  },
+  {
+    "test": "Users Count",
+    "success": true,
+    "message": "Count: 7",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:33.056277"
+  },
+  {
+    "test": "Database Create",
+    "success": true,
+    "message": "Test item already exists",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:33.060348"
+  },
+  {
+    "test": "Health Check Performance",
+    "success": false,
+    "message": "Status: 404",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:35.105223"
+  },
+  {
+    "test": "API Info Performance",
+    "success": false,
+    "message": "Status: 404",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:37.176737"
+  },
+  {
+    "test": "Public Stats Performance",
+    "success": false,
+    "message": "Status: 404",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:39.224831"
+  },
+  {
+    "test": "404 Handling",
+    "success": true,
+    "message": "Correctly returns 404",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:41.288068"
+  },
+  {
+    "test": "Invalid JSON Handling",
+    "success": true,
+    "message": "Correctly returns 400",
+    "data": null,
+    "timestamp": "2025-10-08T11:48:43.353562"
+  }
+]
