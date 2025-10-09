@@ -1,0 +1,12 @@
+Real Security Scan Report - real_scan_20251008_194947
+==================================================
+
+Scan Date: 2025-10-08 19:49:47
+Total Dependencies: 18
+Vulnerable Dependencies: 0
+Critical Vulnerabilities: 0
+High Vulnerabilities: 0
+Medium Vulnerabilities: 0
+Low Vulnerabilities: 0
+
+Vulnerabilities Found:

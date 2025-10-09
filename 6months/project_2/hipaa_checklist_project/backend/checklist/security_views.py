@@ -26,7 +26,9 @@ def security_report(request):
     """
     try:
         # Get the project root directory
-        project_root = Path(__file__).parent.parent.parent.parent
+        # __file__ is backend/checklist/security_views.py
+        # We need to go up 3 levels: checklist -> backend -> project_root
+        project_root = Path(__file__).parent.parent.parent
         reports_dir = project_root / 'reports' / 'detect'
         
         # Check if reports directory exists
@@ -96,7 +98,12 @@ def run_security_scan(request):
     """
     try:
         # Get the project root directory
-        project_root = Path(__file__).parent.parent.parent.parent
+        # __file__ is backend/checklist/security_views.py
+        # We need to go up 3 levels: checklist -> backend -> project_root
+        project_root = Path(__file__).parent.parent.parent
+        print(f"DEBUG: Django view project_root = {project_root}")
+        print(f"DEBUG: Frontend package.json exists: {(project_root / 'frontend' / 'package.json').exists()}")
+        print(f"DEBUG: Backend requirements.txt exists: {(project_root / 'backend' / 'requirements.txt').exists()}")
         
         # Create scanner instance
         scanner = RealSecurityScanner(project_root)

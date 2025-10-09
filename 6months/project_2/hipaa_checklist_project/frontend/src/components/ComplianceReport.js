@@ -114,7 +114,7 @@ export default function ComplianceReport() {
         return;
       }
       
-      const res = await axios.get('http://localhost:8000/api/report/', {
+      const res = await axios.get(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/report/`, {
         headers: { Authorization: `Bearer ${token}` },
         timeout: 10000, // 10 second timeout
       });

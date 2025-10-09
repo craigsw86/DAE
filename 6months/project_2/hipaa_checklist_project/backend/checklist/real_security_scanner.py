@@ -14,6 +14,9 @@ import re
 class RealSecurityScanner:
     def __init__(self, project_root):
         self.project_root = Path(project_root)
+        # Handle case where scanner is called from backend directory
+        if self.project_root.name == 'backend':
+            self.project_root = self.project_root.parent
         self.frontend_dir = self.project_root / 'frontend'
         self.backend_dir = self.project_root / 'backend'
         self.reports_dir = self.project_root / 'reports' / 'detect'
@@ -30,33 +33,45 @@ class RealSecurityScanner:
             return vulnerabilities, dependencies
         
         try:
-            # Run npm audit
+            # Run npm audit with shell=True on Windows
             result = subprocess.run(
                 ['npm', 'audit', '--json'],
                 cwd=str(self.frontend_dir),
                 capture_output=True,
                 text=True,
-                timeout=60
+                timeout=60,
+                shell=True
             )
             
             if result.returncode == 0:
-                audit_data = json.loads(result.stdout)
-                
-                # Parse vulnerabilities
-                if 'vulnerabilities' in audit_data:
-                    for vuln_id, vuln_data in audit_data['vulnerabilities'].items():
-                        if vuln_data.get('severity') in ['critical', 'high', 'moderate', 'low']:
-                            vulnerabilities.append({
-                                'id': vuln_id,
-                                'severity': vuln_data.get('severity', 'unknown').upper(),
-                                'component': f"{vuln_data.get('name', 'unknown')}@{vuln_data.get('range', 'unknown')}",
-                                'description': vuln_data.get('title', 'No description available'),
-                                'cvss_score': self._calculate_cvss_score(vuln_data.get('severity')),
-                                'status': 'open',
-                                'source': 'npm_audit'
-                            })
-                
-                # Parse dependencies from package.json
+                try:
+                    audit_data = json.loads(result.stdout)
+                    
+                    # Parse vulnerabilities
+                    if 'vulnerabilities' in audit_data:
+                        for vuln_id, vuln_data in audit_data['vulnerabilities'].items():
+                            if vuln_data.get('severity') in ['critical', 'high', 'moderate', 'low']:
+                                vulnerabilities.append({
+                                    'id': vuln_id,
+                                    'severity': vuln_data.get('severity', 'unknown').upper(),
+                                    'component': f"{vuln_data.get('name', 'unknown')}@{vuln_data.get('range', 'unknown')}",
+                                    'description': vuln_data.get('title', 'No description available'),
+                                    'cvss_score': self._calculate_cvss_score(vuln_data.get('severity')),
+                                    'status': 'open',
+                                    'source': 'npm_audit'
+                                })
+                    
+                    print(f"    Found {len(vulnerabilities)} npm vulnerabilities")
+                except json.JSONDecodeError as e:
+                    print(f"    Could not parse npm audit output: {e}")
+                    print(f"    Raw output: {result.stdout[:200]}...")
+            else:
+                print(f"    npm audit failed (return code {result.returncode}): {result.stderr}")
+                if result.stdout:
+                    print(f"    stdout: {result.stdout[:200]}...")
+            
+            # Always parse dependencies from package.json
+            try:
                 with open(self.frontend_dir / 'package.json', 'r') as f:
                     package_data = json.load(f)
                 
@@ -70,9 +85,9 @@ class RealSecurityScanner:
                         'license': 'Unknown'  # Would need to check package.json or node_modules
                     })
                 
-                print(f"    Found {len(vulnerabilities)} npm vulnerabilities")
-            else:
-                print(f"    npm audit failed: {result.stderr}")
+                print(f"    Found {len(dependencies)} npm dependencies")
+            except Exception as e:
+                print(f"    Could not parse package.json: {e}")
                 
         except subprocess.TimeoutExpired:
             print("    npm audit timed out")
@@ -101,11 +116,14 @@ class RealSecurityScanner:
                 ['safety', 'check', '--json', '--file', str(requirements_file)],
                 capture_output=True,
                 text=True,
-                timeout=60
+                timeout=60,
+                shell=True
             )
             
-            if result.returncode != 0 and result.stdout:  # Safety returns non-zero for vulnerabilities
+            # Safety returns non-zero for vulnerabilities, but also for other issues
+            if result.stdout:
                 try:
+                    # Try to parse as JSON first
                     safety_data = json.loads(result.stdout)
                     
                     # Parse vulnerabilities
@@ -122,9 +140,18 @@ class RealSecurityScanner:
                     
                     print(f"    Found {len(vulnerabilities)} pip vulnerabilities")
                 except json.JSONDecodeError:
-                    print("    Could not parse safety output")
-            else:
+                    # If not JSON, check if it contains vulnerability information
+                    if "vulnerability" in result.stdout.lower() or "cve" in result.stdout.lower():
+                        print("    Safety found vulnerabilities but output format is not JSON")
+                        print("    Consider updating safety or using different output format")
+                    else:
+                        print("    No pip vulnerabilities found (non-JSON output)")
+            elif result.returncode == 0:
                 print("    No pip vulnerabilities found")
+            else:
+                print(f"    Safety check failed (return code {result.returncode}): {result.stderr}")
+                if result.stdout:
+                    print(f"    stdout: {result.stdout[:200]}...")
             
             # Parse dependencies from requirements.txt
             with open(requirements_file, 'r') as f:
@@ -170,30 +197,44 @@ class RealSecurityScanner:
                 ['bandit', '-r', str(self.backend_dir), '-f', 'json'],
                 capture_output=True,
                 text=True,
-                timeout=60
+                timeout=60,
+                shell=True
             )
             
-            if result.returncode != 0 and result.stdout:  # Bandit returns non-zero for issues
+            if result.stdout:  # Bandit always produces output
                 try:
-                    bandit_data = json.loads(result.stdout)
+                    # Extract JSON from output (bandit might have progress text before JSON)
+                    output_lines = result.stdout.strip().split('\n')
+                    json_start = -1
+                    for i, line in enumerate(output_lines):
+                        if line.strip().startswith('{'):
+                            json_start = i
+                            break
                     
-                    # Parse bandit results
-                    for issue in bandit_data.get('results', []):
-                        vulnerabilities.append({
-                            'id': f"BANDIT-{issue.get('test_id', 'unknown')}",
-                            'severity': issue.get('issue_severity', 'MEDIUM').upper(),
-                            'component': f"{issue.get('filename', 'unknown')}:{issue.get('line_number', 'unknown')}",
-                            'description': issue.get('issue_text', 'No description available'),
-                            'cvss_score': self._calculate_cvss_score(issue.get('issue_severity')),
-                            'status': 'open',
-                            'source': 'bandit'
-                        })
-                    
-                    print(f"    Found {len(vulnerabilities)} bandit issues")
-                except json.JSONDecodeError:
-                    print("    Could not parse bandit output")
+                    if json_start >= 0:
+                        json_output = '\n'.join(output_lines[json_start:])
+                        bandit_data = json.loads(json_output)
+                        
+                        # Parse bandit results
+                        for issue in bandit_data.get('results', []):
+                            vulnerabilities.append({
+                                'id': f"BANDIT-{issue.get('test_id', 'unknown')}",
+                                'severity': issue.get('issue_severity', 'MEDIUM').upper(),
+                                'component': f"{issue.get('filename', 'unknown')}:{issue.get('line_number', 'unknown')}",
+                                'description': issue.get('issue_text', 'No description available'),
+                                'cvss_score': self._calculate_cvss_score(issue.get('issue_severity')),
+                                'status': 'open',
+                                'source': 'bandit'
+                            })
+                        
+                        print(f"    Found {len(vulnerabilities)} bandit issues")
+                    else:
+                        print("    No JSON found in bandit output")
+                except json.JSONDecodeError as e:
+                    print(f"    Could not parse bandit output: {e}")
+                    print(f"    Raw output: {result.stdout[:200]}...")
             else:
-                print("    No bandit issues found")
+                print("    No bandit output received")
                 
         except subprocess.TimeoutExpired:
             print("    bandit scan timed out")
@@ -205,6 +246,12 @@ class RealSecurityScanner:
     def run_complete_scan(self):
         """Run complete security scan"""
         print(" Starting complete security scan...")
+        print("=" * 50)
+        print(f" Project root: {self.project_root}")
+        print(f" Frontend dir: {self.frontend_dir}")
+        print(f" Backend dir: {self.backend_dir}")
+        print(f" Frontend package.json exists: {(self.frontend_dir / 'package.json').exists()}")
+        print(f" Backend requirements.txt exists: {(self.backend_dir / 'requirements.txt').exists()}")
         print("=" * 50)
         
         # Scan npm dependencies

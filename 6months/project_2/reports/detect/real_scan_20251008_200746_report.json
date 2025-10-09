@@ -1,0 +1,22 @@
+{
+  "vulnerabilities": [],
+  "dependencies": [],
+  "summary": {
+    "total_dependencies": 0,
+    "vulnerable_dependencies": 0,
+    "critical_vulnerabilities": 0,
+    "high_vulnerabilities": 0,
+    "medium_vulnerabilities": 0,
+    "low_vulnerabilities": 0,
+    "last_scan": "2025-10-08T20:07:46.109824"
+  },
+  "scan_metadata": {
+    "scan_time": "2025-10-08T20:07:46.109824",
+    "scanner_version": "1.0.0",
+    "tools_used": [
+      "npm_audit",
+      "safety",
+      "bandit"
+    ]
+  }
+}

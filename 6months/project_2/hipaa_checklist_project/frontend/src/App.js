@@ -3,7 +3,7 @@ import ChecklistDisplay from './components/ChecklistDisplay';
 import Login from './components/Login';
 import ComplianceReport from './components/ComplianceReport';
 import SecurityDashboard from './components/SecurityDashboard';
-import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Container, Box, Tabs, Tab } from '@mui/material';
+import { ThemeProvider, createTheme, CssBaseline, AppBar, Toolbar, Typography, Container, Box, Tabs, Tab, Button } from '@mui/material';
 
 // Material-UI theme configuration for consistent styling
 const theme = createTheme({
@@ -45,6 +45,17 @@ function App() {
     }
   }, []);
 
+  /**
+   * Handle user logout by clearing authentication token and redirecting to login.
+   * 
+   * Removes the JWT token from localStorage and resets the application state
+   * to force the user back to the login screen.
+   */
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setToken(null);
+  };
+
   // Render login component if user is not authenticated
   if (!token) {
     return (
@@ -69,12 +80,24 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       
-      {/* Application header with title */}
+      {/* Application header with title and logout button */}
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             HIPAA Compliance Checklist
           </Typography>
+          <Button 
+            color="inherit" 
+            onClick={handleLogout}
+            sx={{ 
+              ml: 2,
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)'
+              }
+            }}
+          >
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
       

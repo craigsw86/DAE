@@ -1,0 +1,149 @@
+{
+  "vulnerabilities": [],
+  "dependencies": [
+    {
+      "name": "@emotion/react",
+      "version": "11.13.3",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "@emotion/styled",
+      "version": "11.13.0",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "@mui/icons-material",
+      "version": "5.11.16",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "@mui/material",
+      "version": "5.16.7",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "axios",
+      "version": "1.11.0",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "chart.js",
+      "version": "4.5.0",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "react",
+      "version": "18.3.1",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "react-chartjs-2",
+      "version": "5.3.0",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "react-dom",
+      "version": "18.3.1",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "react-scripts",
+      "version": "5.0.1",
+      "type": "npm",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "Django",
+      "version": "4.2.16",
+      "type": "pip",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "django-encrypted-model-fields",
+      "version": "0.6.5",
+      "type": "pip",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "django-auditlog",
+      "version": "3.0.0",
+      "type": "pip",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "djangorestframework",
+      "version": "3.15.2",
+      "type": "pip",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "djangorestframework-simplejwt",
+      "version": "5.3.1",
+      "type": "pip",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "gunicorn",
+      "version": "21.2.0",
+      "type": "pip",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "waitress",
+      "version": "2.1.2",
+      "type": "pip",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    },
+    {
+      "name": "psutil",
+      "version": "5.9.8",
+      "type": "pip",
+      "vulnerabilities": 0,
+      "license": "Unknown"
+    }
+  ],
+  "summary": {
+    "total_dependencies": 18,
+    "vulnerable_dependencies": 0,
+    "critical_vulnerabilities": 0,
+    "high_vulnerabilities": 0,
+    "medium_vulnerabilities": 0,
+    "low_vulnerabilities": 0,
+    "last_scan": "2025-10-08T19:49:47.607720"
+  },
+  "scan_metadata": {
+    "scan_time": "2025-10-08T19:49:47.607720",
+    "scanner_version": "1.0.0",
+    "tools_used": [
+      "npm_audit",
+      "safety",
+      "bandit"
+    ]
+  }
+}
