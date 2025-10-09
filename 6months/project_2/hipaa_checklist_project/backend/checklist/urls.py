@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import RegulationUpdateViewSet, ChecklistItemViewSet, ComplianceReportView, checklist_view, compliance_report_view, AuditLogView, UserProfileView, ChecklistExportCSV, ChecklistExportPDF, ReportTrendsView
+from .views import RegulationUpdateViewSet, ChecklistItemViewSet, ComplianceReportView, checklist_view, compliance_report_view, AuditLogView, UserProfileView, ChecklistExportCSV, ChecklistExportPDF, ReportTrendsView, checklist_export_csv, checklist_export_pdf
 from .public_views import health_check, api_info, public_checklist_stats
 from .security_views import security_report, run_security_scan
 
@@ -11,6 +11,8 @@ router.register(r'checklist', ChecklistItemViewSet, basename='checklistitem')
 urlpatterns = [
     path('checklist-page/', checklist_view, name='checklist_page'),
     path('compliance-report/', compliance_report_view, name='compliance_report_page'),
+    path('checklist/export/csv/', checklist_export_csv, name='checklist-export-csv-web'),
+    path('checklist/export/pdf/', checklist_export_pdf, name='checklist-export-pdf-web'),
     path('api/', include(router.urls)),
     path('api/report/', ComplianceReportView.as_view(), name='compliance-report'),
     path('api/auditlog/<str:model_name>/<int:object_id>/', AuditLogView.as_view(), name='auditlog-api'),

@@ -427,6 +427,66 @@ class UserProfileView(APIView):
         user.save()
         return Response({'detail': 'Profile updated.'})
 
+@login_required
+def checklist_export_csv(request):
+    """Export checklist items as CSV file."""
+    user = request.user
+    if user.is_staff:
+        items = ChecklistItem.objects.all()
+    else:
+        items = ChecklistItem.objects.filter(user=user)
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="checklist.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['User', 'Regulation', 'Completed', 'Notes', 'Mitigation Steps', 'Last Updated', 'Likelihood', 'Impact'])
+    for item in items:
+        writer.writerow([
+            item.user.username,
+            item.regulation_update.title if item.regulation_update else '',
+            'Yes' if item.completed else 'No',
+            item.notes or '',
+            item.mitigation_steps or '',
+            item.last_updated,
+            item.likelihood,
+            item.impact
+        ])
+    return response
+
+@login_required
+def checklist_export_pdf(request):
+    """Export checklist items as PDF file."""
+    user = request.user
+    if user.is_staff:
+        items = ChecklistItem.objects.all()
+    else:
+        items = ChecklistItem.objects.filter(user=user)
+    buffer = io.BytesIO()
+    p = canvas.Canvas(buffer, pagesize=letter)
+    width, height = letter
+    y = height - 40
+    p.setFont('Helvetica-Bold', 14)
+    p.drawString(40, y, 'Checklist Report')
+    y -= 30
+    p.setFont('Helvetica', 10)
+    for item in items:
+        if y < 60:
+            p.showPage()
+            y = height - 40
+        p.drawString(40, y, f"User: {item.user.username} | Regulation: {item.regulation_update.title if item.regulation_update else ''}")
+        y -= 14
+        p.drawString(60, y, f"Completed: {'Yes' if item.completed else 'No'} | Likelihood: {item.likelihood} | Impact: {item.impact}")
+        y -= 14
+        p.drawString(60, y, f"Notes: {item.notes or '-'}")
+        y -= 14
+        p.drawString(60, y, f"Mitigation Steps: {item.mitigation_steps or '-'}")
+        y -= 20
+    p.save()
+    buffer.seek(0)
+    response = HttpResponse(buffer, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="checklist.pdf"'
+    return response
+
+# Keep the API views for API usage
 class ChecklistExportCSV(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
@@ -482,7 +542,9 @@ class ChecklistExportPDF(APIView):
             y -= 20
         p.save()
         buffer.seek(0)
-        return HttpResponse(buffer, content_type='application/pdf')
+        response = HttpResponse(buffer, content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="checklist.pdf"'
+        return response
 
 class ReportTrendsView(APIView):
     permission_classes = [IsAuthenticated]

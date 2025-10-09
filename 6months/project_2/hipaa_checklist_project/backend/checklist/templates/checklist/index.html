@@ -38,6 +38,10 @@
     <div>
         <h3>Your Submitted Checklist Items</h3>
         {% if items %}
+            <div style="margin-bottom: 1em;">
+                <a href="/checklist/export/csv/?v=1" class="export-btn" style="background: #28a745; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; margin-right: 10px;">Export CSV</a>
+                <a href="/checklist/export/pdf/?v=1" class="export-btn" style="background: #dc3545; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Export PDF</a>
+            </div>
             <ul>
                 {% for item in items %}
                     <li>

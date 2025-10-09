@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Export Links</title>
+</head>
+<body>
+    <h1>Test Export Links</h1>
+    <p>Click these links to test the export functionality:</p>
+    
+    <h2>Web-based Export Links (should work with login):</h2>
+    <a href="http://127.0.0.1:8000/checklist/export/csv/" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-right: 10px;">Test CSV Export</a>
+    <a href="http://127.0.0.1:8000/checklist/export/pdf/" style="background: #dc3545; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">Test PDF Export</a>
+    
+    <h2>API Export Links (will show 401 error):</h2>
+    <a href="http://127.0.0.1:8000/api/checklist/export/csv/" style="background: #ffc107; color: black; padding: 10px 20px; text-decoration: none; border-radius: 4px; margin-right: 10px;">API CSV Export (401 Error)</a>
+    <a href="http://127.0.0.1:8000/api/checklist/export/pdf/" style="background: #ffc107; color: black; padding: 10px 20px; text-decoration: none; border-radius: 4px;">API PDF Export (401 Error)</a>
+    
+    <h2>Instructions:</h2>
+    <ol>
+        <li>First, go to <a href="http://127.0.0.1:8000/checklist-page/">http://127.0.0.1:8000/checklist-page/</a> and log in</li>
+        <li>Then come back to this page and test the "Web-based Export Links" above</li>
+        <li>They should download files instead of showing 401 errors</li>
+    </ol>
+</body>
+</html>

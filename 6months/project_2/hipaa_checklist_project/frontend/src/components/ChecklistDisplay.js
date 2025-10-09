@@ -307,10 +307,10 @@ function ChecklistDisplay() {
   if (error) return <div style={{color: 'red'}}>{error}</div>;
 
   const handleExportCSV = () => {
-    window.open(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/checklist/export/csv/`, '_blank');
+    window.open(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/checklist/export/csv/`, '_blank');
   };
   const handleExportPDF = () => {
-    window.open(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/api/checklist/export/pdf/`, '_blank');
+    window.open(`${process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000'}/checklist/export/pdf/`, '_blank');
   };
 
   const handleProfileSave = async () => {

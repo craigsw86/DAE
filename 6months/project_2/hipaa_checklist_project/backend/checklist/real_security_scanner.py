@@ -13,7 +13,7 @@ import re
 
 class RealSecurityScanner:
     def __init__(self, project_root):
-        self.project_root = Path(project_root)
+        self.project_root = Path(project_root).resolve()
         # Handle case where scanner is called from backend directory
         if self.project_root.name == 'backend':
             self.project_root = self.project_root.parent
@@ -21,6 +21,13 @@ class RealSecurityScanner:
         self.backend_dir = self.project_root / 'backend'
         self.reports_dir = self.project_root / 'reports' / 'detect'
         self.reports_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Debug output (can be removed in production)
+        # print(f"DEBUG: Project root resolved to: {self.project_root}")
+        # print(f"DEBUG: Frontend dir: {self.frontend_dir}")
+        # print(f"DEBUG: Backend dir: {self.backend_dir}")
+        # print(f"DEBUG: Frontend exists: {self.frontend_dir.exists()}")
+        # print(f"DEBUG: Backend exists: {self.backend_dir.exists()}")
     
     def scan_npm_dependencies(self):
         """Scan npm dependencies using npm audit"""
