@@ -1,0 +1,91 @@
+Real Security Scan Report - real_scan_20251009_143520
+==================================================
+
+Scan Date: 2025-10-09 14:35:20
+Total Dependencies: 18
+Vulnerable Dependencies: 0
+Critical Vulnerabilities: 0
+High Vulnerabilities: 3
+Medium Vulnerabilities: 9
+Low Vulnerabilities: 67
+
+Vulnerabilities Found:
+- BANDIT-B106: LOW - Possible hardcoded password: 'testpass123'
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B106: LOW - Possible hardcoded password: 'testpass123'
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B101: LOW - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+- BANDIT-B608: MEDIUM - Possible SQL injection vector through string-based query construction.
+- BANDIT-B110: LOW - Try, Except, Pass detected.
+- BANDIT-B404: LOW - Consider possible security implications associated with the subprocess module.
+- BANDIT-B404: LOW - Consider possible security implications associated with the subprocess module.
+- BANDIT-B607: LOW - Starting a process with a partial executable path
+- BANDIT-B602: HIGH - subprocess call with shell=True identified, security issue.
+- BANDIT-B607: LOW - Starting a process with a partial executable path
+- BANDIT-B603: LOW - subprocess call - check for execution of untrusted input.
+- BANDIT-B607: LOW - Starting a process with a partial executable path
+- BANDIT-B602: HIGH - subprocess call with shell=True identified, security issue.
+- BANDIT-B607: LOW - Starting a process with a partial executable path
+- BANDIT-B603: LOW - subprocess call - check for execution of untrusted input.
+- BANDIT-B607: LOW - Starting a process with a partial executable path
+- BANDIT-B602: HIGH - subprocess call with shell=True identified, security issue.
+- BANDIT-B404: LOW - Consider possible security implications associated with the subprocess module.
+- BANDIT-B106: LOW - Possible hardcoded password: 'testpass'
+- BANDIT-B106: LOW - Possible hardcoded password: 'testpass'
+- BANDIT-B105: LOW - Possible hardcoded password: 'testpassword123'
+- BANDIT-B113: MEDIUM - Call to requests without timeout
+- BANDIT-B104: MEDIUM - Possible binding to all interfaces.
+- BANDIT-B104: MEDIUM - Possible binding to all interfaces.
+- BANDIT-B608: MEDIUM - Possible SQL injection vector through string-based query construction.
+- BANDIT-B104: MEDIUM - Possible binding to all interfaces.
+- BANDIT-B105: LOW - Possible hardcoded password: 'hipaa_secure_password_2024'
+- BANDIT-B104: MEDIUM - Possible binding to all interfaces.
+- BANDIT-B404: LOW - Consider possible security implications associated with the subprocess module.
+- BANDIT-B104: MEDIUM - Possible binding to all interfaces.
+- BANDIT-B105: LOW - Possible hardcoded password: 'tj3y6j#0l#6%*f=6fn%l=-^49=v_1_gbn-yb7)%%baff%_l@a4'
+- BANDIT-B104: MEDIUM - Possible binding to all interfaces.
