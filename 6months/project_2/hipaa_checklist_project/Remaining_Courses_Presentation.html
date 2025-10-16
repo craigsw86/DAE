@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remaining Courses & Rubrics - 6-Month Program</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 30px;
+        }
+        
+        .course-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .course-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .course-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .criteria-list {
+            list-style: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        
+        .criteria-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e9ecef;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .criteria-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        .criteria-list li:last-child {
+            border-bottom: none;
+        }
+        
+        
+        .timeline {
+            background: #f8f9fa;
+            padding: 30px;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .timeline-title {
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-number {
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .timeline-content h4 {
+            margin: 0 0 5px 0;
+            color: #2c3e50;
+        }
+        
+        .timeline-content p {
+            margin: 0;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Remaining Courses & Rubrics</h1>
+            <p>6-Month Development Program - Final Sprint</p>
+        </div>
+        
+        <div class="courses-grid">
+            <div class="course-card">
+                <div class="course-title">
+                    <div class="course-icon">AI</div>
+                    AI API Integration 1
+                </div>
+                <ul class="criteria-list">
+                    <li>RESTful API Method Utilization (2+ methods)</li>
+                    <li>Format and Display API Data (HTTPS)</li>
+                    <li>Structure API Requests & Responses</li>
+                    <li>Implement Open or Secured APIs</li>
+                </ul>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-title">
+                    <div class="course-icon">DJ</div>
+                    Django 2
+                </div>
+                <ul class="criteria-list">
+                    <li>Model Relationships & Queries (2+ related models)</li>
+                    <li>Django Forms & Validation</li>
+                    <li>Authentication & User Management</li>
+                    <li>Admin Customization</li>
+                </ul>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-title">
+                    <div class="course-icon">R</div>
+                    React 1
+                </div>
+                <ul class="criteria-list">
+                    <li>Functional Components (2+ components)</li>
+                    <li>Passing Props to Components</li>
+                    <li>Style Components using CSS</li>
+                    <li>Import and Export Components</li>
+                    <li>Apply Images to Components</li>
+                    <li>React Hooks Implementation</li>
+                </ul>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-title">
+                    <div class="course-icon">S1</div>
+                    SQL 1
+                </div>
+                <ul class="criteria-list">
+                    <li>Architect databases (4+ tables, 2+ fields each)</li>
+                    <li>Populate tables with data (3+ rows per table)</li>
+                    <li>DESCRIBE Table structure (screenshots)</li>
+                </ul>
+            </div>
+            
+            <div class="course-card">
+                <div class="course-title">
+                    <div class="course-icon">S2</div>
+                    SQL 2
+                </div>
+                <ul class="criteria-list">
+                    <li>Manage data efficiently (SELECT, UPDATE, DELETE)</li>
+                    <li>Structure data relationships (JOINs)</li>
+                    <li>Facilitate database transfer (.sql export)</li>
+                    <li>Optimize database structure (3NF normalization)</li>
+                </ul>
+            </div>
+        </div>
+        
+        
+        <div class="timeline">
+            <div class="timeline-title">Implementation</div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">1</div>
+                <div class="timeline-content">
+                    <h4>SQL 1 & SQL 2</h4>
+                    <p>Database architecture, relationships, and optimization</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">2</div>
+                <div class="timeline-content">
+                    <h4>Django 2</h4>
+                    <p>Backend development with models, forms, and authentication</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">3</div>
+                <div class="timeline-content">
+                    <h4>React 1</h4>
+                    <p>Frontend development with components and hooks</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-number">4</div>
+                <div class="timeline-content">
+                    <h4>AI API Integration 1</h4>
+                    <p>API integration and data management</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
