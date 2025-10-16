@@ -351,23 +351,8 @@ function ChecklistDisplay() {
 
   return (
     <Box sx={{ p: { xs: 1, sm: 2 } }}>
-      {/* Dashboard Header with Icon */}
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-        <img 
-          src="https://via.placeholder.com/40x40/388e3c/ffffff?text=📊" 
-          alt="Dashboard Icon" 
-          style={{ 
-            width: '40px', 
-            height: '40px', 
-            marginRight: '12px',
-            borderRadius: '8px'
-          }}
-        />
-        <Typography variant="h4" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>
-          Risk Dashboard
-        </Typography>
-      </Box>
       <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, justifyContent: 'space-between', alignItems: { xs: 'stretch', sm: 'center' }, mb: 2 }}>
+        <Typography variant="h4" gutterBottom sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }}>Risk Dashboard</Typography>
         <Box sx={{ mt: { xs: 1, sm: 0 }, display: 'flex', gap: 1 }}>
           {userProfile && userProfile.is_staff && (
             <MuiTooltip title="Admin user: can view all checklist items">

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist</title>
+    <link rel="stylesheet" href="{% static 'checklist/style.css' %}">
+</head>
+<body>
+    {% include 'checklist/nav.html' %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li style="color: green; font-weight: bold;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="welcome-message">
+        <h2>Welcome to the HIPAA Checklist Application!</h2>
+        <p>This tool helps you track and manage HIPAA compliance tasks efficiently.</p>
+    </div>
+    <h1>Checklist</h1>
+    <div>
+        <h3>{% if item_to_edit %}Edit Checklist Item{% else %}Add Checklist Item{% endif %}</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">{% if item_to_edit %}Update{% else %}Submit{% endif %}</button>
+            {% if item_to_edit %}
+                <a href="?">Cancel</a>
+            {% endif %}
+        </form>
+        {% if form.errors %}
+            <div style="color: red;">{{ form.errors }}</div>
+        {% endif %}
+    </div>
+    <div>
+        <h3>Your Submitted Checklist Items</h3>
+        {% if items %}
+            <div style="margin-bottom: 1em;">
+                <a href="/checklist/export/csv/?v=1" class="export-btn" style="background: #28a745; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px; margin-right: 10px;">Export CSV</a>
+                <a href="/checklist/export/pdf/?v=1" class="export-btn" style="background: #dc3545; color: white; padding: 8px 16px; text-decoration: none; border-radius: 4px;">Export PDF</a>
+            </div>
+            <ul>
+                {% for item in items %}
+                    <li>
+                        <strong>{{ item.regulation_update.title }}</strong> - 
+                        {% if item.completed %}Completed{% else %}Incomplete{% endif %}<br>
+                        <span style="display: inline-block; background: #f5f5f5; border-radius: 4px; padding: 4px 8px; margin: 2px 0;">
+                            Notes: {{ item.notes|default:'(none)' }}
+                        </span><br>
+                        Last updated: {{ item.last_updated }}<br>
+                        <a href="?edit={{ item.id }}&highlight=notes">Edit Notes</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No checklist items submitted yet.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
