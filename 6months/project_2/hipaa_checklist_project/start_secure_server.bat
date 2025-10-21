@@ -3,8 +3,8 @@ echo  Starting HIPAA Checklist Secure Server
 echo ================================================
 
 REM Set environment variables
-set FIELD_ENCRYPTION_KEY=1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54=
-set DB_ENCRYPTION_PASSWORD=hipaa_secure_password_2024
+set FIELD_ENCRYPTION_KEY=%FIELD_ENCRYPTION_KEY%
+set DB_ENCRYPTION_PASSWORD=%DB_ENCRYPTION_PASSWORD%
 set DJANGO_SETTINGS_MODULE=hipaa_checklist.settings
 set WAITRESS_HOST=0.0.0.0
 set WAITRESS_PORT=8000

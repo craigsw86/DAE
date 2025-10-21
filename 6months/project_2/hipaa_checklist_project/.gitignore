@@ -1,5 +1,6 @@
 Python/Django files
 pycache/
+__pycache__/
 *.pyc
 *.pyo
 *.pyd
@@ -7,7 +8,10 @@ pycache/
 env/
 venv/
 *.sqlite3
+*.db
 *.log
+celerybeat-schedule
+celerybeat.pid
 
 Node.js/React files
 node_modules/
@@ -17,9 +21,40 @@ build/
 
 Sensitive files
 *.env
+*.env.local
+*.env.production
+*.env.development
+*.env.staging
 *.secret
 *.key
 *.pem
+*.p12
+*.pfx
+*_tokens.txt
+*_credentials.txt
+*_secrets.txt
+test_tokens.txt
+*_password*.txt
+*_secret*.txt
+*_key*.txt
+*_token*.txt
+*_credential*.txt
+*_scan_*.json
+*_scan_*.txt
+*_audit_*.json
+*_audit_*.txt
+*_security_*.json
+*_security_*.txt
+logs/
+reports/
+*.log
+*.json
+!package*.json
+!composer.json
+!tsconfig.json
+!*.config.json
+!*.schema.json
+!*.template.json
 
 OS-specific files
 .DS_Store

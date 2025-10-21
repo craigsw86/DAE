@@ -36,7 +36,7 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=hipaa_checklist.settings
       - FIELD_ENCRYPTION_KEY=1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54=
-      - SECRET_KEY=tj3y6j#0l#6%*f=6fn%l=-^49=v_1_gbn-yb7)%%baff%_l@a4
+      - SECRET_KEY=${SECRET_KEY}
       - WAITRESS_HOST=0.0.0.0
       - WAITRESS_PORT=8000
       - WAITRESS_THREADS=4

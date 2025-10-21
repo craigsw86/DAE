@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('tj3y6j#0l#6%*f=6fn%l=-^49=v_1_gbn-yb7)%%baff%_l@a4', get_random_secret_key())
+SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -51,7 +51,7 @@ INSTALLED_APPS = [
 # Generate a key with:
 #   python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())"
 
-FIELD_ENCRYPTION_KEY = '1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54='
+FIELD_ENCRYPTION_KEY = os.getenv('FIELD_ENCRYPTION_KEY', '1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54=')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
