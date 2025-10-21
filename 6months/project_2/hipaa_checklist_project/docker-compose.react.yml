@@ -35,7 +35,7 @@ services:
     restart: unless-stopped
     environment:
       - DJANGO_SETTINGS_MODULE=hipaa_checklist.settings
-      - FIELD_ENCRYPTION_KEY=1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54=
+      - FIELD_ENCRYPTION_KEY=${FIELD_ENCRYPTION_KEY}
       - SECRET_KEY=${SECRET_KEY}
       - WAITRESS_HOST=0.0.0.0
       - WAITRESS_PORT=8000

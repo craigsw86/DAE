@@ -62,12 +62,12 @@ class SecureWaitressServer:
         """Set up secure environment variables"""
         # Encryption key for field encryption
         if not os.environ.get('FIELD_ENCRYPTION_KEY'):
-            os.environ['FIELD_ENCRYPTION_KEY'] = '1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54='
+            os.environ['FIELD_ENCRYPTION_KEY'] = os.environ.get('FIELD_ENCRYPTION_KEY', '1f2WjIy7cmJebkD-ywTrmct3Ms7-VuUjv7wleofoP54=')
             logger.info(" Field encryption key set")
         
         # Database encryption password
         if not os.environ.get('DB_ENCRYPTION_PASSWORD'):
-            os.environ['DB_ENCRYPTION_PASSWORD'] = 'hipaa_secure_password_2024'
+            os.environ['DB_ENCRYPTION_PASSWORD'] = os.environ.get('DB_ENCRYPTION_PASSWORD', 'hipaa_secure_password_2024')
             logger.info(" Database encryption password set")
         
         # Security settings
