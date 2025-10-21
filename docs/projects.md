@@ -9,7 +9,7 @@ layout: single
   <p>Here are some of the security-focused projects I've developed to demonstrate practical cybersecurity skills and backend development expertise.</p>
 </div>
 
-## 🔐 Patient File Management
+## Patient File Management
 
 <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; margin:1rem 0; border-left:4px solid #007bff;">
   <p><strong>Tech Stack:</strong> Python, SQLite, TKinter</p>
@@ -22,7 +22,7 @@ Built a reminder app to let medical workers know when it was safe to delete old 
 
 ---
 
-## 🚨 HIPAA Checklist
+## HIPAA Checklist
 
 <div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; margin:1rem 0; border-left:4px solid #28a745;">
   <p><strong>Tech Stack:</strong> Python, Django, JavaScript, React, JSON, HTML, CSS, Gunicorn, Axios, MUI, Emotion</p>
@@ -48,30 +48,6 @@ Developing a project for **Governance, Risk, and Compliance (GRC)**.
 - **Reach Frontend**: Secure login with JWT; Dashboard with checklist table; Real-time notes editing; Toggle completion status; KPI cards and risk alert banners; Drill-down dialogs for risk details; Responsible design for mobile, tablet, and desktop.
 - **Django Templates**: Checklist form and item display for server-rendered pages; Notes editing and highlighting; Success/error messages and accessibility features.
 - **Documentation**: Risk management docs; User/admin guides and changelogs; Markdown and Word files for executive/academic review.
-
----
-
-## 🔍 API Security Scanner
-
-<div style="background:#f8f9fa; padding:1.5rem; border-radius:8px; margin:1rem 0; border-left:4px solid #dc3545;">
-  <p><strong>Tech Stack:</strong> Go, REST APIs, JSON, Docker</p>
-  <p><strong>Duration:</strong> 6 weeks | <strong>Status:</strong> Completed</p>
-</div>
-
-Created a specialized security scanner for **REST API endpoints** that identifies common vulnerabilities and misconfigurations in web applications.
-
-**Scanning Capabilities:**
-- 🔐 **Authentication Bypass**: Testing for auth vulnerabilities
-- 💉 **Injection Attacks**: SQL, NoSQL, and command injection detection
-- 🔓 **Authorization Flaws**: IDOR and privilege escalation checks
-- 📝 **Input Validation**: Boundary testing and fuzzing
-- 🛡️ **Security Headers**: Missing security controls identification
-
-**Features:**
-- Comprehensive reporting with remediation guidance
-- Integration with CI/CD pipelines
-- Custom rule engine for organization-specific checks
-- Export results in multiple formats (JSON, PDF, HTML)
 
 ---
 

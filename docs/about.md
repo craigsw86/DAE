@@ -17,14 +17,8 @@ I'm actively seeking a role as a **Security Engineer** in a collaborative, growt
 
 ### Core Interests & Expertise
 
-🔍 **Threat Modeling**  
-Analyzing system architectures to identify potential attack vectors and implementing appropriate countermeasures.
-
-🚨 **Incident Response**  
-Developing and executing response procedures for security incidents, from detection through remediation.
-
-🔐 **API Security**  
-Designing secure authentication and authorization systems for modern web applications.
+**GRC Analysis**  
+Being part of the first line of defense against threats and bad actors for the businesses I serve.
 
 ### Technical Skills
 

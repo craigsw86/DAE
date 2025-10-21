@@ -44,11 +44,11 @@ layout: single
   <p style="margin:0 0 1rem; line-height:1.6;">I'm actively seeking <strong>Security Engineer</strong> or <strong>GRC Analyst</strong> roles where I can:</p>
   
   <ul style="margin:0; padding-left:1.5rem; line-height:1.8;">
-    <li>🛡️ Build and maintain security monitoring systems</li>
-    <li>🔍 Develop threat detection and response capabilities</li>
-    <li>🤝 Collaborate with cross-functional teams on security initiatives</li>
-    <li>📚 Continue learning from experienced security professionals</li>
-    <li>🚀 Contribute to innovative security solutions</li>
+    <li>Build and maintain security monitoring systems</li>
+    <li>Develop threat detection and response capabilities</li>
+    <li>Collaborate with cross-functional teams on security initiatives</li>
+    <li>Continue learning from experienced security professionals</li>
+    <li>Contribute to innovative security solutions</li>
   </ul>
 </div>
 
@@ -57,17 +57,17 @@ layout: single
 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px, 1fr)); gap:1rem; margin:2rem 0;">
   
   <div style="background:#fff3cd; padding:1rem; border-radius:6px; text-align:center;">
-    <h4 style="margin:0 0 0.5rem; color:#856404;">🔐 Cybersecurity</h4>
+    <h4 style="margin:0 0 0.5rem; color:#856404;">Cybersecurity</h4>
     <p style="margin:0; font-size:0.9rem; color:#6c757d;">GRC operations</p>
   </div>
   
   <div style="background:#d1ecf1; padding:1rem; border-radius:6px; text-align:center;">
-    <h4 style="margin:0 0 0.5rem; color:#0c5460;">⚙️ Backend Development</h4>
+    <h4 style="margin:0 0 0.5rem; color:#0c5460;">Backend Development</h4>
     <p style="margin:0; font-size:0.9rem; color:#6c757d;">Secure APIs, authentication, system architecture</p>
   </div>
   
   <div style="background:#d4edda; padding:1rem; border-radius:6px; text-align:center;">
-    <h4 style="margin:0 0 0.5rem; color:#155724;">☁️ Cloud Security</h4>
+    <h4 style="margin:0 0 0.5rem; color:#155724;">Cloud Security</h4>
     <p style="margin:0; font-size:0.9rem; color:#6c757d;">AWS/Azure security, infrastructure protection</p>
   </div>
   
