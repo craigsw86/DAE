@@ -1,9 +1,0 @@
-Patient Shredding Reminders (Eastern Time)
-Date: 2025-06-05
-
-John Smith (ID: 83) - 7 years + 1 day(s) since last visit on 2015-04-10
-Carl Ellis (ID: 87) - 7 years + 1 day(s) since last visit on 2017-03-18
-Sandra Frost (ID: 88) - 7 years + 1 day(s) since last visit on 2016-08-30
-Tom Winters (ID: 89) - 7 years + 1 day(s) since last visit on 2017-05-07
-Marta Grant (ID: 90) - 3 years + 1 day(s) since death on 2021-11-12
-Ravi Singh (ID: 91) - 3 years + 1 day(s) since death on 2021-04-26

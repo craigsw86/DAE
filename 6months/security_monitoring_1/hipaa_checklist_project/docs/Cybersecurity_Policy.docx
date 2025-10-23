@@ -1,5 +1,0 @@
-Cybersecurity Policy (Aligned with NIST 800-53)
-1. Access Control (AC-2): Use JWT for authentication; restrict API to user data.
-2. Data Protection (SC-28): Encrypt notes with AES256.
-3. Incident Reporting: Log all changes with django-auditlog; monitor via Wazuh.
-...
